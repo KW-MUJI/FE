@@ -51,7 +51,7 @@ const Login = () => {
           <input
             type="email"
             value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            onChange={(e) => setEmail(e.target.value)} placeholder="e-mail"
             required
           />
         </div>
@@ -60,12 +60,17 @@ const Login = () => {
           <input
             type="password"
             value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
+            onChange={(e) => setPassword(e.target.value)} placeholder="password"
           />
         </div>
         <button type="submit">로그인</button>
       </form>
+
+      <div class="login-options">
+        <a href="/find-id">ID 찾기</a>
+        <a href="/find-password">비밀번호 찾기</a>
+        <a href="/signup">회원가입</a>
+      </div>
     </div>
   );
 };

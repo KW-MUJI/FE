@@ -14,7 +14,7 @@
 .banner-container {
 
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   /* 가로 중앙 정렬 */
   align-items: center;
   /* 세로 중앙 정렬 */
@@ -45,7 +45,7 @@
   font-family: Pretendard;
   margin-left: 369px;
   margin-right: 327px;
-  
+
 }
 
 .title>h2 {
@@ -126,40 +126,49 @@
 
 
 .login-container {
-  
+
   display: flex;
   flex-direction: column;
-  align-items: center; /* 수평 중앙 정렬 */
-  justify-content: center;
+  /*  세로 정렬 */
+  align-items: center;
+  /* justify-content: center; */
+  /* 주 축으로 정렬 */
+  flex-wrap: nowrap;
+  /* 줄바꿈 없음 */
+
   max-width: 1040px;
   width: 495px;
   height: 542px;
+  flex-shrink: 0;
 
-  margin: 115px auto; /* 부모 요소 내에서 가로 중앙에 배치 */
+  margin: 115px auto;
+  /* 부모 요소 내에서 가로 중앙에 배치 */
   border: 1px solid #B3B3B3;
-  border-radius: 10px;
+  border-radius: 20px;
   background-color: #fff;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-
+  box-sizing: border-box;
 
 
 
 }
 
-label {
+/* label {
   display: block;
   margin-bottom: 5px;
-}
+} */
 
 .login-container>h2 {
-  display: flex;
   width: 73.148px;
   height: 21.526px;
-  flex-direction: column;
-  justify-content: center;
+
+  /* 아이템 너비 축소 막기 */
   flex-shrink: 0;
+
+
   margin: 58.27px 210.42px 33.21px 211.43px;
   color: #000;
+
 
   font-family: Pretendard;
   font-size: 28px;
@@ -170,33 +179,50 @@ label {
 }
 
 input {
+
+
+
   display: inline-flex;
   height: 53px;
-  padding: 13px 110.81px 11px 31px;
-  align-items: center;
-  flex-shrink: 0;
+  width: 400.81px;
+  padding: 13px 110px 12px 31px;
+  margin-bottom: 29px;
+  /* align-items: center; */
+  /* flex-shrink: 0; */
   border-radius: 40px;
   border: 1px solid #B3B3B3;
-  margin: 0 47.1px 29px 47.1px;
+  box-sizing: border-box;
+  /* 패딩과 보더를 width에 포함 */
   background: rgba(255, 255, 255, 0.30);
-
 
 }
 
+input::placeholder {
+  color: #B3B3B3;
+  /* 텍스트 색상 */
+  font-family: Pretendard;
+  font-size: var(--sds-typography-body-size-large);
+  font-weight: 400;
+  /* 글꼴 굵기 */
+  font-style: normal;
+  /* 글꼴 스타일 */
+  line-height: 100%;
+}
+
 button {
-  display: flex;
+  /* display: flex; */
   width: 400.81px;
   height: 48px;
   padding: 10px 125.81px 10px 125px;
-  justify-content: center;
-  align-items: center;
-  flex-shrink: 0;
-  margin: 0 47.1px 41px 47.1px;
+  /* justify-content: center; */
+  /* align-items: center; */
+  /* flex-shrink: 0; */
+  margin-bottom: 41px;
   border-radius: 40px;
   background: #8B0B02;
 
   color: #FFF;
-  text-align: center;
+  /* text-align: center; */
   font-family: Pretendard;
   font-size: var(--sds-typography-body-size-large);
   font-style: normal;
@@ -209,6 +235,22 @@ button {
 button:hover {
   background-color: #B3B3B3;
 }
+
+.login-options {
+}
+
+.login-options a {
+  text-decoration: none;
+  color: #B3B3B3;
+
+  text-align: center;
+  font-family: Pretendard;
+  font-size: var(--sds-typography-body-size-large);
+  font-style: normal;
+  font-weight: 400;
+  line-height: 100%;
+}
+
 
 /* @font-face {
   font-family: 'Pretendard-Regular';
