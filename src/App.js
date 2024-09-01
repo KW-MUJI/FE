@@ -1,14 +1,16 @@
 import React from 'react';
 import logo from './assets/logo.png';
 import './App.css';
-import Login from './components/Login'; // Login 컴포넌트 임포트
-import {Banner} from './components/Login';
+import Signup from './components/Signup';
+import Banner from './components/Banner';
+import Footer from './components/Footer';
 
 function App() {
   return (
     <div className="App">
-      <Banner />{/* Login 컴포넌트만 렌더링 */}
-      <Login />  {/* Login 컴포넌트만 렌더링 */}
+      <Banner />
+      <Signup />  {/* Login 컴포넌트만 렌더링 */}
+      <Footer />
     </div>
   );
 }
