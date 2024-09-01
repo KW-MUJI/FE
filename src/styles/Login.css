@@ -1,10 +1,5 @@
 /* src/components/Login.css */
 
-/* @media screen and (min-width: 1025px) { */
-
-/* body {
-  font-size: 16px; /* 기본 폰트 크기 설정 
-} */
 
 :root {
   --sds-typography-body-size-large: 18px;
@@ -209,7 +204,7 @@ input::placeholder {
   line-height: 100%;
 }
 
-button {
+.login-btn {
   /* display: flex; */
   width: 400.81px;
   height: 48px;
@@ -236,8 +231,6 @@ button:hover {
   background-color: #B3B3B3;
 }
 
-.login-options {
-}
 
 .login-options a {
   text-decoration: none;
@@ -249,9 +242,85 @@ button:hover {
   font-style: normal;
   font-weight: 400;
   line-height: 100%;
+  padding: 0 24.5px;
 }
 
+.login-options a:not(:last-child) {
 
+  border-right: 1px solid #ccc;
+  /* 오른쪽에 세로선 추가 */
+}
+
+.privacy-btn {
+  display: flex;
+  width: 400.81px;
+  height: 45px;
+  padding: 9px 70.81px 8px 71px;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+
+  border-radius: 10px;
+  background: #4C4C4C;
+  margin-top: 41px;
+  margin-bottom: 70px;
+
+  color: #FFF;
+  text-align: center;
+  font-family: Pretendard;
+  font-size: var(--sds-typography-body-size-large);
+  font-style: normal;
+  font-weight: 900;
+  line-height: 100%;
+  /* 20px */
+}
+
+/* 모달 스타일 */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.Policy-content {
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  width: 80%;
+  max-width: 500px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.Policy-content h2 {
+  margin-top: 0;
+  margin-bottom: 15px;
+  font-size: 22px;
+  color: #333;
+}
+
+.Policy-content p {
+  font-size: 16px;
+  color: #555;
+}
+
+.close {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  font-size: 24px;
+  cursor: pointer;
+  color: #aaa;
+}
+
+.close:hover {
+  color: #000;
+}
 /* @font-face {
   font-family: 'Pretendard-Regular';
   src: url('https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
