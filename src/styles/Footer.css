@@ -1,0 +1,30 @@
+footer {
+    display: flex;
+    white-space: nowrap;
+    justify-content: space-around; /* 요소들 사이의 간격 조정 */
+    background-color: #333;
+    color: white;
+    padding: 20px 0;
+}
+
+.name{
+    flex:1;
+    margin-right: 80px;
+}
+
+.info{
+    flex:5;
+    text-align: left;
+    font-size: 12px;
+    color: #B3B3B3;
+}
+#teamTitle{
+    font-size: 20px;
+    margin-bottom: 0;
+}
+
+#teamName{
+    font-size: 30px;
+    font-weight: bold;
+    margin-top: 0;
+}
