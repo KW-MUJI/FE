@@ -13,11 +13,11 @@ export const Banner = () => {
           <h1>광운 무인양품</h1>
         </div>
   
-        <nav class="navbar">
-          <ul class="navbar-menu">
+        <nav className="navbar">
+          <ul className="navbar-menu">
             <li><a href="#home">HOME</a></li>
             <li><a href="#login">LOGIN</a></li>
-            <li><a href="#kw" class="k-menu">광운대학교</a></li>
+            <li><a href="#kw" className="k-menu">광운대학교</a></li>
           </ul>
         </nav>
   

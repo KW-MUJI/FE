@@ -4,6 +4,7 @@ import Modal from './Law';
 
 // 회원가입 컴포넌트
 const Signup = () => {
+    console.log("signup page");
     // 모달
     const [isModalOpen, setModalOpen] = useState(false);
     const [modalType, setModalType] = useState('');

@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
 import logo from '../assets/logo.png';
 import '../styles/Login.css'; // CSS 파일 임포트
-
+import { Link } from 'react-router-dom';
 
 
 
 
 //로그인 컴포넌트
 const Login = () => {
+  console.log("Login page");
   const [email, setEmail] = useState(''); // 이메일 상태 선언 및 초기화
   const [password, setPassword] = useState(''); // 비밀번호 상태 선언 및 초기화
   const [isPolicyOpen, setIsPolicyOpen] = useState(false)//개인정보처리방침
@@ -57,7 +58,7 @@ const Login = () => {
       <div className="login-options">
         <a href="/find-id">ID 찾기</a>
         <a href="/find-password">비밀번호 찾기</a>
-        <a href="/signup">회원가입</a>
+        <Link to="/signup">회원가입</Link> {/* Link 컴포넌트 사용 */}
       </div>
 
       {/* 개인정보처리방침 버튼 */}
