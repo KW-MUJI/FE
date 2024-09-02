@@ -1,15 +1,19 @@
 import React from 'react';
 import logo from './assets/logo.png';
 import './App.css';
-import Signup from './components/Signup';
+import Login from './components/Login';
+// import Signup from './components/Signup';
 import Banner from './components/Banner';
 import Footer from './components/Footer';
+// import Login from './components/Login';
 
 function App() {
   return (
     <div className="App">
       <Banner />
-      <Signup />  {/* Login 컴포넌트만 렌더링 */}
+      <Login/>
+      {/* <Signup />  */}
+       
       <Footer />
     </div>
   );

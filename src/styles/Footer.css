@@ -1,5 +1,6 @@
 footer {
     display: flex;
+    white-space: nowrap;
     justify-content: space-around; /* 요소들 사이의 간격 조정 */
     background-color: #333;
     color: white;
