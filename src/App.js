@@ -6,6 +6,7 @@ import Login from './components/Login';
 import Signup from './components/Signup';
 import Banner from './components/Banner';
 import Footer from './components/Footer';
+// import Login from './components/Login';
 
 function App() {
   return (
@@ -22,7 +23,6 @@ function App() {
         <Footer />
       </div>
     </Router>
-
   );
 }
 
