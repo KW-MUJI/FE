@@ -12,7 +12,6 @@ export const Banner = () => {
           <h2>광운대학교 생활 도우미</h2>
           <h1>광운 무인양품</h1>
         </div>
-  
         <nav className="navbar">
           <ul className="navbar-menu">
             <li><a href="#home">HOME</a></li>

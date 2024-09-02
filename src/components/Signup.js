@@ -112,7 +112,11 @@ const Signup = () => {
             <form className="signup_form">
                 <h3>회원가입</h3>
                 <div className="id_container">
+
                     <p className="email-label" >이메일</p>
+
+                    <p>이메일</p>
+
                     <div>
                         <input
                             type="text"
