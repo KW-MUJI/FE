@@ -17,7 +17,6 @@ export const Banner = () => {
             <li><a href="#home">HOME</a></li>
             <li><a href="#login">LOGIN</a></li>
             <li><a href="#kw" className="k-menu">광운대학교</a></li>
-
           </ul>
         </nav>
   
