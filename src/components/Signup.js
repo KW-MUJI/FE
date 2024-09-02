@@ -138,7 +138,6 @@ const Signup = () => {
                         <button onClick={requestAuth}>인증요청</button>
                     </div>
                     <div>
-
                         <input 
                             type="text"
                             name="pin"
