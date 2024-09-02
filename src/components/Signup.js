@@ -111,7 +111,7 @@ const Signup = () => {
             <form className="signup_form">
                 <h3>회원가입</h3>
                 <div className="id_container">
-                    <p>이메일</p>
+                    <p className="email-label" >이메일</p>
                     <div>
                         <input
                             type="text"
@@ -132,7 +132,7 @@ const Signup = () => {
                         <button onClick={requestAuth}>인증요청</button>
                     </div>
                     <div>
-                        <input
+                        <input 
                             type="text"
                             name="pin"
                             placeholder="인증번호 6자리를 입력해 주세요"
