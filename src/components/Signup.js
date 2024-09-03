@@ -4,40 +4,26 @@ import Modal from './Law';
 
 // 회원가입 컴포넌트
 const Signup = () => {
-    console.log("signup page");
-    // 모달
     const [isModalOpen, setModalOpen] = useState(false);
     const [modalType, setModalType] = useState('');
-    const openModal = (type) => {
-        setModalType(type);
-        setModalOpen(true);
-    };
-    const closeModal = () => setModalOpen(false);
-    // 모달
-
-    const pintest = '123456';
-    const [isChecked1, setIsChecked1] = useState(false);
-    const [isChecked2, setIsChecked2] = useState(false);
     const [formData, setFormData] = useState({
         id: "",
         pin: "",
         password: "",
         password_confirm: "",
     });
-    const [message, setMessage] = useState("");
     const [isFormComplete, setIsFormComplete] = useState(false);
-
-    const fixedDomain = '@kw.ac.kr';
+    const [isChecked1, setIsChecked1] = useState(false);
+    const [isChecked2, setIsChecked2] = useState(false);
+    
     const inputRef = useRef(null);
+    const fixedDomain = '@kw.ac.kr';
+    const pintest = '123456';
 
-    const handleCheckboxChange1 = () => {
-        setIsChecked1(!isChecked1);
-    };
 
-    const handleCheckboxChange2 = () => {
-        setIsChecked2(!isChecked2);
-    };
-
+    const handleCheckboxChange1 = () => setIsChecked1(!isChecked1);
+    const handleCheckboxChange2 = () =>  setIsChecked2(!isChecked2);
+ 
     const onChangeForm = (e) => {
         const { name, value } = e.target;
         
@@ -61,6 +47,15 @@ const Signup = () => {
         setIsFormComplete(allFieldsFilled && isChecked1 && isChecked2);
     }, [formData, isChecked1, isChecked2]);
 
+
+
+    const openModal = (type) => {
+        setModalType(type);
+        setModalOpen(true);
+    };
+
+    const closeModal = () => setModalOpen(false);
+
     const requestAuth = (e) => {
         e.preventDefault();
         const { id } = formData;
@@ -73,14 +68,13 @@ const Signup = () => {
         alert("인증 요청이 전송되었습니다.");
     };
 
+
     const verifyPin = (e) => {
         e.preventDefault();
         const { pin } = formData;
-        if (!pin) {
-            return;
-        }
+        if (!pin) return;
         console.log(pin);
-        var textElement = document.getElementById("text");
+        const textElement = document.getElementById("text");
         if (pin === pintest) {
             textElement.textContent = "인증번호가 일치합니다.";
             textElement.style.color = "#008000";
@@ -88,17 +82,15 @@ const Signup = () => {
             textElement.textContent = "인증번호가 틀렸습니다.";
             textElement.style.color = "#ff0000";
         }
-        return;
     };
+    
 
+    
     const pw_confirm = (e) => {
         e.preventDefault();
         const { password, password_confirm } = formData;
         console.log(password);
         console.log(password_confirm);
-        if (!password || !password_confirm) {
-            return;
-        }
         if (password !== password_confirm) {
             alert("입력한 비밀번호가 같지 않습니다.");
             return;
@@ -107,16 +99,28 @@ const Signup = () => {
         alert("회원가입 성공하였습니다!");
     };
 
+
+    const [message, setMessage] = useState("");
+
+    
+
+    
+
+
+
+
+
+
+
+
+
+
     return (
         <div>
             <form className="signup_form">
                 <h3>회원가입</h3>
                 <div className="id_container">
-
                     <p className="email-label" >이메일</p>
-
-                    <p>이메일</p>
-
                     <div>
                         <input
                             type="text"
@@ -125,14 +129,14 @@ const Signup = () => {
                             placeholder="아이디"
                             onChange={onChangeForm}
                             ref={inputRef}
-                            onClick={(e) => {
-                                // 고정된 도메인 앞에 커서가 위치하도록 조정
-                                if (inputRef.current) {
-                                    const cursorPosition = formData.id.length;
-                                    inputRef.current.setSelectionRange(cursorPosition, cursorPosition);
-                                    e.preventDefault();
-                                }
-                            }}
+                            // // onClick={(e) => {
+                            // //     // 고정된 도메인 앞에 커서가 위치하도록 조정
+                            // //     if (inputRef.current) {
+                            // //         const cursorPosition = formData.id.length;
+                            // //         inputRef.current.setSelectionRange(cursorPosition, cursorPosition);
+                            // //         e.preventDefault();
+                            // //     }
+                            // }}
                         />
                         <button onClick={requestAuth}>인증요청</button>
                     </div>
@@ -144,7 +148,7 @@ const Signup = () => {
                             onChange={onChangeForm}
                         />
                         <button onClick={verifyPin}>확인</button>
-                        <p id="text" style={{ color: message.color }}>{message}　</p>
+                        <p id="text">　</p>
                     </div>
                 </div>
                 <div className="pw_container">
@@ -186,8 +190,9 @@ const Signup = () => {
                     </div>
                     <Modal isOpen={isModalOpen} onClose={closeModal} type={modalType} />
                 </div>
-                <button onClick={pw_confirm} className="sign" type="submit" disabled={!isFormComplete}>회원가입</button>
+                <button onClick={pw_confirm} className="sign" type="submit" disabled={!isFormComplete}>회원가입</button>    
             </form>
+            
         </div>
     );
 };
