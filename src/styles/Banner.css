@@ -19,9 +19,7 @@
     width: 211px;
     height: 57px;
     flex-shrink: 0;
-    margin-top: 58px;
-    margin-left: 21px;
-    margin-bottom: 57px;
+    margin: 58px 0 57px 21px;
 }
 
 .title {
@@ -30,18 +28,15 @@
     white-space: nowrap;
     /* 텍스트 줄바꿈 안되게 */
     font-family: Pretendard;
-    margin-left: 369px;
-    margin-right: 327px;
+    margin: 0 auto;
+    text-align: center;
   
   }
   
   .title>h2 {
     color: #000;
-  
     font-size: 28px;
-    font-style: normal;
     font-weight: 500;
-    line-height: 100%;
     /* 28px */
     margin: 48px auto 0 auto;
   }
@@ -51,14 +46,13 @@
     font-size: 40px;
     font-style: normal;
     font-weight: 900;
-    line-height: 100%;
     /* 40px */
-    margin: 10px auto 46px auto;
+    margin: 10px 0 46px;
   }
   
   .navbar {
   
-    background-color: #fdfdfd00;
+    background-color: transparent;
     white-space: nowrap;
     /* 텍스트 줄바꿈 안되게 */
   }
@@ -68,7 +62,7 @@
   
     display: flex;
     /* flexbox로 설정하여 가로 정렬 */
-    margin: 77px auto 75px auto;
+    margin: 77px auto;
   
     padding: 0;
   }
@@ -92,7 +86,6 @@
     font-family: Pretendard;
     font-size: var(--sds-typography-body-size-large);
     /* CSS 변수로 폰트 크기를 설정 */
-    font-style: normal;
     /* 폰트 스타일을 기본(normal)로 설정 */
     font-weight: 500;
     /* 폰트 두께를 500으로 설정 */
