@@ -1,4 +1,4 @@
-.banner-container {
+.banner_container {
 
     display: flex;
     justify-content: space-between;
@@ -57,7 +57,7 @@
     /* 텍스트 줄바꿈 안되게 */
   }
   
-  .navbar-menu {
+  .navbar_menu {
     list-style: none;
   
     display: flex;
@@ -68,13 +68,13 @@
   }
   
   /* 각 메뉴 항목 스타일 */
-  .navbar-menu li {
+  .navbar_menu li {
     margin-left: 16px;
     /* 메뉴 항목 간의 간격 설정 */
   }
   
   /* 링크 스타일 */
-  .navbar-menu a {
+  .navbar_menu a {
   
     color: rgb(0, 0, 0);
     /* 링크의 색상을 검정으로 설정 */
@@ -94,12 +94,12 @@
   }
   
   /* 광운대학교 상단메뉴의 색상을 다르게 설정 */
-  .k-menu {
+  .k_menu {
     color: #8B0B02 !important;
   
   }
   
   /* 링크에 마우스를 올렸을 때 스타일 */
-  .navbar-menu a:hover {
+  .navbar_menu a:hover {
     background-color: #757272;
   }

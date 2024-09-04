@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import '../styles/Signup.css';
+import styles from '../styles/Signup.module.css';
 import Modal from './Law';
 
 // 회원가입 컴포넌트
@@ -7,6 +7,9 @@ const Signup = () => {
     const [isModalOpen, setModalOpen] = useState(false);
     const [modalType, setModalType] = useState('');
     const [formData, setFormData] = useState({
+        name: "",
+        s_num: "",
+        major: "",
         id: "",
         pin: "",
         password: "",
@@ -15,18 +18,18 @@ const Signup = () => {
     const [isFormComplete, setIsFormComplete] = useState(false);
     const [isChecked1, setIsChecked1] = useState(false);
     const [isChecked2, setIsChecked2] = useState(false);
-    
+
     const inputRef = useRef(null);
     const fixedDomain = '@kw.ac.kr';
     const pintest = '123456';
 
 
     const handleCheckboxChange1 = () => setIsChecked1(!isChecked1);
-    const handleCheckboxChange2 = () =>  setIsChecked2(!isChecked2);
- 
+    const handleCheckboxChange2 = () => setIsChecked2(!isChecked2);
+
     const onChangeForm = (e) => {
         const { name, value } = e.target;
-        
+
         // 이메일 필드의 경우 고정된 도메인을 앞에 두고 입력값을 제어
         if (name === 'id') {
             const userInput = value.split(fixedDomain)[0];
@@ -58,11 +61,14 @@ const Signup = () => {
 
     const requestAuth = (e) => {
         e.preventDefault();
-        const { id } = formData;
+        const { name, s_num, major, id } = formData;
         if (!id) {
             alert("아이디를 입력해주세요");
             return;
         }
+        console.log(name);
+        console.log(s_num);
+        console.log(major);
         console.log(id);
         // 인증 요청 로직 추가 가능
         alert("인증 요청이 전송되었습니다.");
@@ -74,8 +80,8 @@ const Signup = () => {
         const { pin } = formData;
         if (!pin) return;
         console.log(pin);
-        console.log(pin);
-        const textElement = document.getElementById("text");
+        console.log(pintest);
+        const textElement = document.getElementById(styles.text);
         if (pin === pintest) {
             textElement.textContent = "인증번호가 일치합니다.";
             textElement.style.color = "#008000";
@@ -84,9 +90,9 @@ const Signup = () => {
             textElement.style.color = "#ff0000";
         }
     };
-    
 
-    
+
+
     const pw_confirm = (e) => {
         e.preventDefault();
         const { password, password_confirm } = formData;
@@ -103,9 +109,9 @@ const Signup = () => {
 
     const [message, setMessage] = useState("");
 
-    
 
-    
+
+
 
 
 
@@ -118,10 +124,36 @@ const Signup = () => {
 
     return (
         <div>
-            <form className="signup_form">
+            <form className={styles.signup_form}>
                 <h3>회원가입</h3>
-                <div className="id_container">
-                    <p className="email-label" >이메일</p>
+                <div className={styles.name_container}>
+                    <p>이름</p>
+                    <div>
+                        <input id={styles.name}
+                            type="text"
+                            name="name"
+                            placeholder="홍길동"
+                            onChange={onChangeForm}
+                        />
+                    </div>
+                    <div>
+                        <span id={styles.number}>학번</span>
+                        <span id={styles.major_title}>학과</span><br />
+                        <input id={styles.s_num}
+                            type="text"
+                            name="s_num"
+                            placeholder="nn"
+                            onChange={onChangeForm}
+                        />
+                        <input id={styles.major}
+                            type="text"
+                            name="major"
+                            onChange={onChangeForm}
+                        />
+                    </div>
+                </div>
+                <div className={styles.id_container}>
+                    <p className={styles.email_label} >이메일</p>
                     <div>
                         <input
                             type="text"
@@ -130,29 +162,29 @@ const Signup = () => {
                             placeholder="아이디"
                             onChange={onChangeForm}
                             ref={inputRef}
-                            // // onClick={(e) => {
-                            // //     // 고정된 도메인 앞에 커서가 위치하도록 조정
-                            // //     if (inputRef.current) {
-                            // //         const cursorPosition = formData.id.length;
-                            // //         inputRef.current.setSelectionRange(cursorPosition, cursorPosition);
-                            // //         e.preventDefault();
-                            // //     }
-                            // }}
+                            onClick={(e) => {
+                                // //     // 고정된 도메인 앞에 커서가 위치하도록 조정
+                                if (inputRef.current) {
+                                    const cursorPosition = formData.id.length;
+                                    inputRef.current.setSelectionRange(cursorPosition, cursorPosition);
+                                    e.preventDefault();
+                                }
+                            }}
                         />
                         <button onClick={requestAuth}>인증요청</button>
                     </div>
                     <div>
-                        <input 
+                        <input
                             type="text"
                             name="pin"
                             placeholder="인증번호 6자리를 입력해 주세요"
                             onChange={onChangeForm}
                         />
                         <button onClick={verifyPin}>확인</button>
-                        <p id="text">　</p>
+                        <p id={styles.text}>　</p>
                     </div>
                 </div>
-                <div className="pw_container">
+                <div className={styles.pw_container}>
                     <p>비밀번호</p>
                     <div>
                         <input
@@ -162,6 +194,7 @@ const Signup = () => {
                             onChange={onChangeForm}
                         />
                     </div>
+                    <p id={styles.pw_condition}>숫자 최소 1개, 대소문자 최소 1개, 특수문자 최소 1개 (총 5자 - 11자)</p>
                     <p>비밀번호 확인</p>
                     <div>
                         <input
@@ -171,8 +204,9 @@ const Signup = () => {
                             onChange={onChangeForm}
                         />
                     </div>
+                    <p id={styles.pw_confirm}>　</p>
                 </div>
-                <div className="checkbox-group">
+                <div className={styles.checkbox_group}>
                     <div>
                         <input
                             type="checkbox"
@@ -191,9 +225,9 @@ const Signup = () => {
                     </div>
                     <Modal isOpen={isModalOpen} onClose={closeModal} type={modalType} />
                 </div>
-                <button onClick={pw_confirm} className="sign" type="submit" disabled={!isFormComplete}>회원가입</button>    
+                <button onClick={pw_confirm} className={styles.sign} type="submit" disabled={!isFormComplete}>회원가입</button>
             </form>
-            
+
         </div>
     );
 };

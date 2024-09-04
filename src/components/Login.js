@@ -43,10 +43,9 @@ const Login = () => {
         </div>
         <button className={styles.login_btn} type="submit">로그인</button>
       </form>
-
       <div className={styles.login_options}>
-        <a href="/find-password" className={styles.find_password_link}>비밀번호 찾기</a>
-        <Link to="/signup" className={styles.signup_link}>회원가입</Link>
+        <Link to="/pwFind" className="find-password-link">비밀번호 찾기</Link>
+        <Link to="/signup" className="signup-link">회원가입</Link>
       </div>
 
       <button className={styles.privacy_btn} onClick={togglePrivacyPolicy}>개인정보처리방침</button>
