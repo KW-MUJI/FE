@@ -1,14 +1,18 @@
 import React, { useState, useEffect, useRef } from 'react';
 import styles from '../styles/PwFind.module.css';
+import { useNavigate } from 'react-router-dom';
 
 // 회원가입 컴포넌트
-const Signup = () => {
+const PwFind = () => {
     const [formData, setFormData] = useState({
         id: "",
         pin: "",
     });
     const [isFormComplete, setIsFormComplete] = useState(false);
-
+    const navigate = useNavigate();
+    const goToSign = () => {
+        navigate("/pwReset");
+      }
     const inputRef = useRef(null);
     const fixedDomain = '@kw.ac.kr';
     const pintest = '123456';
@@ -61,22 +65,6 @@ const Signup = () => {
         }
     };
 
-
-
-    const pw_confirm = (e) => {
-        e.preventDefault();
-        const { password, password_confirm } = formData;
-        console.log(password);
-        console.log(password_confirm);
-        if (password !== password_confirm) {
-            alert("입력한 비밀번호가 같지 않습니다.");
-            return;
-        }
-        sessionStorage.setItem("user", JSON.stringify(formData));
-        alert("회원가입 성공하였습니다!");
-    };
-
-
     return (
         <div>
             <form className={styles.pwFind_form}>
@@ -113,11 +101,10 @@ const Signup = () => {
                         <p id={styles.text}>　</p>
                     </div>
                 </div>
-                <button onClick={pw_confirm} className={styles.sign} type="submit" disabled={!isFormComplete}>비밀번호 재설정</button>
+                <button onClick={goToSign} className={styles.sign} type="submit" disabled={!isFormComplete}>비밀번호 재설정</button>
             </form>
-
         </div>
     );
 };
 
-export default Signup;
+export default PwFind;
