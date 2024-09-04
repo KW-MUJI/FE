@@ -39,7 +39,7 @@ const Signup = () => {
 
     const onChangeForm = (e) => {
         const { name, value } = e.target;
-        
+
         // 이메일 필드의 경우 고정된 도메인을 앞에 두고 입력값을 제어
         if (name === 'id') {
             const userInput = value.split(fixedDomain)[0];
@@ -110,6 +110,32 @@ const Signup = () => {
         <div>
             <form className="signup_form">
                 <h3>회원가입</h3>
+                <div className="name_container">
+                    <p>이름</p>
+                    <div>
+                        <input id="name"
+                            type="text"
+                            name="name"
+                            placeholder="홍길동"
+                            onChange={onChangeForm}
+                        />
+                    </div>
+                    <div>
+                        <span id="number">학번</span>
+                        <span id="major_title">학과</span><br />
+                        <input id="s_num"
+                            type="text"
+                            name="pin"
+                            placeholder="nn"
+                            onChange={onChangeForm}
+                        />
+                        <input id="major"
+                            type="text"
+                            name="pin"
+                            onChange={onChangeForm}
+                        />
+                    </div>
+                </div>
                 <div className="id_container">
                     <p>이메일</p>
                     <div>
