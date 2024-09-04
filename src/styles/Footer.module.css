@@ -1,0 +1,59 @@
+footer {
+  display: flex;
+  white-space: nowrap;
+  justify-content: space-around;
+  background-color: #4C4C4C;
+  font-family: Pretendard;
+  font-style: normal;
+  min-height: 140px;
+  line-height: 100%;
+}
+
+.footer_logo {
+  /* font-family: Pretendard; */
+  flex-direction: column;
+  justify-content: center;
+  margin: auto 0px auto 79px;
+  color: white;
+  font-size: 18.805px;
+}
+
+.footer_info {
+  flex-direction:row;
+  
+  color: rgba(255, 255, 255, 0.80);
+  font-size: 12px;
+  font-weight: 500;
+  margin:36.79px 0 auto 132px;
+  
+
+}
+
+.footer_developer {
+  flex: 5;
+  text-align: left;
+  font-size: 12px;
+  color: #B3B3B3;
+}
+
+.footer_Privacy {
+  flex: 5;
+  text-align: left;
+  font-size: 12px;
+  color: #B3B3B3;
+}
+
+#teamTitle {
+  font-size: 18.805px;
+  margin-bottom: 6.66px;
+  font-weight: 500;
+  line-height: 100%;
+}
+
+#teamName {
+  font-size: 26.864px;
+  /* font-weight: bold; */
+  font-weight: 900;
+  line-height: 100%;
+  margin-top: 0;
+}

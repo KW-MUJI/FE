@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import '../styles/Login.css'; // CSS 파일 임포트
+import styles from'../styles/Login.module.css'; // CSS 파일 임포트
 import { Link } from 'react-router-dom';
 
 
@@ -18,7 +18,7 @@ const Login = () => {
   const togglePrivacyPolicy = () => setIsPolicyOpen(!isPolicyOpen);
 
   return (
-    <div className="login-container">
+    <div className={styles.login_container}>
       <h2>로그인</h2>
       <form onSubmit={handleSubmit}>
         <div>
@@ -41,20 +41,20 @@ const Login = () => {
             required
           />
         </div>
-        <button className="login-btn" type="submit">로그인</button>
+        <button className={styles.login_btn} type="submit">로그인</button>
       </form>
 
-      <div className="login-options">
-        <a href="/find-password" className="find-password-link">비밀번호 찾기</a>
-        <Link to="/signup" className="signup-link">회원가입</Link>
+      <div className={styles.login_options}>
+        <a href="/find-password" className={styles.find_password_link}>비밀번호 찾기</a>
+        <Link to="/signup" className={styles.signup_link}>회원가입</Link>
       </div>
 
-      <button className="privacy-btn" onClick={togglePrivacyPolicy}>개인정보처리방침</button>
+      <button className={styles.privacy_btn} onClick={togglePrivacyPolicy}>개인정보처리방침</button>
 
       {isPolicyOpen && (
-        <div id="privacyPolicyModal" className="modal" onClick={togglePrivacyPolicy}>
-          <div className="Policy-content" onClick={(e) => e.stopPropagation()}>
-            <span className="close" onClick={togglePrivacyPolicy}>&times;</span>
+        <div id="privacyPolicyModal" className={styles.modal} onClick={togglePrivacyPolicy}>
+          <div className={styles.Policy_content} onClick={(e) => e.stopPropagation()}>
+            <span className={styles.close} onClick={togglePrivacyPolicy}>&times;</span>
             <h2>개인정보처리방침</h2>
             <p>여기에 개인정보처리방침 내용을 작성합니다...</p>
           </div>
