@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from'../styles/Footer.module.css'; // CSS 파일 임포트
+import styles from '../styles/Footer.module.css'; // CSS 파일 임포트
 
 const Footer = () => (
     <footer id={styles.footer}>
@@ -14,12 +14,12 @@ const Footer = () => (
 
         <div className={styles.footer_developer}>
             <p>Front-end | 김민곤 조은향</p>
-            <p>Back-end | 김정윤 조은향</p>
+            <p>Back-end | 김정윤 최지훈</p>
             <p>Designer | 신승은</p>
         </div>
 
-        <div className = {styles.footer_Privacy}>
-        <p>개인정보처리방침</p>
+        <div className={styles.footer_Privacy}>
+            <p>개인정보처리방침</p>
         </div>
     </footer>
 );
