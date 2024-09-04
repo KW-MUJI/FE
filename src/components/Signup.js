@@ -1,41 +1,31 @@
 import React, { useState, useEffect, useRef } from 'react';
-import '../styles/Signup.css';
+import styles from '../styles/Signup.module.css';
 import Modal from './Law';
 
 // 회원가입 컴포넌트
 const Signup = () => {
-    // 모달
     const [isModalOpen, setModalOpen] = useState(false);
     const [modalType, setModalType] = useState('');
-    const openModal = (type) => {
-        setModalType(type);
-        setModalOpen(true);
-    };
-    const closeModal = () => setModalOpen(false);
-    // 모달
-
-    const pintest = '123456';
-    const [isChecked1, setIsChecked1] = useState(false);
-    const [isChecked2, setIsChecked2] = useState(false);
     const [formData, setFormData] = useState({
+        name: "",
+        s_num: "",
+        major: "",
         id: "",
         pin: "",
         password: "",
         password_confirm: "",
     });
-    const [message, setMessage] = useState("");
     const [isFormComplete, setIsFormComplete] = useState(false);
+    const [isChecked1, setIsChecked1] = useState(false);
+    const [isChecked2, setIsChecked2] = useState(false);
 
-    const fixedDomain = '@kw.ac.kr';
     const inputRef = useRef(null);
+    const fixedDomain = '@kw.ac.kr';
+    const pintest = '123456';
 
-    const handleCheckboxChange1 = () => {
-        setIsChecked1(!isChecked1);
-    };
 
-    const handleCheckboxChange2 = () => {
-        setIsChecked2(!isChecked2);
-    };
+    const handleCheckboxChange1 = () => setIsChecked1(!isChecked1);
+    const handleCheckboxChange2 = () => setIsChecked2(!isChecked2);
 
     const onChangeForm = (e) => {
         const { name, value } = e.target;
@@ -60,26 +50,38 @@ const Signup = () => {
         setIsFormComplete(allFieldsFilled && isChecked1 && isChecked2);
     }, [formData, isChecked1, isChecked2]);
 
+
+
+    const openModal = (type) => {
+        setModalType(type);
+        setModalOpen(true);
+    };
+
+    const closeModal = () => setModalOpen(false);
+
     const requestAuth = (e) => {
         e.preventDefault();
-        const { id } = formData;
+        const { name, s_num, major, id } = formData;
         if (!id) {
             alert("아이디를 입력해주세요");
             return;
         }
+        console.log(name);
+        console.log(s_num);
+        console.log(major);
         console.log(id);
         // 인증 요청 로직 추가 가능
         alert("인증 요청이 전송되었습니다.");
     };
 
+
     const verifyPin = (e) => {
         e.preventDefault();
         const { pin } = formData;
-        if (!pin) {
-            return;
-        }
+        if (!pin) return;
         console.log(pin);
-        var textElement = document.getElementById("text");
+        console.log(pintest);
+        const textElement = document.getElementById(styles.text);
         if (pin === pintest) {
             textElement.textContent = "인증번호가 일치합니다.";
             textElement.style.color = "#008000";
@@ -87,17 +89,15 @@ const Signup = () => {
             textElement.textContent = "인증번호가 틀렸습니다.";
             textElement.style.color = "#ff0000";
         }
-        return;
     };
+
+
 
     const pw_confirm = (e) => {
         e.preventDefault();
         const { password, password_confirm } = formData;
         console.log(password);
         console.log(password_confirm);
-        if (!password || !password_confirm) {
-            return;
-        }
         if (password !== password_confirm) {
             alert("입력한 비밀번호가 같지 않습니다.");
             return;
@@ -106,14 +106,30 @@ const Signup = () => {
         alert("회원가입 성공하였습니다!");
     };
 
+
+    const [message, setMessage] = useState("");
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     return (
         <div>
-            <form className="signup_form">
+            <form className={styles.signup_form}>
                 <h3>회원가입</h3>
-                <div className="name_container">
+                <div className={styles.name_container}>
                     <p>이름</p>
                     <div>
-                        <input id="name"
+                        <input id={styles.name}
                             type="text"
                             name="name"
                             placeholder="홍길동"
@@ -121,23 +137,23 @@ const Signup = () => {
                         />
                     </div>
                     <div>
-                        <span id="number">학번</span>
-                        <span id="major_title">학과</span><br />
-                        <input id="s_num"
+                        <span id={styles.number}>학번</span>
+                        <span id={styles.major_title}>학과</span><br />
+                        <input id={styles.s_num}
                             type="text"
-                            name="pin"
+                            name="s_num"
                             placeholder="nn"
                             onChange={onChangeForm}
                         />
-                        <input id="major"
+                        <input id={styles.major}
                             type="text"
-                            name="pin"
+                            name="major"
                             onChange={onChangeForm}
                         />
                     </div>
                 </div>
-                <div className="id_container">
-                    <p>이메일</p>
+                <div className={styles.id_container}>
+                    <p className={styles.email_label} >이메일</p>
                     <div>
                         <input
                             type="text"
@@ -147,7 +163,7 @@ const Signup = () => {
                             onChange={onChangeForm}
                             ref={inputRef}
                             onClick={(e) => {
-                                // 고정된 도메인 앞에 커서가 위치하도록 조정
+                                // //     // 고정된 도메인 앞에 커서가 위치하도록 조정
                                 if (inputRef.current) {
                                     const cursorPosition = formData.id.length;
                                     inputRef.current.setSelectionRange(cursorPosition, cursorPosition);
@@ -165,10 +181,10 @@ const Signup = () => {
                             onChange={onChangeForm}
                         />
                         <button onClick={verifyPin}>확인</button>
-                        <p id="text" style={{ color: message.color }}>{message}　</p>
+                        <p id={styles.text}>　</p>
                     </div>
                 </div>
-                <div className="pw_container">
+                <div className={styles.pw_container}>
                     <p>비밀번호</p>
                     <div>
                         <input
@@ -178,6 +194,7 @@ const Signup = () => {
                             onChange={onChangeForm}
                         />
                     </div>
+                    <p id={styles.pw_condition}>숫자 최소 1개, 대소문자 최소 1개, 특수문자 최소 1개 (총 5자 - 11자)</p>
                     <p>비밀번호 확인</p>
                     <div>
                         <input
@@ -187,8 +204,9 @@ const Signup = () => {
                             onChange={onChangeForm}
                         />
                     </div>
+                    <p id={styles.pw_confirm}>　</p>
                 </div>
-                <div className="checkbox-group">
+                <div className={styles.checkbox_group}>
                     <div>
                         <input
                             type="checkbox"
@@ -207,8 +225,9 @@ const Signup = () => {
                     </div>
                     <Modal isOpen={isModalOpen} onClose={closeModal} type={modalType} />
                 </div>
-                <button onClick={pw_confirm} className="sign" type="submit" disabled={!isFormComplete}>회원가입</button>
+                <button onClick={pw_confirm} className={styles.sign} type="submit" disabled={!isFormComplete}>회원가입</button>
             </form>
+
         </div>
     );
 };

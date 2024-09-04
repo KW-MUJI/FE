@@ -1,0 +1,226 @@
+.signup_form {
+    margin: auto;
+    border: 1px solid #ccc;
+    border-radius: 16px;
+    background-color: #FFF;
+    width: 538px;
+    height: 865px;
+    /* height: auto; 높이를 자동으로 조정 */
+    padding-bottom: 20px; /* 하단에 약간의 여백 추가 */
+    margin-top: 101px;
+    margin-bottom: 101px;
+    font-family: Pretendard;
+    box-sizing: border-box;
+}
+
+.signup_form h3 {
+    color: #000;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 900;
+    line-height: 100%;
+    margin-bottom: 41px;
+    margin-top: 32px;
+}
+
+.signup_form div {
+    display: block;
+}
+
+.name_container input {
+    border-radius: 32.86px;
+    border: 0.82px solid #B3B3B3;
+    text-align: center;
+    
+    height: 44px;
+}
+
+.name_container p {
+    margin:0 0 9px 64px;
+    font-size: 16px;
+    font-weight: 400;
+    text-align: left;
+}
+.name_container span {
+    text-align: left;
+    margin-bottom: 9px;
+}
+#name {
+    width: 430px;
+    margin-bottom: 31px;
+    padding: 0;
+}
+
+#s_num {
+    width: 125px;
+    margin-right: 25px;
+    margin-bottom: 33px;
+}
+
+#major {
+    width: 280px;
+}
+
+#number {
+    display: inline-block;
+    margin-left: 64px;
+    margin-right: 50px;
+    width: 105px;
+    /* 간격을 주고 싶으면 추가 */
+}
+
+#major_title {
+    display: inline-block;
+    width: 105px;
+    margin-right: 210px;
+    /* 간격을 주고 싶으면 추가 */
+}
+
+.id_container input {
+    font-family: Pretendard;
+    width: 292px;
+    height: 44px;
+    border-radius: 32.86px;
+    border: 0.82px solid #B3B3B3;
+    text-align: center;
+    box-sizing: border-box;
+    margin-bottom: 11px;
+}
+
+input::placeholder {
+    color: #B3B3B3;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 100%;
+    text-align: center;
+}
+
+.id_container button {
+    font-family: Pretendard;
+    width: 125px;
+    height: 44px;
+    border: none;
+    border-radius: 32.86px;
+    background-color: #8B0B02;
+    color: white;
+    cursor: pointer;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 100%;
+    margin-left: 12px;
+}
+
+.id_container button:hover {
+    background-color: #0056b3;
+}
+
+.email_label {
+    margin: 0;
+    font-family: Pretendard;
+    margin-left: 64px;
+    margin-bottom: 9px;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 100%;
+    text-align: left;
+}
+
+#text {
+    margin: 0px;
+    font-family: Pretendard;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 100%;
+    margin-left: 75px;
+    margin-bottom: 31px;
+    text-align: left;
+}
+
+.pw_container input {
+    font-family: Pretendard;
+    width: 431.2px;
+    height: 44.32px;
+    border-radius: 32.86px;
+    border: 0.82px solid #B3B3B3;
+    text-align: center;
+    padding: 19px;
+    box-sizing: border-box;
+    margin-bottom: 11px;
+}
+
+.pw_container p {
+    font-family: Pretendard;
+    margin-bottom: 6px;
+    margin-left: 64px;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 100%;
+    text-align: left;
+}
+#pw_condition {
+    font-family: Pretendard;
+    margin: 0 0 11px 75px;
+    color:#b3b3b3;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 100%;
+    text-align: left;
+}
+#pw_confirm{
+    margin: 0px;
+    font-family: Pretendard;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 100%;
+    margin-left: 75px;
+    margin-bottom: 36px;
+    text-align: left;
+}
+.checkbox_group {
+    font-family: Pretendard;
+    font-size: 16px;
+    cursor: pointer;
+    color: #B3B3B3;
+    text-align: left;
+    margin-left: 75px;
+    margin-bottom: 31px;
+
+}
+
+.checkbox_group input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    margin-right: 10px;
+    vertical-align:top;
+    position: relative;
+    top: -2px; 
+    margin-bottom: 10px;
+}
+
+.sign {
+    font-family: Pretendard;
+    width: 430px;
+    height: 42px;
+    border: none;
+    border-radius: 32.86px;
+    background-color: #8B0B02;
+    color: white;
+    cursor: pointer;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 900;
+    line-height: 100%;
+}
+
+.sign:disabled {
+    background-color: #4C4C4C;
+    cursor: not-allowed;
+    color: #B0B0B0;
+}
