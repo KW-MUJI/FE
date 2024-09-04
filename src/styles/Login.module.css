@@ -6,7 +6,7 @@
   /* 원하는 크기로 정의 */
 }
 
-.login-container {
+.login_container {
 
   display: flex;
   flex-direction: column;
@@ -18,14 +18,14 @@
 
   max-width: 1040px;
   width: 495px;
-  height: 542px;
+  height: 509px;
 
   margin: 115px auto;
   /* 부모 요소 내에서 가로 중앙에 배치 */
   border: 1px solid #B3B3B3;
   border-radius: 20px;
   background-color: #fff;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); */
   box-sizing: border-box;
 
 
@@ -37,8 +37,8 @@
   margin-bottom: 5px;
 } */
 
-.login-container h2 {
-  margin: 58.27px 0 33.21px;
+.login_container h2 {
+  margin: 57px 0 33px;
   color: #000;
   font-family: Pretendard;
   font-size: 28px;
@@ -46,15 +46,13 @@
   /* 28px */
 }
 
-.login-container input {
-
-
+.login_container input {
 
   display: inline-flex;
-  height: 53px;
-  width: 400.81px;
+  height: 50px;
+  width: 400px;
   padding: 13px 31px;
-  margin-bottom: 29px;
+  margin-bottom: 30px;
   /* align-items: center; */
   /* flex-shrink: 0; */
   border-radius: 40px;
@@ -62,11 +60,11 @@
   box-sizing: border-box;
   /* 패딩과 보더를 width에 포함 */
   background: rgba(255, 255, 255, 0.30);
- 
+
 
 }
 
-.login-container input::placeholder {
+.login_container input::placeholder {
   color: #B3B3B3;
   /* 텍스트 색상 */
   font-family: Pretendard;
@@ -75,74 +73,74 @@
   text-align: left;
 }
 
-.login-btn {
+.login_btn {
   /* display: flex; */
-  width: 400.81px;
-  height: 48px;
-  padding: 10px;
+  width: 400px;
+  height: 45px;
+  padding: 9px 125px 8px 125px;
   /* justify-content: center; */
   /* align-items: center; */
   /* flex-shrink: 0; */
-  margin-bottom: 41px;
+  margin-bottom: 34px;
   border-radius: 40px;
   background: #8B0B02;
-
   color: #FFF;
   /* text-align: center; */
   font-family: Pretendard;
   font-size: var(--sds-typography-body-size-large);
-
+  border: 0;
   font-weight: 900;
 
   /* 20px */
 
 }
 
-.login-btn button:hover {
+.login_btn button:hover {
   background-color: #B3B3B3;
 }
 
 
-.login-options a {
+.login_options a {
   text-decoration: none;
   color: #B3B3B3;
   font-family: Pretendard;
   font-size: var(--sds-typography-body-size-large);
   font-weight: 400;
-  padding: 0 24.5px;
+  padding: 0 60px;
 }
 
-.find-password-link {
+.find_password_link {
 
   border-right: 1px solid #ccc;
   /* 오른쪽에 세로선 추가 */
 }
 
-.signup-link {
+.signup_link {
   margin-right: 35px;
 
 }
 
 
 
-.privacy-btn {
+.privacy_btn {
   display: flex;
-  width: 400.81px;
-  height: 45px;
-  padding: 9px 70.81px;
+  width: 400px;
+  height: 43px;
+  padding: 8px;
   justify-content: center;
-  align-items: center;
-  margin-top: 41px;
-  margin-bottom: 70px;
+  /* align-items: center; */
+  margin-top: 32.85px;
+  margin-bottom: 57px;
   border-radius: 10px;
   background: #4C4C4C;
-
+  /* border-color: #4C4C4C; */
   color: #FFF;
   text-align: center;
   font-family: Pretendard;
   font-size: var(--sds-typography-body-size-large);
   font-weight: 900;
-
+  border: 1px solid #4C4C4C;
+  box-sizing: border-box;
 }
 
 /* 모달 스타일 */
@@ -158,7 +156,7 @@
   align-items: center;
 }
 
-.Policy-content {
+.Policy_content {
   background-color: white;
   padding: 20px;
   border-radius: 8px;
@@ -167,13 +165,13 @@
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-.Policy-content h2 {
+.Policy_content h2 {
   margin: 0 0 15px;
   font-size: 22px;
   color: #333;
 }
 
-.Policy-content p {
+.Policy_content p {
   font-size: 16px;
   color: #555;
 }
@@ -190,6 +188,7 @@
 .close:hover {
   color: #000;
 }
+
 /* @font-face {
   font-family: 'Pretendard-Regular';
   src: url('https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
