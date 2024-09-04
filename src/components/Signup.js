@@ -74,6 +74,7 @@ const Signup = () => {
         const { pin } = formData;
         if (!pin) return;
         console.log(pin);
+        console.log(pin);
         const textElement = document.getElementById("text");
         if (pin === pintest) {
             textElement.textContent = "인증번호가 일치합니다.";
