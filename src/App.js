@@ -7,6 +7,7 @@ import Signup from './components/Signup';
 import Banner from './components/Banner';
 import Footer from './components/Footer';
 import PwFind from './components/PwFind';
+import PwReset from './components/PwResrt';
 // import Login from './components/Login';
 
 function App() {
@@ -19,6 +20,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/pwFind" element={<PwFind />} />
+          <Route path="/pwReset" element={<PwReset />} />
         </Routes>
 
 
