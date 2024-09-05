@@ -1,5 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import styles from '../styles/Signup.module.css';
+import {useNavigate } from 'react-router-dom';
+
 import Modal from './Law';
 
 // 회원가입 컴포넌트
@@ -26,6 +28,13 @@ const Signup = () => {
 
     const handleCheckboxChange1 = () => setIsChecked1(!isChecked1);
     const handleCheckboxChange2 = () => setIsChecked2(!isChecked2);
+
+
+    //개인정보처리방침
+    const navigate = useNavigate();
+    const navigateToPrivacy = () => {
+        window.open("/privacy_law", "_blank");
+      };
 
     const onChangeForm = (e) => {
         const { name, value } = e.target;
@@ -213,7 +222,7 @@ const Signup = () => {
                             checked={isChecked1}
                             onChange={handleCheckboxChange1}
                         />
-                        <span onClick={() => openModal('first')}>개인 정보 처리 방침 동의</span> <span style={{ color: 'red' }}>(필수)</span>
+                        <span onClick={navigateToPrivacy}>개인 정보 처리 방침 동의</span> <span style={{ color: 'red' }}>(필수)</span>
                     </div>
                     <div>
                         <input
