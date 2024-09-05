@@ -15,7 +15,7 @@ const Login = () => {
   };
 
   const navigateToPrivacy = () => {
-    navigate("/privacy_law");
+    window.open("/privacy_law", "_blank");
   };
 
   return (
