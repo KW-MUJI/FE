@@ -1,6 +1,7 @@
 // Modal.js
 import React from 'react';
 
+
 const modalData = {
   first: {
     title: '첫 번째 제목',

@@ -8,6 +8,7 @@ import Banner from './components/Banner';
 import Footer from './components/Footer';
 import PwFind from './components/PwFind';
 import PwReset from './components/PwResrt';
+import Privacy_law from './components/Privacy_law';
 // import Login from './components/Login';
 
 function App() {
@@ -21,6 +22,7 @@ function App() {
           <Route path="/signup" element={<Signup />} />
           <Route path="/pwFind" element={<PwFind />} />
           <Route path="/pwReset" element={<PwReset />} />
+          <Route path="/privacy_law" element={<Privacy_law />} />
         </Routes>
 
 
