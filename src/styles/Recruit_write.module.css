@@ -1,0 +1,213 @@
+.recuit_write_page {
+    display: flex;
+    flex-direction: column;
+    /* border: 1px solid #f31616; */
+
+    width: 1228px;
+    height: auto;
+    margin: 0 auto;
+    margin-bottom: 53px;
+}
+
+* {
+    font-family: Pretendard;
+    font-style: normal;
+    box-sizing: border-box;
+    white-space: nowrap;
+}
+
+.recuit_write_page h4 {
+    /* border: 1px solid #d6620f; */
+    color: #000;
+
+    font-size: 32px;
+    font-weight: 800;
+    line-height: 100%;
+    text-align: left;
+    margin-top: 53px;
+    margin-bottom: 0px;
+    /* 32px */
+}
+
+.form_contain {
+    display: flex;
+    flex-direction: column;
+    /* justify-content: center; */
+    align-items: center;
+    flex-shrink: 0;
+    border: 1px solid #B3B3B3;
+    width: 1228px;
+    height: 656px;
+    margin-top: 39px;
+}
+
+.title_group {
+    border: 0px;
+    border-bottom: 1px solid #B3B3B3;
+    width: 1173px;
+    height: 90px;
+    flex-shrink: 0;
+
+    color: #000000;
+    font-size: 32px;
+    font-weight: 700;
+    line-height: 100%;
+    text-align: left;
+
+}
+
+.title_group::placeholder {
+    font-size: 32px;
+    font-weight: 700;
+    line-height: 100%;
+    text-align: left;
+    color: #B3B3B3;
+}
+
+.title_group:focus {
+    outline: none;
+    /* 포커스 시 나타나는 기본 outline 제거 */
+}
+
+.content_group {
+    width: 1173px;
+    height: 475px;
+    max-width: 1173px;
+    max-height: 475px;
+    flex-shrink: 0;
+    border: 0px;
+    border-bottom: 1px solid #B3B3B3;
+    resize: none;
+    margin-top: 12px;
+    font-size: 24px;
+    padding-right: 73px;
+    overflow-y: auto;
+    /* 내용이 많으면 세로 스크롤 추가 */
+    overflow-x: hidden;
+    /* padding:0px 10px; */
+    /* 크기 조정 불가 */
+    /* padding-top:17px; */
+}
+
+.content_group:focus {
+    outline: none;
+    /* 포커스 시 나타나는 기본 outline 제거 */
+}
+
+.content_group::placeholder {
+
+    color: #B3B3B3;
+
+    font-weight: 500;
+    line-height: 100%;
+
+}
+
+.option_menu{
+    display: flex;
+    justify-content: space-between ;
+    /* flex-direction: row; */
+    align-items: center;
+
+    box-sizing: border-box;
+
+    width:1173px;
+    height:80px;
+}
+
+/* 사진업로드 전체 */
+.image_upload {
+    /* display: inline-flex; */
+    /* align-items: center; */
+    flex-grow:1;
+    text-align: left;
+
+
+}
+
+/* 사진입력필드 */
+.file_input {
+
+    display: none;
+
+}
+
+/* 아이콘과텍스트 */
+.upload_button {
+    display: inline-flex;
+    align-items: center;
+
+
+
+    font-size: 22px;
+    font-weight: 500;
+    line-height: 100%;
+
+    width: 143px;
+    height: 38px;
+    flex-shrink: 0;
+
+
+}
+
+/* 사진업로드 아이콘 */
+.upload_icon {
+    margin-right: 10px;
+    /* 아이콘과 텍스트 간격 */
+}
+
+
+
+/* 마감일설정 전체 */
+.date_group {
+    flex-grow:5;
+    text-align: left;
+    
+
+}
+
+/* 마감일input */
+.date_select {
+    display: none;
+    
+}
+
+/* 마감일label */
+.date_button {
+    font-size: 22px;
+    font-weight: 500;
+    line-height: 100%;
+    display: inline-flex;
+    align-items: center;
+    width: 143px;
+    height: 38px;
+
+    pointer-events: auto; /* 클릭 허용 */
+    z-index: 1; /* 다른 요소보다 위에 오도록 */
+
+}
+
+/* 마감일 아이콘 */
+.date_icon {
+    margin-right: 10px;
+    pointer-events: none; /* 아이콘이 클릭을 막지 않도록 설정 */
+
+
+}
+
+.publication_btn{
+    flex-grow: 0;
+    width:90.771px;
+    height:40.911px;
+    flex-shrink: 0;
+    border-radius: 25.569px;
+    background: #8B0B02;
+    
+    
+
+
+    color: #FFF;
+    font-size: 23.012px;
+    font-weight: 600;
+    line-height: 100%;
+}
