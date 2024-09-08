@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import styles from '../styles/Signup.module.css';
-import {useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import Modal from './Law';
 
@@ -28,13 +28,15 @@ const Signup = () => {
 
     const handleCheckboxChange1 = () => setIsChecked1(!isChecked1);
     const handleCheckboxChange2 = () => setIsChecked2(!isChecked2);
-
+    const navigate = useNavigate();
+    const goToLogin = () => {
+        navigate("/login");
+      }
 
     //개인정보처리방침
-    const navigate = useNavigate();
     const navigateToPrivacy = () => {
         window.open("/privacy_law", "_blank");
-      };
+    };
 
     const onChangeForm = (e) => {
         const { name, value } = e.target;
@@ -58,7 +60,6 @@ const Signup = () => {
         const allFieldsFilled = Object.values(formData).every(value => value.trim() !== '');
         setIsFormComplete(allFieldsFilled && isChecked1 && isChecked2);
     }, [formData, isChecked1, isChecked2]);
-
 
 
     const openModal = (type) => {
@@ -105,6 +106,12 @@ const Signup = () => {
     const pw_confirm = (e) => {
         e.preventDefault();
         const { password, password_confirm } = formData;
+        let regPass = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{5,11}$/;
+
+        if (!regPass.test(password)) {
+            alert("영문, 숫자, 특수기호 조합으로 5-11자리 이상 입력해주세요.");
+            return;
+        }
         console.log(password);
         console.log(password_confirm);
         if (password !== password_confirm) {
@@ -113,6 +120,7 @@ const Signup = () => {
         }
         sessionStorage.setItem("user", JSON.stringify(formData));
         alert("회원가입 성공하였습니다!");
+        goToLogin();
     };
 
 

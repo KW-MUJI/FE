@@ -1,9 +1,13 @@
 import React, { useState, useEffect, useRef } from 'react';
 import styles from '../styles/PwReset.module.css';
-
+import { useNavigate } from 'react-router-dom';
 
 // 회원가입 컴포넌트
 const PwReset = () => {
+    const navigate = useNavigate();
+    const goToLogin = () => {
+        navigate("/login");
+      }
     const [formData, setFormData] = useState({
         password: "",
         password_confirm: "",
@@ -18,12 +22,18 @@ const PwReset = () => {
         const { password, password_confirm } = formData;
         console.log(password);
         console.log(password_confirm);
+        let regPass = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{5,11}$/;
+        if (!regPass.test(password)) {
+            alert("영문, 숫자, 특수기호 조합으로 5-11자리 이상 입력해주세요.");
+            return;
+        }
         if (password !== password_confirm) {
             alert("입력한 비밀번호가 같지 않습니다.");
             return;
         }
         sessionStorage.setItem("user", JSON.stringify(formData));
         alert("비밀번호 재설정 완료!");
+        goToLogin();
     };
 
 

@@ -6,7 +6,6 @@
     align-items: center;
     /* 세로 중앙 정렬 */
 
-    width: 100%;
     min-width: 1440px;
     height: 172px;
     border-bottom: 1px solid #B3B3B3;
@@ -19,7 +18,7 @@
     width: 211px;
     height: 57px;
     flex-shrink: 0;
-    margin: 58px 0 57px 21px;
+    margin: 59px 80px 57px 21px;
 }
 
 .title {
@@ -51,7 +50,7 @@
   }
   
   .navbar {
-  
+    width: 350px;
     background-color: transparent;
     white-space: nowrap;
     /* 텍스트 줄바꿈 안되게 */
