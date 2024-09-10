@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState } from 'react';
 import styles from '../styles/PwReset.module.css';
 import { useNavigate } from 'react-router-dom';
 
