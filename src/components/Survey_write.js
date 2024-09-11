@@ -131,7 +131,7 @@ const SurveyWrite = () => {
                                                     </div>
                                                 ))}
                                                 <span className={styles.optionButton} type="button" onClick={() => handleAddOption(index)}>
-                                                    　옵션 추가　
+                                                    옵션 추가
                                                 </span>
                                             </div>
                                         )}
@@ -149,8 +149,12 @@ const SurveyWrite = () => {
                                     </div>
                                 </div>
                                 <div className={styles.btn}>
-                                    <button className={styles.plus} type="button" onClick={handleAddQuestion}>+</button>
-                                    <button className={styles.delete} type="button" onClick={() => handleDeleteQuestion(index)}>x</button>
+                                    <svg className={styles.plus} width="30" height="30" viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg" onClick={handleAddQuestion}>
+                                        <path d="M17 10.3333V23.6667M10.3333 17H23.6667M5.33333 2H28.6667C30.5076 2 32 3.49238 32 5.33333V28.6667C32 30.5076 30.5076 32 28.6667 32H5.33333C3.49238 32 2 30.5076 2 28.6667V5.33333C2 3.49238 3.49238 2 5.33333 2Z" stroke="#B3B3B3" stroke-width="3.33333" stroke-linecap="round" stroke-linejoin="round" />
+                                    </svg>
+                                    <svg className={styles.delete} width="30" height="30" viewBox="0 0 34 38" fill="none" xmlns="http://www.w3.org/2000/svg" onClick={() => handleDeleteQuestion(index)}>
+                                        <path d="M2 8.99967H5.33333M5.33333 8.99967H32M5.33333 8.99967V32.333C5.33333 33.2171 5.68452 34.0649 6.30964 34.69C6.93477 35.3152 7.78261 35.6663 8.66667 35.6663H25.3333C26.2174 35.6663 27.0652 35.3152 27.6904 34.69C28.3155 34.0649 28.6667 33.2171 28.6667 32.333V8.99967M10.3333 8.99967V5.66634C10.3333 4.78229 10.6845 3.93444 11.3096 3.30932C11.9348 2.6842 12.7826 2.33301 13.6667 2.33301H20.3333C21.2174 2.33301 22.0652 2.6842 22.6904 3.30932C23.3155 3.93444 23.6667 4.78229 23.6667 5.66634V8.99967M13.6667 17.333V27.333M20.3333 17.333V27.333" stroke="#B3B3B3" stroke-width="3.33333" stroke-linecap="round" stroke-linejoin="round" />
+                                    </svg>
                                 </div>
                             </div>
                         ))}
