@@ -10,6 +10,8 @@ import PwFind from './components/PwFind';
 import PwReset from './components/PwResrt';
 import Privacy_law from './components/Privacy_law';
 import RecruitWrite from './components/Recruit_write';
+import Survey from './components/Survey';
+import SurveyWrite from './components/Survey_write';
 // import Login from './components/Login';
 
 function App() {
@@ -25,7 +27,8 @@ function App() {
           <Route path="/pwReset" element={<PwReset />} />
           <Route path="/privacy_law" element={<Privacy_law />} />
           <Route path="/recruit_write" element={<RecruitWrite />} />
-
+          <Route path="/survey" element={<Survey />} />
+          <Route path="/survey_write" element={<SurveyWrite />} />
         </Routes>
 
 
