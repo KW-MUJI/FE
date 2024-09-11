@@ -77,6 +77,20 @@ const RecruitMain = () => {
     //페이지 수 계산
     const totalPages = Math.ceil(posts.length / postsPerPage);
 
+
+    const calculateDDay = (targetDate) => {
+        const today = new Date();  // 오늘 날짜
+        const target = new Date(targetDate);  // 목표 날짜 (YYYY-MM-DD 형식으로 입력)
+
+        // 밀리초 단위로 차이를 계산
+        const diffInMilliseconds = target - today;
+
+        // 밀리초를 일 단위로 변환 (밀리초 -> 초 -> 분 -> 시간 -> 일)
+        const diffInDays = Math.ceil(diffInMilliseconds / (1000 * 60 * 60 * 24));
+
+        return diffInDays;  // D-day 남은 일수 반환
+    };
+
     // 페이지 변경 함수
     const paginate = (pageNumber) => setCurrentPage(pageNumber);
     const prevPage = () => {
@@ -88,7 +102,11 @@ const RecruitMain = () => {
     }
     const navigateToWriting = () => {
         window.open("/recruit_write");
-      };
+    };
+
+    const dDay = () => {
+
+    }
     // useEffect(() => {
     //     const fetchPosts = async () => {
     //         try {
@@ -148,7 +166,7 @@ const RecruitMain = () => {
                                 <h3>{post.title}</h3>
                                 <div className={styles.post_deadline}>
                                     <p>마감일 </p>
-                                    <span>{post.date}</span>
+                                    <span>D-{calculateDDay(post.date)}</span>
                                 </div>
 
                             </div>
@@ -173,7 +191,7 @@ const RecruitMain = () => {
                     <button
                         key={index + 1}
                         onClick={() => paginate(index + 1)}
-                        className={currentPage !== index+1  ? styles.active : styles.nonactive  }
+                        className={currentPage !== index + 1 ? styles.active : styles.nonactive}
                     >
                         {index + 1}
                     </button>
