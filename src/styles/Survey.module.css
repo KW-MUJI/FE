@@ -1,6 +1,6 @@
 .survey_container{
     width: 1230px;
-    height: 1300px;
+    height: auto;
     margin: 58px 105px 137px 105px;
 }
 .top_container{
@@ -15,12 +15,17 @@
     font-weight: 800;
 }
 .top_container a{
-    float: right;
     text-decoration-line: none;
     color: #000000;
-    margin: 18px 0 0 0;
     font-size: 26.6px;
     font-weight: 400;
+}
+.write{
+    float: right;
+    margin: 18px 0 0 0;
+}
+.search_container{
+    position: relative;
 }
 .search {
     font-family: Pretendard;
@@ -32,8 +37,26 @@
     box-sizing: border-box;
     margin-bottom: 36px;
 }
-
+.search_icon{
+    position: absolute;
+    top: 14.75px;
+    right: 20px;
+    cursor: pointer;
+}
 .post_container{
     width: 1230px;
-    height: 918px;
+    height: auto;
+    display: flex;
+    flex-wrap: wrap;
+    cursor: pointer;
+}
+.question{
+    width: 595px;
+    height: 212px;
+    border: 0.79px solid #B3B3B3;
+    border-radius: 5px;
+    margin: 0 10px 20px 10px;
+}
+.question p{
+    overflow: hidden;
 }

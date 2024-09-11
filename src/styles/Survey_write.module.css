@@ -195,6 +195,7 @@
     position: absolute;
     top: 0;
     margin-top: 36px;
+    cursor: pointer;
 }
 .delete{
     top: 0;
@@ -212,3 +213,4 @@
     font-size: 23px;
     margin-right: 70px;
 }
+input:focus {outline: none;}

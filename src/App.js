@@ -12,6 +12,7 @@ import Privacy_law from './components/Privacy_law';
 import RecruitWrite from './components/Recruit_write';
 import Survey from './components/Survey';
 import SurveyWrite from './components/Survey_write';
+import SurveyJoin from './components/Survey_join';
 // import Login from './components/Login';
 
 function App() {
@@ -29,6 +30,7 @@ function App() {
           <Route path="/recruit_write" element={<RecruitWrite />} />
           <Route path="/survey" element={<Survey />} />
           <Route path="/survey_write" element={<SurveyWrite />} />
+          <Route path="/survey_join" element={<SurveyJoin/>}/>
         </Routes>
 
 
