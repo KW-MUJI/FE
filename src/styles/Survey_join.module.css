@@ -1,0 +1,118 @@
+.survey_container {
+    width: 1300px;
+    min-height: 1300px;
+    margin: 58px 105px 137px 105px;
+}
+
+.survey_container h1 {
+    text-align: left;
+}
+
+.survey_container h2 {
+    text-align: left;
+    font-family: Pretendard;
+    font-size: 32px;
+    font-weight: 700;
+    line-height: 32px;
+    text-align: left;
+}
+
+.survey_container h3 {
+    text-align: left;
+    font-family: Pretendard;
+    font-size: 20px;
+    font-weight: 500;
+    line-height: 20px;
+    text-align: left;
+
+}
+
+.post {
+    width: 1228px;
+    height: 192px;
+    border: 1px solid #B3B3B3;
+    border-radius: 5px;
+    margin-bottom: 32px;
+}
+
+.quest_box {
+    width: 1228px;
+    border: 1px solid #B3B3B3;
+    border-radius: 5px;
+    display: table;
+    margin-bottom: 25px;
+}
+
+.quest {
+    text-align: left;
+    font-family: Pretendard;
+    font-size: 24px;
+    font-weight: 600;
+    line-height: 24px;
+    text-align: left;
+    margin-left: 52px;
+}
+
+.radio {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    width: 22px;
+    height: 22px;
+    border: 2px solid #b3b3b3;
+    border-radius: 50%;
+    margin-top: 20px;
+    margin-left: 50px;
+    display: inline;
+}
+
+.text {
+    width: 1060px;
+    height: 61px;
+    margin: 0 27px 0 10px;
+    align-items: center;
+    border: none;
+    display: table-row;
+    font-family: Pretendard;
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 20px;
+    text-align: left;
+    display: inline;
+
+}
+
+.multipleChoice {
+    text-align: left;
+    margin-bottom: 20px;
+}
+
+.shortAnswer {
+    width: 1159px;
+    height: 61px;
+    margin: 0 27px 30px 42px;
+    align-items: center;
+    border-left-width: 0;
+    border-right-width: 0;
+    border-top-width: 0;
+    border-bottom-width: 1px;
+    border-color: #B3B3B3;
+    display: table-row;
+}
+
+.shortAnswer::placeholder {
+    text-align: left;
+    font-size: 20px;
+}
+
+.submit {
+    display: block;
+    float: right;
+    width: 90px;
+    height: 40px;
+    border-radius: 25px;
+    background-color: #8B0B02;
+    color: #ffffff;
+    font-size: 23px;
+    margin-right: 70px;
+}
