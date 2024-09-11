@@ -1,6 +1,11 @@
 .App {
   text-align: center;
-  width: 1440px;
+  /* width: 1440px; */
+
+  /* footer 바닥에 두기 위한 설정 */
+  display : flex;
+  min-height: 100vh;
+  flex-direction: column;
 }
 
 

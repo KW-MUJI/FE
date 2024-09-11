@@ -6,7 +6,7 @@
     align-items: center;
     /* 세로 중앙 정렬 */
 
-    min-width: 1440px;
+    min-width: 100vw;
     height: 172px;
     border-bottom: 1px solid #B3B3B3;
     /* 하단에만 1px 선 추가 */
