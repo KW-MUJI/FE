@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import styles from '../styles/Recruit_main.module.css';
 import { Link, useNavigate } from 'react-router-dom';
 
+
+//백에서 maxpage값 받아서하기
 const RecruitMain = () => {
 
     //검색창 상태
@@ -23,7 +25,7 @@ const RecruitMain = () => {
         id: "3",
         imageURL: '/assets/kw_logo.jpg', // public 폴더 기준 경로
         title: "해커톤 같이 나갈 개발자 구함",
-        date: "2024-10-01"
+        date: "2024-09-11"
     },
     {
         id: "4",
@@ -76,10 +78,10 @@ const RecruitMain = () => {
 
     //페이지 수 계산
     const totalPages = Math.ceil(posts.length / postsPerPage);
-
+    const today =new Date();
 
     const calculateDDay = (targetDate) => {
-        const today = new Date();  // 오늘 날짜
+        // const today = new Date();  // 오늘 날짜
         const target = new Date(targetDate);  // 목표 날짜 (YYYY-MM-DD 형식으로 입력)
 
         // 밀리초 단위로 차이를 계산
