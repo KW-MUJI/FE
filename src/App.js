@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useState} from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import logo from './assets/logo.png';
 import './App.css';
@@ -19,13 +19,24 @@ import SurveyJoin from './components/Survey_join';
 
 
 function App() {
+  const [isLoggedIn, setIsLoggedIn] = useState(false); // 로그인 상태 관리
+
+
+  //로그아웃처리
+  const handleLogout = () => {
+    setIsLoggedIn(false); // 로그아웃 시 로그인 상태를 false로 변경
+    
+  };
+
+  
+
   return (
     <Router>
       <div className="App">
-        <Banner />
+        <Banner isLoggedIn={isLoggedIn} handleLogout={handleLogout}/>
         <Routes>
           <Route path="/" element={<RecruitMain />} /> {/* 기본 경로를 Login으로 설정 */}
-          <Route path="/login" element={<Login />} />
+          <Route path="/login" element={<Login setIsLoggedIn={setIsLoggedIn}/>} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/pwFind" element={<PwFind />} />
           <Route path="/pwReset" element={<PwReset />} />
