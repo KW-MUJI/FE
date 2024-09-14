@@ -87,6 +87,7 @@
   font-size: var(--sds-typography-body-size-large);
   border: 0;
   font-weight: 900;
+  cursor: pointer;
 
   /* 20px */
 
@@ -138,6 +139,13 @@
   font-weight: 900;
   border: 1px solid #4C4C4C;
   box-sizing: border-box;
+  cursor: pointer;
+}
+
+
+.errorMessage ::placeholder{
+  margin-top:0;
+  margin-bottom:0;
 }
 
 /* 모달 스타일 */
