@@ -4,116 +4,163 @@
   flex-direction: row;
   white-space: nowrap;
   justify-content: space-between;
+
   background-color: #4C4C4C;
   font-family: Pretendard;
   font-style: normal;
   height: 140px;
   line-height: 100%;
   min-width: 100vw;
-  
-  margin-top: auto;
-  
 
-  
+  /*화면 크기 조정해도 footer무조건 아래  */
+  margin-top: auto; 
+
+
+
 }
 
+
+
+
 .footer_logo {
-  /* border: 1px solid #B3B3B3; */
-
-  /* margin:auto 79px; */
-  /* align-self: auto; */
-
-  /* font-family: Pretendard; */
-  /* margin: auto 0px auto 79px; */
   color: white;
   font-size: 18.805px;
   border-radius: 1px;
-  
+
   flex-grow: 1;
-  
+
 
 
 
 }
 
 .footer_info {
-  /* border: 1px solid #B3B3B3; */
-  color: rgba(255, 255, 255, 0.80);
+  width: 209px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  /* 두 개의 열을 동일한 너비로 설정 */
+  grid-auto-rows: min-content;
+  align-items: center;
+  /* 각 그리드 셀의 콘텐츠를 수직으로 중앙 정렬 */
+  gap: 0;
+  /* 열과 행 사이의 간격을 없앰 */
+  margin: 0;
+  margin-top: 36.79px;
+  color: rgba(255, 255, 255, 0.8);
+  font-family: Pretendard;
   font-size: 12px;
+  font-style: normal;
   font-weight: 500;
+  line-height: normal;
+  flex-grow: 1;
+}
+
+.Email {
+
+  margin: 0;
+  border-right: 1px solid #B3B3B3;
+  text-align: right;
+  padding-right: 5px;
+  /* border-right: 1px solid #B3B3B3; */
+}
+
+.Email_content {
+
+  padding-left: 5px;
+  margin: 0;
   text-align: left;
-  /* margin:36.79px 0 auto 132px; */
-  flex-grow: 1;
-  /* margin:0px; */
 }
 
-.footer_info p {
-  /* border: 1px solid #B3B3B3; */
-  color: rgba(255, 255, 255, 0.80);
-  font-size: 12px;
-  font-weight: 500;
-  text-align: center;
-  /* margin:36.79px 0 auto 132px; */
-  flex-grow: 1;
+.Project {
 
-
-  /*margin:0px; */
+  border-right: 1px solid #B3B3B3;
+  text-align: right;
+  padding-right: 5px;
+  margin: 0;
+  margin-top: 4.09px;
 }
 
-.footer_info p:nth-child(1) {
-  /*margin:0px; */
-  margin-top:37.81px;
-  margin-bottom:0px;
+.github_link {
+
+  padding-left: 5px;
+  color: rgba(255, 255, 255, 0.7);
+  text-align: left;
+  margin: 0;
+  margin-top: 4.09px;
+  /* 하얀색보다 약간 밝은 회색으로 변경 (선택사항) */
 }
 
-.footer_info p:nth-child(2) {
-  margin-top:4.09px;
-  margin-bottom:0px;
-}
 
 .footer_developer {
+  width: 56px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  /* 두 개의 열을 동일한 너비로 설정 */
+  grid-auto-rows: min-content;
+  align-items: center;
+  /* 각 그리드 셀의 콘텐츠를 수직으로 중앙 정렬 */
+  gap: 0;
+  /* 열과 행 사이의 간격을 없앰 */
+  margin: 0;
+  margin-top: 33.17px;
 
-  /* border: 1px solid #B3B3B3; */
 
-  text-align: left;
+
+  color: rgba(255, 255, 255, 0.7);
+
+  font-family: Pretendard;
   font-size: 12px;
-  color: #B3B3B3;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
 
-  flex-grow: 1;
-
-  text-align: center;
-}
-
-.footer_developer p:nth-child(1){
-  margin-top:36.79px;
-  margin-bottom:0px;
-}
-.footer_developer p:nth-child(2){
-  margin:3.07px auto;
+  flex-grow: 2;
 
 }
-.footer_developer p:nth-child(3){
-  margin:0px;
-}
-.footer_Privacy {
 
-  /* border: 1px solid #B3B3B3; */
+.division {
+  border-right: 1px solid #B3B3B3;
+  text-align: right;
+  padding-right: 5px;
+  margin: 0;
+  margin-top: 3.02px;
+
+}
+
+.name {
+  text-align: left;
+  padding-left: 5px;
+  margin: 0;
+  margin-top: 3.02px;
+}
+
+
+.footer_Privacy{
 
   text-align: right;
   font-size: 12px;
   color: #B3B3B3;
 
-  /* margin-right:81px */
+  
+  padding-right: 81px;
+  margin-top:36.79px;
+
   flex-grow: 5;
-  padding-right:81px;
 }
 
-.footer_Privacy p {
-color: rgba(255, 255, 255, 0.80);
-margin-top:36.79px;
-font-weight: 700;
-text-decoration-line: underline;
+.privacy_link {
+  border: none;
+  background-color: #ffffff00;
+  color: rgba(255, 255, 255, 0.70);
+  font-family: Pretendard;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 100%;
+  /* 12px */
+  text-decoration-line: underline;
 }
+
 
 #teamTitle {
 
@@ -123,7 +170,7 @@ text-decoration-line: underline;
   font-weight: 500;
   line-height: 100%;
   margin-bottom: 6.66px;
-  margin-top:37.74px;
+  margin-top: 37.74px;
 }
 
 #teamName {
