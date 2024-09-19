@@ -12,56 +12,74 @@ const RecruitMain = () => {
     const [posts, setPosts] = useState([{
         id: "1",
         imageURL: '/assets/kw_logo.jpg', // public 폴더 기준 경로
-        title: "해커톤 같이 나갈 개발자 구함",
-        date: "2024-10-01"
+        title: "해커톤 같이 나갈 sss개발자 구함",
+        deadline: "2024-10-01",
+        content:"안녕하세요, 저는 소프트웨어학부 19학번 김참빛입니다.\n현재 백앤드 2명 모인 상황이고, 프론트엔드 2분 모집하고 있습니다.\n 저희는 두명 다 개발 경험 및 공모전 경험이 있습니다.\n 수상을 목표로 하고 있어서, 개발 경험 있으신 분이면 좋겠습니다.\n 관심있으시면 연락 부탁드립니다.",
+        date:"2024-09-19"
     },
     {
         id: "2",
         imageURL: '/assets/kw_logo.jpg', // public 폴더 기준 경로
         title: "해커톤 같이 나갈 개발자 구함",
-        date: "2024-10-01"
+        deadline: "2024-10-01",
+        content:"2번입니다",
+        date:"2024-09-19"
     },
     {
         id: "3",
         imageURL: '/assets/kw_logo.jpg', // public 폴더 기준 경로
         title: "해커톤 같이 나갈 개발자 구함",
-        date: "2024-09-11"
+        deadline: "2024-10-01",
+        content:"3번입니다",
+        date:"2024-09-19"
     },
     {
         id: "4",
         imageURL: '/assets/kw_logo.jpg', // public 폴더 기준 경로
         title: "해커톤 같이 나갈 개발자 구함",
-        date: "2024-10-01"
+        deadline: "2024-10-01",
+        content:"4번입니다",
+        date:"2024-09-19"
     },
     {
         id: "5",
         imageURL: '/assets/kw_logo.jpg', // public 폴더 기준 경로
         title: "해커톤 같이 나갈 개발자 구함",
-        date: "2024-10-01"
+        deadline: "2024-10-01",
+        content:"5번입니다",
+        date:"2024-09-19"
     },
     {
         id: "6",
         imageURL: '/assets/kw_logo.jpg', // public 폴더 기준 경로
         title: "해커톤 같이 나갈 개발자 구함",
-        date: "2024-10-01"
+        deadline: "2024-10-01",
+        content:"6번입니다",
+        date:"2024-09-19"
     },
     {
         id: "7",
         imageURL: '/assets/kw_logo.jpg', // public 폴더 기준 경로
         title: "해커톤 같이 나갈 개발자 구함",
-        date: "2024-10-01"
+        deadline: "2024-10-01",
+        content:"7번입니다",
+        date:"2024-09-19"
     },
     {
         id: "8",
         imageURL: '/assets/kw_logo.jpg', // public 폴더 기준 경로
         title: "해커톤 같이 나갈 개발자 구함",
-        date: "2024-10-01"
+        deadline: "2024-10-01",
+        content:"8번입니다",
+        date:"2024-09-19"
     },
     {
         id: "9",
         imageURL: '/assets/kw_logo.jpg', // public 폴더 기준 경로
         title: "해커톤 같이 나갈 개발자 구함",
-        date: "2024-10-01"
+        deadline: "2024-10-01",
+        content:"번입니다",
+        date:"2024-09-19"
     }
 
     ]);
@@ -159,6 +177,9 @@ const RecruitMain = () => {
                     <p>게시글이 없습니다.</p>
                 ) : (
                     currentPosts.map((post) => (
+                        <Link to={`/recruit_post/${post.id}`} state={{post}}>
+                    
+        
                         <div key={post.id} className={styles.post_card}>
                             {/* 미리보기 이미지 */}
                             {post.imageURL && (
@@ -174,6 +195,7 @@ const RecruitMain = () => {
                             </div>
 
                         </div>
+                        </Link>
 
 
                     ))
