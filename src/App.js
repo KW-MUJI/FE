@@ -15,6 +15,7 @@ import RecruitMain from './components/Recruit_main';
 import Survey from './components/Survey';
 import SurveyWrite from './components/Survey_write';
 import SurveyJoin from './components/Survey_join';
+import MyTeam from './components/My_team';
 // import Login from './components/Login';
 
 
@@ -35,7 +36,7 @@ function App() {
       <div className="App">
         <Banner isLoggedIn={isLoggedIn} handleLogout={handleLogout}/>
         <Routes>
-          <Route path="/" element={<RecruitMain />} /> {/* 기본 경로를 Login으로 설정 */}
+          <Route path="/" element={<MyTeam />} /> {/* 기본 경로를 Login으로 설정 */}
           <Route path="/login" element={<Login setIsLoggedIn={setIsLoggedIn}/>} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/pwFind" element={<PwFind />} />
@@ -48,6 +49,7 @@ function App() {
           <Route path="/survey" element={<Survey />} />
           <Route path="/survey_write" element={<SurveyWrite />} />
           <Route path="/survey_join" element={<SurveyJoin/>}/>
+          <Route path="/my_team" element={<MyTeam/>}/>
 
         </Routes>
 

@@ -167,8 +167,6 @@ const RecruitPost = () => {
                 selectedPortfolio={selectedPortfolio}
                 handleSelectPortfolio={handleSelectPortfolio}
                 handleSubmit={handleSubmit}
-
-
             />
         </div>
 
