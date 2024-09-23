@@ -31,7 +31,7 @@ const Signup = () => {
     const navigate = useNavigate();
     const goToLogin = () => {
         navigate("/login");
-      }
+    }
 
     //개인정보처리방침
     const navigateToPrivacy = () => {
@@ -53,6 +53,16 @@ const Signup = () => {
             }
         } else {
             setFormData({ ...formData, [name]: value });
+        }
+        if (name == 'password') {
+            let regPass = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{5,11}$/;
+            const textElement = document.getElementById(styles.pw_condition);
+            if (!regPass.test(value)) {
+                textElement.style.color = "#ff0000";
+                return;
+            }else{
+                textElement.style.color = "#008000";
+            }
         }
     };
 
@@ -114,8 +124,10 @@ const Signup = () => {
         }
         console.log(password);
         console.log(password_confirm);
+        const textElement = document.getElementById(styles.pw_confirm);
         if (password !== password_confirm) {
-            alert("입력한 비밀번호가 같지 않습니다.");
+            textElement.textContent = "비밀번호가 일치하지않습니다.";
+            textElement.style.color = "#ff0000";
             return;
         }
         sessionStorage.setItem("user", JSON.stringify(formData));
@@ -202,7 +214,7 @@ const Signup = () => {
                     </div>
                 </div>
                 <div className={styles.pw_container}>
-                    <p>비밀번호</p>
+                    <p className={styles.password}>비밀번호</p>
                     <div>
                         <input
                             type="password"
@@ -212,7 +224,7 @@ const Signup = () => {
                         />
                     </div>
                     <p id={styles.pw_condition}>숫자 최소 1개, 대소문자 최소 1개, 특수문자 최소 1개 (총 5자 - 11자)</p>
-                    <p>비밀번호 확인</p>
+                    <p className={styles.password_confirm}>비밀번호 확인</p>
                     <div>
                         <input
                             type="password"

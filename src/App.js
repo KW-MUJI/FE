@@ -1,4 +1,4 @@
-import React,{useState} from 'react';
+import React, { useState } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import logo from './assets/logo.png';
 import './App.css';
@@ -16,6 +16,9 @@ import Survey from './components/Survey';
 import SurveyWrite from './components/Survey_write';
 import SurveyJoin from './components/Survey_join';
 import MyTeam from './components/My_team';
+
+import SurveyComplete from './components/Survey_complete';
+
 // import Login from './components/Login';
 
 
@@ -26,18 +29,20 @@ function App() {
   //로그아웃처리
   const handleLogout = () => {
     setIsLoggedIn(false); // 로그아웃 시 로그인 상태를 false로 변경
-    
+
   };
 
-  
+
 
   return (
     <Router>
       <div className="App">
-        <Banner isLoggedIn={isLoggedIn} handleLogout={handleLogout}/>
+        <Banner isLoggedIn={isLoggedIn} handleLogout={handleLogout} />
         <Routes>
+
           <Route path="/" element={<MyTeam />} /> {/* 기본 경로를 Login으로 설정 */}
           <Route path="/login" element={<Login setIsLoggedIn={setIsLoggedIn}/>} />
+
           <Route path="/signup" element={<Signup />} />
           <Route path="/pwFind" element={<PwFind />} />
           <Route path="/pwReset" element={<PwReset />} />
@@ -48,8 +53,10 @@ function App() {
 
           <Route path="/survey" element={<Survey />} />
           <Route path="/survey_write" element={<SurveyWrite />} />
+
           <Route path="/survey_join" element={<SurveyJoin/>}/>
           <Route path="/my_team" element={<MyTeam/>}/>
+          <Route path="/survey_complete" element={<SurveyComplete />} />
 
         </Routes>
 

@@ -1,7 +1,8 @@
 .survey_container {
     width: 1300px;
-    min-height: 1300px;
-    margin: 58px 105px 137px 105px;
+    min-height: 700px;
+    margin: 58px auto 137px auto;
+    padding-left: 70px;
 }
 
 .top_container {
@@ -212,5 +213,12 @@
     color: #ffffff;
     font-size: 23px;
     margin-right: 70px;
+}
+.date_group{
+    display: block;
+    float: left;
+    color: #ffffff;
+    font-size: 23px;
+    margin-bottom: 50px;
 }
 input:focus {outline: none;}

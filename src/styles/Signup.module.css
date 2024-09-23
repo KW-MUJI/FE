@@ -6,7 +6,8 @@
     width: 538px;
     height: 865px;
     /* height: auto; 높이를 자동으로 조정 */
-    padding-bottom: 20px; /* 하단에 약간의 여백 추가 */
+    padding-bottom: 20px;
+    /* 하단에 약간의 여백 추가 */
     margin-top: 101px;
     margin-bottom: 101px;
     font-family: Pretendard;
@@ -30,25 +31,36 @@
 .name_container input {
     border-radius: 32.86px;
     border: 0.82px solid #B3B3B3;
-    text-align: center;
-    
+    text-align: left;
     height: 44px;
+    font-family: Pretendard;
+    box-sizing: border-box;
+    padding: 19px;
+}
+.name_container input::placeholder {
+    color: #B3B3B3;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 100%;
+    text-align: left;
 }
 
 .name_container p {
-    margin:0 0 9px 64px;
+    margin: 0 0 9px 64px;
     font-size: 16px;
     font-weight: 400;
     text-align: left;
 }
+
 .name_container span {
     text-align: left;
     margin-bottom: 9px;
 }
+
 #name {
     width: 430px;
     margin-bottom: 31px;
-    padding: 0;
 }
 
 #s_num {
@@ -82,18 +94,23 @@
     height: 44px;
     border-radius: 32.86px;
     border: 0.82px solid #B3B3B3;
-    text-align: center;
+    text-align: left;
     box-sizing: border-box;
     margin-bottom: 11px;
+    padding: 19px;
 }
 
-input::placeholder {
+.id_container div {
+    height: 55px;
+}
+
+.id_container input::placeholder {
     color: #B3B3B3;
     font-size: 16px;
     font-style: normal;
     font-weight: 400;
     line-height: 100%;
-    text-align: center;
+    text-align: left;
 }
 
 .id_container button {
@@ -109,7 +126,7 @@ input::placeholder {
     font-style: normal;
     font-weight: 700;
     line-height: 100%;
-    margin-left: 12px;
+    margin: 0 0 0 12px;
 }
 
 .id_container button:hover {
@@ -146,10 +163,18 @@ input::placeholder {
     height: 44.32px;
     border-radius: 32.86px;
     border: 0.82px solid #B3B3B3;
-    text-align: center;
+    text-align: left;
     padding: 19px;
     box-sizing: border-box;
     margin-bottom: 11px;
+}
+.pw_container input::placeholder {
+    color: #B3B3B3;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 100%;
+    text-align: left;
 }
 
 .pw_container p {
@@ -162,17 +187,27 @@ input::placeholder {
     line-height: 100%;
     text-align: left;
 }
+
 #pw_condition {
     font-family: Pretendard;
-    margin: 0 0 11px 75px;
-    color:#b3b3b3;
+    margin: 0 0 0px 75px;
+    color: #b3b3b3;
     font-size: 12px;
     font-style: normal;
     font-weight: 400;
     line-height: 100%;
     text-align: left;
 }
-#pw_confirm{
+
+.password_confirm {
+    margin-top: 18px;
+}
+
+.password {
+    margin-top: 31px;
+}
+
+#pw_confirm {
     margin: 0px;
     font-family: Pretendard;
     font-size: 12px;
@@ -183,6 +218,7 @@ input::placeholder {
     margin-bottom: 36px;
     text-align: left;
 }
+
 .checkbox_group {
     font-family: Pretendard;
     font-size: 16px;
@@ -198,9 +234,9 @@ input::placeholder {
     width: 16px;
     height: 16px;
     margin-right: 10px;
-    vertical-align:top;
+    vertical-align: top;
     position: relative;
-    top: -2px; 
+    top: -2px;
     margin-bottom: 10px;
 }
 
@@ -217,6 +253,7 @@ input::placeholder {
     font-style: normal;
     font-weight: 900;
     line-height: 100%;
+    margin-top: 0;
 }
 
 .sign:disabled {

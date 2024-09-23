@@ -1,0 +1,67 @@
+.survey_container {
+    width: 1228px;
+    margin: 58px auto 137px auto;
+}
+
+.survey_container h1 {
+    text-align: left;
+}
+
+.survey_container h2 {
+    text-align: left;
+    font-family: Pretendard;
+    font-size: 32px;
+    font-weight: 700;
+    line-height: 32px;
+    padding-left: 30px;
+}
+
+.survey_container h3 {
+    text-align: left;
+    font-family: Pretendard;
+    font-size: 20px;
+    font-weight: 500;
+    line-height: 20px;
+    padding-left: 30px;
+}
+
+.post p {
+    font-family: Pretendard;
+    font-size: 15px;
+    font-weight: 400;
+    line-height: 15px;
+    text-align: left;
+    color: #b3b3b3;
+    padding-left: 30px;
+}
+
+.post {
+    width: 1228px;
+    height: 192px;
+    border: 1px solid #B3B3B3;
+    border-radius: 5px;
+    margin-bottom: 32px;
+}
+
+.complete {
+    width: 1228px;
+    height: 478px;
+    border: 1px solid #B3B3B3;
+    border-radius: 5px;
+    margin-bottom: 32px;
+    position: relative;
+
+}
+
+.complete p {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin: -15px 0 0 -210px;
+    font-family: Pretendard;
+    font-size: 32px;
+    font-weight: 700;
+    line-height: 32px;
+    text-align: center;
+
+}

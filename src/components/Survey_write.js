@@ -8,7 +8,7 @@ const SurveyWrite = () => {
     const [currentQuestion, setCurrentQuestion] = useState('');
     const [currentType, setCurrentType] = useState('multipleChoice');
     const [options, setOptions] = useState(['', '']); // 기본 2개의 옵션
-
+    const [selectDate, setSelectDate] = useState(null); //날짜
     const handleAddQuestion = () => {
         setQuestions([...questions, { text: currentQuestion, type: currentType, options }]);
         setCurrentQuestion('');
@@ -68,6 +68,21 @@ const SurveyWrite = () => {
         console.log('설문 제목:', surveyTitle);
         console.log('설문 설명:', surveyDescription);
         console.log('질문 목록:', questions);
+    };
+
+    const handleDateChange = (e) => {
+        const selectedDate = new Date(e.target.value);
+        console.log("선택된 마감일:", selectedDate);
+        const today = new Date();
+        today.setHours(0, 0, 0, 0); // 오늘의 시간 부분을 초기화
+
+        if (selectedDate < today) {
+            alert(`마감일은 오늘 이후로 설정해야 합니다.`);
+            setSelectDate(null); // 잘못된 날짜일 경우 상태 초기화
+            return;
+        }
+
+        setSelectDate(selectedDate); // 상태 값 업데이트
     };
 
     return (
@@ -139,10 +154,8 @@ const SurveyWrite = () => {
                                             <div>
                                                 <input
                                                     className={styles.shortAnswer}
-                                                    type="text"
-                                                    value={surveyDescription}
-                                                    onChange={(e) => setSurveyDescription(e.target.value)}
                                                     placeholder="답변을 입력해주세요"
+                                                    disabled
                                                 />
                                             </div>
                                         )}
@@ -160,7 +173,26 @@ const SurveyWrite = () => {
                         ))}
                     </div>
                 </div>
+                <div className={styles.date_group}>
 
+                    <label htmlFor="date-select" className={styles.date_button}>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" fill="none" className={styles.date_icon}>
+                            <path d="M20 2.5V7.5M10 2.5V7.5M3.75 12.5H26.25M6.25 5H23.75C25.1307 5 26.25 6.11929 26.25 7.5V25C26.25 26.3807 25.1307 27.5 23.75 27.5H6.25C4.86929 27.5 3.75 26.3807 3.75 25V7.5C3.75 6.11929 4.86929 5 6.25 5Z"
+                                stroke="#1E1E1E"
+                                strokeWidth="2.4375"  // 수정된 부분
+                                strokeLinecap="round"  // 수정된 부분
+                                strokeLinejoin="round"  // 수정된 부분
+                            />
+                        </svg>
+                        마감일 설정
+                    </label>
+                    <input
+                        type="date"
+                        id="date-select"
+                        // style={{ opacity: 0, position: 'absolute'}} // 입력 필드를 숨김
+                        onChange={handleDateChange}
+                    />
+                </div>
                 <button className={styles.submit} type="submit" onClick={handleSubmit}>발행</button>
             </div>
         </div>

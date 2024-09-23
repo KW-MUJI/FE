@@ -1,32 +1,38 @@
-.survey_container{
+.survey_container {
     width: 1230px;
     height: auto;
-    margin: 58px 105px 137px 105px;
+    margin: 58px auto 137px auto;
 }
-.top_container{
+
+.top_container {
     width: 1230px;
     height: 71px;
 }
-.top_container p{
+
+.top_container p {
     display: inline;
     float: left;
     margin: 0;
     font-size: 32px;
     font-weight: 800;
 }
-.top_container a{
+
+.top_container a {
     text-decoration-line: none;
     color: #000000;
     font-size: 26.6px;
     font-weight: 400;
 }
-.write{
+
+.write {
     float: right;
     margin: 18px 0 0 0;
 }
-.search_container{
+
+.search_container {
     position: relative;
 }
+
 .search {
     font-family: Pretendard;
     width: 1229px;
@@ -37,26 +43,101 @@
     box-sizing: border-box;
     margin-bottom: 36px;
 }
-.search_icon{
+
+.search_icon {
     position: absolute;
     top: 14.75px;
     right: 20px;
     cursor: pointer;
 }
-.post_container{
+
+.post_container {
     width: 1230px;
     height: auto;
     display: flex;
     flex-wrap: wrap;
     cursor: pointer;
 }
-.question{
+
+.question {
     width: 595px;
     height: 212px;
     border: 0.79px solid #B3B3B3;
     border-radius: 5px;
     margin: 0 10px 20px 10px;
+    text-align: left;
+    padding: 18px;
 }
-.question p{
+
+.question p {
+    font-size: 19px;
+}
+
+.question h1 {
     overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    word-break: break-all;
+    font-family: Pretendard;
+    font-family: Pretendard;
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 20px;
+    text-align: left;
+}
+
+.question h2 {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    word-break: break-all;
+    font-family: Pretendard;
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 18px;
+    text-align: left;
+
+}
+
+.question h3 {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    word-break: break-all;
+    font-family: Pretendard;
+    font-size: 15px;
+    font-weight: 400;
+    line-height: 15px;
+    text-align: left;
+    color: #b3b3b3;
+}
+
+.deadline {
+    color: gray;
+    /* 회색 */
+}
+
+.line {
+    color: #8B0B02;
+}
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    align-items: center;
+}
+
+.pageNumber {
+    margin: 0px 10px;
+    /* 좌우 공백 */
+    cursor: pointer;
+    /* 커서 포인터 */
+    color:#b3b3b3;
+}
+
+.pageNumber.active {
+    font-weight: bold;
+    color:#000000;
+    /* 활성 페이지 강조 */
 }
