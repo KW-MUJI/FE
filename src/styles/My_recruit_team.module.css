@@ -1,0 +1,193 @@
+* {
+    font-family: Pretendard;
+    font-style: normal;
+    line-height: 100%;
+
+}
+
+.My_recruit_team {
+
+    width: 1228px;
+    height: auto;
+
+    margin-left: auto;
+    margin-right: auto;
+
+    margin-top: 58px;
+
+}
+
+.page_header {
+    /* border: 1px solid #ff0000; */
+    font-size: 32px;
+    font-weight: 800;
+
+    display: flex;
+
+    gap: 12px;
+    margin-bottom: 41px;
+
+}
+
+
+
+.team_header {
+
+    width: 1228px;
+    height: 90px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-left: 9px;
+    box-sizing: border-box;
+
+    border-top: 1px solid var(--Border-Disabled-default, #B3B3B3);
+
+    border-bottom: 1px solid var(--Border-Disabled-default, #B3B3B3);
+
+}
+
+.team_header h {
+    color: #4C4C4C;
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.list_option {
+    display: flex;
+    gap: 24px;
+}
+
+.team_header button:not(:last-child) {
+    width: 122px;
+    height: 40px;
+
+    border-radius: 30px;
+
+    text-align: center;
+    font-size: 23.012px;
+    font-weight: 600;
+}
+
+#edit {
+    background: #FFF;
+    color: #8B0B02;
+    border: 1px solid #8B0B02;
+}
+
+#start {
+    background: #8B0B02;
+    color: #FFF;
+    border: none;
+}
+
+#cancel {
+    border: none;
+    background: none;
+    padding: 0;
+}
+
+
+.team_main {
+
+    padding-top: 37px;
+    padding-left: 66px;
+    padding-right: 66px;
+    padding-bottom: 60px;
+
+
+}
+
+.applicant_number {
+    font-size: 24px;
+    font-weight: 500;
+    text-align: left;
+    margin-bottom: 40px;
+
+}
+
+
+
+.applicant {
+
+    display: grid;
+    grid-template-columns: repeat(3, 0fr);
+    gap: 68px;
+
+}
+
+.applicant_item {
+    width: 320px;
+    height: 176px;
+    border-radius: 15px;
+    background: #EEF2F6;
+    padding-top: 22px;
+    padding-left: 28px;
+    padding-bottom: 18px;
+}
+
+.applicant_profile {
+    display: flex;
+    gap: 22px;
+
+    margin-bottom: 38px;
+
+
+}
+
+.applicant_info {
+    text-align: left;
+
+
+}
+
+.applicant_name {
+    font-size: 24px;
+    font-weight: 800;
+    margin-bottom: 15px;
+}
+
+.applicant_department_Num {
+    display: flex;
+    gap: 8.09px;
+    align-items: center;
+
+}
+
+
+.applicant_option {
+    display: flex;
+    gap: 24px;
+}
+
+.applicant_option button {
+    width: 120px;
+    height: 40px;
+    border-radius: 15px;
+    border: none;
+    font-size: 18px;
+    font-weight: 400;
+
+
+}
+
+#portfolio {
+    border-radius: 15px;
+    background: #FFF;
+}
+
+#select {
+    background: #8B0B02;
+    color: #FFF;
+}
+#select:disabled{
+    background: #8B0B02;
+    color: #FFF;
+    background-color: #d3d3d3;
+    /* 비활성화 상태의 배경색 */
+    color: #888888;
+    /* 비활성화 상태의 글자 색 */
+    cursor: not-allowed;
+    /* 비활성화 상태에서 커서 모양 */
+}
