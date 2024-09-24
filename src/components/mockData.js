@@ -32,6 +32,16 @@ export const users = [
         role: 'USER',
         image: 'default'
     },
+    {
+        id: 4,
+        email: 'moozii@kw.ac.kr',
+        password: '1234',
+        name: '광무지',
+        major: '경영학과',
+        stuNum: 20,
+        role: 'USER',
+        image: 'default'
+    },
 ];
 
 // univcalendar 테이블
@@ -141,6 +151,7 @@ export const teams = [
             { id: 1, name: '노광운', stuNum: '21학번', department: '소프트웨어학부', email: 'nokw@kw.ac.kr' },
             { id: 2, name: '김노원', stuNum: '19학번', department: '정보융합학부', email: 'none_kim@kw.ac.kr' },
             { id: 3, name: '광무지', stuNum: '20학번', department: '경영학과', email: 'moozii@kw.ac.kr' },
+            { id: 4, name: '광무지', stuNum: '20학번', department: '경영학과', email: 'moozii@kw.ac.kr' },
         ]
     },
     {

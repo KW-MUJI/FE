@@ -75,6 +75,7 @@ const MyTeam = () => {
                     <div key={index} className={styles.oneteam}>
                         <div className={styles.teamName}>
                             {team.teamName} {/* 팀 이름을 출력 */}
+                            <button className={styles.schedule_add}>일정추가</button>
                         </div>
                         <div className={styles.team_member_list}>
                             <p>팀원</p>
