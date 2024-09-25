@@ -103,23 +103,23 @@
 
 }
 
-.option_menu{
+.option_menu {
     display: flex;
-    justify-content: space-between ;
+    justify-content: space-between;
     /* flex-direction: row; */
     align-items: center;
 
     box-sizing: border-box;
 
-    width:1173px;
-    height:80px;
+    width: 1173px;
+    height: 80px;
 }
 
 /* 사진업로드 전체 */
 .image_upload {
     /* display: inline-flex; */
     /* align-items: center; */
-    flex-grow:1;
+    flex-grow: 1;
     text-align: left;
 
 
@@ -160,9 +160,29 @@
 
 /* 마감일설정 전체 */
 .date_group {
-    flex-grow:5;
+    flex-grow: 5;
     text-align: left;
-    
+
+    display: flex;
+    gap: 10px;
+    align-items: center;
+
+
+}
+
+.date_group input {
+    width: 100px;
+    height: 28px;
+    border-radius: 6.427px;
+    border: 0.643px solid var(--Border-Disabled-default, #B3B3B3);
+
+    background: #FFF;
+
+    color: #B3B3B3;
+    font-size: 14.139px;
+    font-weight: 500;
+
+
 
 }
 
@@ -178,28 +198,31 @@
     width: 143px;
     height: 38px;
 
-    pointer-events: auto; /* 클릭 허용 */
-    z-index: 1; /* 다른 요소보다 위에 오도록 */
+    pointer-events: auto;
+    /* 클릭 허용 */
+    z-index: 1;
+    /* 다른 요소보다 위에 오도록 */
 
 }
 
 /* 마감일 아이콘 */
 .date_icon {
     margin-right: 10px;
-    pointer-events: none; /* 아이콘이 클릭을 막지 않도록 설정 */
+    pointer-events: none;
+    /* 아이콘이 클릭을 막지 않도록 설정 */
 
 
 }
 
-.publication_btn{
+.publication_btn {
     flex-grow: 0;
-    width:90.771px;
-    height:40.911px;
+    width: 90.771px;
+    height: 40.911px;
     flex-shrink: 0;
     border-radius: 25.569px;
     background: #8B0B02;
-    
-    
+
+
 
 
     color: #FFF;
@@ -208,19 +231,20 @@
     line-height: 100%;
 }
 
-.image_preview_container{
+.image_preview_container {
     display: flex;
 }
 
-.image_preview{
-margin-right: 10px; /* 이미지와 삭제 버튼 사이 간격 */
+.image_preview {
+    margin-right: 10px;
+    /* 이미지와 삭제 버튼 사이 간격 */
 }
 
-.image_delete{
+.image_delete {
     background: #8B0B02;
     flex-grow: 0;
-    width:130px;
-    height:40.911px;
+    width: 130px;
+    height: 40.911px;
     flex-shrink: 0;
     border-radius: 25.569px;
     color: #FFF;
@@ -229,4 +253,3 @@ margin-right: 10px; /* 이미지와 삭제 버튼 사이 간격 */
     line-height: 100%;
 
 }
-

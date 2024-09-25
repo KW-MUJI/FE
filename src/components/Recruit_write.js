@@ -151,12 +151,6 @@ const RecruitWrite = () => {
                     {/* 마감일 설정 */}
                     <div className={styles.date_group}>
 
-                        <input
-                            type="date"
-                            id="date-select"
-                            // style={{ opacity: 0, position: 'absolute'}} // 입력 필드를 숨김
-                            onChange={handleDateChange}
-                        />
 
 
 
@@ -173,6 +167,14 @@ const RecruitWrite = () => {
                             마감일 설정
 
                         </label>
+
+                        <input
+                            type="date"
+                            id="date-select"
+                            // style={{ opacity: 0, position: 'absolute'}} // 입력 필드를 숨김
+
+                            onChange={handleDateChange}
+                        />
 
 
                     </div>
