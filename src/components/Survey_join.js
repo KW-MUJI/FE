@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import styles from '../styles/Survey_join.module.css';
 import { useNavigate } from 'react-router-dom';
 import moment from 'moment';
+
 // 회원가입 컴포넌트
 const SurveyJoin = () => {
     const title = '패션 앱 관련 설문조사';
@@ -16,14 +17,17 @@ const SurveyJoin = () => {
     ]);
     const [answers, setAnswers] = useState({});
     const navigate = useNavigate();
+
     const goToComplete = () => {
         navigate("/survey_complete");
-    }
+    };
+
     const formatPeriod = (startDate, endDate) => {
         const start = moment(startDate).format('YYYY.MM.DD');
         const end = moment(endDate).format('YYYY.MM.DD');
         return `${start} ~ ${end}`;
     };
+
     const handleOptionChange = (questionIndex, option) => {
         setAnswers({
             ...answers,
@@ -42,6 +46,10 @@ const SurveyJoin = () => {
         e.preventDefault();
         console.log(answers); // 제출된 답변 확인
         goToComplete();
+    };
+
+    const isSubmitDisabled = () => {
+        return questions.some((_, index) => !answers[index]);
     };
 
     return (
@@ -85,7 +93,14 @@ const SurveyJoin = () => {
                     )}
                 </div>
             ))}
-            <button className={styles.submit} type="submit" onClick={handleSubmit}>제출</button>
+            <button 
+                className={styles.submit} 
+                type="submit" 
+                onClick={handleSubmit} 
+                disabled={isSubmitDisabled()} // 모든 답변이 입력되지 않으면 버튼 비활성화
+            >
+                제출
+            </button>
         </div>
     );
 };

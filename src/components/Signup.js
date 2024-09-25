@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import styles from '../styles/Signup.module.css';
 import { useNavigate } from 'react-router-dom';
-
 import Modal from './Law';
 
 // 회원가입 컴포넌트
@@ -20,11 +19,13 @@ const Signup = () => {
     const [isFormComplete, setIsFormComplete] = useState(false);
     const [isChecked1, setIsChecked1] = useState(false);
     const [isChecked2, setIsChecked2] = useState(false);
+    const [isPinVerified, setIsPinVerified] = useState(false);
+    const [timer, setTimer] = useState(60);
+    const [isTimerActive, setIsTimerActive] = useState(false);
 
     const inputRef = useRef(null);
     const fixedDomain = '@kw.ac.kr';
     const pintest = '123456';
-
 
     const handleCheckboxChange1 = () => setIsChecked1(!isChecked1);
     const handleCheckboxChange2 = () => setIsChecked2(!isChecked2);
@@ -33,7 +34,7 @@ const Signup = () => {
         navigate("/login");
     }
 
-    //개인정보처리방침
+    // 개인정보처리방침
     const navigateToPrivacy = () => {
         window.open("/privacy_law", "_blank");
     };
@@ -54,13 +55,14 @@ const Signup = () => {
         } else {
             setFormData({ ...formData, [name]: value });
         }
-        if (name == 'password') {
+
+        if (name === 'password') {
             let regPass = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{5,11}$/;
             const textElement = document.getElementById(styles.pw_condition);
             if (!regPass.test(value)) {
                 textElement.style.color = "#ff0000";
                 return;
-            }else{
+            } else {
                 textElement.style.color = "#008000";
             }
         }
@@ -71,6 +73,22 @@ const Signup = () => {
         setIsFormComplete(allFieldsFilled && isChecked1 && isChecked2);
     }, [formData, isChecked1, isChecked2]);
 
+    useEffect(() => {
+        let timerId;
+        const textElement = document.getElementById(styles.text);
+        if (isTimerActive && timer > 0) {
+            timerId = setInterval(() => {
+                setTimer(prev => prev - 1);
+                textElement.style.color = "#000000";
+                textElement.textContent = `00:${timer}`;
+            }, 1000);
+        } else if (timer === 0) {
+            clearInterval(timerId);
+            setIsTimerActive(false);
+            setTimer(60);
+        }
+        return () => clearInterval(timerId);
+    }, [isTimerActive, timer]);
 
     const openModal = (type) => {
         setModalType(type);
@@ -82,18 +100,19 @@ const Signup = () => {
     const requestAuth = (e) => {
         e.preventDefault();
         const { name, s_num, major, id } = formData;
-        if (!id) {
-            alert("아이디를 입력해주세요");
+        if (!id || !name || !s_num || !major) {
+            alert("정보를 모두 입력해주세요");
             return;
         }
         console.log(name);
         console.log(s_num);
         console.log(major);
         console.log(id);
-        // 인증 요청 로직 추가 가능
+        setIsPinVerified(false); // 초기화
+        setIsTimerActive(true);
+        setTimer(60);
         alert("인증 요청이 전송되었습니다.");
     };
-
 
     const verifyPin = (e) => {
         e.preventDefault();
@@ -105,13 +124,16 @@ const Signup = () => {
         if (pin === pintest) {
             textElement.textContent = "인증번호가 일치합니다.";
             textElement.style.color = "#008000";
+            setIsPinVerified(true); // 인증 성공
+            setIsTimerActive(false); // 타이머 정지
         } else {
             textElement.textContent = "인증번호가 틀렸습니다.";
             textElement.style.color = "#ff0000";
+            setIsPinVerified(false); // 인증 실패
+            setIsTimerActive(false); // 타이머 정지
+            setTimer(60); // 타이머 리셋
         }
     };
-
-
 
     const pw_confirm = (e) => {
         e.preventDefault();
@@ -130,26 +152,11 @@ const Signup = () => {
             textElement.style.color = "#ff0000";
             return;
         }
+
         sessionStorage.setItem("user", JSON.stringify(formData));
         alert("회원가입 성공하였습니다!");
         goToLogin();
     };
-
-
-    const [message, setMessage] = useState("");
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     return (
         <div>
@@ -182,7 +189,7 @@ const Signup = () => {
                     </div>
                 </div>
                 <div className={styles.id_container}>
-                    <p className={styles.email_label} >이메일</p>
+                    <p className={styles.email_label}>이메일</p>
                     <div>
                         <input
                             type="text"
@@ -192,7 +199,6 @@ const Signup = () => {
                             onChange={onChangeForm}
                             ref={inputRef}
                             onClick={(e) => {
-                                // //     // 고정된 도메인 앞에 커서가 위치하도록 조정
                                 if (inputRef.current) {
                                     const cursorPosition = formData.id.length;
                                     inputRef.current.setSelectionRange(cursorPosition, cursorPosition);
@@ -209,7 +215,7 @@ const Signup = () => {
                             placeholder="인증번호 6자리를 입력해 주세요"
                             onChange={onChangeForm}
                         />
-                        <button onClick={verifyPin}>확인</button>
+                        <button onClick={verifyPin} disabled={!isTimerActive}>확인</button>
                         <p id={styles.text}>　</p>
                     </div>
                 </div>
@@ -254,9 +260,15 @@ const Signup = () => {
                     </div>
                     <Modal isOpen={isModalOpen} onClose={closeModal} type={modalType} />
                 </div>
-                <button onClick={pw_confirm} className={styles.sign} type="submit" disabled={!isFormComplete}>회원가입</button>
+                <button
+                    onClick={pw_confirm}
+                    className={styles.sign}
+                    type="submit"
+                    disabled={!isFormComplete || !isPinVerified} // 모든 조건을 만족해야 활성화
+                >
+                    회원가입
+                </button>
             </form>
-
         </div>
     );
 };
