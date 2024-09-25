@@ -33,7 +33,7 @@
 }
 .buttons{
     float: right;
-    margin-right: 10px;
+    margin-right: 20px;
 }
 .buttons button {
     font-family: Pretendard;
@@ -49,5 +49,14 @@
     border: none;
     margin: 25px 0 25px 31px;
     float: right;
+    cursor: pointer;
 }
 
+.buttons button:disabled {
+    background-color: #b3b3b3; /* 비활성화된 버튼 색상 */
+    color: #ffffff; /* 비활성화된 버튼 텍스트 색상 */
+    cursor: not-allowed; /* 커서 스타일 변경 */
+}
+.icon{
+    cursor: pointer;
+}

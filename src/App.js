@@ -19,6 +19,8 @@ import MyTeam from './components/My_team';
 import MyRecruitTeam from './components/My_recruit_team';
 
 import SurveyComplete from './components/Survey_complete';
+import MySurvey from './components/My_survey';
+import SurveyResult from './components/survet_result';
 
 // import Login from './components/Login';
 
@@ -54,6 +56,9 @@ function App() {
 
           <Route path="/survey" element={<Survey />} />
           <Route path="/survey_write" element={<SurveyWrite />} />
+          <Route path="/My_survey" element={<MySurvey />} />
+          <Route path="/survey_result" element={<SurveyResult />} />
+
 
           <Route path="/survey_join" element={<SurveyJoin/>}/>
           <Route path="/my_team" element={<MyTeam/>}/>
