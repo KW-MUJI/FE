@@ -17,7 +17,7 @@ import SurveyWrite from './components/Survey_write';
 import SurveyJoin from './components/Survey_join';
 import MyTeam from './components/My_team';
 import MyRecruitTeam from './components/My_recruit_team';
-
+import MyTeamApplicant from './components/My_team_applicant';
 import SurveyComplete from './components/Survey_complete';
 import MySurvey from './components/My_survey';
 import SurveyResult from './components/survet_result';
@@ -44,12 +44,13 @@ function App() {
         <Routes>
 
           <Route path="/" element={<MyTeam />} /> {/* 기본 경로를 Login으로 설정 */}
+         
           <Route path="/login" element={<Login setIsLoggedIn={setIsLoggedIn}/>} />
-
           <Route path="/signup" element={<Signup />} />
           <Route path="/pwFind" element={<PwFind />} />
           <Route path="/pwReset" element={<PwReset />} />
           <Route path="/privacy_law" element={<Privacy_law />} />
+          
           <Route path="/recruit_write" element={<RecruitWrite />} />
           <Route path="/recruit_main" element={<RecruitMain />} />
           <Route path="/recruit_post/:id" element={<RecruitPost />} />
@@ -58,12 +59,14 @@ function App() {
           <Route path="/survey_write" element={<SurveyWrite />} />
           <Route path="/My_survey" element={<MySurvey />} />
           <Route path="/survey_result" element={<SurveyResult />} />
-
-
           <Route path="/survey_join" element={<SurveyJoin/>}/>
+          <Route path="/survey_complete" element={<SurveyComplete />} />
+          
           <Route path="/my_team" element={<MyTeam/>}/>
           <Route path="/my_recruit_team" element={<MyRecruitTeam/>}/>
-          <Route path="/survey_complete" element={<SurveyComplete />} />
+          <Route path="/my_team_applicant/:id" element={<MyTeamApplicant/>}/>
+
+          
 
         </Routes>
 
