@@ -1,18 +1,22 @@
 import React, { useState } from 'react';
 import styles from '../styles/My_recruit_team.module.css'; // CSS 파일 임포트
 import { recruit_teams } from './mockData';  // mock 데이터 임포트
+import { Link } from 'react-router-dom';
+
 
 
 // 이름 마스킹 함수
 const maskName = (name) => {
     if (name.length <= 1) {
-      return name;  // 이름이 한 글자라면 그대로 반환
+        return name;  // 이름이 한 글자라면 그대로 반환
     }
     return name[0] + '*'.repeat(name.length - 1);  // 첫 글자 이후는 *로 처리
-  };
-  
+};
 
-const Applicant = ({ members, handleselect}) => {
+
+const Applicant = ({ members, handleselect }) => {
+    
+
     return (
         <div className={styles.applicant}>
             {members.map((member) => (
@@ -40,29 +44,34 @@ const Applicant = ({ members, handleselect}) => {
 
                     </div>
                     <div className={styles.applicant_option}>
-                        <button id={styles.portfolio}>포트폴리오</button>
-                        <button id={styles.select}
-                         onClick={()=>handleselect(member.id)
-                         }
-                        >팀원선택</button>
-                    </div>
+
+                        <button id={styles.portfolio}
+                            onClick={() => window.open(`/my_team_applicant/${member.id}`, '_blank')} > 포트폴리오</button>
+
+                    <button id={styles.select}
+                        onClick={() => handleselect(member.id)
+                        }
+                    >팀원선택</button>
                 </div>
-            ))}
-            
-        </div>
+                </div>
+    ))
+}
+
+        </div >
     )
 }
 
 const MyRecruitTeam = () => {
 
     const [teamList, setTeamList] = useState(recruit_teams);
-    const[selectApplicant, setSelectApplicant]= useState([]);
+    const [selectApplicant, setSelectApplicant] = useState([]);
 
-  const handleselect=(memberID)=>{
-    setSelectApplicant(memberID);// 선택된 멤버
-    console.log(`${memberID} 선택됨`);
+    const handleselect = (memberID) => {
+        setSelectApplicant(memberID);// 선택된 멤버
+        console.log(`${memberID} 선택됨`);
 
-  };
+    };
+
 
     return (<div className={styles.My_recruit_team}>
         <div className={styles.page_header}>
@@ -89,8 +98,9 @@ const MyRecruitTeam = () => {
                         지원자 {team.members.length}
                     </div>
                     <div className={styles.applicant_list}>
-                        <Applicant members={team.members} handleselect={handleselect}/>
+                        <Applicant members={team.members} handleselect={handleselect} />
                     </div>
+                    
 
                 </div>
             </div>
