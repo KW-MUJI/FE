@@ -1,0 +1,279 @@
+* {
+    font-family: Pretendard;
+    font-style: normal;
+    line-height: 100%;
+}
+
+.Schedule_container {
+    /* border: 1px solid hsl(0, 100%, 51%); */
+    margin-top: 58px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 52.48px;
+
+    width: 1228px;
+    height: auto;
+
+    display: flex;
+    flex-direction: column;
+
+}
+
+.Schedule_container h {
+    font-weight: 800;
+    font-size: 32px;
+    text-align: left;
+}
+
+.schedule {
+    margin-top: 37px;
+    display: flex;
+    flex-direction: column;
+    gap: 23px;
+}
+
+.to_day {
+    width: 348px;
+    height: 90px;
+    border-radius: 10px;
+    border: 1px solid var(--Border-Disabled-default, #B3B3B3);
+
+    background: #FFF;
+
+    padding-top: 17px;
+    padding-left: 32px;
+    padding-bottom: 18px;
+
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+
+    gap: 6px;
+
+}
+
+/* TODAY */
+.to_day h {
+    color: #B3B3B3;
+    font-size: 18px;
+    font-weight: 500;
+}
+
+/* 오늘날짜 */
+.to_day p {
+    font-size: 28px;
+    font-weight: 500;
+    margin: 0;
+}
+
+.my_schedule {
+    width: 348px;
+    height: 230px;
+    border-radius: 10px;
+    border: 1px solid var(--Border-Disabled-default, #B3B3B3);
+
+    background: #FFF;
+
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+
+    padding-top: 26px;
+    padding-left: 24px;
+
+}
+
+.my_schedule h {
+    color: #000;
+    font-size: 20px;
+    font-weight: 800;
+
+}
+
+.schedule_add {
+    width: 348px;
+    height: 303px;
+    border-radius: 10px;
+    border: 1px solid var(--Border-Disabled-default, #B3B3B3);
+
+    background: #FFF;
+
+    display: flex;
+    flex-direction: column;
+
+    padding-left: 24px;
+    padding-top: 24px;
+    padding-right: 24px;
+
+}
+
+
+
+.add_header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    margin: 0;
+}
+
+/* 일정 추가 */
+.add_header h {
+    font-size: 20px;
+    font-weight: 800;
+    margin: 0;
+
+}
+
+.select_input {
+    width: 139px;
+    height: 31px;
+    border-radius: 4px;
+    border: 1px solid var(--Border-Disabled-default, #B3B3B3);
+    color: #B3B3B3;
+    background: #FFF;
+
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.select_input option {
+    color: #4C4C4C;
+    font-size: 12px;
+    font-weight: 600;
+
+}
+
+.input_container {
+    margin-top: 17px;
+    display: flex;
+    flex-direction: column;
+    gap:19px;
+}
+
+
+
+/* 제목 div */
+.title_input {
+    width: 300px;
+    height: 49px;
+    border-radius: 10px;
+    border: 1px solid var(--Border-Disabled-default, #B3B3B3);
+
+    background: #FFF;
+
+
+    margin: 0;
+    padding-left: 10.96px;
+
+
+
+
+}
+
+
+/* 제목 */
+.title_input::placeholder {
+    color: #B3B3B3;
+    font-size: 16px;
+    font-weight: 400;
+    text-align: left;
+
+}
+
+.date {
+    width: 300px;
+    height: 49px;
+    border-radius: 10px;
+    border: 1px solid var(--Border-Disabled-default, #B3B3B3);
+
+    background: #FFF;
+
+    display: flex;
+    align-items: center;
+
+    margin: 0;
+    padding-left: 10.96px;
+
+    gap: 20px;
+
+}
+
+.date h {
+    font-size: 16px;
+    color: #4C4C4C;
+    font-weight: 400;
+}
+
+.date_input {
+    color: #4C4C4C;
+    font-size: 16px;
+    font-weight: 400;
+    border: none;
+    cursor: pointer;
+
+}
+
+.time {
+    width: 300px;
+    height: 49px;
+    border-radius: 10px;
+    border: 1px solid var(--Border-Disabled-default, #B3B3B3);
+
+    background: #FFF;
+
+    display: flex;
+    align-items: center;
+
+    margin: 0;
+    padding-left: 10.96px;
+
+    gap: 20px;
+
+}
+
+.time h {
+    font-size: 16px;
+    color: #4C4C4C;
+    font-weight: 400;
+
+}
+
+.time_input {
+    color: #4C4C4C;
+    font-size: 16px;
+    font-weight: 400;
+    border: none;
+    cursor: pointer;
+}
+
+
+
+.add_button {
+    border-radius: 14.084px;
+    background: #8B0B02;
+    width: 50px;
+    height: 22.535px;
+
+    color: #FFF;
+    font-size: 12.676px;
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+
+    margin-top: 12px;
+
+    align-self: flex-end;
+    /* 버튼을 오른쪽 끝으로 배치 */
+
+}
+
+.add_button:hover {
+    background-color: #FF6347;
+}
+
+
+
+.calendar {
+    
+}
