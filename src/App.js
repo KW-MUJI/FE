@@ -52,7 +52,7 @@ function App() {
           <Route path="/pwReset" element={<PwReset />} />
           <Route path="/privacy_law" element={<Privacy_law />} />
           
-          <Route path="/recruit_write/:id" element={<RecruitWrite />} />
+          <Route path="/recruit_write" element={<RecruitWrite />} />
           <Route path="/recruit_main" element={<RecruitMain />} />
           <Route path="/recruit_post/:id" element={<RecruitPost />} />
 
