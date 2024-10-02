@@ -1,8 +1,10 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import styles from '../styles/Recruit_write.module.css';
+import { useParams } from "react-router-dom"; //URL에서 글 ID 가져오기 위한
 
 const RecruitWrite = () => {
 
+    const { id } = useParams(); //URL에서ID받아옴
     // 상태 관리
     const [title, setTitle] = useState(''); // 제목
     const [content, setContent] = useState(''); // 내용
@@ -10,6 +12,19 @@ const RecruitWrite = () => {
     const [selectDate, setSelectDate] = useState(null); //날짜
 
 
+    useEffect(() => {
+        // 기존 글 데이터를 불러오는 로직
+        if (id) {
+            fetch(`/recruit_writet/${id}`)
+                .then(response => response.json())
+                .then(data => {
+                    setTitle(data.title);
+                    setContent(data.content);
+                    setSelectDate(new Date(data.date));
+                    setImagePreview(data.imageURL); // 이미지가 있으면 미리보기 설정
+                });
+        }
+    }, [id]);
 
     //이미지 미리보기
     const handleImageChange = (e) => {
