@@ -114,8 +114,8 @@
 .text {
     width: 1060px;
     height: 61px;
-    margin: 0 27px 0 10px;
-    align-items: center;
+    margin: 0 0px 0 10px;
+    align-items:flex-start;
     border-left-width: 0;
     border-right-width: 0;
     border-top-width: 0;
@@ -126,6 +126,11 @@
 .text::placeholder{
     font-size: 20px;
     text-align: left;
+}
+
+.multipleChoice{
+    float: left;
+    margin-left: 51px;
 }
 .multipleChoice button {
     display: inline;
@@ -202,7 +207,21 @@
     top: 0;
     position: absolute;
     margin-top: 98px;
+    cursor: pointer;
 }
+
+.group{
+    display: flex;
+    justify-content: space-between;
+    /* flex-direction: row; */
+    align-items: center;
+
+    box-sizing: border-box;
+
+    width: 1228px;
+    height: 80px;
+}
+
 .submit{
     display: block;
     float: right;
@@ -214,11 +233,51 @@
     font-size: 23px;
     margin-right: 70px;
 }
-.date_group{
-    display: block;
-    float: left;
-    color: #ffffff;
-    font-size: 23px;
-    margin-bottom: 50px;
+.date_group {
+    flex-grow: 5;
+    text-align: left;
+    display: flex;
+    gap: 10px;
+    align-items: center;
 }
+
+.date_group input {
+    width: 100px;
+    height: 28px;
+    border-radius: 6.427px;
+    border: 0.643px solid var(--Border-Disabled-default, #B3B3B3);
+    background: #FFF;
+    color: #B3B3B3;
+    font-size: 14.139px;
+    font-weight: 500;
+}
+
+
+
+/* 마감일label */
+.date_button {
+    font-size: 22px;
+    font-weight: 500;
+    line-height: 100%;
+    display: inline-flex;
+    align-items: center;
+    width: 143px;
+    height: 38px;
+
+    pointer-events: auto;
+    /* 클릭 허용 */
+    z-index: 1;
+    /* 다른 요소보다 위에 오도록 */
+
+}
+
+/* 마감일 아이콘 */
+.date_icon {
+    margin-right: 10px;
+    pointer-events: none;
+    /* 아이콘이 클릭을 막지 않도록 설정 */
+
+
+}
+
 input:focus {outline: none;}

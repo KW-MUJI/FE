@@ -20,8 +20,12 @@ const Signup = () => {
     const [isChecked1, setIsChecked1] = useState(false);
     const [isChecked2, setIsChecked2] = useState(false);
     const [isPinVerified, setIsPinVerified] = useState(false);
-    const [timer, setTimer] = useState(60);
+    const [timer, setTimer] = useState(300);
     const [isTimerActive, setIsTimerActive] = useState(false);
+
+    // 비밀번호 보기/숨기기 상태 추가
+    const [showPassword, setShowPassword] = useState(false);
+    const [showPasswordConfirm, setShowPasswordConfirm] = useState(false);
 
     const inputRef = useRef(null);
     const fixedDomain = '@kw.ac.kr';
@@ -80,12 +84,15 @@ const Signup = () => {
             timerId = setInterval(() => {
                 setTimer(prev => prev - 1);
                 textElement.style.color = "#000000";
-                textElement.textContent = `00:${timer}`;
+                if (timer % 60 >= 10)
+                    textElement.textContent = `0${parseInt(timer / 60)}:${timer % 60}`;
+                else
+                    textElement.textContent = `0${parseInt(timer / 60)}:0${timer % 60}`;
             }, 1000);
         } else if (timer === 0) {
             clearInterval(timerId);
             setIsTimerActive(false);
-            setTimer(60);
+            setTimer(300);
         }
         return () => clearInterval(timerId);
     }, [isTimerActive, timer]);
@@ -110,7 +117,7 @@ const Signup = () => {
         console.log(id);
         setIsPinVerified(false); // 초기화
         setIsTimerActive(true);
-        setTimer(60);
+        setTimer(300);
         alert("인증 요청이 전송되었습니다.");
     };
 
@@ -131,7 +138,7 @@ const Signup = () => {
             textElement.style.color = "#ff0000";
             setIsPinVerified(false); // 인증 실패
             setIsTimerActive(false); // 타이머 정지
-            setTimer(60); // 타이머 리셋
+            setTimer(300); // 타이머 리셋
         }
     };
 
@@ -156,6 +163,15 @@ const Signup = () => {
         sessionStorage.setItem("user", JSON.stringify(formData));
         alert("회원가입 성공하였습니다!");
         goToLogin();
+    };
+
+    // 비밀번호 보기/숨기기 핸들러
+    const toggleShowPassword = () => {
+        setShowPassword(!showPassword);
+    };
+
+    const toggleShowPasswordConfirm = () => {
+        setShowPasswordConfirm(!showPasswordConfirm);
     };
 
     return (
@@ -211,7 +227,8 @@ const Signup = () => {
                     <div>
                         <input
                             type="text"
-                            name="pin"
+                            name="
+                            pin"
                             placeholder="인증번호 6자리를 입력해 주세요"
                             onChange={onChangeForm}
                         />
@@ -221,23 +238,41 @@ const Signup = () => {
                 </div>
                 <div className={styles.pw_container}>
                     <p className={styles.password}>비밀번호</p>
-                    <div>
+                    <div className={styles.pw_box}>
                         <input
-                            type="password"
+                            type={showPassword ? "text" : "password"} // 비밀번호 보기/숨기기
                             name="password"
                             placeholder="비밀번호"
                             onChange={onChangeForm}
                         />
+                        {showPassword ?
+                            <svg className={styles.password_on_off} width="20" height="21" viewBox="0 0 20 21" fill="none" xmlns="http://www.w3.org/2000/svg" onClick={toggleShowPassword}>
+                                <path d="M15.0136 15.0623C13.6092 16.1327 11.8992 16.7258 10.1335 16.7547C4.38262 16.7547 1.09637 10.1822 1.09637 10.1822C2.11831 8.27772 3.5357 6.61382 5.25347 5.30211M8.40826 3.80687C8.97377 3.6745 9.55275 3.60834 10.1335 3.6097C15.8845 3.6097 19.1707 10.1822 19.1707 10.1822C18.672 11.1152 18.0773 11.9935 17.3961 12.803M11.8752 11.9239C11.6496 12.166 11.3775 12.3603 11.0752 12.495C10.7728 12.6297 10.4465 12.7021 10.1155 12.708C9.7846 12.7138 9.45588 12.6529 9.14899 12.529C8.84209 12.405 8.56331 12.2205 8.32927 11.9865C8.09522 11.7524 7.91072 11.4736 7.78676 11.1667C7.6628 10.8598 7.60192 10.5311 7.60776 10.2002C7.6136 9.86925 7.68603 9.54288 7.82074 9.24055C7.95545 8.93822 8.14968 8.66612 8.39183 8.44048M1.09637 1.14502L19.1707 19.2193" stroke="#B3B3B3" stroke-width="2.0539" stroke-linecap="round" stroke-linejoin="round" />
+                            </svg>
+                            :
+                            <svg className={styles.password_on_off} width="20" height="21" viewBox="0 0 20 21" fill="none" xmlns="http://www.w3.org/2000/svg" onClick={toggleShowPassword}>
+                                <path d="M15.0136 15.0623C13.6092 16.1327 11.8992 16.7258 10.1335 16.7547C4.38262 16.7547 1.09637 10.1822 1.09637 10.1822C2.11831 8.27772 3.5357 6.61382 5.25347 5.30211M8.40826 3.80687C8.97377 3.6745 9.55275 3.60834 10.1335 3.6097C15.8845 3.6097 19.1707 10.1822 19.1707 10.1822C18.672 11.1152 18.0773 11.9935 17.3961 12.803M11.8752 11.9239C11.6496 12.166 11.3775 12.3603 11.0752 12.495C10.7728 12.6297 10.4465 12.7021 10.1155 12.708C9.7846 12.7138 9.45588 12.6529 9.14899 12.529C8.84209 12.405 8.56331 12.2205 8.32927 11.9865C8.09522 11.7524 7.91072 11.4736 7.78676 11.1667C7.6628 10.8598 7.60192 10.5311 7.60776 10.2002C7.6136 9.86925 7.68603 9.54288 7.82074 9.24055C7.95545 8.93822 8.14968 8.66612 8.39183 8.44048M1.09637 1.14502L19.1707 19.2193" stroke="#B3B3B3" stroke-width="2.0539" stroke-linecap="round" stroke-linejoin="round" />
+                            </svg>
+                        }
                     </div>
                     <p id={styles.pw_condition}>숫자 최소 1개, 대소문자 최소 1개, 특수문자 최소 1개 (총 5자 - 11자)</p>
                     <p className={styles.password_confirm}>비밀번호 확인</p>
-                    <div>
+                    <div className={styles.pw_box}>
                         <input
-                            type="password"
+                            type={showPasswordConfirm ? "text" : "password"} // 비밀번호 확인 필드
                             name="password_confirm"
                             placeholder="비밀번호 확인"
                             onChange={onChangeForm}
                         />
+                        {showPasswordConfirm ?
+                            <svg className={styles.password_on_off} width="20" height="21" viewBox="0 0 20 21" fill="none" xmlns="http://www.w3.org/2000/svg" onClick={toggleShowPasswordConfirm}>
+                                <path d="M15.0136 15.0623C13.6092 16.1327 11.8992 16.7258 10.1335 16.7547C4.38262 16.7547 1.09637 10.1822 1.09637 10.1822C2.11831 8.27772 3.5357 6.61382 5.25347 5.30211M8.40826 3.80687C8.97377 3.6745 9.55275 3.60834 10.1335 3.6097C15.8845 3.6097 19.1707 10.1822 19.1707 10.1822C18.672 11.1152 18.0773 11.9935 17.3961 12.803M11.8752 11.9239C11.6496 12.166 11.3775 12.3603 11.0752 12.495C10.7728 12.6297 10.4465 12.7021 10.1155 12.708C9.7846 12.7138 9.45588 12.6529 9.14899 12.529C8.84209 12.405 8.56331 12.2205 8.32927 11.9865C8.09522 11.7524 7.91072 11.4736 7.78676 11.1667C7.6628 10.8598 7.60192 10.5311 7.60776 10.2002C7.6136 9.86925 7.68603 9.54288 7.82074 9.24055C7.95545 8.93822 8.14968 8.66612 8.39183 8.44048M1.09637 1.14502L19.1707 19.2193" stroke="#B3B3B3" stroke-width="2.0539" stroke-linecap="round" stroke-linejoin="round" />
+                            </svg>
+                            :
+                            <svg className={styles.password_on_off} width="20" height="21" viewBox="0 0 20 21" fill="none" xmlns="http://www.w3.org/2000/svg" onClick={toggleShowPasswordConfirm}>
+                                <path d="M15.0136 15.0623C13.6092 16.1327 11.8992 16.7258 10.1335 16.7547C4.38262 16.7547 1.09637 10.1822 1.09637 10.1822C2.11831 8.27772 3.5357 6.61382 5.25347 5.30211M8.40826 3.80687C8.97377 3.6745 9.55275 3.60834 10.1335 3.6097C15.8845 3.6097 19.1707 10.1822 19.1707 10.1822C18.672 11.1152 18.0773 11.9935 17.3961 12.803M11.8752 11.9239C11.6496 12.166 11.3775 12.3603 11.0752 12.495C10.7728 12.6297 10.4465 12.7021 10.1155 12.708C9.7846 12.7138 9.45588 12.6529 9.14899 12.529C8.84209 12.405 8.56331 12.2205 8.32927 11.9865C8.09522 11.7524 7.91072 11.4736 7.78676 11.1667C7.6628 10.8598 7.60192 10.5311 7.60776 10.2002C7.6136 9.86925 7.68603 9.54288 7.82074 9.24055C7.95545 8.93822 8.14968 8.66612 8.39183 8.44048M1.09637 1.14502L19.1707 19.2193" stroke="#B3B3B3" stroke-width="2.0539" stroke-linecap="round" stroke-linejoin="round" />
+                            </svg>
+                        }
                     </div>
                     <p id={styles.pw_confirm}>　</p>
                 </div>

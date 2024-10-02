@@ -28,9 +28,10 @@
     height: 44px;
     border-radius: 32.86px;
     border: 0.82px solid #B3B3B3;
-    text-align: center;
+    text-align: left;
     box-sizing: border-box;
     margin-bottom: 11px;
+    padding: 19px;
 }
 
 input::placeholder {

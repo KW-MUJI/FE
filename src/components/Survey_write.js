@@ -20,7 +20,8 @@ const SurveyWrite = () => {
     }, [])
     const handleDeleteQuestion = (index) => {
         const newQuestions = questions.filter((_, i) => i !== index);
-        setQuestions(newQuestions);
+        if (questions.length > 1)
+            setQuestions(newQuestions);
     };
 
     const handleOptionChange = (index, value) => {
@@ -129,26 +130,28 @@ const SurveyWrite = () => {
                                         </div>
                                         {q.type === 'multipleChoice' && (
                                             <div>
-                                                {q.options.map((option, idx) => (
-                                                    <div key={idx} className={styles.multipleChoice}>
-                                                        <input className={styles.radio} type="radio" />
-                                                        <input
-                                                            className={styles.text}
-                                                            type="text"
-                                                            value={option}
-                                                            onChange={(e) => handleOptionForQuestionChange(index, idx, e.target.value)}
-                                                            placeholder={`옵션 ${idx + 1}`}
-                                                        />
-                                                        {q.options.length > 2 && (
-                                                            <button type="button" onClick={() => handleDeleteOption(index, idx)}>
-                                                            </button>
-                                                        )}
-                                                    </div>
-                                                ))}
-                                                <span className={styles.optionButton} type="button" onClick={() => handleAddOption(index)}>
-                                                    옵션 추가
-                                                </span>
-                                            </div>
+                                            {q.options.map((option, idx) => (
+                                                <div key={idx} className={styles.multipleChoice}>
+                                                    <input className={styles.radio} type="radio" />
+                                                    <input
+                                                        className={styles.text}
+                                                        type="text"
+                                                        value={option}
+                                                        onChange={(e) => handleOptionForQuestionChange(index, idx, e.target.value)}
+                                                        placeholder={`옵션 ${idx + 1}`}
+                                                    />
+                                                    {/* 옵션이 2개 이상일 때만 삭제 버튼 표시 */}
+                                                    {q.options.length > 2 && idx > 1 && (
+                                                        <button type="button" onClick={() => handleDeleteOption(index, idx)}>
+                                                        </button>
+                                                    )}
+                                                </div>
+                                            ))}
+                                            <span className={styles.optionButton} type="button" onClick={() => handleAddOption(index)}>
+                                                옵션 추가
+                                            </span>
+                                        </div>
+                                        
                                         )}
                                         {q.type === 'shortAnswer' && (
                                             <div>
@@ -173,27 +176,28 @@ const SurveyWrite = () => {
                         ))}
                     </div>
                 </div>
-                <div className={styles.date_group}>
-
-                    <label htmlFor="date-select" className={styles.date_button}>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" fill="none" className={styles.date_icon}>
-                            <path d="M20 2.5V7.5M10 2.5V7.5M3.75 12.5H26.25M6.25 5H23.75C25.1307 5 26.25 6.11929 26.25 7.5V25C26.25 26.3807 25.1307 27.5 23.75 27.5H6.25C4.86929 27.5 3.75 26.3807 3.75 25V7.5C3.75 6.11929 4.86929 5 6.25 5Z"
-                                stroke="#1E1E1E"
-                                strokeWidth="2.4375"  // 수정된 부분
-                                strokeLinecap="round"  // 수정된 부분
-                                strokeLinejoin="round"  // 수정된 부분
-                            />
-                        </svg>
-                        마감일 설정
-                    </label>
-                    <input
-                        type="date"
-                        id="date-select"
-                        // style={{ opacity: 0, position: 'absolute'}} // 입력 필드를 숨김
-                        onChange={handleDateChange}
-                    />
+                <div className={styles.group}>
+                    <div className={styles.date_group}>
+                        <label htmlFor="date-select" className={styles.date_button}>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" fill="none" className={styles.date_icon}>
+                                <path d="M20 2.5V7.5M10 2.5V7.5M3.75 12.5H26.25M6.25 5H23.75C25.1307 5 26.25 6.11929 26.25 7.5V25C26.25 26.3807 25.1307 27.5 23.75 27.5H6.25C4.86929 27.5 3.75 26.3807 3.75 25V7.5C3.75 6.11929 4.86929 5 6.25 5Z"
+                                    stroke="#1E1E1E"
+                                    strokeWidth="2.4375"  // 수정된 부분
+                                    strokeLinecap="round"  // 수정된 부분
+                                    strokeLinejoin="round"  // 수정된 부분
+                                />
+                            </svg>
+                            마감일 설정
+                        </label>
+                        <input
+                            type="date"
+                            id="date-select"
+                            // style={{ opacity: 0, position: 'absolute'}} // 입력 필드를 숨김
+                            onChange={handleDateChange}
+                        />
+                    </div>
+                    <button className={styles.submit} type="submit" onClick={handleSubmit}>발행</button>
                 </div>
-                <button className={styles.submit} type="submit" onClick={handleSubmit}>발행</button>
             </div>
         </div>
     );

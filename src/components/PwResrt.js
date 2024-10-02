@@ -15,6 +15,16 @@ const PwReset = () => {
     const onChangeForm = (e) => {
         const { name, value } = e.target;
         setFormData({ ...formData, [name]: value });
+        if (name === 'password') {
+            let regPass = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{5,11}$/;
+            const textElement = document.getElementById(styles.pw_condition);
+            if (!regPass.test(value)) {
+                textElement.style.color = "#ff0000";
+                return;
+            } else {
+                textElement.style.color = "#008000";
+            }
+        }
     };
 
     const pw_confirm = (e) => {
@@ -27,8 +37,10 @@ const PwReset = () => {
             alert("영문, 숫자, 특수기호 조합으로 5-11자리 이상 입력해주세요.");
             return;
         }
+        const textElement = document.getElementById(styles.pw_confirm);
         if (password !== password_confirm) {
-            alert("입력한 비밀번호가 같지 않습니다.");
+            textElement.textContent = "비밀번호가 일치하지않습니다.";
+            textElement.style.color = "#ff0000";
             return;
         }
         sessionStorage.setItem("user", JSON.stringify(formData));
