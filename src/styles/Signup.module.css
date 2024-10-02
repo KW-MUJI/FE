@@ -37,6 +37,7 @@
     box-sizing: border-box;
     padding: 19px;
 }
+
 .name_container input::placeholder {
     color: #B3B3B3;
     font-size: 16px;
@@ -168,6 +169,7 @@
     box-sizing: border-box;
     margin-bottom: 11px;
 }
+
 .pw_container input::placeholder {
     color: #B3B3B3;
     font-size: 16px;
@@ -260,4 +262,13 @@
     background-color: #4C4C4C;
     cursor: not-allowed;
     color: #B0B0B0;
+}
+.pw_box{
+    position: relative;
+}
+.password_on_off {
+    position: absolute;
+    top: 13px;
+    right: 90px;
+    cursor: pointer;
 }

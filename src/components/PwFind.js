@@ -16,6 +16,9 @@ const PwFind = () => {
     const inputRef = useRef(null);
     const fixedDomain = '@kw.ac.kr';
     const pintest = '123456';
+    const [isPinVerified, setIsPinVerified] = useState(false);
+    const [timer, setTimer] = useState(300);
+    const [isTimerActive, setIsTimerActive] = useState(false);
 
     const onChangeForm = (e) => {
         const { name, value } = e.target;
@@ -34,7 +37,25 @@ const PwFind = () => {
             setFormData({ ...formData, [name]: value });
         }
     };
-
+    useEffect(() => {
+        let timerId;
+        const textElement = document.getElementById(styles.text);
+        if (isTimerActive && timer > 0) {
+            timerId = setInterval(() => {
+                setTimer(prev => prev - 1);
+                textElement.style.color = "#000000";
+                if (timer % 60 >= 10)
+                    textElement.textContent = `0${parseInt(timer / 60)}:${timer % 60}`;
+                else
+                    textElement.textContent = `0${parseInt(timer / 60)}:0${timer % 60}`;
+            }, 1000);
+        } else if (timer === 0) {
+            clearInterval(timerId);
+            setIsTimerActive(false);
+            setTimer(300);
+        }
+        return () => clearInterval(timerId);
+    }, [isTimerActive, timer]);
     const requestAuth = (e) => {
         e.preventDefault();
         const { id } = formData;
@@ -44,6 +65,9 @@ const PwFind = () => {
         }
         console.log(id);
         // 인증 요청 로직 추가 가능
+        setIsPinVerified(false); // 초기화
+        setIsTimerActive(true);
+        setTimer(300);
         alert("인증 요청이 전송되었습니다.");
     };
 
@@ -58,10 +82,14 @@ const PwFind = () => {
         if (pin === pintest) {
             textElement.textContent = "인증번호가 일치합니다.";
             textElement.style.color = "#008000";
-            setIsFormComplete(true);
+            setIsPinVerified(true); // 인증 성공
+            setIsTimerActive(false); // 타이머 정지
         } else {
             textElement.textContent = "인증번호가 틀렸습니다.";
             textElement.style.color = "#ff0000";
+            setIsPinVerified(false); // 인증 실패
+            setIsTimerActive(false); // 타이머 정지
+            setTimer(300); // 타이머 리셋
         }
     };
 
@@ -97,11 +125,11 @@ const PwFind = () => {
                             placeholder="인증번호 6자리를 입력해 주세요"
                             onChange={onChangeForm}
                         />
-                        <button onClick={verifyPin}>확인</button>
+                        <button onClick={verifyPin} disabled={!isTimerActive}>확인</button>
                         <p id={styles.text}>　</p>
                     </div>
                 </div>
-                <button onClick={goToSign} className={styles.sign} type="submit" disabled={!isFormComplete}>비밀번호 재설정</button>
+                <button onClick={goToSign} className={styles.sign} type="submit" disabled={!isPinVerified}>비밀번호 재설정</button>
             </form>
         </div>
     );
