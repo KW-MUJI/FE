@@ -263,4 +263,119 @@ export const recruit_teams = [
 
 ];
 
+export const calendar_team = {
+    "headers": {
+        "content-type": "application/json",
+        "Authorization": "Bearer mockAccessToken"
+    },
+    "body": {
+        "userId": 12345,
+        "projectId": 67890,
+        "title": "프로젝트 회의",
+        "eventDate": "2024-10-05 15:00:00"
+    },
+    "response": {
+        "code": 200,
+        "usercalendarId": 98765
+    }
+}
+
+
+export const calendar_personal = {
+    "headers": {
+        "content-type": "application/json",
+        "Authorization": "Bearer mockAccessToken"
+    },
+    "body": {
+        "userId": 12345,
+        "projectId": 67890,
+        "title": "프로젝트 회의",
+        "eventDate": "2024-10-05 15:00:00"
+    },
+    "response": {
+        "code": 200,
+        "usercalendarId": 98765
+    }
+}
+
+export const calendar = {
+    "pathVariable": "2024-09",
+    "headers": {
+        "content-type": "application/json",
+        "Authorization": "Bearer mockAccessToken"
+    },
+    "body": {},
+    "response": {
+        "code": 200,
+        "data": {
+            "projects": [
+                {
+                    "projectId": 1,
+                    "name": "졸업 프로젝트"
+                },
+                {
+                    "projectId": 2,
+                    "name": "캡스톤 프로젝트"
+                }
+            ],
+            "events": {
+                "univEvents": [
+                    {
+                        "univcalendarId": 1,
+                        "title": "개강",
+                        "eventDate": "2024-09-13"
+                    },
+                    {
+                        "univcalendarId": 3,
+                        "title": "개강",
+                        "eventDate": "2024-09-13"
+                    },
+                    {
+                        "univcalendarId": 2,
+                        "title": "개강",
+                        "eventDate": "2024-09-20"
+                    }, {
+                        "univcalendarId": 4,
+                        "title": "중간고사",
+                        "eventDate": "2024-09-14"
+                    },
+                ],
+                "userEvents": [
+                    {
+                        "usercalendarId": 1,
+                        "title": "캡스톤 회의",
+                        "eventDate": "2024-09-13 18:00:00"
+                    },
+                    {
+                        "usercalendarId": 2,
+                        "title": "개인 공부",
+                        "eventDate": "2024-09-13 09:00:00"
+                    }
+                ],
+                "projectEvents": [
+                    {
+                        "usercalendarId": 1,
+                        "projectId": 2,
+                        "title": "캡스톤 프로젝트 회의",
+                        "eventDate": "2024-09-13 18:00:00"
+                    },
+                    {
+                        "usercalendarId": 2,
+                        "projectId": 1,
+                        "title": "졸업 프로젝트 리뷰",
+                        "eventDate": "2024-09-20 10:00:00"
+                    }
+                    , {
+                        "usercalendarId": 2,
+                        "projectId": 1,
+                        "title": "테스트",
+                        "eventDate": "2024-09-14 10:00:00"
+                    }
+                ]
+            }
+        }
+    }
+
+}
+
 
