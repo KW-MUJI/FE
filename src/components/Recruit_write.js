@@ -185,8 +185,8 @@ const RecruitWrite = () => {
 
                         <input
                             type="date"
-                            id="date-select"
-                            // style={{ opacity: 0, position: 'absolute'}} // 입력 필드를 숨김
+                            className={styles.date_select}
+                            style={{width:"110px"}} // 입력 필드를 숨김
 
                             onChange={handleDateChange}
                         />
