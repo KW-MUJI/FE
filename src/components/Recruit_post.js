@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation ,useNavigate} from "react-router-dom";
 import styles from '../styles/Recruit_post.module.css';
 
 
@@ -66,6 +66,7 @@ const Modal = ({ isOpen, onClose, portfolios, selectedPortfolio, handleSelectPor
 
 const RecruitPost = () => {
     const location = useLocation();
+    const navigate = useNavigate();  // useNavigate 훅 선언
     const { post } = location.state || {};//post가 없을 경우 대비
 
 
@@ -91,6 +92,9 @@ const RecruitPost = () => {
     );
 
 
+    const navigateToMain = () => {
+        navigate("/recruit_main");  // 새로운 창이 아닌 현재 창에서 페이지 이동
+    };
 
     const handleOpenModal = () => {
         setIsModalOpen(true); // 모달 열기
@@ -130,7 +134,7 @@ const RecruitPost = () => {
 
         <div className={styles.top}>
             <div className={styles.recruit_post}>
-                <div className={styles.recruit_menu}><h>팀플모집</h></div>
+                <div className={styles.recruit_menu}><label onClick={navigateToMain}>팀플모집</label></div>
 
                 <div className={styles.recruit_header}>
                     <h>{post.title}</h>
