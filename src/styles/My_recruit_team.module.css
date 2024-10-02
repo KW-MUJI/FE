@@ -68,24 +68,40 @@
     text-align: center;
     font-size: 23.012px;
     font-weight: 600;
+    cursor: pointer;
 }
 
-#edit {
+.edit {
     background: #FFF;
     color: #8B0B02;
     border: 1px solid #8B0B02;
 }
 
-#start {
+.start {
     background: #8B0B02;
     color: #FFF;
     border: none;
 }
 
-#cancel {
+.cancel {
     border: none;
     background: none;
     padding: 0;
+    cursor: pointer;
+}
+
+.disabledStart {
+    width: 122px;
+    height: 40px;
+
+    border-radius: 30px;
+
+    text-align: center;
+    font-size: 23.012px;
+    font-weight: 600;
+    background-color: #B0B0B0;
+    /* 모집 마감 버튼 스타일 */
+    cursor: not-allowed;
 }
 
 
@@ -168,6 +184,7 @@
     border: none;
     font-size: 18px;
     font-weight: 400;
+    cursor: pointer;
 
 
 }
@@ -180,8 +197,10 @@
 #select {
     background: #8B0B02;
     color: #FFF;
+    cursor: pointer;
 }
-#select:disabled{
+
+#select:disabled {
     background: #8B0B02;
     color: #FFF;
     background-color: #d3d3d3;

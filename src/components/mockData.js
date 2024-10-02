@@ -244,6 +244,7 @@ export const teams = [
 
 export const recruit_teams = [
     {
+        id:1,
         teamtitle: '해커톤 같이 나갈 개발자 구합니다',
         members: [
             { id: 1, name: '노광운', stuNum: '21학번', department: '소프트웨어학부', email: 'nokw@kw.ac.kr', resumePath: '/test.pdf' },
@@ -253,6 +254,7 @@ export const recruit_teams = [
         ]
     },
     {
+        id:2,
         teamtitle: '게임 개발 도전하실 겜덕 구함',
         members: [
             { id: 1, name: '노광운', stuNum: '21학번', department: '소프트웨어학부', email: 'nokw@kw.ac.kr', resumePath: '' },
@@ -377,5 +379,81 @@ export const calendar = {
     }
 
 }
+
+const post=()=>[
+    {
+        teamID: "1",
+        imageURL: '/assets/kw_logo.jpg', // public 폴더 기준 경로
+        title: "해커톤 같이 나갈 sss개발자 구함",
+        deadline: "2024-10-01",
+        content:"안녕하세요, 저는 소프트웨어학부 19학번 김참빛입니다.\n현재 백앤드 2명 모인 상황이고, 프론트엔드 2분 모집하고 있습니다.\n 저희는 두명 다 개발 경험 및 공모전 경험이 있습니다.\n 수상을 목표로 하고 있어서, 개발 경험 있으신 분이면 좋겠습니다.\n 관심있으시면 연락 부탁드립니다.",
+        date:"2024-09-19"
+    },
+    {
+        teamID: "2",
+        imageURL: '/assets/kw_logo.jpg', // public 폴더 기준 경로
+        title: "해커톤 같이 나갈 개발자 구함",
+        deadline: "2024-10-01",
+        content:"2번입니다",
+        date:"2024-09-19"
+    },
+    {
+        teamID: "3",
+        imageURL: '/assets/kw_logo.jpg', // public 폴더 기준 경로
+        title: "해커톤 같이 나갈 개발자 구함",
+        deadline: "2024-10-01",
+        content:"3번입니다",
+        date:"2024-09-19"
+    },
+    {
+        teamID: "4",
+        imageURL: '/assets/kw_logo.jpg', // public 폴더 기준 경로
+        title: "해커톤 같이 나갈 개발자 구함",
+        deadline: "2024-10-01",
+        content:"4번입니다",
+        date:"2024-09-19"
+    },
+    {
+        teamID: "5",
+        imageURL: '/assets/kw_logo.jpg', // public 폴더 기준 경로
+        title: "해커톤 같이 나갈 개발자 구함",
+        deadline: "2024-10-01",
+        content:"5번입니다",
+        date:"2024-09-19"
+    },
+    {
+        teamID: "6",
+        imageURL: '/assets/kw_logo.jpg', // public 폴더 기준 경로
+        title: "해커톤 같이 나갈 개발자 구함",
+        deadline: "2024-10-01",
+        content:"6번입니다",
+        date:"2024-09-19"
+    },
+    {
+        teamID: "7",
+        imageURL: '/assets/kw_logo.jpg', // public 폴더 기준 경로
+        title: "해커톤 같이 나갈 개발자 구함",
+        deadline: "2024-10-01",
+        content:"7번입니다",
+        date:"2024-09-19"
+    },
+    {
+        teamID: "8",
+        imageURL: '/assets/kw_logo.jpg', // public 폴더 기준 경로
+        title: "해커톤 같이 나갈 개발자 구함",
+        deadline: "2024-10-01",
+        content:"8번입니다",
+        date:"2024-09-19"
+    },
+    {
+        teamID: "9",
+        imageURL: '/assets/kw_logo.jpg', // public 폴더 기준 경로
+        title: "해커톤 같이 나갈 개발자 구함",
+        deadline: "2024-10-01",
+        content:"번입니다",
+        date:"2024-09-19"
+    }
+
+]
 
 
