@@ -1,29 +1,68 @@
 import React, { useState, useEffect } from "react";
-
+import { fetchCalendar, addCalendarEvent } from '../services/Service.js'; // API 함수 가져오기
 import styles from '../styles/Schedule.module.css';
-import { calendar_team, calendar_personal, calendar, teams } from './mockData';
+import { teams } from './mockData'; // 팀 목록 가져오기
+import userEvent from "@testing-library/user-event";
+
 
 const Schedule = () => {
-    const [isSelected, setIsSelected] = useState('개인일정'); //개인일정, 팀플일정 선택 상태
-    const [selectedTeam, setSelectedTeam] = useState(null); //선택된 팀 상태 const [currentDate, setCurrentDate] = useState(new Date());
-    const [schedules, setSchedules] = useState(calendar.response.data);//캘린더 상태
-    const [teamList, setTeamList] = useState([]); //팀 목록 상태
-    const [currentDate, setCurrentDate] = useState(new Date());
+    const [isSelected, setIsSelected] = useState('개인일정'); // (개인일정/ 팀플일정)
+    const [selectedTeam, setSelectedTeam] = useState(null); //사용자가 선택한 팀 저장
+    const [schedules, setSchedules] = useState({
+        events: {
+            userEvents: [],
+            univEvents: [],
+            projectEvents: []
+        }
+    });
+    // 캘린더 데이터를 저장하는 상태, API에서 받아온 일정
+    const [teamList, setTeamList] = useState([]); // 팀플 일정에서 선택할 수 있는 팀 목록
+    const [currentDate, setCurrentDate] = useState(new Date()); // 현재 선택된 날짜를 저장하며, 이 값을 기준으로 캘린더를 렌더링
 
-    const [selectedDate, setSelectedDate] = useState(null);
 
-    //팀원 선택 시 팀 목록 표시
+    useEffect(() => {
+        // API를 호풀하여 선택한 연도와 월에 맞는 캘린더 데이터 가져옴
+        const fetchCalendarData = async () => {
+            try {
+                const yearMonth = `${currentDate.getFullYear()}-${String(currentDate.getMonth() + 1).padStart(2, '0')}`;
+                const data = await fetchCalendar(yearMonth); // API를 통해 데이터 가져오기 calendar.response
+                console.log("가져온 캘린더 데이터:", data); // 데이터 확인
+
+                if (data && data.data) {
+                    setSchedules(data.data); // 가져온 데이터를 스케줄 상태로 설정
+                } else {
+                    console.error("데이터 형식이 올바르지 않습니다.");
+                }
+            } catch (error) {
+                console.error("캘린더 데이터를 가져오는 중 오류 발생:", error);
+            }
+        }
+
+        fetchCalendarData();
+
+
+
+    }, [currentDate]); // currentDate가 변경될 때 마다 호출.
+
+
+    // 팀 목록 설정 (여기서는 mockData.js에서 팀 목록을 가져옴)
     useEffect(() => {
         if (isSelected === '팀플일정') {
-            setTeamList(teams); // 팀 목록을 설정 (mockData.js에서 받아온 teams 배열)
+            setTeamList(teams); // 팀플 일정 선택 시 팀 목록 설정
+        } else {
+            setTeamList([]); // 개인일정 선택 시 팀 목록 초기화
         }
     }, [isSelected]);
+    
 
     // 일정추가 기능
-    const addSchedule = (e) => {
-        e.preventDefault();
+    const addSchedule = async (e) => {
 
-        const form=e.target;//폼의 입력 필드를 정확히 참조
+        e.preventDefault(); // 폼이 제출될 때 까지 페이지가 리로드 되는 기본 동작 방지
+
+
+        // 폼의 입력값을 가져오기
+        const form = e.target;
         const title = form.elements.title.value;
         const date = form.elements.date.value;
         const time = form.elements.time.value;
@@ -32,7 +71,6 @@ const Schedule = () => {
         if (isSelected === '팀플일정' && !selectedTeam) {
             alert('팀을 선택해주세요.');
             return;
-
         }
 
         const newEvent = {
@@ -44,38 +82,52 @@ const Schedule = () => {
 
         console.log('추가할 이벤트:', newEvent); // 콘솔로 새로운 일정 출력
 
-        if (title && date && time) {
 
 
-            //개인 일정 추가
-            if (isSelected === '개인일정') {
-                calendar.response.data.events.userEvents.push(newEvent);//calendar에 추가
-                setSchedules({
-                    ...schedules,
-                    events: {
-                        ...schedules.events,
-                        userEvents: [...schedules.events.userEvents, newEvent]
-                    }
-                });
-            }
-            else {//팀플 일정 추가(선택한 팀 ID 포함)
-                if (selectedTeam) {
-                    calendar.response.data.events.projectEvents.push(newEvent);
+
+        try {
+            const response = await addCalendarEvent(newEvent); //API요청
+            if (response.code === 200) {
+                if (isSelected === '개인일정') {
                     setSchedules({
                         ...schedules,
                         events: {
                             ...schedules.events,
-                            projectEvents: [...schedules.events.projectEvents, newEvent]
+                            userEvents: [...schedules.events.userEvents, newEvent] // 새로운 일정 추가
+
                         }
-                    });
+
+                    })
+                    console.log("개인일정 추가 성공:", response);
                 }
-                console.log('안녕')
+                else {//팀플 일정 추가(선택한 팀 ID 포함)
+                    if (selectedTeam) {
+                        setSchedules({
+                            ...schedules,
+                            events: {
+                                ...schedules.events,
+                                projectEvents: [...schedules.events.projectEvents, newEvent]
+                            }
+                        });
+                        console.log('팀플일정 추가 성공')
+                    }
+                }
             }
-
-            form.reset(); //폼 리셋
-
-
+            else {
+                console.error("일정 추가 실패:", response);
+            }
         }
+        catch (error) {
+            console.error("일정 추가 중 오류 발생:", error);
+        }
+
+
+
+
+        form.reset(); //폼 리셋
+
+
+
     };
 
 
@@ -96,6 +148,7 @@ const Schedule = () => {
 
     // 해당 월의 날짜들 계산
     const renderCalendarDays = () => {
+        if (!schedules || !schedules.events) return null; // schedules가 없을 때 안전하게 처리F
 
         const year = currentDate.getFullYear();
         const month = currentDate.getMonth();
@@ -156,6 +209,7 @@ const Schedule = () => {
                             .map((event, index) => (
                                 <p key={`${index}-project`} className={styles.projectEvents}>{event.title}</p>
                             ))}
+
 
                     </div>
                 </div>
