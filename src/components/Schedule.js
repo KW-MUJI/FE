@@ -1,23 +1,88 @@
 import React, { useState, useEffect } from "react";
 
 import styles from '../styles/Schedule.module.css';
-import { calendar } from './mockData';
+import { calendar_team, calendar_personal, calendar, teams } from './mockData';
 
 const Schedule = () => {
-    const [isSelected, setIsSelected] = useState('개인일정');
+    const [isSelected, setIsSelected] = useState('개인일정'); //개인일정, 팀플일정 선택 상태
+    const [selectedTeam, setSelectedTeam] = useState(null); //선택된 팀 상태 const [currentDate, setCurrentDate] = useState(new Date());
+    const [schedules, setSchedules] = useState(calendar.response.data);//캘린더 상태
+    const [teamList, setTeamList] = useState([]); //팀 목록 상태
     const [currentDate, setCurrentDate] = useState(new Date());
-    const [selectedDate, setSelectedDate] = useState(null);
-    // const [schedules, setSchedules] = useState([
-    //     { date: '2024-09-01', time: '18:00', event: '개강' },
-    //     { date: '2024-09-13', time: '18:00', event: '캡스톤' },
-    //     { date: '2024-09-18', time: '15:00', event: '참빛설계' },
-    // ]);
 
-    const [schedules, setSchedules] = useState(calendar.response.data);
+    const [selectedDate, setSelectedDate] = useState(null);
+
+    //팀원 선택 시 팀 목록 표시
+    useEffect(() => {
+        if (isSelected === '팀플일정') {
+            setTeamList(teams); // 팀 목록을 설정 (mockData.js에서 받아온 teams 배열)
+        }
+    }, [isSelected]);
+
+    // 일정추가 기능
+    const addSchedule = (e) => {
+        e.preventDefault();
+
+        const form=e.target;//폼의 입력 필드를 정확히 참조
+        const title = form.elements.title.value;
+        const date = form.elements.date.value;
+        const time = form.elements.time.value;
+
+
+        if (isSelected === '팀플일정' && !selectedTeam) {
+            alert('팀을 선택해주세요.');
+            return;
+
+        }
+
+        const newEvent = {
+            usercalendarId: 98766,//현재는 테스트이기 떄문에 유저한명 지정
+            projectId: isSelected === '팀플일정' ? selectedTeam.projectId : null,  // 팀플일정이면 팀 ID 포함
+            title,
+            eventDate: `${date} ${time}`
+        };
+
+        console.log('추가할 이벤트:', newEvent); // 콘솔로 새로운 일정 출력
+
+        if (title && date && time) {
+
+
+            //개인 일정 추가
+            if (isSelected === '개인일정') {
+                calendar.response.data.events.userEvents.push(newEvent);//calendar에 추가
+                setSchedules({
+                    ...schedules,
+                    events: {
+                        ...schedules.events,
+                        userEvents: [...schedules.events.userEvents, newEvent]
+                    }
+                });
+            }
+            else {//팀플 일정 추가(선택한 팀 ID 포함)
+                if (selectedTeam) {
+                    calendar.response.data.events.projectEvents.push(newEvent);
+                    setSchedules({
+                        ...schedules,
+                        events: {
+                            ...schedules.events,
+                            projectEvents: [...schedules.events.projectEvents, newEvent]
+                        }
+                    });
+                }
+                console.log('안녕')
+            }
+
+            form.reset(); //폼 리셋
+
+
+        }
+    };
+
 
     // 현재 날짜
     const today = new Date();
-    console.log(today); // 현재 날짜와 시간이 모두 출력됩니다.
+
+    // console.log(today); // 현재 날짜와 시간이 모두 출력됩니다.
     const yyyy = today.getFullYear();
     const mm = String(today.getMonth() + 1); // 월은 0부터 시작하므로 +1 필요
     const dd = String(today.getDate());
@@ -26,10 +91,7 @@ const Schedule = () => {
     const daysOfWeek = ['월', '화', '수', '목', '금', '토', '일'];
 
 
-    useEffect(() => {
-        console.log(schedules); // 데이터 구조 확인
-        console.log(calendar.response.data); // 데이터 구조 확인
-    }, [schedules]);
+
 
 
     // 해당 월의 날짜들 계산
@@ -73,7 +135,7 @@ const Schedule = () => {
 
                     <div className={styles.event}>
 
-                       
+
                         {univEvents.filter(event => event.eventDate.split(' ')[0] === dateStr)
                             .map((event, index) =>
                                 <p key={`${index}-univ`} className={styles.univEvents}>{event.title}</p>
@@ -81,7 +143,7 @@ const Schedule = () => {
 
                         }
 
-                       
+
                         {userEvents
                             .filter(event => event.eventDate.split(' ')[0] === dateStr)
                             .map((event, index) => (
@@ -104,7 +166,7 @@ const Schedule = () => {
 
     }
 
-    const mySchedule=()=>{
+    const mySchedule = () => {
 
     }
 
@@ -119,27 +181,16 @@ const Schedule = () => {
     };
 
 
-    const handleChange = (e) => {
-        setIsSelected(e.target.value); //개인일정 or 팀플일정
-        console.log(e.target.value);
-    };
-
     const handleClick = (e) => {
         e.target.showPicker(); // 날짜 선택기 강제 오픈
     };
 
-
-    // 일정추가 기능
-    const addSchedule = (e) => {
-        e.preventDefault();
-        const title = e.target.title.value;
-        const date = e.target.value;
-        const time = e.target.value;
-        if (title && date && time) {
-            setSchedules([...schedules, { date, time, event: title, type: isSelected }])
-            e.target.reset(); // 폼 리셋
-        }
+    const handleTeamChange = (e) => {
+        const selectedTeam = teams.find(team => team.teamName === e.target.value);
+        setSelectedTeam(selectedTeam);
+        console.log('선택된 팀:', selectedTeam);  // 팀이 제대로 선택되는지 확인
     };
+
 
     return (
         <div className={styles.Schedule_container}>
@@ -152,18 +203,31 @@ const Schedule = () => {
                     </div>
                     <div className={styles.my_schedule}>
                         <h>내 일정</h>{mySchedule}
-                        
+
                     </div>
                     <div className={styles.schedule_add}>
                         <div className={styles.add_header}>
                             <h>일정 추가</h>
-                            <select className={styles.select_input} onChange={handleChange}>
+                            <select className={styles.select_input} onChange={(e) => setIsSelected(e.target.value)}>
                                 <option value="개인일정">개인일정</option>
                                 <option value="팀플일정">팀플일정</option>
                             </select>
                         </div>
 
                         <form onSubmit={addSchedule} className={styles.input_container}>
+
+                            {/* 개인일정/팀플일정 선택에 따른 추가 선택 창 */}
+                            {isSelected === '팀플일정' && (
+                                <div>
+                                    <select className={styles.select_team} onChange={handleTeamChange} >
+                                        <option value="">팀 선택</option>
+                                        {teamList.map((team) => (
+                                            <option key={team.teamName} value={team.teamName}>{team.teamName}</option>
+                                        ))}
+
+                                    </select>
+                                </div>
+                            )}
 
                             <input
                                 className={styles.title_input}
@@ -186,13 +250,14 @@ const Schedule = () => {
                             <div className={styles.time}>
                                 <h>시간</h>
                                 <input type="time"
-                                    name="name"
+                                    name="time"
                                     className={styles.time_input}
                                     onClick={handleClick}
                                 />
                             </div>
+                            <button type="submit" className={styles.add_button}>추가</button>
+
                         </form>
-                        <button type="submit" className={styles.add_button}>추가</button>
 
 
 
@@ -221,10 +286,10 @@ const Schedule = () => {
 
                         </div>
                         <div className={styles.calendar_button}>
-                            <button onClick={prevMonth} style={{  fontSize: "24px"}}> &lt;</button>
-                            <span>{currentDate.getFullYear()}. </span> 
-                            <span style={{ fontWeight: 600 }}>{currentDate.getMonth()+1}</span>
-                            <button onClick={nextMonth} style={{  fontSize: "24px"}}> &gt;</button>
+                            <button onClick={prevMonth} style={{ fontSize: "24px" }}> &lt;</button>
+                            <span>{currentDate.getFullYear()}. </span>
+                            <span style={{ fontWeight: 600 }}>{currentDate.getMonth() + 1}</span>
+                            <button onClick={nextMonth} style={{ fontSize: "24px" }}> &gt;</button>
                         </div>
 
                     </div>
@@ -240,7 +305,7 @@ const Schedule = () => {
                     </div>
                 </div>
             </div>
-        </div>
+        </div >
     )
 
 };

@@ -100,7 +100,7 @@
 
 .schedule_add {
     width: 348px;
-    height: 303px;
+    height: auto;
     border-radius: 10px;
     border: 1px solid var(--Border-Disabled-default, #B3B3B3);
 
@@ -473,8 +473,8 @@
 
     padding-left: 4.24px;
     margin: 0;
-    white-space:normal;
-    
+    white-space: normal;
+
 
 }
 
@@ -489,7 +489,7 @@
 
     padding-left: 4.24px;
     margin: 0;
-    white-space:normal;
+    white-space: normal;
 
 }
 
@@ -504,8 +504,8 @@
 
     padding-left: 4.24px;
     margin: 0;
-    
-    white-space:normal;
+
+    white-space: normal;
 
 }
 
@@ -525,6 +525,19 @@
     background: rgba(204, 232, 210, 0.47);
 }
 
-.end{
-    
+.select_team {
+    width: 300px;
+    height: 49px;
+    border-radius: 4px;
+    border: 1px solid var(--Border-Disabled-default, #B3B3B3);
+
+    background: #FFF;
+    font-size: 16px;
+    color: #4C4C4C;
+    font-weight: 400;
+}
+
+.option_style{
+
+    height: 45px;
 }
