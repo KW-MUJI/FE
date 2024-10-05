@@ -88,6 +88,8 @@
 
     padding-top: 26px;
     padding-left: 24px;
+    padding-right:24px;
+    padding-bottom:47px;
 
 }
 
@@ -112,6 +114,7 @@
     padding-left: 24px;
     padding-top: 24px;
     padding-right: 24px;
+    padding-bottom: 15.46px;
 
 }
 
@@ -156,7 +159,7 @@
     margin-top: 17px;
     display: flex;
     flex-direction: column;
-    gap: 19px;
+    
 }
 
 
@@ -171,7 +174,7 @@
     background: #FFF;
 
 
-    margin: 0;
+    margin-bottom: 19px;
     padding-left: 10.96px;
 
 
@@ -204,6 +207,7 @@
     padding-left: 10.96px;
 
     gap: 20px;
+    margin-bottom: 19px;
 
 }
 
@@ -253,6 +257,7 @@
     font-weight: 400;
     border: none;
     cursor: pointer;
+    margin:0;
 }
 
 
@@ -270,6 +275,7 @@
     cursor: pointer;
 
     margin-top: 12px;
+
 
     align-self: flex-end;
     /* 버튼을 오른쪽 끝으로 배치 */
@@ -535,9 +541,100 @@
     font-size: 16px;
     color: #4C4C4C;
     font-weight: 400;
+    margin-bottom: 19px;
 }
 
 .option_style{
 
     height: 45px;
+}
+.my_schedule_event{
+    display: flex;
+    flex-direction: column;
+    gap:14.63px;
+    margin-top:26px;
+
+    width:300px;
+    overflow-x:auto;
+    
+}
+
+.schedule_item{
+    display: flex;
+    flex-direction: row;
+    text-align: left;
+    align-items: center;
+
+    width: 280px;
+    min-height: 27.368px;
+
+    gap:20px;
+    margin:0px;
+    padding-left:10px;
+
+
+    padding-top:6px;
+    padding-bottom:6.37px;
+    
+
+}
+
+.schedule_date{
+    max-width: 100px;
+    min-width: 100px;
+    height: 15px;
+    margin:0;
+    font-size: 15px;
+    font-weight: 400;
+
+    
+}
+
+.schedule_title{
+    padding-left:10px;
+    font-weight: 600;
+
+    margin:0;
+    white-space: normal;
+    
+}
+
+/* 개인 일정 (초록색) */
+.userEvent {
+    background: #f5f6ee;
+}
+
+.userDate, .userTitle{
+    color:  #6e723d;
+}
+
+.userTitle {
+    border-left: 2px solid  #6e723d;
+}
+
+/* 대학 일정 (빨간색) */
+.univEvent {
+    background: rgba(232, 206, 204, 0.40);
+}
+
+.univDate, .univTitle{
+    color: #8B0B02;
+}
+
+.univTitle {
+    border-left: 2px solid #8B0B02;
+}
+
+/* 팀플 일정 (파란색) */
+.projectEvent {
+    background: #EEF2F6;
+}
+
+.projectDate,.projectTitle {
+    color: #3B476E;
+}
+
+.projectTitle {
+
+    border-left: 2px solid #3B476E;
 }
