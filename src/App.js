@@ -22,6 +22,10 @@ import SurveyComplete from './components/Survey_complete';
 import MySurvey from './components/My_survey';
 import SurveyResult from './components/survet_result';
 import Schedule from './components/Schedule';
+import MyPage from './components/My_page';
+import CheckPw from './components/CheckPw';
+import Update from './components/Update';
+import MainPage from './components/mainpage';
 
 // import Login from './components/Login';
 
@@ -44,8 +48,10 @@ function App() {
         <Banner isLoggedIn={isLoggedIn} handleLogout={handleLogout} />
         <Routes>
 
-          <Route path="/" element={<MyTeam />} /> {/* 기본 경로를 Login으로 설정 */}
+          <Route path="/" element={<MainPage />} /> {/* 기본 경로를 Login으로 설정 */}
          
+
+          <Route path="/home" element={<MainPage />} />
           <Route path="/login" element={<Login setIsLoggedIn={setIsLoggedIn}/>} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/pwFind" element={<PwFind />} />
@@ -68,6 +74,9 @@ function App() {
           <Route path="/my_team_applicant/:id" element={<MyTeamApplicant/>}/>
           <Route path="/schedule" element={<Schedule/>}/>
 
+          <Route path="/my_page" element={<MyPage/>}/>
+          <Route path="/checkPw" element={<CheckPw/>}/>
+          <Route path="/update" element={<Update/>}/>
           
 
         </Routes>
