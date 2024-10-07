@@ -1,6 +1,6 @@
 //API 호출 로직
 import axios from 'axios';
-import { calendar as mockCalendar, calendar_add as mockAddCalendar } from '../components/mockData.js';; // Mock 데이터
+import { calendar as mockCalendar, calendar_add as mockAddCalendar, mockNotices } from '../components/mockData.js'; // Mock 데이터
 
 const CALENDAR_URL = '/api/calendar';
 
@@ -21,10 +21,10 @@ export const fetchCalendar = async (yearMonth) => {
         console.log("Mock 데이터:", mockCalendar); // Mock 데이터 확인
         return mockCalendar.response; // API 호출이 실패하면 Mock 데이터 반환
     }
-  };
-  
+};
 
- // 일정 추가
+
+// 일정 추가
 export const addCalendarEvent = async (eventData) => {
     try {
         const response = await axios.post(`${CALENDAR_URL}/add`, eventData, {
@@ -39,3 +39,23 @@ export const addCalendarEvent = async (eventData) => {
         return mockAddCalendar.response; // API 호출이 실패하면 Mock 데이터 반환
     }
 };
+
+export const getNotices = async (page = 1, searchVal = "", srCategoryId = 0) => {
+    try {
+        const response = await axios.get("/notices", {
+            params: {
+                page,
+                searchVal,
+                srCategoryId,
+            },
+            headers: {
+                "Content-Type": "application/json",
+            },
+        });
+        return response.data;
+    } catch (error) {
+        console.error("Error fetching notices:", error);
+        // 실패 시 mock 데이터 반환
+        return mockNotices;
+    }
+}

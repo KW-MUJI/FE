@@ -26,6 +26,7 @@ import MyPage from './components/My_page';
 import CheckPw from './components/CheckPw';
 import Update from './components/Update';
 import MainPage from './components/mainpage';
+import Notice from './components/Notice';
 
 // import Login from './components/Login';
 
@@ -77,7 +78,8 @@ function App() {
           <Route path="/my_page" element={<MyPage/>}/>
           <Route path="/checkPw" element={<CheckPw/>}/>
           <Route path="/update" element={<Update/>}/>
-          
+          <Route path="/notice" element={<Notice/>}/>
+
 
         </Routes>
 
