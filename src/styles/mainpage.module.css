@@ -1,0 +1,254 @@
+.main_container {
+    width: 1228px;
+    height: auto;
+    margin: auto;
+    margin-bottom: 36px;
+    margin-top: 67px;
+}
+
+.first_container {
+    display: flex;
+    margin-bottom: 41px;
+}
+
+.noti {
+    width: 759px;
+    height: auto;
+    margin-right: 53px;
+}
+
+.noti p {
+    font-family: Pretendard;
+    font-size: 25px;
+    font-weight: 600;
+    line-height: 25px;
+    text-align: left;
+
+}
+
+.navigation {
+    display: flex;
+    /* 버튼을 가로로 배치 */
+    gap: 40px;
+    /* 버튼 간격 */
+    margin-bottom: 16px;
+    /* 버튼 아래 여백 */
+}
+
+.navigation button {
+    background-color: transparent;
+    /* 버튼 배경색 */
+    color: white;
+    /* 버튼 글자색 */
+    padding: 10px 16px;
+    /* 내부 여백 */
+    cursor: pointer;
+    /* 마우스 포인터 변경 */
+    width: 120px;
+    height: 60px;
+    font-family: Pretendard;
+    font-size: 25px;
+    font-weight: 600;
+    line-height: 25px;
+    text-align: center;
+    color: #000000;
+    border-top: solid 1px #000000;
+    border-bottom: solid 1px #000000;
+    border-right: none;
+    border-left: none;
+}
+
+.navigation button.active {
+    background-color: #8B0B02;
+    /* 활성화된 버튼의 배경색 */
+    color: #FFFFFF;
+    /* 활성화된 버튼의 글자색 */
+    border: none;
+}
+
+.notice_list {
+    margin-top: 10px;
+    /* 리스트 위 여백 */
+}
+
+
+.notice_item:last-child {
+    border-bottom: none;
+    /* 마지막 항목 아래 테두리 제거 */
+}
+
+.notice_item {
+    display: flex;
+    justify-content: space-between;
+    /* 제목과 날짜를 양쪽 끝으로 배치 */
+    padding: 15px;
+    /* 여백 추가 */
+}
+
+.notice_item span {
+    font-family: Pretendard;
+    font-size: 22px;
+    font-weight: 400;
+    line-height: 22px;
+    text-align: left;
+}
+
+.notice_link {
+    text-decoration: none;
+    /* 링크 스타일 제거 */
+    color: inherit;
+    /* 부모 색상 상속 */
+    width: 100%;
+    /* 전체 너비 사용 */
+    display: flex;
+    /* 내부 요소를 flex로 배치 */
+    justify-content: space-between;
+    /* 제목과 날짜를 양쪽 끝으로 배치 */
+}
+
+.notice_title {
+    flex: 1;
+    /* 제목이 가능한 많은 공간을 차지하게 함 */
+    text-align: left;
+    /* 제목을 좌측 정렬 */
+    margin-right: 20px;
+    /* 제목과 날짜 사이에 여백 추가 */
+}
+
+.notice_date {
+    text-align: right;
+    /* 날짜를 우측 정렬 */
+}
+
+
+
+
+
+
+.calender {
+    width: 416px;
+}
+
+.second_container {
+    display: flex;
+}
+
+.teams {
+    width: 370px;
+    height: 201px;
+    margin-right: 32px;
+}
+
+.team {
+    display: flex;
+    align-items: center;
+    font-family: Pretendard;
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 18px;
+    text-align: left;
+    margin-bottom: 22px;
+    /* 수직 정렬을 위해 추가 */
+}
+
+.dot {
+    width: 7px;
+    /* 점의 크기 */
+    height: 7px;
+    /* 점의 크기 */
+    border-radius: 50%;
+    /* 원형으로 만들기 */
+    background-color: #b3b3b3;
+    /* 점의 색상 */
+    margin-right: 16px;
+    /* 점과 텍스트 사이의 간격 */
+    width: 7.17px;
+}
+
+.dday {
+    color: #b3b3b3;
+    /* 원하는 색상으로 변경 */
+    font-family: Pretendard;
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 18px;
+    margin-left: auto;
+}
+
+.survey {
+    width: 370px;
+    height: 201px;
+    margin-right: 40px;
+}
+
+.my_page {
+    width: 416px;
+    height: 245px;
+    border: solid 1px #B3B3B3;
+    border-radius: 10px;
+}
+.myBox{
+    display: flex;
+    height: 30px;
+    justify-content: space-between;
+    margin: 30px 24px 18px 35px;
+}
+.myBox h3 {
+    font-family: Pretendard;
+    font-size: 24px;
+    font-weight: 600;
+    line-height: 24px;
+    text-align: left;
+    margin: 0 0 0 0;
+    align-items: center;
+}
+
+.buttons {
+    display: inline-block;
+    border-top: solid 1px #B3B3B3;
+    width: 89%;
+    text-align: center;
+}
+
+.first_btn {
+    width: 158px;
+    height: 125px;
+    border-radius: 20px;
+    background: #3B476E;
+    font-family: Pretendard;
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 20px;
+    text-align: center;
+    color: #EEF2F6;
+    border: none;
+    margin: 18px 12px 0px 12px;
+}
+
+.second_btn {
+    width: 158px;
+    height: 125px;
+    border-radius: 20px;
+    background: #EEF2F6;
+    font-family: Pretendard;
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 20px;
+    text-align: center;
+    color: #3B476E;
+    border: none;
+    margin: 18px 12px 0px 12px;
+}
+.box{
+    margin-top: 35px;
+}
+.title{
+    display: flex;
+    height: 40px;
+    border-bottom: solid 1px #b3b3b3;
+    justify-content: space-between;
+
+}
+.title h3{
+    margin: 0;
+}

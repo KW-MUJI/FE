@@ -1,0 +1,74 @@
+.main_container {
+    width: 790px;
+    height: 360px;
+    margin: 161px auto;
+    background: #FFFFFF;
+    border-radius: 15px;
+    text-align: center;
+}
+
+.main_container h1 {
+    font-family: Pretendard;
+    font-size: 28px;
+    font-weight: 900;
+    line-height: 28px;
+    text-align: left;
+    margin: 0 0 16px 85px;
+    padding-top: 70px;
+}
+
+.main_container p {
+    font-family: Pretendard;
+    font-size: var(--sds-typography-body-size-large);
+    font-weight: 400;
+    line-height: 20px;
+    text-align: left;
+    color: #B3B3B3;
+    margin: 0 0 43px 85px;
+}
+
+.main_container h2 {
+    font-family: Pretendard;
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 20px;
+    text-align: left;
+    margin: 0 0 25px 85px;
+}
+
+.main_container input {
+    font-family: Pretendard;
+    width: 495px;
+    height: 50px;
+    border-radius: 40px;
+    border: 1px solid #B3B3B3;
+    text-align: left;
+    padding: 31px;
+    box-sizing: border-box;
+    margin-bottom: 11px;
+}
+
+.main_container input::placeholder {
+    font-family: Pretendard;
+    font-size: var(--sds-typography-body-size-large);
+    font-weight: 400;
+    line-height: 20px;
+    text-align: left;
+    text-align: left;
+}
+
+.main_container button {
+    font-family: Pretendard;
+    width: 114px;
+    height: 50px;
+    border: none;
+    border-radius: 40px;
+    background-color: #8B0B02;
+    color: white;
+    cursor: pointer;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 100%;
+    margin: 0 0 0 11px;
+}

@@ -1,0 +1,222 @@
+.main_container {
+    width: 1228px;
+    height: auto;
+    margin: auto;
+    display: flex;
+    margin-bottom: 36px;
+}
+
+.first_container {
+    margin: 36px 20px 0 0;
+
+}
+
+.second_container {
+    width: 968px;
+}
+
+.info {
+    background: #FFFFFF;
+    width: 240px;
+    height: 100%;
+    border-radius: 15px;
+}
+
+.my_container {
+    width: 968px;
+    height: 270px;
+    margin: 36px 0 22px 0;
+}
+
+.team_section {
+    display: inline-block;
+    width: 310px;
+    height: 270px;
+    background: #FFFFFF;
+    margin-right: 19px;
+    border-radius: 15px;
+}
+
+.team_section h3 {
+    font-family: Pretendard;
+    font-size: 24px;
+    font-weight: 800;
+    line-height: 24px;
+    text-align: left;
+    margin: 31px 0 31px 30px;
+}
+
+.team {
+    display: flex;
+    align-items: center;
+    font-family: Pretendard;
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 18px;
+    text-align: left;
+    margin-bottom: 22px;
+    /* 수직 정렬을 위해 추가 */
+}
+
+.dot {
+    width: 7px;
+    /* 점의 크기 */
+    height: 7px;
+    /* 점의 크기 */
+    border-radius: 50%;
+    /* 원형으로 만들기 */
+    background-color: #b3b3b3;
+    /* 점의 색상 */
+    margin-right: 16px;
+    /* 점과 텍스트 사이의 간격 */
+    width: 7.17px;
+    margin-left: 32px;
+}
+
+.dday {
+    color: #b3b3b3;
+    /* 원하는 색상으로 변경 */
+    font-family: Pretendard;
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 18px;
+    margin-left: auto;
+    /* 오른쪽으로 자동 마진 */
+    margin-right: 19px;
+}
+
+.index {
+    font-family: Pretendard;
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 18px;
+    width: 936px;
+    height: 50px;
+    border-top: solid 1px #4c4c4c;
+    border-bottom: solid 1px #4c4c4c;
+    margin-left: 16px;
+}
+
+.first {
+    display: inline-block;
+    width: 70px;
+    margin: 0 430px 0 125px
+}
+
+.second {
+    display: inline-block;
+    width: 83px;
+    margin: 0 63px 0 0;
+}
+
+.third {
+    display: inline-block;
+}
+
+.portfolio {
+    width: 968px;
+    height: 320px;
+    margin-bottom: 20px;
+    background: #FFFFFF;
+    border-radius: 15px;
+}
+
+.portfolio h3 {
+    margin: 33px 0 25px 29px;
+    font-family: Pretendard;
+    font-size: 24px;
+    font-weight: 800;
+    line-height: 24px;
+    text-align: left;
+
+}
+
+.portfolio_header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.add_button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 8px 12px;
+    cursor: pointer;
+}
+
+.add_button:hover {
+    background-color: #0056b3;
+}
+
+.portfolio_list {
+    margin-top: 26px;
+}
+
+.portfolio_item {
+    display: flex;
+    align-items: center;
+    margin-top: 26px;
+}
+
+.title {
+    width: 690px;
+    text-align: left;
+    font-family: Pretendard;
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 20px;
+    color: #4c4c4c;
+    padding-left: 58px;
+    height: 32px;
+}
+
+.last_modified {
+    font-family: Pretendard;
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 18px;
+    text-align: center;
+    color: #4C4C4C;
+    margin-left: auto;
+    margin-right: 50px;
+    width: 100px;
+}
+
+.delete_button {
+    cursor: pointer;
+    border: 1px solid #D9D9D9;
+    width: 71px;
+    height: 32px;
+    border-radius: 20px;
+    font-family: Pretendard;
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 18px;
+    background-color: transparent;
+}
+
+.delete_button:hover {
+    background-color: #ff1a1a;
+}
+
+.my_team {
+    width: 968px;
+    height: 320px;
+    background: #FFFFFF;
+    border-radius: 15px;
+}
+
+.my_team h3 {
+    padding: 33px 0 25px 29px;
+    text-align: left;
+    font-family: Pretendard;
+    font-size: 24px;
+    font-weight: 800;
+    line-height: 24px;
+    margin: 0;
+}
+.num{
+    margin-left: 30px;
+}
