@@ -50,31 +50,50 @@ const Schedule = () => {
         }
     }, [isSelected]);
 
+    var year = currentDate.getFullYear();
+    var month = currentDate.getMonth();
+    var dateStr = `${year}-${String(month + 1).padStart(2, '0')}`;
+     //각 일정 날짜,시간
+     var userEvents = schedules.events.userEvents ? schedules.events.userEvents.filter(event => event.eventDate.substring(0, 7) === dateStr) : [];
+     var univEvents = schedules.events.univEvents ? schedules.events.univEvents.filter(event => event.eventDate.substring(0, 7) === dateStr) : [];
+     var projectEvents = schedules.events.projectEvents ? schedules.events.projectEvents.filter(event => event.eventDate.substring(0, 7) === dateStr) : [];
+     var allSchedules = [...univEvents, ...userEvents, ...projectEvents]; // 모든 일정을 하나의 배열로 합침
+
+
+     const handleDelete = (eventToDelete) => {
+        if (userEvents.includes(eventToDelete)) {
+            setSchedules(prevSchedules => ({
+                ...prevSchedules,
+                events: {
+                    ...prevSchedules.events,
+
+                    userEvents: prevSchedules.events.userEvents.filter(event => event !== eventToDelete)
+                }
+            }));
+        }
+        // 해당 일정이 projectEvents에 속하는지 확인하고 삭제
+        else if (projectEvents.includes(eventToDelete)) {
+            setSchedules(prevSchedules => ({
+                ...prevSchedules,
+                events: {
+                    ...prevSchedules.events,
+                    projectEvents: prevSchedules.events.projectEvents.filter(event => event !== eventToDelete)
+                }
+            }));
+        }
+    }
 
     //해당 달 일정
     const mySchedule = () => {
-        const year = currentDate.getFullYear();
-        const month = currentDate.getMonth();
-
-        //해당 월의 마지막날
-        const lastDay = new Date(year, month + 1, 0);
-
-        const month_schedule = [];
-
-        const dateStr = `${year}-${String(month + 1).padStart(2, '0')}`;
-
-        //각 일정 날짜,시간
-        const userEvents = schedules.events.userEvents ? schedules.events.userEvents.filter(event => event.eventDate.substring(0, 7) === dateStr) : [];
-        const univEvents = schedules.events.univEvents ? schedules.events.univEvents.filter(event => event.eventDate.substring(0, 7) === dateStr) : [];
-        const projectEvents = schedules.events.projectEvents ? schedules.events.projectEvents.filter(event => event.eventDate.substring(0, 7) === dateStr) : [];
-        const allSchedules = [...univEvents, ...userEvents, ...projectEvents]; // 모든 일정을 하나의 배열로 합침
-
+  
         console.log('userEvents:', userEvents)
         console.log('univEvents:', univEvents)
         console.log('projectEvents:', projectEvents)
 
+        //시간순
+        allSchedules.sort((a, b) => { return new Date(a.eventDate) - new Date(b.eventDate) });
 
-
+       
         return (
             <div className={styles.my_schedule_event}>
                 {allSchedules.length > 0 ? (
@@ -89,14 +108,18 @@ const Schedule = () => {
                             eventType = 'project';
                         }
 
+
+
                         return (
                             <div key={index} className={`${styles.schedule_item} ${styles[`${eventType}Event`]}`}>
                                 <p className={`${styles.schedule_date} ${styles[`${eventType}Date`]}`}>
-                                    {event.eventDate.substring(5, 7)}월 {event.eventDate.substring(8, 10)}일
+                                    {event.eventDate.substring(5, 7)}월 {event.eventDate.substring(8, 10)}일   {event.eventDate.substring(11, 16)}
                                 </p>
                                 <p className={`${styles.schedule_title} ${styles[`${eventType}Title`]}`}>
                                     {event.title}
                                 </p>
+                                {schedules.events.univEvents.includes(event) ? '' : <button className={styles.schedule_cancle} onClick={() => handleDelete(event)}>X</button>}
+
                             </div>
                         );
                     })
@@ -185,9 +208,7 @@ const Schedule = () => {
         const todayStr = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}-${String(today.getDate()).padStart(2, '0')}`;
 
         const days = [];
-
-
-
+        
         // 첫째날 요일 앞 빈칸 설정
         for (let i = 0; i < firstDay.getDay(); i++) {
             days.push(<div key={`empty-${i}`} className={styles.emptyCalendar}></div>)
@@ -214,20 +235,31 @@ const Schedule = () => {
                     <div className={styles.event}>
                         {univEvents.filter(event => event.eventDate.split(' ')[0] === dateStr)
                             .map((event, index) =>
-                                <p key={`${index}-univ`} className={styles.univEvents}>{event.title}</p>
-                            )
+                                    <p key={`${index}-univ`} className={styles.univEvents}>{event.title}</p>
+                        )
 
                         }
                         {userEvents
                             .filter(event => event.eventDate.split(' ')[0] === dateStr)
                             .map((event, index) => (
-                                <p key={`${index}-user`} className={styles.userEvents}>{event.title}</p>
+                                <div key={`${index}-user`} className={styles.userEvents}>    
+                                    <p className={styles.userEvents_title}>{event.title}</p>
+                                <button className={styles.schedule_cancle} onClick={()=>handleDelete(event)}>X</button> 
+                                </div>
                             ))}
                         {projectEvents
                             .filter(event => event.eventDate.split(' ')[0] === dateStr)
                             .map((event, index) => (
-                                <p key={`${index}-project`} className={styles.projectEvents}>{event.title}</p>
+                                <div key={`${index}-project`} className={styles.projectEvents}>
+                                    <p className={styles.projectEvents_title}>{event.title}</p>
+                                    <button className={styles.schedule_cancle} onClick={()=>handleDelete(event)} >X</button> 
+
+                                </div>
+                                
                             ))}
+                        
+
+
                     </div>
                 </div>
             )

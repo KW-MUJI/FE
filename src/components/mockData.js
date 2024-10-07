@@ -375,6 +375,10 @@ export const calendar = {
                         usercalendarId: 98766,  // 동일하게 설정
                         title: "개인 공부",
                         eventDate: "2024-09-13 09:00:00"
+                    },{
+                        usercalendarId: 98766,  // 동일하게 설정
+                        title: "참빛 회의",
+                        eventDate: "2024-10-09 10:00:00"
                     }
                 ],
                 projectEvents: [
@@ -395,6 +399,12 @@ export const calendar = {
                         projectId: 33333,
                         title: "테스트",
                         eventDate: "2024-09-14 10:00:00"
+                    },
+                    {
+                        usercalendarId: 98766,  // 동일하게 설정
+                        projectId: 33333,
+                        title: "테스트",
+                        eventDate: "2024-10-14 10:00:00"
                     }
                 ]
             }
