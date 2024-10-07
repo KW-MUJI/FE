@@ -485,25 +485,39 @@
 }
 
 .userEvents {
+    display:flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 114.361px;
+    min-height: 27.531px;
+    background: #f5f6ee;
+
+}
+.userEvents_title{
     display: flex;
     align-items: center;
     text-align: left;
-    background: #f5f6ee;
     color: #6e723d;
-    width: 114.361px;
-    min-height: 27.531px;
 
     padding-left: 4.24px;
     margin: 0;
     white-space: normal;
-
 }
 
-.projectEvents {
+
+.projectEvents{
+    display:flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 114.361px;
+    min-height: 27.531px;
+    background: #f5f6ee;
+    background: #EEF2F6;
+}
+.projectEvents_title{
     display: flex;
     align-items: center;
     text-align: left;
-    background: #EEF2F6;
     color: #3B476E;
     width: 114.361px;
     min-height: 27.531px;
@@ -512,8 +526,8 @@
     margin: 0;
 
     white-space: normal;
-
 }
+
 
 .emptyEvents {
     display: flex;
@@ -564,9 +578,10 @@
     flex-direction: row;
     text-align: left;
     align-items: center;
+    justify-content: space-between;
+    width: 275px;
 
-    width: 280px;
-    min-height: 27.368px;
+ 
 
     gap:20px;
     margin:0px;
@@ -582,10 +597,11 @@
 .schedule_date{
     max-width: 100px;
     min-width: 100px;
-    height: 15px;
+  
     margin:0;
     font-size: 15px;
     font-weight: 400;
+
 
     
 }
@@ -596,7 +612,7 @@
 
     margin:0;
     white-space: normal;
-    
+    width:200px;
 }
 
 /* 개인 일정 (초록색) */
@@ -637,4 +653,11 @@
 .projectTitle {
 
     border-left: 2px solid #3B476E;
+}
+.schedule_cancle{
+    border:none;
+    background-color:#ffffff00;
+    color:#B3B3B3;
+    display: flex;
+    cursor: pointer;
 }
