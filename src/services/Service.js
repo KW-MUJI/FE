@@ -40,22 +40,35 @@ export const addCalendarEvent = async (eventData) => {
     }
 };
 
-export const getNotices = async (page = 1, searchVal = "", srCategoryId = 0) => {
+export const getNotices = async (page = 1, searchVal = "", srCategoryId = null) => {
     try {
-        const response = await axios.get("/notices", {
-            params: {
-                page,
-                searchVal,
-                srCategoryId,
-            },
-            headers: {
-                "Content-Type": "application/json",
-            },
-        });
+        const params={page,searchVal};
+        if(srCategoryId !=null) params.srCategoryId=srCategoryId;
+
+        const response = await axios.get("/notices", {params});
         return response.data;
     } catch (error) {
         console.error("Error fetching notices:", error);
+
+        let filteredNotices = mockNotices.data.notices;
+
+        if(srCategoryId!==null){
+            filteredNotices = filteredNotices.filter(notice=>notice.srCategoryId===srCategoryId)
+        }
+
+        //검색어 필터링
+        if(searchVal){
+            const lowerSearchVal = searchVal.toLowerCase(); // 검색어를 소문자로 변환
+            filteredNotices=filteredNotices.filter(notice=> notice.title.toLowerCase().includes(lowerSearchVal) // 제목을 소문자로 변환하여 비교
+            );
+        }
         // 실패 시 mock 데이터 반환
-        return mockNotices;
+        return  {
+            code: 200,
+            data: {
+                notices: filteredNotices,
+                maxPage: mockNotices.data.maxPage
+            }
+        };
     }
 }
