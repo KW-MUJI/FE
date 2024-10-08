@@ -76,18 +76,20 @@ const MyPage = () => {
             <div className={styles.main_container}>
                 <div className={styles.first_container}>
                     <div className={styles.info}>
-                        <svg width="139" height="139" viewBox="0 0 139 139" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <svg width="139" height="139" viewBox="0 0 139 139" fill="none" xmlns="http://www.w3.org/2000/svg" style={{margin:'42px auto 36px auto' }}>
                             <rect width="139" height="139" rx="69.5" fill="#7F7F7F" fillOpacity="0.2" style={{ mixBlendMode: 'luminosity' }} />
                             <rect width="139" height="139" rx="69.5" fill="#3D3D3D" fillOpacity="0.5" style={{ mixBlendMode: 'overlay' }} />
                             <path fillRule="evenodd" clipRule="evenodd" d="M90.3511 55.6C90.3511 67.1151 81.0162 76.45 69.5011 76.45C57.986 76.45 48.6511 67.1151 48.6511 55.6C48.6511 44.0849 57.986 34.75 69.5011 34.75C81.0162 34.75 90.3511 44.0849 90.3511 55.6ZM83.4011 55.6C83.4011 63.2768 77.1779 69.5 69.5011 69.5C61.8243 69.5 55.6011 63.2768 55.6011 55.6C55.6011 47.9232 61.8243 41.7 69.5011 41.7C77.1779 41.7 83.4011 47.9232 83.4011 55.6Z" fill="#8B0B02" />
                             <path d="M69.5011 86.875C47.0026 86.875 27.8333 100.179 20.5312 118.817C22.3101 120.584 24.184 122.255 26.1445 123.821C31.582 106.709 48.6397 93.825 69.5011 93.825C90.3625 93.825 107.42 106.709 112.858 123.821C114.818 122.255 116.692 120.584 118.471 118.817C111.169 100.179 91.9996 86.875 69.5011 86.875Z" fill="#8B0B02" />
                         </svg>
 
-                        <p>김참빛님 &gt;</p>
-                        <p>MY 팀플</p>
-                        <p>MY 모집 팀플</p>
-                        <p>MY 설문</p>
-                        <button>로그아웃</button>
+                        <h1>김참빛<span>님 &gt;</span></h1>
+                        <div className={styles.my}>
+                            <p>MY 팀플</p>
+                            <p>MY 모집 팀플</p>
+                            <p>MY 설문</p>
+                        </div>
+                        <button className={styles.logout}>로그아웃</button>
                     </div>
                 </div>
                 <div className={styles.second_container}>
@@ -125,7 +127,12 @@ const MyPage = () => {
                     <div className={styles.portfolio}>
                         <div className={styles.portfolio_header}>
                             <h3>MY 포트폴리오</h3>
-                            <button onClick={handleAddPortfolio} className={styles.add_button}>추가</button>
+                            <button onClick={handleAddPortfolio} className={styles.add_button}>
+                                <svg width="18" height="16" viewBox="0 0 18 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M9.00481 15.3062H16.5086M12.7567 1.85373C13.0884 1.52938 13.5383 1.34717 14.0074 1.34717C14.2396 1.34717 14.4696 1.3919 14.6842 1.47882C14.8988 1.56574 15.0938 1.69313 15.258 1.85373C15.4222 2.01433 15.5525 2.20499 15.6414 2.41482C15.7303 2.62466 15.776 2.84956 15.776 3.07668C15.776 3.3038 15.7303 3.5287 15.6414 3.73854C15.5525 3.94837 15.4222 4.13903 15.258 4.29963L4.83601 14.4909L1.50098 15.3062L2.33474 12.045L12.7567 1.85373Z" stroke="#1E1E1E" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" />
+                                </svg>
+                                추가
+                            </button>
                         </div>
                         <div className={styles.index}>
                             <p className={styles.first}>제목</p>
