@@ -217,7 +217,7 @@ export const answers = [// 설문조사 응답 저장 테이블
 export const teams = [
     {
         teamName: '캡스톤',
-        projectId:11111,
+        projectId: 11111,
         members: [
             { id: 1, name: '노광운', stuNum: '21학번', department: '소프트웨어학부', email: 'nokw@kw.ac.kr' },
             { id: 2, name: '김노원', stuNum: '19학번', department: '정보융합학부', email: 'none_kim@kw.ac.kr' },
@@ -227,7 +227,7 @@ export const teams = [
     },
     {
         teamName: '멋쟁이사자',
-        projectId:22222,
+        projectId: 22222,
         members: [
             { id: 1, name: '노광운', stuNum: '21학번', department: '소프트웨어학부', email: 'nokw@kw.ac.kr' },
             { id: 2, name: '김노원', stuNum: '19학번', department: '정보융합학부', email: 'none_kim@kw.ac.kr' },
@@ -236,7 +236,7 @@ export const teams = [
     },
     {
         teamName: '광운극회',
-        projectId:33333,
+        projectId: 33333,
         members: [
             { id: 1, name: '노광운', stuNum: '21학번', department: '소프트웨어학부', email: 'nokw@kw.ac.kr' },
             { id: 2, name: '김노원', stuNum: '19학번', department: '정보융합학부', email: 'none_kim@kw.ac.kr' },
@@ -375,7 +375,7 @@ export const calendar = {
                         usercalendarId: 98766,  // 동일하게 설정
                         title: "개인 공부",
                         eventDate: "2024-09-13 09:00:00"
-                    },{
+                    }, {
                         usercalendarId: 98766,  // 동일하게 설정
                         title: "참빛 회의",
                         eventDate: "2024-10-09 10:00:00"
@@ -416,80 +416,124 @@ export const calendar = {
 
 
 
-const post = () => [
-    {
-        teamID: "1",
-        imageURL: '/assets/kw_logo.jpg', // public 폴더 기준 경로
-        title: "해커톤 같이 나갈 sss개발자 구함",
-        deadline: "2024-10-01",
-        content: "안녕하세요, 저는 소프트웨어학부 19학번 김참빛입니다.\n현재 백앤드 2명 모인 상황이고, 프론트엔드 2분 모집하고 있습니다.\n 저희는 두명 다 개발 경험 및 공모전 경험이 있습니다.\n 수상을 목표로 하고 있어서, 개발 경험 있으신 분이면 좋겠습니다.\n 관심있으시면 연락 부탁드립니다.",
-        date: "2024-09-19"
+// mockData.js
+export const mockNotices = {
+    code: 200,
+    data: {
+        notices: [
+            {
+                category: "일반",
+                title: " [광운대x시스코] Hello Network Advanced-기업 네트워크 구성 실습(~10.15) ",
+                link: "https://www.kw.ac.kr/ko/life/notice.jsp?BoardMode=view&DUID=47735&tpage=1&searchKey=1&searchVal=&srCategoryId=",
+                views: "1500",
+                createdDate: "2024.09.19 ",
+                updatedDate: "2024.10.07",
+                team: "산학협력단",
+                srCategoryId: 0,
+            },
+            {
+                category: "학사",
+                title: "사회복지학연계전공 안내",
+                link: "https://www.kw.ac.kr/ko/life/notice.jsp?BoardMode=view&DUID=47552&tpage=1&searchKey=1&searchVal=&srCategoryId=",
+                views: "3000",
+                createdDate: "2024.09.03",
+                updatedDate: "2024.10.07",
+                team: "교육지원팀",
+                srCategoryId: 1,
+            },
+            {
+                category: "학생",
+                title: "[체육지원팀] 축구부 2024 대학축구 U리그 경기 일정 및 결과 안내( 10월 04일 광운대 :목포과학대 3대1 승)",
+                link: "https://www.kw.ac.kr/ko/life/notice.jsp?BoardMode=view&DUID=45792&tpage=1&searchKey=1&searchVal=&srCategoryId=2",
+                views: "500",
+                createdDate: " 2024.04.01",
+                updatedDate: "2024.10.07 ",
+                team: "학생복지팀",
+                srCategoryId: 2,
+            },
+            {
+                category: "봉사",
+                title: "[체육지원팀] 축구부 2024 대학축구 U리그 경기 일정 및 결과 안내( 10월 04일 광운대 :목포과학대 3대1 승)",
+                link: "https://www.kw.ac.kr/ko/life/notice.jsp?BoardMode=view&DUID=45792&tpage=1&searchKey=1&searchVal=&srCategoryId=2",
+                views: "500",
+                createdDate: " 2024.04.01",
+                updatedDate: "2024.10.07 ",
+                team: "학생복지팀",
+                srCategoryId: 3,
+            },
+            {
+                category: "등록/장학",
+                title: "[체육지원팀] 축구부 2024 대학축구 U리그 경기 일정 및 결과 안내( 10월 04일 광운대 :목포과학대 3대1 승)",
+                link: "https://www.kw.ac.kr/ko/life/notice.jsp?BoardMode=view&DUID=45792&tpage=1&searchKey=1&searchVal=&srCategoryId=2",
+                views: "500",
+                createdDate: " 2024.04.01",
+                updatedDate: "2024.10.07 ",
+                team: "학생복지팀",
+                srCategoryId: 4,
+            },
+            {
+                category: "입학",
+                title: "[체육지원팀] 축구부 2024 대학축구 U리그 경기 일정 및 결과 안내( 10월 04일 광운대 :목포과학대 3대1 승)",
+                link: "https://www.kw.ac.kr/ko/life/notice.jsp?BoardMode=view&DUID=45792&tpage=1&searchKey=1&searchVal=&srCategoryId=2",
+                views: "500",
+                createdDate: " 2024.04.01",
+                updatedDate: "2024.10.07 ",
+                team: "학생복지팀",
+                srCategoryId: 5,
+            },
+            {
+                category: "시설",
+                title: "[체육지원팀] 축구부 2024 대학축구 U리그 경기 일정 및 결과 안내( 10월 04일 광운대 :목포과학대 3대1 승)",
+                link: "https://www.kw.ac.kr/ko/life/notice.jsp?BoardMode=view&DUID=45792&tpage=1&searchKey=1&searchVal=&srCategoryId=2",
+                views: "500",
+                createdDate: " 2024.04.01",
+                updatedDate: "2024.10.07 ",
+                team: "학생복지팀",
+                srCategoryId: 6,
+            },
+            {
+                category: "병무",
+                title: "[체육지원팀] 축구부 2024 대학축구 U리그 경기 일정 및 결과 안내( 10월 04일 광운대 :목포과학대 3대1 승)",
+                link: "https://www.kw.ac.kr/ko/life/notice.jsp?BoardMode=view&DUID=45792&tpage=1&searchKey=1&searchVal=&srCategoryId=2",
+                views: "500",
+                createdDate: " 2024.04.01",
+                updatedDate: "2024.10.07 ",
+                team: "학생복지팀",
+                srCategoryId: 7,
+            },
+            {
+                category: "외부",
+                title: "[체육지원팀] 축구부 2024 대학축구 U리그 경기 일정 및 결과 안내( 10월 04일 광운대 :목포과학대 3대1 승)",
+                link: "https://www.kw.ac.kr/ko/life/notice.jsp?BoardMode=view&DUID=45792&tpage=1&searchKey=1&searchVal=&srCategoryId=2",
+                views: "500",
+                createdDate: " 2024.04.01",
+                updatedDate: "2024.10.07 ",
+                team: "학생복지팀",
+                srCategoryId: 8,
+            },
+            {
+                category: "국제교류",
+                title: "[체육지원팀] 축구부 2024 대학축구 U리그 경기 일정 및 결과 안내( 10월 04일 광운대 :목포과학대 3대1 승)",
+                link: "https://www.kw.ac.kr/ko/life/notice.jsp?BoardMode=view&DUID=45792&tpage=1&searchKey=1&searchVal=&srCategoryId=2",
+                views: "500",
+                createdDate: " 2024.04.01",
+                updatedDate: "2024.10.07 ",
+                team: "학생복지팀",
+                srCategoryId: 9,
+            },
+            {
+                category: "국제학생",
+                title: "[체육지원팀] 축구부 2024 대학축구 U리그 경기 일정 및 결과 안내( 10월 04일 광운대 :목포과학대 3대1 승)",
+                link: "https://www.kw.ac.kr/ko/life/notice.jsp?BoardMode=view&DUID=45792&tpage=1&searchKey=1&searchVal=&srCategoryId=2",
+                views: "500",
+                createdDate: " 2024.04.01",
+                updatedDate: "2024.10.07 ",
+                team: "학생복지팀",
+                srCategoryId: 10,
+            },
+        ],
+        maxPage: 3,
     },
-    {
-        teamID: "2",
-        imageURL: '/assets/kw_logo.jpg', // public 폴더 기준 경로
-        title: "해커톤 같이 나갈 개발자 구함",
-        deadline: "2024-10-01",
-        content: "2번입니다",
-        date: "2024-09-19"
-    },
-    {
-        teamID: "3",
-        imageURL: '/assets/kw_logo.jpg', // public 폴더 기준 경로
-        title: "해커톤 같이 나갈 개발자 구함",
-        deadline: "2024-10-01",
-        content: "3번입니다",
-        date: "2024-09-19"
-    },
-    {
-        teamID: "4",
-        imageURL: '/assets/kw_logo.jpg', // public 폴더 기준 경로
-        title: "해커톤 같이 나갈 개발자 구함",
-        deadline: "2024-10-01",
-        content: "4번입니다",
-        date: "2024-09-19"
-    },
-    {
-        teamID: "5",
-        imageURL: '/assets/kw_logo.jpg', // public 폴더 기준 경로
-        title: "해커톤 같이 나갈 개발자 구함",
-        deadline: "2024-10-01",
-        content: "5번입니다",
-        date: "2024-09-19"
-    },
-    {
-        teamID: "6",
-        imageURL: '/assets/kw_logo.jpg', // public 폴더 기준 경로
-        title: "해커톤 같이 나갈 개발자 구함",
-        deadline: "2024-10-01",
-        content: "6번입니다",
-        date: "2024-09-19"
-    },
-    {
-        teamID: "7",
-        imageURL: '/assets/kw_logo.jpg', // public 폴더 기준 경로
-        title: "해커톤 같이 나갈 개발자 구함",
-        deadline: "2024-10-01",
-        content: "7번입니다",
-        date: "2024-09-19"
-    },
-    {
-        teamID: "8",
-        imageURL: '/assets/kw_logo.jpg', // public 폴더 기준 경로
-        title: "해커톤 같이 나갈 개발자 구함",
-        deadline: "2024-10-01",
-        content: "8번입니다",
-        date: "2024-09-19"
-    },
-    {
-        teamID: "9",
-        imageURL: '/assets/kw_logo.jpg', // public 폴더 기준 경로
-        title: "해커톤 같이 나갈 개발자 구함",
-        deadline: "2024-10-01",
-        content: "번입니다",
-        date: "2024-09-19"
-    }
-
-]
+};
 
 
