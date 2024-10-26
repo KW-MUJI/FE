@@ -18,11 +18,13 @@ const Notice = () => {
       team: [],
     },
   });
+  const [totalPages, setTotalPages] = useState(1); // 전체 페이지 수
 
   const fetchData = async () => {
     try {
       const data = await getNotices(currentPage, query, selectedCategory);
       setNotices(data.data.notices);
+      setTotalPages(data.data.totalPages); //API에서 전체 페이지 수 받아오기
     } catch (error) {
       console.error("Error fetching notices:", error);
     }
@@ -46,7 +48,24 @@ const Notice = () => {
 
   const handleChangeCategory = (category) => {
     setSelectedCategory(category);
-    console.log(category);
+  };
+  // 이전 페이지로 이동
+  const handlePreviousPage = () => {
+    if (currentPage > 1) {
+      setCurrentPage(currentPage - 1);
+    }
+  };
+
+  // 다음 페이지로 이동
+  const handleNextPage = () => {
+    if (currentPage < totalPages) {
+      setCurrentPage(currentPage + 1);
+    }
+  };
+
+  // 특정 페이지로 이동
+  const handlePageClick = (pageNumber) => {
+    setCurrentPage(pageNumber);
   };
 
   return (
@@ -257,6 +276,55 @@ const Notice = () => {
           <p>게시글이 없습니다.</p>
         )}
       </ul>
+
+      {/* 페이지네이션 */}
+      <div className={styles.pagination}>
+        <button
+          onClick={handlePreviousPage}
+          disabled={currentPage === 1}
+          className={styles.arrow}
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+          >
+            <path d="M16 5L16 19L5 12L16 5Z" fill="#1D1B20" />
+          </svg>
+        </button>
+        <div clssName={styles.pagingNumber}>
+          {[...Array(totalPages)].map((_, index) => (
+            <button
+              key={index}
+              onClick={() => handlePageClick(index + 1)}
+              className={
+                currentPage === index + 1
+                  ? styles.active_page
+                  : styles.page_button
+              }
+            >
+              {index + 1}
+            </button>
+          ))}
+        </div>
+        <button
+          onClick={handleNextPage}
+          disabled={currentPage === totalPages}
+          className={styles.arrow}
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+          >
+            <path d="M8 19V5L19 12L8 19Z" fill="#1D1B20" />
+          </svg>
+        </button>
+      </div>
     </div>
   );
 };
