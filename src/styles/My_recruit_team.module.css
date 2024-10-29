@@ -1,212 +1,189 @@
 * {
-    font-family: Pretendard;
-    font-style: normal;
-    line-height: 100%;
-
+  font-family: Pretendard;
+  font-style: normal;
+  line-height: 100%;
 }
 
 .My_recruit_team {
+  width: 1228px;
+  height: auto;
 
-    width: 1228px;
-    height: auto;
+  margin-left: auto;
+  margin-right: auto;
 
-    margin-left: auto;
-    margin-right: auto;
-
-    margin-top: 58px;
-
+  margin-top: 58px;
 }
 
 .page_header {
-    /* border: 1px solid #ff0000; */
-    font-size: 32px;
-    font-weight: 800;
+  /* border: 1px solid #ff0000; */
+  font-size: 32px;
+  font-weight: 800;
 
-    display: flex;
+  display: flex;
 
-    gap: 12px;
-    margin-bottom: 41px;
-
+  gap: 12px;
+  margin-bottom: 41px;
 }
 
-
-
 .team_header {
+  width: 1228px;
+  height: 90px;
 
-    width: 1228px;
-    height: 90px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-left: 9px;
+  box-sizing: border-box;
 
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding-left: 9px;
-    box-sizing: border-box;
+  border-top: 1px solid var(--Border-Disabled-default, #b3b3b3);
 
-    border-top: 1px solid var(--Border-Disabled-default, #B3B3B3);
-
-    border-bottom: 1px solid var(--Border-Disabled-default, #B3B3B3);
-
+  border-bottom: 1px solid var(--Border-Disabled-default, #b3b3b3);
 }
 
 .team_header h {
-    color: #4C4C4C;
-    font-size: 20px;
-    font-weight: 600;
+  color: #4c4c4c;
+  font-size: 20px;
+  font-weight: 600;
 }
 
 .list_option {
-    display: flex;
-    gap: 24px;
+  display: flex;
+  gap: 24px;
 }
 
 .team_header button:not(:last-child) {
-    width: 122px;
-    height: 40px;
+  width: 122px;
+  height: 40px;
 
-    border-radius: 30px;
+  border-radius: 30px;
 
-    text-align: center;
-    font-size: 23.012px;
-    font-weight: 600;
-    cursor: pointer;
+  text-align: center;
+  font-size: 23.012px;
+  font-weight: 600;
+  cursor: pointer;
 }
 
 .edit {
-    background: #FFF;
-    color: #8B0B02;
-    border: 1px solid #8B0B02;
+  background: #fff;
+  color: #8b0b02;
+  border: 1px solid #8b0b02;
 }
 
 .start {
-    background: #8B0B02;
-    color: #FFF;
-    border: none;
+  background: #8b0b02;
+  color: #fff;
+  border: none;
 }
 
 .cancel {
-    border: none;
-    background: none;
-    padding: 0;
-    cursor: pointer;
+  border: none;
+  background: none;
+  padding: 0;
+  cursor: pointer;
 }
 
 .disabledStart {
-    width: 122px;
-    height: 40px;
+  width: 122px;
+  height: 40px;
 
-    border-radius: 30px;
+  border-radius: 30px;
 
-    text-align: center;
-    font-size: 23.012px;
-    font-weight: 600;
-    background-color: #B0B0B0;
-    /* 모집 마감 버튼 스타일 */
-    cursor: not-allowed;
+  text-align: center;
+  font-size: 23.012px;
+  font-weight: 600;
+  background-color: #b0b0b0;
+  /* 모집 마감 버튼 스타일 */
+  cursor: not-allowed;
 }
 
-
 .team_main {
-
-    padding-top: 37px;
-    padding-left: 66px;
-    padding-right: 66px;
-    padding-bottom: 60px;
-
-
+  padding-top: 37px;
+  padding-left: 66px;
+  padding-right: 66px;
+  padding-bottom: 60px;
 }
 
 .applicant_number {
-    font-size: 24px;
-    font-weight: 500;
-    text-align: left;
-    margin-bottom: 40px;
-
+  display: flex;
+  gap: 10px;
+  font-size: 24px;
+  font-weight: 500;
+  text-align: left;
+  margin-bottom: 40px;
 }
 
-
-
 .applicant {
-
-    display: grid;
-    grid-template-columns: repeat(3, 0fr);
-    gap: 68px;
-
+  display: grid;
+  grid-template-columns: repeat(3, 0fr);
+  gap: 68px;
 }
 
 .applicant_item {
-    width: 320px;
-    height: 176px;
-    border-radius: 15px;
-    background: #EEF2F6;
-    padding-top: 22px;
-    padding-left: 28px;
-    padding-bottom: 18px;
+  width: 320px;
+  height: 176px;
+  border-radius: 15px;
+  background: #eef2f6;
+  padding-top: 22px;
+  padding-left: 28px;
+  padding-bottom: 18px;
 }
 
 .applicant_profile {
-    display: flex;
-    gap: 22px;
+  display: flex;
+  gap: 22px;
 
-    margin-bottom: 38px;
-
-
+  margin-bottom: 38px;
 }
 
 .applicant_info {
-    text-align: left;
-
-
+  text-align: left;
 }
 
 .applicant_name {
-    font-size: 24px;
-    font-weight: 800;
-    margin-bottom: 15px;
+  font-size: 24px;
+  font-weight: 800;
+  margin-bottom: 15px;
 }
 
 .applicant_department_Num {
-    display: flex;
-    gap: 8.09px;
-    align-items: center;
-
+  display: flex;
+  gap: 8.09px;
+  align-items: center;
 }
 
-
 .applicant_option {
-    display: flex;
-    gap: 24px;
+  display: flex;
+  gap: 24px;
 }
 
 .applicant_option button {
-    width: 120px;
-    height: 40px;
-    border-radius: 15px;
-    border: none;
-    font-size: 18px;
-    font-weight: 400;
-    cursor: pointer;
-
-
+  width: 120px;
+  height: 40px;
+  border-radius: 15px;
+  border: none;
+  font-size: 18px;
+  font-weight: 400;
+  cursor: pointer;
 }
 
 #portfolio {
-    border-radius: 15px;
-    background: #FFF;
+  border-radius: 15px;
+  background: #fff;
 }
 
 #select {
-    background: #8B0B02;
-    color: #FFF;
-    cursor: pointer;
+  background: #8b0b02;
+  color: #fff;
+  cursor: pointer;
 }
 
 #select:disabled {
-    background: #8B0B02;
-    color: #FFF;
-    background-color: #d3d3d3;
-    /* 비활성화 상태의 배경색 */
-    color: #888888;
-    /* 비활성화 상태의 글자 색 */
-    cursor: not-allowed;
-    /* 비활성화 상태에서 커서 모양 */
+  background: #8b0b02;
+  color: #fff;
+  background-color: #d3d3d3;
+  /* 비활성화 상태의 배경색 */
+  color: #888888;
+  /* 비활성화 상태의 글자 색 */
+  cursor: not-allowed;
+  /* 비활성화 상태에서 커서 모양 */
 }
