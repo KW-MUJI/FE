@@ -75,7 +75,6 @@
   max-height: 475px;
   flex-shrink: 0;
   border: 0px;
-  border-bottom: 1px solid #b3b3b3;
   resize: none;
   margin-top: 12px;
   font-size: 24px;
@@ -107,6 +106,7 @@
   /* flex-direction: row; */
   align-items: center;
 
+  border-top: 1px solid #b3b3b3;
   box-sizing: border-box;
 
   width: 1173px;
