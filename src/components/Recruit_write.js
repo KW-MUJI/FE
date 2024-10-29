@@ -123,6 +123,15 @@ const RecruitWrite = () => {
               </button>
             </div>
           )}
+          {!content && (
+            <div className={styles.overlay_text}>
+              <p>공고 마감</p>
+              <p>- 모집기간이 끝난경우</p>
+              <p>
+                - 신청한 인원중 팀원 선택 완료 후, 팀플 시작 버튼을 누른 경우
+              </p>
+            </div>
+          )}
           <textarea
             id="content"
             name="content"
