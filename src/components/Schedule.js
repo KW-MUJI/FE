@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { fetchCalendar, addCalendarEvent } from "../services/Service.js"; // API 함수 가져오기
 import styles from "../styles/Schedule.module.css";
-import { calendar, teams } from "./mockData"; // 팀 목록 가져오기
+import { teams } from "./mockData"; // 팀 목록 가져오기
 
 const Schedule = () => {
   const [isSelected, setIsSelected] = useState("개인일정"); // (개인일정/ 팀플일정)
@@ -56,6 +56,7 @@ const Schedule = () => {
   var year = currentDate.getFullYear();
   var month = currentDate.getMonth();
   var dateStr = `${year}-${String(month + 1).padStart(2, "0")}`;
+
   //각 일정 날짜,시간
   var userEvents = schedules.events.userEvents
     ? schedules.events.userEvents.filter(
@@ -73,7 +74,6 @@ const Schedule = () => {
       )
     : [];
   var allSchedules = [...univEvents, ...userEvents, ...projectEvents]; // 모든 일정을 하나의 배열로 합침
-  //  console.log('projectTeams:', projectTeams)
 
   const handleDelete = (eventToDelete) => {
     if (userEvents.includes(eventToDelete)) {
@@ -88,6 +88,7 @@ const Schedule = () => {
         },
       }));
     }
+
     // 해당 일정이 projectEvents에 속하는지 확인하고 삭제
     else if (projectEvents.includes(eventToDelete)) {
       setSchedules((prevSchedules) => ({
@@ -213,10 +214,6 @@ const Schedule = () => {
       title,
       eventDate: `${date} ${time}`,
     };
-    const newTeam = {
-      projectId: selectedTeam.projectId,
-      name: selectedTeam.name,
-    };
 
     console.log("추가할 이벤트:", newEvent); // 콘솔로 새로운 일정 출력
 
@@ -237,10 +234,6 @@ const Schedule = () => {
           if (selectedTeam) {
             setSchedules({
               ...schedules,
-              projects: {
-                ...schedules.projects,
-                newTeam,
-              },
               events: {
                 ...schedules.events,
                 projectEvents: [...schedules.events.projectEvents, newEvent],
