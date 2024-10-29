@@ -20,7 +20,6 @@
   font-size: 14px;
   line-height: 20px;
   margin: 52px auto;
-  border: 1px solid #ff0000;
   box-sizing: border-box; /* padding 포함한 크기 조절 */
   gap: 4px;
 }
