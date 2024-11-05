@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import styles from "../styles/My_recruit_team.module.css"; // CSS 파일 임포트
-import { recruit_teams } from "./mockData"; // mock 데이터 임포트
+import styles from "../../styles/My_recruit_team.module.css"; // CSS 파일 임포트
+import { recruit_teams } from "../mockData"; // mock 데이터 임포트
 import { Link } from "react-router-dom";
 
 // 이름 마스킹 함수

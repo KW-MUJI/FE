@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import styles from '../styles/My_team.module.css'; // CSS 파일 임포트
+import styles from '../../styles/My_team.module.css'; // CSS 파일 임포트
 import { teams } from './mockData';  // mock 데이터 임포트
 
 
