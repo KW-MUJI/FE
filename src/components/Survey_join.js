@@ -1,26 +1,70 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styles from '../styles/Survey_join.module.css';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import moment from 'moment';
+import axios from 'axios';
 
-// 회원가입 컴포넌트
 const SurveyJoin = () => {
-    const title = '패션 앱 관련 설문조사';
-    const content = '안녕하세요!! 저는 패션쪽 마케팅을 준비하고 있는 3학년입니다.\n패션 앱 관련 아이디어를 얻기 위해, 설문조사 부탁드립니다:)';
-    const startDate = '2024-09-21';
-    const endDate = '2024-10-10';
-    const [questions, setQuestions] = useState([
-        { text: '성별', type: 'multipleChoice', options: ['남성', '여성'] },
-        { text: '무신사 얼마나 사용?', type: 'multipleChoice', options: ['0~1', '2~3', '4~5', '6~'] },
-        { text: '무신사 한 단어로?', type: 'shortAnswer' },
-        { text: '한마디', type: 'shortAnswer' }
-    ]);
-    const [answers, setAnswers] = useState({});
+    const { surveyId } = useParams(); // URL 파라미터에서 surveyId 추출
+    const [survey, setSurvey] = useState(null); // 설문조사 정보를 저장할 상태
+    const [answers, setAnswers] = useState({}); // 설문조사 답변 저장 상태
     const navigate = useNavigate();
-
-    const goToComplete = () => {
-        navigate("/survey_complete");
+    // Mock 데이터
+    const mockSurveyData = {
+        surveyId: 1,
+        title: '패션 앱 관련 설문조사',
+        description: '안녕하세요!! 저는 패션쪽 마케팅을 준비하고 있는 3학년입니다.\n패션 앱 관련 아이디어를 얻기 위해, 설문조사 부탁드립니다:)',
+        createdAt: '2024-09-21T00:00:00Z',
+        endDate: '2024-10-10T00:00:00Z',
+        questions: [
+            {
+                questionId: 1,
+                questionText: '성별',
+                questionType: 'CHOICE',
+                choices: [
+                    { choiceId: 1, choiceText: '남성' },
+                    { choiceId: 2, choiceText: '여성' }
+                ]
+            },
+            {
+                questionId: 2,
+                questionText: '무신사 얼마나 사용?',
+                questionType: 'CHOICE',
+                choices: [
+                    { choiceId: 1, choiceText: '0~1' },
+                    { choiceId: 2, choiceText: '2~3' },
+                    { choiceId: 3, choiceText: '4~5' },
+                    { choiceId: 4, choiceText: '6~' }
+                ]
+            },
+            {
+                questionId: 3,
+                questionText: '무신사 한 단어로?',
+                questionType: 'TEXT'
+            },
+            {
+                questionId: 4,
+                questionText: '한마디',
+                questionType: 'TEXT'
+            }
+        ]
     };
+    useEffect(() => {
+        const fetchSurvey = async () => {
+            try {
+                const response = await axios.get(`/api/surveys/${surveyId}`); // 설문조사 ID에 따라 데이터 가져오기
+                setSurvey(response.data.data); // API 응답 데이터 설정
+            } catch (error) {
+                console.error('Error fetching survey, using mock data:', error);
+                setSurvey(mockSurveyData); // API 호출 실패 시 Mock 데이터 설정
+            }
+        };
+        fetchSurvey();
+    }, [surveyId]);
+
+    if (!survey) return <div>Loading...</div>; // 데이터 로딩 중 표시
+
+    const { title, description, createdAt, endDate, questions } = survey;
 
     const formatPeriod = (startDate, endDate) => {
         const start = moment(startDate).format('YYYY.MM.DD');
@@ -42,10 +86,36 @@ const SurveyJoin = () => {
         });
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log(answers); // 제출된 답변 확인
-        goToComplete();
+
+        // 답변 포맷팅
+        const formattedAnswers = questions.map((q, index) => {
+            if (q.questionType === 'CHOICE') {
+                const selectedChoiceIndex = q.choices.findIndex(choice => choice.choiceText === answers[index]);
+                return {
+                    questionId: q.questionId,
+                    choiceId: selectedChoiceIndex !== -1 ? q.choices[selectedChoiceIndex].choiceId : null,
+                };
+            } else if (q.questionType === 'TEXT') {
+                return {
+                    questionId: q.questionId,
+                    answerText: answers[index] || '',
+                };
+            }
+            return null;
+        }).filter(answer => answer !== null); // null 값 필터링
+
+        try {
+            // API 요청 전송
+            await axios.post('/api/surveys/submit', { answers: formattedAnswers });
+            navigate("/survey_complete");
+        } catch (error) {
+            console.error('Error submitting answers:', error);
+        }
+
+        console.log(formattedAnswers); // 제출된 답변 확인
+        navigate("/survey_complete");
     };
 
     const isSubmitDisabled = () => {
@@ -57,46 +127,46 @@ const SurveyJoin = () => {
             <h1>설문조사 참여하기</h1>
             <div className={styles.post}>
                 <h2>{title}</h2>
-                <p>{formatPeriod(startDate, endDate)}</p>
-                <h3>{content}</h3>
+                <p>{formatPeriod(createdAt, endDate)}</p>
+                <h3>{description}</h3>
             </div>
             {questions.map((q, index) => (
-                <div key={index} className={styles.quest_box}>
-                    <p className={styles.quest}>{q.text}</p>
-                    {q.type === 'multipleChoice' && (
+                <div key={q.questionId} className={styles.quest_box}>
+                    <p className={styles.quest}>{q.questionText}</p>
+                    {q.questionType === 'CHOICE' && (
                         <div>
-                            {q.options.map((option, idx) => (
-                                <div key={idx} className={styles.multipleChoice}>
+                            {q.choices.map(choice => (
+                                <div key={choice.choiceId} className={styles.multipleChoice}>
                                     <input
                                         className={styles.radio}
                                         type="radio"
                                         name={`question-${index}`} // 각 질문마다 고유한 name 부여
-                                        value={option}
-                                        checked={answers[index] === option} // 선택된 값 확인
-                                        onChange={() => handleOptionChange(index, option)} // 선택 시 상태 업데이트
+                                        value={choice.choiceText}
+                                        checked={answers[index] === choice.choiceText}
+                                        onChange={() => handleOptionChange(index, choice.choiceText)}
                                     />
-                                    <span className={styles.text}>{option}</span>
+                                    <span className={styles.text}>{choice.choiceText}</span>
                                 </div>
                             ))}
                         </div>
                     )}
-                    {q.type === 'shortAnswer' && (
+                    {q.questionType === 'TEXT' && (
                         <div>
                             <input
                                 className={styles.shortAnswer}
                                 type="text"
-                                value={answers[index] || ''} // 단답식 답변을 answers에서 가져옴
-                                onChange={(e) => handleShortAnswerChange(index, e.target.value)} // 선택 시 상태 업데이트
+                                value={answers[index] || ''}
+                                onChange={(e) => handleShortAnswerChange(index, e.target.value)}
                                 placeholder="답변을 입력해주세요"
                             />
                         </div>
                     )}
                 </div>
             ))}
-            <button 
-                className={styles.submit} 
-                type="submit" 
-                onClick={handleSubmit} 
+            <button
+                className={styles.submit}
+                type="submit"
+                onClick={handleSubmit}
                 disabled={isSubmitDisabled()} // 모든 답변이 입력되지 않으면 버튼 비활성화
             >
                 제출
