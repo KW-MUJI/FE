@@ -498,8 +498,25 @@ const Schedule = () => {
                     fill="#EEF2F6"
                   />
                 </svg>
-                팀플 일정
+                <p>팀플 일정</p>
               </label>
+              <laber className={styles.personalProject_color}>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="17"
+                  height="17"
+                  viewBox="0 0 17 17"
+                  fill="none"
+                >
+                  <circle
+                    cx="8.28033"
+                    cy="8.39263"
+                    r="8.28033"
+                    fill="#EDE1F8"
+                  />
+                </svg>
+                <p>개인 일정</p>
+              </laber>
             </div>
             <div className={styles.calendar_button}>
               <button onClick={prevMonth} style={{ fontSize: "24px" }}>
