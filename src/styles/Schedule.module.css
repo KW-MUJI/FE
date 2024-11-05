@@ -1,667 +1,622 @@
 * {
-    font-family: Pretendard;
-    font-style: normal;
-    line-height: 100%;
+  font-family: Pretendard;
+  font-style: normal;
+  line-height: 100%;
 }
 
 .Schedule_container {
-    margin-top: 58px;
-    margin-left: auto;
-    margin-right: auto;
-    margin-bottom: 52.48px;
+  margin-top: 58px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 52.48px;
 
-    width: 1228px;
-    height: auto;
+  width: 1228px;
+  height: auto;
 
-    display: flex;
-    flex-direction: column;
-
-
-
+  display: flex;
+  flex-direction: column;
 }
 
 .Schedule_container h {
-
-    font-weight: 800;
-    font-size: 32px;
-    text-align: left;
+  font-weight: 800;
+  font-size: 32px;
+  text-align: left;
 }
 
 .main {
-    display: flex;
-    flex-direction: row;
-    gap: 71px;
+  display: flex;
+  flex-direction: row;
+  gap: 71px;
 }
 
 .schedule {
-    margin-top: 37px;
-    display: flex;
-    flex-direction: column;
-    gap: 23px;
+  margin-top: 37px;
+  display: flex;
+  flex-direction: column;
+  gap: 23px;
 }
 
 .to_day {
-    width: 348px;
-    height: 90px;
-    border-radius: 10px;
-    border: 1px solid var(--Border-Disabled-default, #B3B3B3);
+  width: 348px;
+  height: 90px;
+  border-radius: 10px;
+  border: 1px solid var(--Border-Disabled-default, #b3b3b3);
 
-    background: #FFF;
+  background: #fff;
 
-    padding-top: 17px;
-    padding-left: 32px;
-    padding-bottom: 18px;
+  padding-top: 17px;
+  padding-left: 32px;
+  padding-bottom: 18px;
 
-    display: flex;
-    flex-direction: column;
-    text-align: left;
+  display: flex;
+  flex-direction: column;
+  text-align: left;
 
-    gap: 6px;
-
+  gap: 6px;
 }
 
 /* TODAY */
 .to_day h {
-    color: #B3B3B3;
-    font-size: 18px;
-    font-weight: 500;
+  color: #b3b3b3;
+  font-size: 18px;
+  font-weight: 500;
 }
 
 /* 오늘날짜 */
 .to_day p {
-    font-size: 28px;
-    font-weight: 500;
-    margin: 0;
+  font-size: 28px;
+  font-weight: 500;
+  margin: 0;
 }
 
 .my_schedule {
-    width: 348px;
-    height: 230px;
-    border-radius: 10px;
-    border: 1px solid var(--Border-Disabled-default, #B3B3B3);
+  width: 348px;
+  height: 230px;
+  border-radius: 10px;
+  border: 1px solid var(--Border-Disabled-default, #b3b3b3);
 
-    background: #FFF;
+  background: #fff;
 
-    display: flex;
-    flex-direction: column;
-    text-align: left;
+  display: flex;
+  flex-direction: column;
+  text-align: left;
 
-    padding-top: 26px;
-    padding-left: 24px;
-    padding-right:24px;
-    padding-bottom:47px;
-
+  padding-top: 26px;
+  padding-left: 24px;
+  padding-right: 24px;
+  padding-bottom: 47px;
 }
 
 .my_schedule h {
-    color: #000;
-    font-size: 20px;
-    font-weight: 800;
-
+  color: #000;
+  font-size: 20px;
+  font-weight: 800;
 }
 
 .schedule_add {
-    width: 348px;
-    height: auto;
-    border-radius: 10px;
-    border: 1px solid var(--Border-Disabled-default, #B3B3B3);
+  width: 348px;
+  height: auto;
+  border-radius: 10px;
+  border: 1px solid var(--Border-Disabled-default, #b3b3b3);
 
-    background: #FFF;
+  background: #fff;
 
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 
-    padding-left: 24px;
-    padding-top: 24px;
-    padding-right: 24px;
-    padding-bottom: 15.46px;
-
+  padding-left: 24px;
+  padding-top: 24px;
+  padding-right: 24px;
+  padding-bottom: 15.46px;
 }
 
-
-
 .add_header {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-    margin: 0;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  margin: 0;
 }
 
 /* 일정 추가 */
 .add_header h {
-    font-size: 20px;
-    font-weight: 800;
-    margin: 0;
-
+  font-size: 20px;
+  font-weight: 800;
+  margin: 0;
 }
 
 .select_input {
-    width: 139px;
-    height: 31px;
-    border-radius: 4px;
-    border: 1px solid var(--Border-Disabled-default, #B3B3B3);
-    color: #B3B3B3;
-    background: #FFF;
+  width: 139px;
+  height: 31px;
+  border-radius: 4px;
+  border: 1px solid var(--Border-Disabled-default, #b3b3b3);
+  color: #b3b3b3;
+  background: #fff;
 
-    font-size: 12px;
-    font-weight: 600;
+  font-size: 12px;
+  font-weight: 600;
 }
 
 .select_input option {
-    color: #4C4C4C;
-    font-size: 12px;
-    font-weight: 600;
-
+  color: #4c4c4c;
+  font-size: 12px;
+  font-weight: 600;
 }
 
 .input_container {
-    margin-top: 17px;
-    display: flex;
-    flex-direction: column;
-    
+  margin-top: 17px;
+  display: flex;
+  flex-direction: column;
 }
-
-
 
 /* 제목 div */
 .title_input {
-    width: 300px;
-    height: 49px;
-    border-radius: 10px;
-    border: 1px solid var(--Border-Disabled-default, #B3B3B3);
+  width: 300px;
+  height: 49px;
+  border-radius: 10px;
+  border: 1px solid var(--Border-Disabled-default, #b3b3b3);
 
-    background: #FFF;
+  background: #fff;
 
-
-    margin-bottom: 19px;
-    padding-left: 10.96px;
-
-
-
-
+  margin-bottom: 19px;
+  padding-left: 10.96px;
 }
-
 
 /* 제목 */
 .title_input::placeholder {
-    color: #B3B3B3;
-    font-size: 16px;
-    font-weight: 400;
-    text-align: left;
-
+  color: #b3b3b3;
+  font-size: 16px;
+  font-weight: 400;
+  text-align: left;
 }
 
 .date {
-    width: 300px;
-    height: 49px;
-    border-radius: 10px;
-    border: 1px solid var(--Border-Disabled-default, #B3B3B3);
+  width: 300px;
+  height: 49px;
+  border-radius: 10px;
+  border: 1px solid var(--Border-Disabled-default, #b3b3b3);
 
-    background: #FFF;
+  background: #fff;
 
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 
-    margin: 0;
-    padding-left: 10.96px;
+  margin: 0;
+  padding-left: 10.96px;
 
-    gap: 20px;
-    margin-bottom: 19px;
-
+  gap: 20px;
+  margin-bottom: 19px;
 }
 
 .date h {
-    font-size: 16px;
-    color: #4C4C4C;
-    font-weight: 400;
+  font-size: 16px;
+  color: #4c4c4c;
+  font-weight: 400;
 }
 
 .date_input {
-    color: #4C4C4C;
-    font-size: 16px;
-    font-weight: 400;
-    border: none;
-    cursor: pointer;
-
+  color: #4c4c4c;
+  font-size: 16px;
+  font-weight: 400;
+  border: none;
+  cursor: pointer;
 }
 
 .time {
-    width: 300px;
-    height: 49px;
-    border-radius: 10px;
-    border: 1px solid var(--Border-Disabled-default, #B3B3B3);
+  width: 300px;
+  height: 49px;
+  border-radius: 10px;
+  border: 1px solid var(--Border-Disabled-default, #b3b3b3);
 
-    background: #FFF;
+  background: #fff;
 
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 
-    margin: 0;
-    padding-left: 10.96px;
+  margin: 0;
+  padding-left: 10.96px;
 
-    gap: 20px;
-
+  gap: 20px;
 }
 
 .time h {
-    font-size: 16px;
-    color: #4C4C4C;
-    font-weight: 400;
-
+  font-size: 16px;
+  color: #4c4c4c;
+  font-weight: 400;
 }
 
 .time_input {
-    color: #4C4C4C;
-    font-size: 16px;
-    font-weight: 400;
-    border: none;
-    cursor: pointer;
-    margin:0;
+  color: #4c4c4c;
+  font-size: 16px;
+  font-weight: 400;
+  border: none;
+  cursor: pointer;
+  margin: 0;
 }
 
-
-
 .add_button {
-    border-radius: 14.084px;
-    background: #8B0B02;
-    width: 50px;
-    height: 22.535px;
+  border-radius: 14.084px;
+  background: #8b0b02;
+  width: 50px;
+  height: 22.535px;
 
-    color: #FFF;
-    font-size: 12.676px;
-    font-weight: 600;
-    border: none;
-    cursor: pointer;
+  color: #fff;
+  font-size: 12.676px;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
 
-    margin-top: 12px;
+  margin-top: 12px;
 
-
-    align-self: flex-end;
-    /* 버튼을 오른쪽 끝으로 배치 */
-
+  align-self: flex-end;
+  /* 버튼을 오른쪽 끝으로 배치 */
 }
 
 .add_button:hover {
-    background-color: #FF6347;
+  background-color: #ff6347;
 }
 
-
-
 .calendar {
-    width: 810px;
-    /* border: 5px solid var(--Border-Disabled-default, #B3B3B3); */
-    margin-top: 37px;
+  width: 810px;
+  /* border: 5px solid var(--Border-Disabled-default, #B3B3B3); */
+  margin-top: 37px;
 }
 
 .calendar_button {
-    width: 210.246px;
-    height: 35.742px;
-    font-size: 24px;
-    font-style: normal;
-    font-weight: 400;
-    text-align: right;
-
-
-
+  width: 210.246px;
+  height: 35.742px;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 400;
+  text-align: right;
 }
 
 .calendar_button button {
-    border: none;
-    background-color: #ffffff;
+  border: none;
+  background-color: #ffffff;
 }
 
 .calendar_weekdays {
-    border: 1.059px solid var(--Border-Disabled-default, #B3B3B3);
+  border: 1.059px solid var(--Border-Disabled-default, #b3b3b3);
 
-    display: grid;
-    grid-template-columns: repeat(7, 116.479px);
-    box-sizing: border-box;
-    max-width: 815.353px;
-    min-width: 815.353px;
-
-
+  display: grid;
+  grid-template-columns: repeat(7, 116.479px);
+  box-sizing: border-box;
+  max-width: 815.353px;
+  min-width: 815.353px;
 }
 
 .weekday {
+  display: flex;
+  align-items: center;
+  font-size: 15.884px;
+  font-weight: 600;
 
-
-    display: flex;
-    align-items: center;
-    font-size: 15.884px;
-    font-weight: 600;
-
-    padding-left: 5.29px;
-    height: 42.356px;
-
-
+  padding-left: 5.29px;
+  height: 42.356px;
 }
 
 .weekday:not(:last-child) {
-    border-right: 1.059px solid var(--Border-Disabled-default, #B3B3B3);
-
+  border-right: 1.059px solid var(--Border-Disabled-default, #b3b3b3);
 }
 
 .calendar_header {
-    /* background-color: #e4f503; */
-    display: flex;
-    justify-content: space-between;
+  /* background-color: #e4f503; */
+  display: flex;
+  justify-content: space-between;
 }
 
 .color_info {
-    display: flex;
-    flex-direction: row;
-    gap: 19.51px;
-    align-items: center;
+  display: flex;
+  flex-direction: row;
+  gap: 19.51px;
+  align-items: center;
 }
 
 .school_color {
-    display: flex;
-    gap: 4.18px;
-    color: #8B0B02;
-    font-size: 14px;
-    font-weight: 400;
-    text-align: left;
-    align-items: center;
-    margin: 0;
-
-
+  display: flex;
+  gap: 4.18px;
+  font-size: 14px;
+  font-weight: 400;
+  text-align: left;
+  align-items: center;
+  margin: 0;
 }
 
 .school_color p {
-    width: 63.446px;
-    margin: 0;
-
+  width: 63.446px;
+  margin: 0;
+  color: #8b0b02;
 }
 
 .teamproject_color {
-    display: flex;
-    gap: 4.18px;
-    color: #3B476E;
-    font-size: 14px;
-    font-weight: 400;
+  display: flex;
+  gap: 4.18px;
+  color: #3b476e;
+  font-size: 14px;
+  font-weight: 400;
+  text-align: left;
+  align-items: center;
+  margin: 0;
+}
 
+.teamproject_color p {
+  width: 63.446px;
+  margin: 0;
+  color: #3b476e;
+}
+
+.personalProject_color {
+  display: flex;
+  gap: 4.18px;
+  color: #3b476e;
+  font-size: 14px;
+  font-weight: 400;
+  text-align: left;
+  align-items: center;
+  margin: 0;
+}
+
+.personalProject_color p {
+  width: 63.446px;
+  margin: 0;
+  color: #753eb0;
 }
 
 .calendar_days {
-    /* border: 1.059px solid var(--Border-Disabled-default, #B3B3B3); */
-    /* border-left: 1.059px solid var(--Border-Disabled-default, #B3B3B3); */
-    display: grid;
-    grid-template-columns: repeat(7, 116.479px);
+  /* border: 1.059px solid var(--Border-Disabled-default, #B3B3B3); */
+  /* border-left: 1.059px solid var(--Border-Disabled-default, #B3B3B3); */
+  display: grid;
+  grid-template-columns: repeat(7, 116.479px);
 
-    /* gap: 0.5295px; */
-    /* 칸 사이의 공간 색을 테두리처럼 보이게 */
+  /* gap: 0.5295px; */
+  /* 칸 사이의 공간 색을 테두리처럼 보이게 */
 
-    /* 
+  /* 
     box-sizing: border-box; */
-
-
 }
 
 .emptyCalendar {
-    border-left: 1.059px solid var(--Border-Disabled-default, #B3B3B3);
-    border-bottom: 1.059px solid var(--Border-Disabled-default, #B3B3B3);
-
+  border-left: 1.059px solid var(--Border-Disabled-default, #b3b3b3);
+  border-bottom: 1.059px solid var(--Border-Disabled-default, #b3b3b3);
 }
 
 .day {
+  min-height: 116.479px;
 
-    min-height: 116.479px;
+  box-sizing: border-box;
 
+  display: flex;
+  flex-direction: column;
 
-    box-sizing: border-box;
+  align-items: start;
 
+  padding-top: 7.41px;
+  font-size: 15.884px;
+  font-weight: 600;
 
-    display: flex;
-    flex-direction: column;
-
-    align-items: start;
-
-    padding-top: 7.41px;
-    font-size: 15.884px;
-    font-weight: 600;
-
-    border-bottom: 1.059px solid var(--Border-Disabled-default, #B3B3B3);
-    border-right: 1.059px solid var(--Border-Disabled-default, #B3B3B3);
-    /* border-left: 1.059px solid var(--Border-Disabled-default, #B3B3B3); */
+  border-bottom: 1.059px solid var(--Border-Disabled-default, #b3b3b3);
+  border-right: 1.059px solid var(--Border-Disabled-default, #b3b3b3);
+  /* border-left: 1.059px solid var(--Border-Disabled-default, #B3B3B3); */
 }
 
 .day_1 {
-    border-left: 1.059px solid var(--Border-Disabled-default, #B3B3B3);
+  border-left: 1.059px solid var(--Border-Disabled-default, #b3b3b3);
 
-    min-height: 116.479px;
-    max-width: 116.479px;
-    min-width: 116.479px;
+  min-height: 116.479px;
+  max-width: 116.479px;
+  min-width: 116.479px;
 
-    box-sizing: border-box;
+  box-sizing: border-box;
 
+  display: flex;
+  flex-direction: column;
 
-    display: flex;
-    flex-direction: column;
+  align-items: start;
 
-    align-items: start;
+  padding-top: 7.41px;
+  font-size: 15.884px;
+  font-weight: 600;
 
-    padding-top: 7.41px;
-    font-size: 15.884px;
-    font-weight: 600;
-
-    border-bottom: 1.059px solid var(--Border-Disabled-default, #B3B3B3);
-    border-right: 1.059px solid var(--Border-Disabled-default, #B3B3B3);
-
+  border-bottom: 1.059px solid var(--Border-Disabled-default, #b3b3b3);
+  border-right: 1.059px solid var(--Border-Disabled-default, #b3b3b3);
 }
 
 .day:nth-child(7n-6) {
-    border-left: 1.059px solid var(--Border-Disabled-default, #B3B3B3);
+  border-left: 1.059px solid var(--Border-Disabled-default, #b3b3b3);
 }
-
 
 .day span {
-    padding-left: 5.29px;
-    margin-bottom: 5.29px;
+  padding-left: 5.29px;
+  margin-bottom: 5.29px;
 }
 
-
-
 .event {
-    font-size: 15.884px;
-    font-weight: 600;
-
+  font-size: 15.884px;
+  font-weight: 600;
 }
 
 .univEvents {
-    display: flex;
-    align-items: center;
-    text-align: left;
-    background: rgba(232, 206, 204, 0.40);
-    color: #8B0B02;
-    width: 114.361px;
-    min-height: 27.531px;
+  display: flex;
+  align-items: center;
+  text-align: left;
+  background: rgba(232, 206, 204, 0.4);
+  color: #8b0b02;
+  width: 114.361px;
+  min-height: 27.531px;
 
-    padding-left: 4.24px;
-    margin: 0;
-    white-space: normal;
-
-
+  padding-left: 4.24px;
+  margin: 0;
+  white-space: normal;
 }
 
+/* 캘린더 유저 이벤트 표시 */
 .userEvents {
-    display:flex;
-    align-items: center;
-    justify-content: space-between;
-    width: 114.361px;
-    min-height: 27.531px;
-    background: #f5f6ee;
-
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 114.361px;
+  min-height: 27.531px;
+  background: #e7e4f1;
 }
-.userEvents_title{
-    display: flex;
-    align-items: center;
-    text-align: left;
-    color: #6e723d;
+.userEvents_title {
+  display: flex;
+  align-items: center;
+  text-align: left;
+  color: #753eb0;
 
-    padding-left: 4.24px;
-    margin: 0;
-    white-space: normal;
-}
-
-
-.projectEvents{
-    display:flex;
-    align-items: center;
-    justify-content: space-between;
-    width: 114.361px;
-    min-height: 27.531px;
-    background: #f5f6ee;
-    background: #EEF2F6;
-}
-.projectEvents_title{
-    display: flex;
-    align-items: center;
-    text-align: left;
-    color: #3B476E;
-    width: 114.361px;
-    min-height: 27.531px;
-
-    padding-left: 4.24px;
-    margin: 0;
-
-    white-space: normal;
+  padding-left: 4.24px;
+  margin: 0;
+  white-space: normal;
 }
 
+.projectEvents {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 114.361px;
+  min-height: 27.531px;
+  background: #f5f6ee;
+  background: #eef2f6;
+}
+.projectEvents_title {
+  display: flex;
+  align-items: center;
+  text-align: left;
+  color: #3b476e;
+  width: 114.361px;
+  min-height: 27.531px;
+
+  padding-left: 4.24px;
+  margin: 0;
+
+  white-space: normal;
+}
 
 .emptyEvents {
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 
-    width: 114.361px;
-    height: 27.531px;
+  width: 114.361px;
+  height: 27.531px;
 
-    padding-left: 4.24px;
-    margin: 0;
-
+  padding-left: 4.24px;
+  margin: 0;
 }
 
 .today {
-    background: rgba(204, 232, 210, 0.47);
+  background: rgba(254, 240, 214, 0.5);
 }
 
 .select_team {
-    width: 300px;
-    height: 49px;
-    border-radius: 4px;
-    border: 1px solid var(--Border-Disabled-default, #B3B3B3);
+  width: 300px;
+  height: 49px;
+  border-radius: 4px;
+  border: 1px solid var(--Border-Disabled-default, #b3b3b3);
 
-    background: #FFF;
-    font-size: 16px;
-    color: #4C4C4C;
-    font-weight: 400;
-    margin-bottom: 19px;
+  background: #fff;
+  font-size: 16px;
+  color: #4c4c4c;
+  font-weight: 400;
+  margin-bottom: 19px;
 }
 
-.option_style{
-
-    height: 45px;
+.option_style {
+  height: 45px;
 }
-.my_schedule_event{
-    display: flex;
-    flex-direction: column;
-    gap:14.63px;
-    margin-top:26px;
+.my_schedule_event {
+  display: flex;
+  flex-direction: column;
+  gap: 14.63px;
+  margin-top: 26px;
 
-    width:300px;
-    overflow-x:auto;
-    
+  width: 300px;
+  overflow-x: auto;
 }
 
-.schedule_item{
-    display: flex;
-    flex-direction: row;
-    text-align: left;
-    align-items: center;
-    justify-content: space-between;
-    width: 275px;
+.schedule_item {
+  display: flex;
+  flex-direction: row;
+  text-align: left;
+  align-items: center;
+  justify-content: space-between;
+  width: 275px;
 
- 
+  gap: 20px;
+  margin: 0px;
+  padding-left: 10px;
 
-    gap:20px;
-    margin:0px;
-    padding-left:10px;
-
-
-    padding-top:6px;
-    padding-bottom:6.37px;
-    
-
+  padding-top: 6px;
+  padding-bottom: 6.37px;
 }
 
-.schedule_date{
-    max-width: 100px;
-    min-width: 100px;
-  
-    margin:0;
-    font-size: 15px;
-    font-weight: 400;
+.schedule_date {
+  max-width: 100px;
+  min-width: 100px;
 
-
-    
+  margin: 0;
+  font-size: 15px;
+  font-weight: 400;
 }
 
-.schedule_title{
-    padding-left:10px;
-    font-weight: 600;
+.schedule_title {
+  padding-left: 10px;
+  font-weight: 600;
 
-    margin:0;
-    white-space: normal;
-    width:200px;
+  margin: 0;
+  white-space: normal;
+  width: 200px;
 }
 
-/* 개인 일정 (초록색) */
+/* 개인 일정 ( 보라색) */
 .userEvent {
-    background: #f5f6ee;
+  background: #e7e4f1;
 }
 
-.userDate, .userTitle{
-    color:  #6e723d;
+.userDate,
+.userTitle {
+  color: #753eb0;
 }
 
 .userTitle {
-    border-left: 2px solid  #6e723d;
+  border-left: 2px solid #6e723d;
 }
 
 /* 대학 일정 (빨간색) */
 .univEvent {
-    background: rgba(232, 206, 204, 0.40);
+  background: rgba(232, 206, 204, 0.4);
 }
 
-.univDate, .univTitle{
-    color: #8B0B02;
+.univDate,
+.univTitle {
+  color: #8b0b02;
 }
 
 .univTitle {
-    border-left: 2px solid #8B0B02;
+  border-left: 2px solid #8b0b02;
 }
 
 /* 팀플 일정 (파란색) */
 .projectEvent {
-    background: #EEF2F6;
+  background: #eef2f6;
 }
 
-.projectDate,.projectTitle {
-    color: #3B476E;
+.projectDate,
+.projectTitle {
+  color: #3b476e;
 }
 
 .projectTitle {
-
-    border-left: 2px solid #3B476E;
+  border-left: 2px solid #3b476e;
 }
-.schedule_cancle{
-    border:none;
-    background-color:#ffffff00;
-    color:#B3B3B3;
-    display: flex;
-    cursor: pointer;
+.schedule_cancle {
+  border: none;
+  background-color: #ffffff00;
+  color: #b3b3b3;
+  display: flex;
+  cursor: pointer;
 }
-.team_name{
-    margin:0;
-    color: #3B476E;
+.team_name {
+  margin: 0;
+  color: #3b476e;
 }
