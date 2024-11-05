@@ -64,12 +64,55 @@ const SurveyWrite = () => {
         setQuestions(newQuestions);
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log('설문 제목:', surveyTitle);
-        console.log('설문 설명:', surveyDescription);
-        console.log('질문 목록:', questions);
+    
+        const formattedQuestions = questions.map(q => {
+            if (q.type === 'shortAnswer') {
+                return {
+                    questionText: q.text,
+                    questionType: 'TEXT'
+                };
+            } else if (q.type === 'multipleChoice') {
+                return {
+                    questionText: q.text,
+                    questionType: 'CHOICE',
+                    choices: q.options.map(option => ({ choiceText: option }))
+                };
+            }
+            return null;
+        }).filter(q => q !== null); // null 제외
+    
+        const surveyData = {
+            title: surveyTitle,
+            description: surveyDescription,
+            questions: formattedQuestions,
+            endDate: selectDate ? selectDate.toISOString().split('T')[0] : null // yyyy-MM-dd 형식으로 변환
+        };
+    
+        console.log('서버로 전송할 데이터:', surveyData);
+    
+        try {
+            const response = await fetch('API_URL_HERE', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(surveyData),
+            });
+    
+            if (response.ok) {
+                alert('설문이 성공적으로 등록되었습니다.');
+                // 필요 시 상태 초기화 추가
+            } else {
+                alert('설문 등록 중 오류가 발생했습니다.');
+            }
+        } catch (error) {
+            console.error('서버 요청 중 오류:', error);
+            alert('서버 요청 중 오류가 발생했습니다.');
+        }
     };
+    
 
     const handleDateChange = (e) => {
         const selectedDate = new Date(e.target.value);
