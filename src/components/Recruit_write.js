@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import styles from "../styles/Recruit_write.module.css";
 import { useParams } from "react-router-dom"; //URL에서 글 ID 가져오기 위한
-
+import { updateProjectWithMock } from "../services/Service.js";
 const RecruitWrite = () => {
   const { id } = useParams(); //URL에서ID받아옴
   // 상태 관리
@@ -11,18 +11,24 @@ const RecruitWrite = () => {
   const [selectDate, setSelectDate] = useState(null); //날짜
 
   useEffect(() => {
-    // 기존 글 데이터를 불러오는 로직
     if (id) {
-      fetch(`/recruit_writet/${id}`)
-        .then((response) => response.json())
+      updateProjectWithMock(id)
         .then((data) => {
-          setTitle(data.title);
-          setContent(data.content);
-          setSelectDate(new Date(data.date));
-          setImagePreview(data.imageURL); // 이미지가 있으면 미리보기 설정
-        });
+          setTitle(data.data.name);
+          setContent(data.data.description);
+          setSelectDate(formatDate(new Date(data.data.deadLineAt)));
+          setImagePreview(data.data.image);
+        })
+        .catch((error) => console.error("Error loading data:", error));
     }
   }, [id]);
+
+  const formatDate = (date) => {
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const day = String(date.getDate()).padStart(2, "0");
+    return `${year}-${month}-${day}`;
+  };
 
   //이미지 미리보기
   const handleImageChange = (e) => {
@@ -48,7 +54,7 @@ const RecruitWrite = () => {
     today.setHours(0, 0, 0, 0); // 오늘의 시간 부분을 초기화
 
     if (selectedDate < today) {
-      alert(`마감일은 오늘 이후로 설정해야 합니다.`);
+      alert(`마감일은 오늘 이후로 설정해야 합니다. ${selectDate}`);
       setSelectDate(null); // 잘못된 날짜일 경우 상태 초기화
       return;
     }
@@ -59,20 +65,19 @@ const RecruitWrite = () => {
   //발행 기능
   const handlePublish = async () => {
     try {
-      const response = await fetch("/api/recruit", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ title, content, date: selectDate }), //상태값 전달
+      const response = await updateProjectWithMock(id, {
+        title,
+        description: content,
+        deadLineAt: selectDate,
+        image: imagePreview,
       });
-      if (response.ok) {
-        alert("발행 완료!");
+      if (response.code === 200) {
+        alert("수정이 완료되었습니다!");
       } else {
-        alert("발행에 실패했습니다.");
+        alert("수정에 실패했습니다.");
       }
     } catch (error) {
-      console.error("Error publishing:", error);
+      console.error("Error updating:", error);
     }
   };
 
@@ -208,13 +213,14 @@ const RecruitWrite = () => {
               type="date"
               className={styles.date_select}
               style={{ width: "110px" }} // 입력 필드를 숨김
+              value={selectDate}
               onChange={handleDateChange}
             />
           </div>
           <button
             type="button"
             className={styles.publication_btn}
-            onClick={handleSubmit}
+            onClick={handlePublish}
           >
             발행
           </button>

@@ -8,7 +8,7 @@ import Banner from "./components/Banner";
 import Footer from "./components/Footer";
 import PwFind from "./components/PwFind";
 import PwReset from "./components/PwResrt";
-import Privacy_law from "./components/Privacy_law";
+import Privacy from "./components/Privacy_law";
 import RecruitWrite from "./components/Recruit_write";
 import RecruitPost from "./components/Recruit_post";
 import RecruitMain from "./components/Recruit_main";
@@ -53,8 +53,8 @@ function App() {
           <Route path="/signup" element={<Signup />} />
           <Route path="/pwFind" element={<PwFind />} />
           <Route path="/pwReset" element={<PwReset />} />
-          <Route path="/privacy_law" element={<Privacy_law />} />
-          <Route path="/recruit_write" element={<RecruitWrite />} />
+          <Route path="/privacy_law" element={<Privacy />} />
+          <Route path="/recruit_write/:id" element={<RecruitWrite />} />
           <Route path="/recruit_main" element={<RecruitMain />} />
           <Route path="/recruit_post/:id" element={<RecruitPost />} />
           <Route path="/survey" element={<Survey />} />
