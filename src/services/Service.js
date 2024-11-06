@@ -9,7 +9,41 @@ import {
 
 const CALENDAR_URL = "/api/calendar";
 
-export const updateProjectWithMock = async (projectId, updatedData, imageFile) => {
+export const signIn = async (email, password) => {
+  try {
+    const response = await axios.post(
+      "/auth/signIn",
+      {
+        email,
+        password,
+      },
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    // 로그인 성공 시 토큰 저장
+    if (response.data.code === 200) {
+      const { accessToken, refreshToken } = response.data.data;
+      localStorage.setItem("accessToken", accessToken);
+      localStorage.setItem("refreshToken", refreshToken);
+      return { success: true, accessToken, refreshToken };
+    }
+
+    // 실패 시 에러 메시지 반환
+    return { success: false, message: "로그인 실패" };
+  } catch (error) {
+    console.error("로그인 오류:", error);
+    return { success: false, message: "서버 오류가 발생했습니다." };
+  }
+};
+
+export const updateProjectWithMock = async (
+  projectId,
+  updatedData,
+  imageFile
+) => {
   try {
     const response = await axios.put(
       `/myteam/update/${projectId}`,
