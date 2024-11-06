@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import styles from '../../styles/My_team_applicant.module.css'; // CSS 파일 임포트
-import { recruit_teams } from './mockData';  // mock 데이터 임포트
+import { recruit_teams } from '../mockData';  // mock 데이터 임포트
 
 
 
