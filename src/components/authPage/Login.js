@@ -1,22 +1,17 @@
 import React, { useState, useRef, useEffect } from "react";
-import styles from "../styles/Login.module.css"; // CSS 파일 임포트
+import styles from "../../styles/Login.module.css";
 import { Link, useNavigate } from "react-router-dom";
-import { signIn } from "../api/Service.js";
+import { signIn } from "../../api/authApi";
 
 // 로그인 컴포넌트
 const Login = ({ setIsLoggedIn }) => {
   const [email, setEmail] = useState(""); // 이메일 상태 선언 및 초기화
   const [password, setPassword] = useState(""); // 비밀번호 상태 선언 및 초기화
-
-  const mockUser = {
-    email: "test@kw.ac.kr",
-    password: "123456",
-  };
-
-  const navigate = useNavigate();
+  const [error, setError] = useState(null);
 
   const inputRef = useRef(null); // 입력 필드 참조
   const fixedDomain = "@kw.ac.kr"; // 고정 도메인
+  const navigate = useNavigate();
 
   useEffect(() => {
     setIsLoggedIn(false); //'/login'으로 들어오면 자동 로그아웃
@@ -26,22 +21,31 @@ const Login = ({ setIsLoggedIn }) => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log("id : " + email);
-    console.log("pw : " + password);
 
-    const result = await signIn(email, password);
-    const textElement = document.querySelector(`.${styles.checkLogin}`);
+    console.log("로그인 요청 시작:", { email, password });
+    try {
+      // API 호출
+      const response = await signIn({ email, password });
 
-    if (email === mockUser.email && password === mockUser.password) {
+      // 로그인 성공 시 처리
+      console.log("로그인 성공:", response);
       setIsLoggedIn(true); // 로그인 상태로 변경
-      navigate("/home");
-    } else {
-      alert("잘못된 아이디/비밀번호 입니다.");
-      setIsLoggedIn(false); // 로그인 상태로 변경
 
-      setEmail("" + fixedDomain);
-
+      localStorage.setItem("token", response.token); // 토큰 저장
+      navigate("/home"); // 대시보드로 이동
+    } catch (error) {
+      // 에러 처리
+      setIsLoggedIn(false); // 로그아웃 상태로 변경
+      // setEmail("" + fixedDomain);
       setPassword("");
+      // 백엔드에서 반환된 메시지 처리
+      if (error.response && error.response.data) {
+        console.error("로그인 실패:", error.response.data.data); // 서버 메시지 출력
+        setError(error.response.data.data); // 사용자에게 표시할 오류 메시지
+      } else {
+        console.error("로그인 에러:", error.message);
+        setError("로그인 중 문제가 발생했습니다. 다시 시도해주세요.");
+      }
     }
   };
 
@@ -90,6 +94,7 @@ const Login = ({ setIsLoggedIn }) => {
             required
           />
         </div>
+        {error && <p style={{ color: "red" }}>{error}</p>} {/* 에러 메시지 */}
         {/* <p className={styles.checkLogin}>　</p> */}
         <button className={styles.login_btn} type="submit">
           로그인
