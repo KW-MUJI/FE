@@ -26,19 +26,33 @@ import CheckPw from "./components/CheckPw";
 import Update from "./components/Update";
 import MainPage from "./components/mainpage";
 import Notice from "./components/Notice";
-
 // import Login from './components/Login';
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false); // 로그인 상태 관리
 
   useEffect(() => {
-    console.log("isLoggedIn 상태 변경:", isLoggedIn);
-  }, [isLoggedIn]);
+    const token = localStorage.getItem("token");
+    // 토큰이 있으면 로그인 상태
+    // 토큰이 없으면 로그아웃 상태
+    // - localStorage
+    // 브라우저를 닫아도 데이터가 유지
+    // 민감한 데이터를 저장하는 것은 보안상 권장X
+
+    // - sessionStorage:
+    // 브라우저 탭이 닫히면 데이터가 사라짐
+    // 짧은 세션 동안 토큰을 유지하고 싶을 때 적합
+
+    if (token) {
+      setIsLoggedIn(true);
+    } else {
+      setIsLoggedIn(false); // 로그인되지 않은 경우 로그인 페이지로 리다이렉트
+    }
+  }, []);
 
   //로그아웃처리
   const handleLogout = () => {
-    setIsLoggedIn(false); // 로그아웃 시 로그인 상태를 false로 변경
+    localStorage.removeItem("token");
   };
 
   return (
