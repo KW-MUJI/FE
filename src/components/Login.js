@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import styles from "../styles/Login.module.css"; // CSS 파일 임포트
 import { Link, useNavigate } from "react-router-dom";
-import { signIn } from "../services/Service.js";
+import { signIn } from "../api/Service.js";
 
 // 로그인 컴포넌트
 const Login = ({ setIsLoggedIn }) => {

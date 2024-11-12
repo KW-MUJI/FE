@@ -1,6 +1,6 @@
 import styles from "../styles/Notice.module.css";
 import React, { useEffect, useState } from "react";
-import { getNotices } from "../services/Service.js"; // API 함수 가져오기
+import { getNotices } from "../api/Service.js"; // API 함수 가져오기
 
 const Notice = () => {
   const [selectedCategory, setSelectedCategory] = useState(null);
