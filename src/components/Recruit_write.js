@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import styles from "../styles/Recruit_write.module.css";
 import { useParams } from "react-router-dom"; //URL에서 글 ID 가져오기 위한
-import { updateProjectWithMock } from "../services/Service.js";
+import { updateProjectWithMock } from "../api/Service.js";
 const RecruitWrite = () => {
   const { id } = useParams(); //URL에서ID받아옴
   // 상태 관리

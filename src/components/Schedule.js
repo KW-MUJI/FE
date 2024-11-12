@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { fetchCalendar, addCalendarEvent } from "../services/Service.js"; // API 함수 가져오기
+import { fetchCalendar, addCalendarEvent } from "../api/Service.js"; // API 함수 가져오기
 import styles from "../styles/Schedule.module.css";
 import { teams } from "./mockData"; // 팀 목록 가져오기
 
