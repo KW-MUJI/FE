@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link, useLocation ,useNavigate} from "react-router-dom";
-import styles from '../styles/Recruit_post.module.css';
+import styles from '../../styles/Recruit_post.module.css';
 
 
 // 모달 컴포넌트
