@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "../styles/Privacy_law.module.css"; // CSS 파일 임포트
+import styles from "../../styles/Privacy_law.module.css"; // CSS 파일 임포트
 
 const Privacy = () => {
   return (
