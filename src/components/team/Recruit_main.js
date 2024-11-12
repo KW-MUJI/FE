@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import styles from '../styles/Recruit_main.module.css';
+import styles from '../../styles/Recruit_main.module.css';
 import { Link, useNavigate } from 'react-router-dom';
 
 
