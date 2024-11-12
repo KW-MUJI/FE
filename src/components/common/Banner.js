@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { Link, useNavigate } from "react-router-dom";
-import logo from "../assets/logo.png";
-import styles from "../styles/Banner.module.css";
+import logo from "../../assets/kwlogo1.jpg";
+import styles from "../../styles/Banner.module.css";
 
 const Banner = ({ isLoggedIn, handleLogout }) => {
   const navigate = useNavigate(); // useNavigate 훅 사용
@@ -17,6 +17,43 @@ const Banner = ({ isLoggedIn, handleLogout }) => {
     navigate("/login");
   };
 
+  const isLoginTrueBanner = () => {
+    if (isLoggedIn) {
+      return (
+        <>
+          <li>
+            <Link to="/my_page">MY</Link>
+          </li>
+          <li>
+            <Link
+              onClick={handleLogoutClick}
+              to="/login"
+              className={styles.Logout_button}
+            >
+              LOGOUT
+            </Link>
+          </li>
+        </>
+      );
+    }
+  };
+
+  const isLoginFalseBanner = () => {
+    if (!isLoggedIn) {
+      return (
+        <>
+          <li>
+            <Link to="/login">LOGIN</Link>
+          </li>
+          <li>
+            <Link to="https://www.kw.ac.kr" className={styles.k_menu}>
+              광운대학교
+            </Link>
+          </li>
+        </>
+      );
+    }
+  };
   return (
     <div className={styles.banner_container}>
       <img
@@ -31,25 +68,11 @@ const Banner = ({ isLoggedIn, handleLogout }) => {
       </div>
       <nav className={styles.navbar}>
         <ul className={styles.navbar_menu}>
-          {/* a 태그는 react 상태가 초기화돼서 로그아웃 처리 되버리는 상황 발생 => link로 이동 */}
-          {/* <li><a href="/home">HOME</a></li> */}
           <li>
             <Link to="/home">HOME</Link>
           </li>
-          {isLoggedIn ? (
-            <li>
-              <Link onClick={handleLogoutClick}>LOGOUT</Link>
-            </li> //로그인 상태일 때 배너
-          ) : (
-            <li>
-              <Link to="/login">LOGIN</Link>
-            </li> //로그아웃 상태일 때 배너
-          )}
-          <li>
-            <Link to="https://www.kw.ac.kr" className={styles.k_menu}>
-              광운대학교
-            </Link>
-          </li>
+          {isLoginTrueBanner()}
+          {isLoginFalseBanner()}
         </ul>
       </nav>
     </div>

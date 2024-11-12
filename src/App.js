@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import logo from "./assets/logo.png";
 import "./App.css";
 import Login from "./components/authPage/Login";
 import Signup from "./components/Signup";
-import Banner from "./components/Banner";
+import Banner from "./components/common/Banner";
 import Footer from "./components/Footer";
 import PwFind from "./components/PwFind";
 import PwReset from "./components/PwResrt";
