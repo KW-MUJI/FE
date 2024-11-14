@@ -1,10 +1,18 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import logo from "../../assets/kwlogo1.jpg";
 import styles from "../../styles/Banner.module.css";
+import { useAuth } from "../../contexts/AuthContext";
 
-const Banner = ({ isLoggedIn, handleLogout }) => {
+const Banner = () => {
+  const { accessToken, setAccessToken } = useAuth();
+
   const navigate = useNavigate(); // useNavigate 훅 사용
+
+  useEffect(() => {
+    const accessToken = localStorage.getItem("accessToken"); // 토큰 확인
+    setAccessToken(!!accessToken); // 토큰이 있으면 로그인 상태로 설정
+  }, []);
 
   //광운대 로고 클릭 시
   const handleKWLogiClick = () => {
@@ -13,12 +21,13 @@ const Banner = ({ isLoggedIn, handleLogout }) => {
   };
 
   const handleLogoutClick = () => {
-    handleLogout(); //로그아웃 처리
+    setAccessToken(null);
+    localStorage.removeItem("accessToken");
     navigate("/login");
   };
 
   const isLoginTrueBanner = () => {
-    if (isLoggedIn) {
+    if (accessToken) {
       return (
         <>
           <li>
@@ -39,7 +48,7 @@ const Banner = ({ isLoggedIn, handleLogout }) => {
   };
 
   const isLoginFalseBanner = () => {
-    if (!isLoggedIn) {
+    if (!accessToken) {
       return (
         <>
           <li>
