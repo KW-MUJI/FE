@@ -77,9 +77,9 @@ function App() {
           <Route path="/survey" element={<Survey />} />
           <Route path="/survey_write" element={<SurveyWrite />} />
           <Route path="/My_survey" element={<MySurvey />} />
-          <Route path="/survey_result" element={<SurveyResult />} />
+          <Route path="/survey_result/:surveyId" element={<SurveyResult />} />
           <Route path="/survey_join/:surveyId" element={<SurveyJoin />} />
-          <Route path="/survey_complete" element={<SurveyComplete />} />
+          <Route path="/survey_complete/:surveyId" element={<SurveyComplete />} />
           <Route path="/my_team" element={<MyTeam />} />
           <Route path="/my_recruit_team" element={<MyRecruitTeam />} />
           <Route path="/my_team_applicant/:id" element={<MyTeamApplicant />} />

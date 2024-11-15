@@ -30,8 +30,8 @@ const Login = ({ setIsLoggedIn }) => {
       // 로그인 성공 시 처리
       console.log("로그인 성공:", response);
       setIsLoggedIn(true); // 로그인 상태로 변경
-
-      localStorage.setItem("token", response.token); // 토큰 저장
+      localStorage.setItem("token", response.data.accessToken); // 토큰 저장
+      console.log(localStorage.getItem('token'));
       navigate("/home"); // 대시보드로 이동
     } catch (error) {
       // 에러 처리
