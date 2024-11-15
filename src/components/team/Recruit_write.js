@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import styles from "../../styles/Recruit_write.module.css";
 import { useParams, useNavigate } from "react-router-dom"; //URL에서 글 ID 가져오기 위한
-import { updateProjectWithMock } from "../../api/service.js";
+import { updateProjectWithMock } from "../../api/Service.js";
 import { getProjectDetails } from "../../api/myteamApi.js";
 import { registerTeam } from "../../api/teamApi.js";
 import { updateProject } from "../../api/myteamApi.js";
