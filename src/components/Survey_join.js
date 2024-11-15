@@ -52,16 +52,22 @@ const SurveyJoin = () => {
     useEffect(() => {
         const fetchSurvey = async () => {
             try {
-                const response = await axios.get(`/api/surveys/${surveyId}`); // 설문조사 ID에 따라 데이터 가져오기
+                const response = await axios.get(`http://15.165.62.195:8080/survey/${surveyId}`, {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        "Authorization": `Bearer ${localStorage.getItem('token')}` // 인증 헤더 추가
+                    }
+                }); 
                 setSurvey(response.data.data); // API 응답 데이터 설정
             } catch (error) {
                 console.error('Error fetching survey, using mock data:', error);
                 setSurvey(mockSurveyData); // API 호출 실패 시 Mock 데이터 설정
             }
         };
+    
         fetchSurvey();
     }, [surveyId]);
-
+    
     if (!survey) return <div>Loading...</div>; // 데이터 로딩 중 표시
 
     const { title, description, createdAt, endDate, questions } = survey;
@@ -108,14 +114,19 @@ const SurveyJoin = () => {
 
         try {
             // API 요청 전송
-            await axios.post('/api/surveys/submit', { answers: formattedAnswers });
-            navigate("/survey_complete");
+            await axios.post(`http://15.165.62.195:8080/survey/submit/${surveyId}`, { answers: formattedAnswers }, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    "Authorization": `Bearer ${localStorage.getItem('token')}` // 인증 헤더 추가
+                }
+            });
+            navigate(`/survey_complete/${surveyId}`);
         } catch (error) {
-            console.error('Error submitting answers:', error);
+            console.error('Error submitting answers:', error.response ? error.response.data : error.message);
         }
+         
 
         console.log(formattedAnswers); // 제출된 답변 확인
-        navigate("/survey_complete");
     };
 
     const isSubmitDisabled = () => {

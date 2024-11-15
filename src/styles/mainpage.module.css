@@ -119,6 +119,7 @@
   /* 제목을 좌측 정렬 */
   margin-right: 20px;
   /* 제목과 날짜 사이에 여백 추가 */
+  overflow: hidden;
 }
 
 .notice_date {
@@ -129,6 +130,8 @@
 .calender {
   width: 416px;
   margin-top: 13px;
+  border: 1px solid #B3B3B3;
+  border-radius: 5px;
 }
 
 .second_container {
@@ -259,4 +262,153 @@
   background-color: transparent;
   border: none;
   cursor: pointer;
+}
+
+
+
+
+
+
+
+
+
+.calendar {
+  border: 1px solid #b3b3b3;
+  padding: 10px;
+  border-radius: 10px;
+  width: 416px;
+}
+
+.contents {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* 수평 중앙 정렬 */
+}
+
+.days {
+  display: grid;
+  place-items: center;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 5px;
+  width: 375px;
+  margin: 0;
+  /* 중앙 정렬을 위한 추가 */
+  margin-bottom: 15px;
+  align-items: center;
+  /* 수직 중앙 정렬 */
+}
+
+.another_day {
+  width: 30px;
+  height: 30px;
+  text-align: center;
+  align-items: center;
+  border-radius: 50%;
+  transition: background-color 0.3s;
+  color: #b3b3b3;
+  padding: 7.5px 0;
+  margin: 5px 0;
+}
+
+.another_day:hover {
+  background-color: #e0e0e0;
+  cursor: pointer;
+}
+
+.day {
+  width: 30px;
+  height: 30px;
+  text-align: center;
+  border-radius: 50%;
+  transition: background-color 0.3s;
+  padding: 7.5px 0;
+  margin: 5px 0;
+}
+
+.day:hover {
+  background-color: #e0e0e0;
+  cursor: pointer;
+}
+
+.weekDays {
+  display: grid;
+  place-items: center;
+  grid-template-columns: repeat(7, 1fr);
+  margin-bottom: 20px;
+  width: 375px;
+  height: 46px;
+  border-top: solid 0.57px #b3b3b3;
+  border-bottom: solid 0.57px #b3b3b3;
+}
+
+.weekDay {
+  text-align: center;
+  font-weight: bold;
+  color: #333;
+}
+
+.header h4 {
+  width: auto;
+}
+
+.header button {
+  border: none;
+  background: transparent;
+  cursor: pointer;
+}
+
+.ex {
+  display: flex;
+  width: 375px;
+  height: 50px;
+  border-top: solid 0.57px #b3b3b3;
+  margin-left: 20.38px;
+  
+}
+
+.schoolDot {
+  width: 15px;
+  /* 원하는 크기로 설정 */
+  height: 15px;
+  /* 원하는 크기로 설정 */
+  border-radius: 50%;
+  /* 원형으로 만들기 */
+  align-items: center;
+  position: relative;
+  top: 17.5px;
+  background: #E8CECC66;
+  margin: 0 3.87px 0 7.4px;
+}
+
+.teamDot {
+  width: 15px;
+  /* 원하는 크기로 설정 */
+  height: 15px;
+  /* 원하는 크기로 설정 */
+  border-radius: 50%;
+  /* 원형으로 만들기 */
+  align-items: center;
+  position: relative;
+  top: 17.5px;
+  background: #EEF2F6;
+  margin: 0 3.87px 0 18px;
+}
+
+.ex span {
+  display: flex;
+  font-family: Pretendard;
+  font-size: 13.12px;
+  font-weight: 400;
+  text-align: left;
+  align-items: center;
+}
+.tooltip {
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.7);
+  color: white;
+  padding: 5px 10px;
+  border-radius: 4px;
+  z-index: 1000;
+  white-space: nowrap;
 }

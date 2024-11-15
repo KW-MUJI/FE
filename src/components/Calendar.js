@@ -1,18 +1,9 @@
 import React, { useState } from 'react';
 import styles from '../styles/calendar.module.css'; // 캘린더 스타일 추가
 
-const Calendar = () => {
+const Calendar = ({ events }) => { // events를 props로 받음
     const [currentDate, setCurrentDate] = useState(new Date());
     const [tooltip, setTooltip] = useState({ visible: false, title: '', x: 0, y: 0 });
-
-    // 일정 데이터: 제목, 날짜, 타입
-    const events = [
-        { title: '학교 일정 A', date: '2024-10-01', type: 'school' },
-        { title: '팀플 일정 A', date: '2024-10-03', type: 'team' },
-        { title: '학교 일정 B', date: '2024-10-05', type: 'school' },
-        { title: '팀플 일정 B', date: '2024-10-07', type: 'team' },
-        { title: '팀플 일정 C', date: '2024-11-01', type: 'team' },
-    ];
 
     const daysInMonth = (month, year) => {
         return new Date(year, month + 1, 0).getDate();
@@ -67,6 +58,20 @@ const Calendar = () => {
 
     const daysInNextMonth = 7 - ((emptyDays + days.length) % 7);
 
+    const getEventsForDate = (dateString) => {
+        
+        const dayEvents = [];
+        const univEvents = (events.univEvents || []).filter(event => event.eventDate === dateString);
+        const userEvents = (events.userEvents || []).filter(event => event.eventDate.startsWith(dateString));
+        const projectEvents = (events.projectEvents || []).filter(event => event.eventDate.startsWith(dateString));
+
+        dayEvents.push(...univEvents.map(event => ({ title: event.title, type: 'univ' })));
+        dayEvents.push(...userEvents.map(event => ({ title: event.title, type: 'user' })));
+        dayEvents.push(...projectEvents.map(event => ({ title: event.title, type: 'project' })));
+
+        return dayEvents;
+    };
+
     return (
         <div className={styles.calendar}>
             <div className={styles.header}>
@@ -86,9 +91,9 @@ const Calendar = () => {
                     {Array(emptyDays).fill(null).map((_, index) => {
                         const prevDay = prevMonthDays[prevMonthDays.length - emptyDays + index];
                         const currentDayString = `${currentDate.getFullYear()}-${String(currentDate.getMonth()).padStart(2, '0')}-${String(prevDay).padStart(2, '0')}`;
-                        const dayEvents = events.filter(event => event.date === currentDayString);
+                        const dayEvents = getEventsForDate(currentDayString);
                         const backgroundColor = dayEvents.length > 0 
-                            ? (dayEvents[0].type === 'school' ? '#E8CECC66' : '#EEF2F6') 
+                            ? (dayEvents[0].type === 'univ' ? '#E8CECC66' : '#EEF2F6') 
                             : 'transparent';
 
                         return (
@@ -105,9 +110,9 @@ const Calendar = () => {
                     })}
                     {days.map(day => {
                         const currentDayString = `${currentDate.getFullYear()}-${String(currentDate.getMonth() + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
-                        const dayEvents = events.filter(event => event.date === currentDayString);
+                        const dayEvents = getEventsForDate(currentDayString);
                         const backgroundColor = dayEvents.length > 0 
-                            ? (dayEvents[0].type === 'school' ? '#E8CECC66' : '#EEF2F6') 
+                            ? (dayEvents[0].type === 'univ' ? '#E8CECC66' : '#EEF2F6') 
                             : 'transparent';
 
                         return (
@@ -126,9 +131,9 @@ const Calendar = () => {
                     {Array.from({ length: daysInNextMonth }).map((_, index) => {
                         const nextDay = nextMonthDays[index];
                         const currentDayString = `${currentDate.getFullYear()}-${String(currentDate.getMonth() + 2).padStart(2, '0')}-${String(nextDay).padStart(2, '0')}`;
-                        const dayEvents = events.filter(event => event.date === currentDayString);
+                        const dayEvents = getEventsForDate(currentDayString);
                         const backgroundColor = dayEvents.length > 0 
-                            ? (dayEvents[0].type === 'school' ? '#E8CECC66' : '#EEF2F6') 
+                            ? (dayEvents[0].type === 'univ' ? '#E8CECC66' : '#EEF2F6') 
                             : 'transparent';
 
                         return (
@@ -146,7 +151,7 @@ const Calendar = () => {
                 </div>
                 <div className={styles.ex}>
                     <span className={styles.schoolDot} style={{ background: '#E8CECC66', margin: '0 3.87px 0 7.4px' }}></span>
-                    <span>학교 일정</span>
+                    <span>대학 일정</span>
                     <span className={styles.teamDot} style={{ background: '#EEF2F6', margin: '0 3.87px 0 18px' }}></span>
                     <span>팀플 일정</span>
                 </div>

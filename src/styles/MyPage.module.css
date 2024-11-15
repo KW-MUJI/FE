@@ -8,7 +8,6 @@
 
 .first_container {
     margin: 36px 20px 0 0;
-
 }
 
 .second_container {
@@ -29,7 +28,6 @@
     font-size: 28px;
     font-weight: 900;
     line-height: 28px;
-
 }
 
 .info span {
@@ -38,7 +36,6 @@
     font-weight: 400;
     line-height: 28px;
     text-align: left;
-
 }
 
 .my {
@@ -51,22 +48,35 @@
     border: solid 1px #d9d9d9;
     border-radius: 20px;
     background-color: white;
-    margin: auto auto 50px auto
+    margin: auto auto 50px auto;
 }
 
 .my_container {
     width: 968px;
-    height: 270px;
     margin: 36px 0 22px 0;
+    display: flex; /* Flexbox를 사용하여 내부 요소 정렬 */
 }
 
 .team_section {
-    display: inline-block;
+    display: flex; /* flex로 변경 */
+    flex-direction: column; /* 세로 방향으로 정렬 */
     width: 310px;
-    height: 270px;
+    height: 270px; /* 고정 높이 */
     background: #FFFFFF;
-    margin-right: 19px;
+    margin-right: 10px;
+    margin-left: 9px;
+    margin-bottom: 20px; /* 아래쪽 마진 추가 */
     border-radius: 15px;
+}
+
+.empty_message {
+    height: 100%; /* 전체 섹션 높이 사용 */
+    display: flex;
+    align-items: center; /* 수직 중앙 정렬 */
+    justify-content: center; /* 수평 중앙 정렬 */
+    font-family: Pretendard; /* 폰트 일관성 유지 */
+    font-size: 18px; /* 폰트 크기 */
+    color: #999; /* 빈 메시지 색상 */
 }
 
 .team_section h3 {
@@ -84,36 +94,27 @@
     font-family: Pretendard;
     font-size: 18px;
     font-weight: 400;
-    line-height: 18px;
+    height: 18px;
     text-align: left;
     margin-bottom: 22px;
-    /* 수직 정렬을 위해 추가 */
 }
 
 .dot {
     width: 7px;
-    /* 점의 크기 */
     height: 7px;
-    /* 점의 크기 */
     border-radius: 50%;
-    /* 원형으로 만들기 */
     background-color: #b3b3b3;
-    /* 점의 색상 */
     margin-right: 16px;
-    /* 점과 텍스트 사이의 간격 */
-    width: 7.17px;
-    margin-left: 32px;
+    margin-left: 20px;
 }
 
 .dday {
     color: #b3b3b3;
-    /* 원하는 색상으로 변경 */
     font-family: Pretendard;
     font-size: 18px;
     font-weight: 400;
     line-height: 18px;
-    margin-left: auto;
-    /* 오른쪽으로 자동 마진 */
+    margin-left: auto; /* 오른쪽으로 자동 마진 */
     margin-right: 19px;
 }
 
@@ -132,7 +133,7 @@
 .first {
     display: inline-block;
     width: 70px;
-    margin: 0 430px 0 125px
+    margin: 0 430px 0 125px;
 }
 
 .second {
@@ -160,7 +161,6 @@
     font-weight: 800;
     line-height: 24px;
     text-align: left;
-
 }
 
 .portfolio_header {
