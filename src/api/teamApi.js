@@ -29,3 +29,26 @@ export const registerTeam = async (teamData, accessToken) => {
     throw error;
   }
 };
+
+export const showTeampleList = async (page = 0) => {
+  try {
+    console.log("API 호출: /team/", page); // 요청 URL 확인
+    console.log("요청 URL:", `${apiClient.defaults.baseURL}team/${page}`);
+    const response = await apiClient.get(`/team/${page}`);
+    console.log("API 응답 데이터:", response.data); // 응답 데이터 확인
+    if (!response.data) {
+      console.log("API 응답 데이터 오류");
+    }
+    return response.data;
+  } catch (error) {
+    console.error("[ERROR] teamApi/showTeampleList 오류");
+    if (error.response) {
+      console.error("Response data:", error.response.data);
+      console.error("Response status:", error.response.status);
+      console.error("Response headers:", error.response.headers);
+    } else {
+      console.error("Error message:", error.message);
+    }
+    throw error;
+  }
+};
