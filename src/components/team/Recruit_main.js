@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import styles from "../../styles/Recruit_main.module.css";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import { showTeampleList } from "../../api/teamApi";
+import { getTeampleList } from "../../api/teamApi";
 import { formatDate } from "../../utils/dateUtil";
 import Pagination from "../../utils/pageNationUtil";
 
@@ -20,7 +20,7 @@ const RecruitMain = () => {
 
   const fetchProjectLists = async (page) => {
     try {
-      const response = await showTeampleList(page);
+      const response = await getTeampleList(page);
       setProjectList(response.data);
       //******백에서 수정하면 추가하기  */
       //   setTotalPages(response.totalPages || 10);

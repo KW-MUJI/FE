@@ -30,15 +30,69 @@ export const registerTeam = async (teamData, accessToken) => {
   }
 };
 
-export const showTeampleList = async (page = 0) => {
+export const getTeampleDetail = async (projectId, accessToken) => {
+  try {
+    const response = await apiClient.get(`/team/${projectId}`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${accessToken}`,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    console.error(
+      "[ERROR] teamApi/showTeampleDetail 오류",
+      error.response || error.message
+    );
+    throw error;
+  }
+};
+
+export const getPortfolioList = async (accessToken) => {
+  try {
+    const response = await apiClient.get(`/team/apply`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${accessToken}`,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const postPortfolio = async (accessToken, resumeId, projectId) => {
+  const url = "/team/apply";
+  const headers = {
+    "content-type": "application/json",
+    Authorization: `Bearer ${accessToken}`,
+  };
+  const body = {
+    resumeId,
+    projectId,
+  };
+  try {
+    const response = await apiClient.post(url, body, { headers });
+    if (response.data.code === 200) {
+      console.log("포트폴리오 선택 성공 :", response.data.data);
+      return response.data.data;
+    } else {
+      console.error("포트폴리오 선택 실패 오류 코드 :", response.data.code);
+    }
+    return response.data;
+  } catch (error) {
+    console.error('postProtfolio API 에러:', error.response || error.message);
+    throw error;
+  }
+};
+
+export const getTeampleList = async (page = 0) => {
   try {
     console.log("API 호출: /team/", page); // 요청 URL 확인
     console.log("요청 URL:", `${apiClient.defaults.baseURL}team/${page}`);
     const response = await apiClient.get(`/team/${page}`);
     console.log("API 응답 데이터:", response.data); // 응답 데이터 확인
-    if (!response.data) {
-      console.log("API 응답 데이터 오류");
-    }
     return response.data;
   } catch (error) {
     console.error("[ERROR] teamApi/showTeampleList 오류");
