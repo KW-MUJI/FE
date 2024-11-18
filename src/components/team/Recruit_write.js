@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from "react";
 import styles from "../../styles/Recruit_write.module.css";
 import { useParams, useNavigate } from "react-router-dom"; //URL에서 글 ID 가져오기 위한
-import { updateProjectWithMock } from "../../api/service.js";
-import { getProjectDetails } from "../../api/myteamApi.js";
+import { getProjectDetails, updateProject } from "../../api/myteamApi.js";
 import { registerTeam } from "../../api/teamApi.js";
-import { updateProject } from "../../api/myteamApi.js";
 import { useAuth } from "../../contexts/AuthContext.js";
+import { formatDate } from "../../utils/dateUtil.js";
 
 const RecruitWrite = () => {
   const { projectId } = useParams(); //URL에서ID받아옴
@@ -20,16 +19,9 @@ const RecruitWrite = () => {
   const [imagePreview, setImagePreview] = useState(null);
   const navigate = useNavigate();
 
-  const formatDate = (date) => {
-    const year = date.getFullYear();
-    const month = String(date.getMonth() + 1).padStart(2, "0");
-    const day = String(date.getDate()).padStart(2, "0");
-    return `${year}-${month}-${day}`;
-  };
-
   const today = new Date();
-  const reformToday = formatDate(today);
-  const [deadlineAt, setDeadlineAt] = useState(reformToday);
+  const formattedToday = formatDate(today);
+  const [deadlineAt, setDeadlineAt] = useState(formattedToday);
 
   useEffect(() => {
     console.log("글쓰기 토큰 있냐?", accessToken);
@@ -118,14 +110,14 @@ const RecruitWrite = () => {
   const handleDateChange = (e) => {
     const selectedDate = e.target.value;
 
-    if (selectedDate < reformToday) {
+    if (selectedDate < formattedToday) {
       alert(`마감일은 오늘 이후로 설정해야 합니다. ${deadlineAt}`);
       return;
     }
 
     setDeadlineAt(selectedDate);
 
-    console.log("오늘 날짜:", reformToday);
+    console.log("오늘 날짜:", formattedToday);
     console.log("선택된 마감일:", selectedDate);
   };
 
