@@ -2,20 +2,16 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom'; // useNavigate 추가
 import styles from '../styles/My_survey.module.css'; // CSS 파일 임포트
 import axios from 'axios';
-
+import { fetchSurvey, endSurvey, deleteSurvey } from '../api/mysurveyApi';
 const MySurvey = () => {
     const [surveys, setSurveys] = useState([]);
     const navigate = useNavigate(); // navigate 초기화
+    const accessToken = localStorage.getItem('accessToken');
 
     useEffect(() => {
         const fetchSurveys = async () => {
             try {
-                const response = await axios.get(`http://15.165.62.195/mysurvey`, {
-                    headers: {
-                        'Content-Type': 'application/json', // Content-Type 헤더 추가
-                        'Authorization': `Bearer ${localStorage.getItem('accessToken')}` // Authorization 헤더 추가
-                    }
-                });
+                const response = await fetchSurvey(accessToken);
                 const surveysData = response.data.data.map(survey => ({
                     id: survey.surveyId,
                     title: survey.title,
@@ -35,13 +31,7 @@ const MySurvey = () => {
     const handleEndSurvey = async (id) => {
         try {
             // API 요청으로 설문조사 종료
-            await fetch(`http://15.165.62.195/mysurvey/${id}`, {
-                method: 'POST',
-                headers: {
-                    'Authorization': `Bearer ${localStorage.getItem('accessToken')}`,
-                    'Content-Type': 'application/json',
-                },
-            });
+            const response = await endSurvey(accessToken, id);
 
             // 상태 업데이트
             setSurveys((prevSurveys) =>
@@ -58,12 +48,7 @@ const MySurvey = () => {
     const handleDeleteSurvey = async (id) => {
         try {
             // API 요청으로 설문조사 삭제
-            await axios.delete(`http://15.165.62.195/mysurvey/${id}`, {
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${localStorage.getItem('accessToken')}`
-                }
-            });
+            const response = await deleteSurvey(accessToken, id);
 
             // 상태 업데이트
             setSurveys((prevSurveys) => prevSurveys.filter((s) => s.id !== id));

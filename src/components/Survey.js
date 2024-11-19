@@ -4,6 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import moment from 'moment';
 import axios from 'axios';
 import { useAuth } from "../contexts/AuthContext.js";
+import { fetchSurveyList } from '../api/surveyApi.js';
 const Survey = () => {
     const [searchTerm, setSearchTerm] = useState('');
     const [surveys, setSurveys] = useState([]);
@@ -35,14 +36,8 @@ const Survey = () => {
 
     const fetchSurveys = async () => {
         try {
-            const response = await axios.get('http://15.165.62.195/survey', {
-                headers: {
-                    'content-type': 'application/json',
-                    "Authorization": `Bearer ${accessToken}`
-                }
-            });
-            console.log(response.data.data);
-            const { currentPage, totalPages, surveys } = response.data.data;
+            const response = await fetchSurveyList(accessToken);
+            const { currentPage, totalPages, surveys } = response;
 
             setCurrentPage(currentPage);
             setTotalPages(totalPages);
