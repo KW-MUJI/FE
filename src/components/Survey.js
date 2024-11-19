@@ -3,7 +3,7 @@ import styles from '../styles/Survey.module.css';
 import { Link, useNavigate } from 'react-router-dom';
 import moment from 'moment';
 import axios from 'axios';
-
+import { useAuth } from "../contexts/AuthContext.js";
 const Survey = () => {
     const [searchTerm, setSearchTerm] = useState('');
     const [surveys, setSurveys] = useState([]);
@@ -11,7 +11,7 @@ const Survey = () => {
     const [currentPage, setCurrentPage] = useState(1);
     const [totalPages, setTotalPages] = useState(0);
     const questionsPerPage = 8;
-
+    const accessToken = localStorage.getItem('accessToken');
     const navigate = useNavigate();
 
     const goToPost = (surveyId) => {
@@ -35,14 +35,15 @@ const Survey = () => {
 
     const fetchSurveys = async () => {
         try {
-            const response = await axios.get('http://15.165.62.195:8080/survey', {
+            const response = await axios.get('http://15.165.62.195/survey', {
                 headers: {
-                    'Content-Type': 'application/json',
-                    "Authorization": `Bearer ${localStorage.getItem('token')}`
+                    'content-type': 'application/json',
+                    "Authorization": `Bearer ${accessToken}`
                 }
             });
-
+            console.log(response.data.data);
             const { currentPage, totalPages, surveys } = response.data.data;
+
             setCurrentPage(currentPage);
             setTotalPages(totalPages);
             setSurveys(surveys);

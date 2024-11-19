@@ -9,10 +9,10 @@ const SurveyComplete = () => {
     useEffect(() => {
         const fetchSurvey = async () => {
             try {
-                const response = await axios.get(`http://15.165.62.195:8080/survey/${surveyId}`, {
+                const response = await axios.get(`http://15.165.62.195/survey/${surveyId}`, {
                     headers: {
                         'Content-Type': 'application/json',
-                        "Authorization": `Bearer ${localStorage.getItem('token')}`
+                        "Authorization": `Bearer ${localStorage.getItem('accessToken')}`
                     }
                 });
                 setSurveyData(response.data.data); // API 응답 데이터 설정

@@ -118,7 +118,7 @@ const Signup = () => {
         };
 
         try {
-            const response = await fetch('http://15.165.62.195:8080/auth/mailSend', {
+            const response = await fetch('http://15.165.62.195/auth/mailSend', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -150,14 +150,14 @@ const Signup = () => {
         const { id, pin } = formData;
         if (!pin) return;
 
-    /*    const email = id + fixedDomain; // 이메일 형식으로 변환
+        const email = id + fixedDomain; // 이메일 형식으로 변환
         const requestBody = {
             email: email,
             authNum: pin,
         };
         console.log(requestBody);
         try {
-            const response = await fetch('http://15.165.62.195:8080/auth/authCheck', {
+            const response = await fetch('http://15.165.62.195/auth/authCheck', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -173,14 +173,14 @@ const Signup = () => {
 
             const data = await response.json();
             console.log(data); // 응답 데이터 로그 출력
-*/
+
             const textElement = document.getElementById(styles.text);
-            //if (data.code === 200 && data.data) {
+            if (data.code === 200 && data.data) {
                 textElement.textContent = "인증번호가 일치합니다.";
                 textElement.style.color = "#008000";
                 setIsPinVerified(true); // 인증 성공
                 setIsTimerActive(false); // 타이머 정지
-            /*} else {
+            } else {
                 textElement.textContent = "인증번호가 틀렸습니다.";
                 textElement.style.color = "#ff0000";
                 setIsPinVerified(false); // 인증 실패
@@ -190,7 +190,7 @@ const Signup = () => {
         } catch (error) {
             console.error('Error:', error);
             alert("인증 확인 중 오류가 발생했습니다.");
-        }*/
+        }
     };
 
 
@@ -221,7 +221,7 @@ const Signup = () => {
         };
     
         try {
-            const response = await fetch('http://15.165.62.195:8080/auth/signUp', {
+            const response = await fetch('http://15.165.62.195/auth/signUp', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

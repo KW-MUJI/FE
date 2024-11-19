@@ -2,10 +2,11 @@ import React, { useState, useEffect } from "react";
 import styles from "../styles/mainpage.module.css";
 import { useNavigate } from "react-router-dom";
 import { fetchData } from "../api/mainpageApi"; // API 호출 함수 import
+import { useAuth } from "../contexts/AuthContext.js";
 
 const MainPage = () => {
   const navigate = useNavigate();
-  const token = localStorage.getItem('token'); // 토큰 가져오기
+  const token = localStorage.getItem('accessToken'); // 토큰 가져오기
   const [data, setData] = useState(null); // 서버에서 가져온 데이터 상태 관리
   const [selectedType, setSelectedType] = useState("전체");
   const [events, setEvents] = useState([]);
@@ -16,8 +17,10 @@ const MainPage = () => {
     const fetchDataFromServer = async () => {
       try {
         const yearMonth = `${currentMonth.getFullYear()}-${String(currentMonth.getMonth() + 1).padStart(2, '0')}`;
+        console.log(yearMonth);
         const result = await fetchData(token, yearMonth); // 현재 월에 맞는 데이터 요청
         setData(result); // 가져온 데이터 설정
+
         console.log(result);
       } catch (error) {
         console.error('Failed to fetch data:', error);

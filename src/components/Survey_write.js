@@ -95,11 +95,11 @@ const SurveyWrite = () => {
         console.log('서버로 전송할 데이터:', surveyData);
         console.log(localStorage.getItem('token'));
         try {
-            const response = await fetch('http://15.165.62.195:8080/survey/create', {
+            const response = await fetch('http://15.165.62.195/survey/create', {
                 method: 'POST',
                 headers: {
                     "content-type": "application/json",
-                    "Authorization": `Bearer ${localStorage.getItem('token')}`
+                    "Authorization": `Bearer ${localStorage.getItem('accessToken')}`
                 },
                 body: JSON.stringify(surveyData),
             });
