@@ -1,74 +1,118 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
+import axios from 'axios';
 import styles from '../styles/MyPage.module.css';
-
-// 회원가입 컴포넌트
+import { Link, useNavigate } from "react-router-dom";
+import { useAuth } from "../contexts/AuthContext.js";
 const MyPage = () => {
     const style = {
         backgroundColor: '#EEF2F6',
     };
+    const navigate = useNavigate();
+    const goTocheckPw = () => {
+        navigate("/checkPw");
+    }
+    const [myTeams, setMyTeams] = useState([]);
+    const [myRecruitTeams, setMyRecruitTeams] = useState([]);
+    const [mySurveys, setMySurveys] = useState([]);
+    const [myPortfolios, setMyPortfolios] = useState([]);
+    const [myAppliedTeams, setMyAppliedTeams] = useState([]);
+    const [file, setFile] = useState(null);
+    const fileInputRef = useRef(null);
+    const [emptydata, setEmptydata] = useState(['', '', '']);
+    const token = localStorage.getItem('accessToken');
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await axios.get(`http://15.165.62.195/mypage`, {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    }
+                });
 
-    // 각 섹션에 대한 예시 데이터
-    const myTeams = [
-        '팀플 1',
-        '팀플 2',
-        '팀플 3',
-        '팀플 4',
-    ];
+                const data = response.data.data;
 
-    const myRecruitTeams = [
-        { name: '모집 팀플 1', end_date: '2024-10-10' },
-        { name: '모집 팀플 2', end_date: '2024-10-05' },
-        { name: '모집 팀플 3', end_date: '2024-10-15' },
-        { name: '모집 팀플 4', end_date: '2024-10-01' },
-    ];
+                setMyTeams(data.projects || []);
+                setMyRecruitTeams(data.createdProjects || []);
+                setMySurveys(data.surveys || []);
+                setMyPortfolios(data.resumes || []);
+                setMyAppliedTeams(data.applicationProjects || []);
+            } catch (error) {
+                console.error('Error fetching user data:', error);
+            }
+        };
 
-    const mySurveys = [
-        { name: '설문 1', end_date: '2024-10-12' },
-        { name: '설문 2', end_date: '2024-10-06' },
-        { name: '설문 3', end_date: '2024-10-20' },
-        { name: '설문 4', end_date: '2024-09-30' },
-    ];
+        fetchData();
+    }, []);
 
-    const [myPortfolios, setMyPortfolios] = useState([
-        { name: '포트폴리오 1', lastModified: '2024-10-01' },
-        { name: '포트폴리오 2', lastModified: '2024-09-28' },
-        { name: '포트폴리오 3', lastModified: '2024-10-05' },
-    ]);
-    const [myAppliedTeams, setMyAppliedTeams] = useState([
-        { name: '지원팀플 1', applicant_count: '3명', lastModified: '2024-10-01' },
-        { name: '지원팀플 2', applicant_count: '2명', lastModified: '2024-09-28' },
-        { name: '지원팀플 3', applicant_count: '4명', lastModified: '2024-10-05' },
-    ]);
-    // 오늘 날짜 구하기
-    const today = new Date();
+    const handleAddPortfolio = async (selectedFile) => {
+        if (!selectedFile) {
+            alert('파일을 선택해 주세요.');
+            return;
+        }
 
-    // D-Day 계산
-    const getDdayMessage = (endDate) => {
-        const end = new Date(endDate);
-        const diffTime = end - today;
-        const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)); // 날짜 차이 계산
+        const formData = new FormData();
+        formData.append('resume', selectedFile);
 
-        if (diffDays > 0) {
-            return `D-${diffDays}`; // D-Day 표시
-        } else if (diffDays === 0) {
-            return 'D-Day'; // 오늘이 마감일
-        } else {
-            return '마감'; // 마감된 경우
+        try {
+            const response = await axios.post(`http://15.165.62.195/mypage/add`, formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`,
+                },
+            });
+
+            if (response.data.code === 200) {
+                alert('포트폴리오가 성공적으로 추가되었습니다.');
+                setMyPortfolios(prev => [...prev, { id: response.data.data.id, name: selectedFile.name, createdAt: new Date().toISOString() }]);
+                setFile(null);
+                window.location.reload();
+            }
+             else {
+                alert('포트폴리오 추가에 실패했습니다.');
+            }
+        } catch (error) {
+            console.error('Error adding portfolio:', error);
+            alert('포트폴리오 추가 중 오류가 발생했습니다.');
         }
     };
 
-    const handleAddPortfolio = () => {
-        // 포트폴리오 추가 로직을 구현하세요.
-        alert('포트폴리오 추가 기능은 아직 구현되지 않았습니다.');
+    const handleDeletePortfolio = async (id, index) => {
+    
+        try {
+            const response = await axios.delete(`http://15.165.62.195/mypage/deleteResume/${id}`, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`,
+                },
+            });
+    
+            if (response.data.code === 200) {
+                alert(response.data.data); // "홍길동의 포트폴리오 삭제" 메시지
+                setMyPortfolios(prev => prev.filter((_, i) => i !== index)); // UI에서 포트폴리오 삭제
+            } else {
+                alert('포트폴리오 삭제에 실패했습니다.');
+            }
+        } catch (error) {
+            console.error('Error deleting portfolio:', error);
+            alert('포트폴리오 삭제 중 오류가 발생했습니다.');
+        }
+    };
+        
+
+    const handleFileChange = (e) => {
+        const selectedFile = e.target.files[0];
+        if (selectedFile) {
+            handleAddPortfolio(selectedFile); // 파일을 선택하면 포트폴리오 추가 함수 호출
+        }
     };
 
-    const handleDeletePortfolio = (index) => {
-        setMyPortfolios(prev => prev.filter((_, i) => i !== index));
+    const openFileDialog = () => {
+        fileInputRef.current.click();
     };
 
-    // 최종 수정일 형식 변경 함수
     const formatLastModified = (date) => {
-        return date.replace(/-/g, '.'); // '-'를 '.'로 변경
+        return date.replace(/-/g, '.');
     };
 
     return (
@@ -76,14 +120,7 @@ const MyPage = () => {
             <div className={styles.main_container}>
                 <div className={styles.first_container}>
                     <div className={styles.info}>
-                        <svg width="139" height="139" viewBox="0 0 139 139" fill="none" xmlns="http://www.w3.org/2000/svg" style={{margin:'42px auto 36px auto' }}>
-                            <rect width="139" height="139" rx="69.5" fill="#7F7F7F" fillOpacity="0.2" style={{ mixBlendMode: 'luminosity' }} />
-                            <rect width="139" height="139" rx="69.5" fill="#3D3D3D" fillOpacity="0.5" style={{ mixBlendMode: 'overlay' }} />
-                            <path fillRule="evenodd" clipRule="evenodd" d="M90.3511 55.6C90.3511 67.1151 81.0162 76.45 69.5011 76.45C57.986 76.45 48.6511 67.1151 48.6511 55.6C48.6511 44.0849 57.986 34.75 69.5011 34.75C81.0162 34.75 90.3511 44.0849 90.3511 55.6ZM83.4011 55.6C83.4011 63.2768 77.1779 69.5 69.5011 69.5C61.8243 69.5 55.6011 63.2768 55.6011 55.6C55.6011 47.9232 61.8243 41.7 69.5011 41.7C77.1779 41.7 83.4011 47.9232 83.4011 55.6Z" fill="#8B0B02" />
-                            <path d="M69.5011 86.875C47.0026 86.875 27.8333 100.179 20.5312 118.817C22.3101 120.584 24.184 122.255 26.1445 123.821C31.582 106.709 48.6397 93.825 69.5011 93.825C90.3625 93.825 107.42 106.709 112.858 123.821C114.818 122.255 116.692 120.584 118.471 118.817C111.169 100.179 91.9996 86.875 69.5011 86.875Z" fill="#8B0B02" />
-                        </svg>
-
-                        <h1>김참빛<span>님 &gt;</span></h1>
+                        <h1 onClick={goTocheckPw}>김참빛<span>님 &gt;</span></h1>
                         <div className={styles.my}>
                             <p>MY 팀플</p>
                             <p>MY 모집 팀플</p>
@@ -96,43 +133,65 @@ const MyPage = () => {
                     <div className={styles.my_container}>
                         <div className={styles.team_section}>
                             <h3>MY 팀플</h3>
-                            {myTeams.map((item, index) => (
-                                <div key={index} className={styles.team}>
+                            {myTeams.length > 0 ? (
+                                myTeams.map((item, index) => (
+                                    <div key={index} className={styles.team}>
+                                        <span className={styles.dot}></span>
+                                        {item.name}
+                                    </div>
+                                ))
+                            ) : (
+                                <div className={styles.team}>
                                     <span className={styles.dot}></span>
-                                    {item}
+                                    팀플이 없습니다.
                                 </div>
-                            ))}
+                            )}
                         </div>
                         <div className={styles.team_section}>
                             <h3>MY 모집 팀플</h3>
-                            {myRecruitTeams.map((item, index) => (
-                                <div key={index} className={styles.team}>
+                            {myRecruitTeams.length > 0 ? (
+                                myRecruitTeams.map((item, index) => (
+                                    <div key={index} className={styles.team}>
+                                        <span className={styles.dot}></span>
+                                        {item.name}
+                                        <span className={styles.dday}>{item.isOnGoing ? '진행 중' : '마감'}</span>
+                                    </div>
+                                ))
+                            ) : (
+                                <div className={styles.team}>
                                     <span className={styles.dot}></span>
-                                    {item.name}
-                                    <span className={styles.dday}>{getDdayMessage(item.end_date)}</span>
+                                    모집 팀플이 없습니다.
                                 </div>
-                            ))}
+                            )}
                         </div>
                         <div className={styles.team_section}>
                             <h3>MY 설문</h3>
-                            {mySurveys.map((item, index) => (
-                                <div key={index} className={styles.team}>
-                                    <span className={styles.dot}></span>
-                                    {item.name}
-                                    <span className={styles.dday}>{getDdayMessage(item.end_date)}</span>
-                                </div>
-                            ))}
+                            {mySurveys.length > 0 ? (
+                                mySurveys.map((item, index) => (
+                                    <div key={index} className={styles.team}>
+                                        <span className={styles.dot}></span>
+                                        {item.title}
+                                        <span className={styles.dday}>{item.isOngoing ? '진행 중' : '마감'}</span>
+                                    </div>
+                                ))
+                            ) : (
+                                <div>설문이 없습니다.</div>
+                            )}
                         </div>
                     </div>
                     <div className={styles.portfolio}>
                         <div className={styles.portfolio_header}>
                             <h3>MY 포트폴리오</h3>
-                            <button onClick={handleAddPortfolio} className={styles.add_button}>
-                                <svg width="18" height="16" viewBox="0 0 18 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M9.00481 15.3062H16.5086M12.7567 1.85373C13.0884 1.52938 13.5383 1.34717 14.0074 1.34717C14.2396 1.34717 14.4696 1.3919 14.6842 1.47882C14.8988 1.56574 15.0938 1.69313 15.258 1.85373C15.4222 2.01433 15.5525 2.20499 15.6414 2.41482C15.7303 2.62466 15.776 2.84956 15.776 3.07668C15.776 3.3038 15.7303 3.5287 15.6414 3.73854C15.5525 3.94837 15.4222 4.13903 15.258 4.29963L4.83601 14.4909L1.50098 15.3062L2.33474 12.045L12.7567 1.85373Z" stroke="#1E1E1E" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" />
-                                </svg>
+                            <button onClick={openFileDialog} className={styles.add_button}>
                                 추가
                             </button>
+                            <input
+                                type="file"
+                                accept=".pdf"
+                                onChange={handleFileChange}
+                                ref={fileInputRef}
+                                style={{ display: 'none' }}
+                            />
                         </div>
                         <div className={styles.index}>
                             <p className={styles.first}>제목</p>
@@ -143,8 +202,8 @@ const MyPage = () => {
                             {myPortfolios.map((item, index) => (
                                 <div key={index} className={styles.portfolio_item}>
                                     <span className={styles.title}>{item.name}</span>
-                                    <button className={styles.delete_button} onClick={() => handleDeletePortfolio(index)}>삭제</button>
-                                    <span className={styles.last_modified}> {formatLastModified(item.lastModified)}</span>
+                                    <button className={styles.delete_button} onClick={() => handleDeletePortfolio(item.resumeId, index)}>삭제</button>
+                                    <span className={styles.last_modified}> {formatLastModified(item.createdAt)}</span>
                                 </div>
                             ))}
                         </div>
@@ -160,8 +219,8 @@ const MyPage = () => {
                             {myAppliedTeams.map((item, index) => (
                                 <div key={index} className={styles.portfolio_item}>
                                     <span className={styles.title}>{item.name}</span>
-                                    <span className={styles.num}>{item.applicant_count}</span>
-                                    <span className={styles.last_modified}> {formatLastModified(item.lastModified)}</span>
+                                    <span className={styles.num}>{item.applicantsNum}명</span>
+                                    <span className={styles.last_modified}> {formatLastModified(item.deadlineAt)}</span>
                                 </div>
                             ))}
                         </div>

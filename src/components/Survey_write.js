@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styles from '../styles/Survey_write.module.css';
-
+import { useNavigate } from "react-router-dom";
+import { surveyCreate } from '../api/surveyApi';
 const SurveyWrite = () => {
     const [surveyTitle, setSurveyTitle] = useState('');
     const [surveyDescription, setSurveyDescription] = useState('');
@@ -9,6 +10,8 @@ const SurveyWrite = () => {
     const [currentType, setCurrentType] = useState('multipleChoice');
     const [options, setOptions] = useState(['', '']); // 기본 2개의 옵션
     const [selectDate, setSelectDate] = useState(null); //날짜
+    const accessToken = localStorage.getItem('accessToken');
+    const navigate = useNavigate();
     const handleAddQuestion = () => {
         setQuestions([...questions, { text: currentQuestion, type: currentType, options }]);
         setCurrentQuestion('');
@@ -91,18 +94,12 @@ const SurveyWrite = () => {
         };
     
         console.log('서버로 전송할 데이터:', surveyData);
-    
         try {
-            const response = await fetch('API_URL_HERE', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(surveyData),
-            });
+            const response = await surveyCreate(accessToken, surveyData);
     
             if (response.ok) {
                 alert('설문이 성공적으로 등록되었습니다.');
+                navigate(`/survey`); 
                 // 필요 시 상태 초기화 추가
             } else {
                 alert('설문 등록 중 오류가 발생했습니다.');

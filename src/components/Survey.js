@@ -2,20 +2,21 @@ import React, { useState, useEffect } from 'react';
 import styles from '../styles/Survey.module.css';
 import { Link, useNavigate } from 'react-router-dom';
 import moment from 'moment';
-import axios from 'axios'; // axios 라이브러리 사용
-
+import axios from 'axios';
+import { useAuth } from "../contexts/AuthContext.js";
+import { fetchSurveyList } from '../api/surveyApi.js';
 const Survey = () => {
     const [searchTerm, setSearchTerm] = useState('');
-    const [surveys, setSurveys] = useState([]); // 설문조사 데이터를 저장할 상태
+    const [surveys, setSurveys] = useState([]);
     const [filteredSurveys, setFilteredSurveys] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
     const [totalPages, setTotalPages] = useState(0);
     const questionsPerPage = 8;
-
+    const accessToken = localStorage.getItem('accessToken');
     const navigate = useNavigate();
 
     const goToPost = (surveyId) => {
-        navigate(`/survey_join/${surveyId}`); // 설문조사 ID를 URL에 포함
+        navigate(`/survey_join/${surveyId}`);
     };
 
     const onChangeForm = (e) => {
@@ -29,60 +30,23 @@ const Survey = () => {
             survey.description.toLowerCase().includes(lowercasedFilter)
         );
         setFilteredSurveys(filteredData);
-        setCurrentPage(1); // 검색 후 첫 페이지로 이동
+        setCurrentPage(1);
         setTotalPages(Math.ceil(filteredData.length / questionsPerPage));
-    };
-
-    // Mock 데이터 생성
-    const fetchMockSurveys = () => {
-        const mockData = {
-            currentPage: 1,
-            totalPages: 3,
-            totalItems: 24,
-            surveys: [
-                { surveyId: 1, title: '패션 앱 관련 설문조사', description: '패션 앱 아이디어를 위한 설문조사입니다.', isOngoing: true, createdAt: '2024-09-21', endDate: '2024-10-10' },
-                { surveyId: 2, title: '다른 설문조사', description: '설문 설명입니다.', isOngoing: true, createdAt: '2024-08-20', endDate: '2024-08-30' },
-                { surveyId: 3, title: '여름 패션 설문조사', description: '여름 패션에 대한 설문조사입니다.', isOngoing: false, createdAt: '2024-07-01', endDate: '2024-07-15' },
-                { surveyId: 4, title: '패션 앱 관련 설문조사', description: '패션 앱 아이디어를 위한 설문조사입니다.', isOngoing: true, createdAt: '2024-09-21', endDate: '2024-10-10' },
-                { surveyId: 5, title: '다른 설문조사', description: '설문 설명입니다.', isOngoing: true, createdAt: '2024-08-20', endDate: '2024-08-30' },
-                { surveyId: 6, title: '여름 패션 설문조사', description: '여름 패션에 대한 설문조사입니다.', isOngoing: false, createdAt: '2024-07-01', endDate: '2024-07-15' },
-                { surveyId: 7, title: '패션 앱 관련 설문조사', description: '패션 앱 아이디어를 위한 설문조사입니다.', isOngoing: true, createdAt: '2024-09-21', endDate: '2024-10-10' },
-                { surveyId: 8, title: '다른 설문조사', description: '설문 설명입니다.', isOngoing: true, createdAt: '2024-08-20', endDate: '2024-08-30' },
-                { surveyId: 9, title: '여름 패션 설문조사', description: '여름 패션에 대한 설문조사입니다.', isOngoing: false, createdAt: '2024-07-01', endDate: '2024-07-15' },
-                { surveyId: 10, title: '패션 앱 관련 설문조사', description: '패션 앱 아이디어를 위한 설문조사입니다.', isOngoing: true, createdAt: '2024-09-21', endDate: '2024-10-10' },
-                { surveyId: 11, title: '다른 설문조사', description: '설문 설명입니다.', isOngoing: true, createdAt: '2024-08-20', endDate: '2024-08-30' },
-                { surveyId: 12, title: '여름 패션 설문조사', description: '여름 패션에 대한 설문조사입니다.', isOngoing: false, createdAt: '2024-07-01', endDate: '2024-07-15' },
-                { surveyId: 13, title: '패션 앱 관련 설문조사', description: '패션 앱 아이디어를 위한 설문조사입니다.', isOngoing: true, createdAt: '2024-09-21', endDate: '2024-10-10' },
-                { surveyId: 14, title: '다른 설문조사', description: '설문 설명입니다.', isOngoing: true, createdAt: '2024-08-20', endDate: '2024-08-30' },
-                { surveyId: 15, title: '여름 패션 설문조사', description: '여름 패션에 대한 설문조사입니다.', isOngoing: false, createdAt: '2024-07-01', endDate: '2024-07-15' },
-                { surveyId: 16, title: '패션 앱 관련 설문조사', description: '패션 앱 아이디어를 위한 설문조사입니다.', isOngoing: true, createdAt: '2024-09-21', endDate: '2024-10-10' },
-                { surveyId: 17, title: '다른 설문조사', description: '설문 설명입니다.', isOngoing: true, createdAt: '2024-08-20', endDate: '2024-08-30' },
-                { surveyId: 18, title: '여름 패션 설문조사', description: '여름 패션에 대한 설문조사입니다.', isOngoing: false, createdAt: '2024-07-01', endDate: '2024-07-15' },
-                { surveyId: 19, title: '패션 앱 관련 설문조사', description: '패션 앱 아이디어를 위한 설문조사입니다.', isOngoing: true, createdAt: '2024-09-21', endDate: '2024-10-10' },
-                { surveyId: 20, title: '다른 설문조사', description: '설문 설명입니다.', isOngoing: true, createdAt: '2024-08-20', endDate: '2024-08-30' },
-                { surveyId: 21, title: '여름 패션 설문조사', description: '여름 패션에 대한 설문조사입니다.', isOngoing: false, createdAt: '2024-07-01', endDate: '2024-07-15' },
-                { surveyId: 22, title: '패션 앱 관련 설문조사', description: '패션 앱 아이디어를 위한 설문조사입니다.', isOngoing: true, createdAt: '2024-09-21', endDate: '2024-10-10' },
-                { surveyId: 23, title: '다른 설문조사', description: '설문 설명입니다.', isOngoing: true, createdAt: '2024-08-20', endDate: '2024-08-30' },
-                { surveyId: 24, title: '여름 패션 설문조사', description: '여름 패션에 대한 설문조사입니다.', isOngoing: false, createdAt: '2024-07-01', endDate: '2024-07-15' },
-            ],
-        };
-        setCurrentPage(mockData.currentPage);
-        setTotalPages(mockData.totalPages);
-        setSurveys(mockData.surveys);
-        setFilteredSurveys(mockData.surveys);
     };
 
     const fetchSurveys = async () => {
         try {
-            const response = await axios.get('/api/surveys'); // 실제 API 엔드포인트
-            const { currentPage, totalPages, totalItems, surveys } = response.data.data;
+            const response = await fetchSurveyList(accessToken);
+            const { currentPage, totalPages, surveys } = response;
+
             setCurrentPage(currentPage);
             setTotalPages(totalPages);
             setSurveys(surveys);
-            setFilteredSurveys(surveys);
+            setFilteredSurveys(surveys); // 데이터를 받아온 후 바로 필터링된 설문 데이터 설정
+            setCurrentPage(1);
         } catch (error) {
             console.error('Error fetching surveys, using mock data:', error);
-            fetchMockSurveys(); // API 요청 실패 시 Mock 데이터 사용
+
         }
     };
 
@@ -104,7 +68,7 @@ const Survey = () => {
 
     const renderPagination = () => {
         const pages = [];
-        const maxPagesToShow = 5; // 최대 페이지 번호 표시 수
+        const maxPagesToShow = 5;
         let startPage = Math.max(1, currentPage - Math.floor(maxPagesToShow / 2));
         let endPage = startPage + maxPagesToShow - 1;
 

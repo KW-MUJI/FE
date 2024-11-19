@@ -8,13 +8,13 @@ const Signup = () => {
     const [isModalOpen, setModalOpen] = useState(false);
     const [modalType, setModalType] = useState('');
     const [formData, setFormData] = useState({
-        name: "",
-        s_num: "",
-        major: "",
-        id: "",
-        pin: "",
-        password: "",
-        password_confirm: "",
+        name: '',
+        s_num: '',
+        major: '',
+        id: '',
+        pin: '',
+        password: '',
+        password_confirm: '',
     });
     const [isFormComplete, setIsFormComplete] = useState(false);
     const [isChecked1, setIsChecked1] = useState(false);
@@ -29,7 +29,6 @@ const Signup = () => {
 
     const inputRef = useRef(null);
     const fixedDomain = '@kw.ac.kr';
-    const pintest = '123456';
 
     const handleCheckboxChange1 = () => setIsChecked1(!isChecked1);
     const handleCheckboxChange2 = () => setIsChecked2(!isChecked2);
@@ -104,66 +103,154 @@ const Signup = () => {
 
     const closeModal = () => setModalOpen(false);
 
-    const requestAuth = (e) => {
+    const requestAuth = async (e) => {
         e.preventDefault();
         const { name, s_num, major, id } = formData;
         if (!id || !name || !s_num || !major) {
             alert("정보를 모두 입력해주세요");
             return;
         }
-        console.log(name);
-        console.log(s_num);
-        console.log(major);
-        console.log(id);
-        setIsPinVerified(false); // 초기화
-        setIsTimerActive(true);
-        setTimer(300);
-        alert("인증 요청이 전송되었습니다.");
-    };
 
-    const verifyPin = (e) => {
-        e.preventDefault();
-        const { pin } = formData;
-        if (!pin) return;
-        console.log(pin);
-        console.log(pintest);
-        const textElement = document.getElementById(styles.text);
-        if (pin === pintest) {
-            textElement.textContent = "인증번호가 일치합니다.";
-            textElement.style.color = "#008000";
-            setIsPinVerified(true); // 인증 성공
-            setIsTimerActive(false); // 타이머 정지
-        } else {
-            textElement.textContent = "인증번호가 틀렸습니다.";
-            textElement.style.color = "#ff0000";
-            setIsPinVerified(false); // 인증 실패
-            setIsTimerActive(false); // 타이머 정지
-            setTimer(300); // 타이머 리셋
+        const email = id + fixedDomain; // 이메일 형식으로 변환
+        const requestBody = {
+            email: email,
+            flag: true,
+        };
+
+        try {
+            const response = await fetch('http://15.165.62.195/auth/mailSend', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(requestBody),
+            });
+
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+
+            const data = await response.json();
+            console.log(data); // 응답 데이터 로그 출력
+
+            // 추가적인 처리 (예: 인증번호 요청 성공 알림)
+            setIsPinVerified(false); // 초기화
+            setIsTimerActive(true);
+            setTimer(300);
+            alert("인증 요청이 전송되었습니다.");
+        } catch (error) {
+            console.error('Error:', error);
+            alert("인증 요청 중 오류가 발생했습니다.");
         }
     };
 
-    const pw_confirm = (e) => {
-        e.preventDefault();
-        const { password, password_confirm } = formData;
-        let regPass = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{5,11}$/;
 
+    const verifyPin = async (e) => {
+        e.preventDefault();
+        const { id, pin } = formData;
+        if (!pin) return;
+
+        const email = id + fixedDomain; // 이메일 형식으로 변환
+        const requestBody = {
+            email: email,
+            authNum: pin,
+        };
+        console.log(requestBody);
+        try {
+            const response = await fetch('http://15.165.62.195/auth/authCheck', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(requestBody),
+            });
+
+            if (!response.ok) {
+                const errorData = await response.json();
+                console.error('Error response:', errorData);
+                throw new Error('Network response was not ok');
+            }
+
+            const data = await response.json();
+            console.log(data); // 응답 데이터 로그 출력
+
+            const textElement = document.getElementById(styles.text);
+            if (data.code === 200 && data.data) {
+                textElement.textContent = "인증번호가 일치합니다.";
+                textElement.style.color = "#008000";
+                setIsPinVerified(true); // 인증 성공
+                setIsTimerActive(false); // 타이머 정지
+            } else {
+                textElement.textContent = "인증번호가 틀렸습니다.";
+                textElement.style.color = "#ff0000";
+                setIsPinVerified(false); // 인증 실패
+                setIsTimerActive(false); // 타이머 정지
+                setTimer(300); // 타이머 리셋
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            alert("인증 확인 중 오류가 발생했습니다.");
+        }
+    };
+
+
+    const pw_confirm = async (e) => {
+        e.preventDefault();
+        const { password, password_confirm, name, s_num, major, id } = formData;
+        let regPass = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{5,11}$/;
+    
         if (!regPass.test(password)) {
             alert("영문, 숫자, 특수기호 조합으로 5-11자리 이상 입력해주세요.");
             return;
         }
-        console.log(password);
-        console.log(password_confirm);
-        const textElement = document.getElementById(styles.pw_confirm);
+    
         if (password !== password_confirm) {
-            textElement.textContent = "비밀번호가 일치하지않습니다.";
-            textElement.style.color = "#ff0000";
+            alert("비밀번호가 일치하지않습니다.");
             return;
         }
-
-        sessionStorage.setItem("user", JSON.stringify(formData));
-        alert("회원가입 성공하였습니다!");
-        goToLogin();
+    
+        const email = id + fixedDomain; // 이메일 형식으로 변환
+        const requestBody = {
+            authNum: formData.pin, // 인증번호
+            name: name,
+            stuNum: s_num, // 학번
+            major: major,
+            email: email,
+            password: password,
+            confirmPassword: password_confirm,
+        };
+    
+        try {
+            const response = await fetch('http://15.165.62.195/auth/signUp', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(requestBody),
+            });
+    
+            if (!response.ok) {
+                const errorData = await response.json();
+                console.error('Error response:', errorData);
+                throw new Error('Network response was not ok');
+            }
+    
+            const data = await response.json();
+            console.log(data); // 응답 데이터 로그 출력
+    
+            if (data.code === 200 && data.data) {
+                sessionStorage.setItem("user", JSON.stringify(formData));
+                alert("회원가입 성공하였습니다!");
+                goToLogin();
+            } else {
+                alert("회원가입에 실패하였습니다.");
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            alert("회원가입 중 오류가 발생했습니다.");
+        }
     };
+    
 
     // 비밀번호 보기/숨기기 핸들러
     const toggleShowPassword = () => {

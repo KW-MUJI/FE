@@ -82,7 +82,7 @@ export const postPortfolio = async (accessToken, resumeId, projectId) => {
     }
     return response.data;
   } catch (error) {
-    console.error('postProtfolio API 에러:', error.response || error.message);
+    console.error("postProtfolio API 에러:", error.response || error.message);
     throw error;
   }
 };

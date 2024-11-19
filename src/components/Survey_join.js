@@ -3,63 +3,25 @@ import styles from '../styles/Survey_join.module.css';
 import { useNavigate, useParams } from 'react-router-dom';
 import moment from 'moment';
 import axios from 'axios';
-
+import { fetchSurvey, surveySubmit } from '../api/surveyApi';
 const SurveyJoin = () => {
     const { surveyId } = useParams(); // URL 파라미터에서 surveyId 추출
     const [survey, setSurvey] = useState(null); // 설문조사 정보를 저장할 상태
     const [answers, setAnswers] = useState({}); // 설문조사 답변 저장 상태
     const navigate = useNavigate();
-    // Mock 데이터
-    const mockSurveyData = {
-        surveyId: 1,
-        title: '패션 앱 관련 설문조사',
-        description: '안녕하세요!! 저는 패션쪽 마케팅을 준비하고 있는 3학년입니다.\n패션 앱 관련 아이디어를 얻기 위해, 설문조사 부탁드립니다:)',
-        createdAt: '2024-09-21T00:00:00Z',
-        endDate: '2024-10-10T00:00:00Z',
-        questions: [
-            {
-                questionId: 1,
-                questionText: '성별',
-                questionType: 'CHOICE',
-                choices: [
-                    { choiceId: 1, choiceText: '남성' },
-                    { choiceId: 2, choiceText: '여성' }
-                ]
-            },
-            {
-                questionId: 2,
-                questionText: '무신사 얼마나 사용?',
-                questionType: 'CHOICE',
-                choices: [
-                    { choiceId: 1, choiceText: '0~1' },
-                    { choiceId: 2, choiceText: '2~3' },
-                    { choiceId: 3, choiceText: '4~5' },
-                    { choiceId: 4, choiceText: '6~' }
-                ]
-            },
-            {
-                questionId: 3,
-                questionText: '무신사 한 단어로?',
-                questionType: 'TEXT'
-            },
-            {
-                questionId: 4,
-                questionText: '한마디',
-                questionType: 'TEXT'
-            }
-        ]
-    };
+
+    const accessToken = localStorage.getItem('accessToken');
     useEffect(() => {
-        const fetchSurvey = async () => {
-            try {
-                const response = await axios.get(`/api/surveys/${surveyId}`); // 설문조사 ID에 따라 데이터 가져오기
-                setSurvey(response.data.data); // API 응답 데이터 설정
-            } catch (error) {
-                console.error('Error fetching survey, using mock data:', error);
-                setSurvey(mockSurveyData); // API 호출 실패 시 Mock 데이터 설정
+        try {
+            const getSurveyData = async () => {
+                const response = await fetchSurvey(accessToken, surveyId);
+                setSurvey(response); // API 응답 데이터 설정
             }
-        };
-        fetchSurvey();
+            getSurveyData();
+        } catch (error) {
+            console.error('Error fetching surveys, using mock data:', error);
+        }
+
     }, [surveyId]);
 
     if (!survey) return <div>Loading...</div>; // 데이터 로딩 중 표시
@@ -107,15 +69,19 @@ const SurveyJoin = () => {
         }).filter(answer => answer !== null); // null 값 필터링
 
         try {
-            // API 요청 전송
-            await axios.post('/api/surveys/submit', { answers: formattedAnswers });
-            navigate("/survey_complete");
+            const response = await surveySubmit(accessToken, surveyId, formattedAnswers);
+
+            navigate(`/survey_complete/${surveyId}`);
+
         } catch (error) {
-            console.error('Error submitting answers:', error);
+            console.error('Error submitting answers:', error.response ? error.response.data : error.message);
+            if (error.response.data.code == 409) {
+                alert("이미 참여한 설문조사입니다.");
+            }
         }
 
+
         console.log(formattedAnswers); // 제출된 답변 확인
-        navigate("/survey_complete");
     };
 
     const isSubmitDisabled = () => {
