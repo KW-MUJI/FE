@@ -41,7 +41,7 @@ export const getTeampleDetail = async (projectId, accessToken) => {
     return response.data;
   } catch (error) {
     console.error(
-      "[ERROR] teamApi/showTeampleDetail 오류",
+      "[ERROR] teamApi/getTeampleDetail 오류",
       error.response || error.message
     );
     throw error;
@@ -90,12 +90,16 @@ export const postPortfolio = async (accessToken, resumeId, projectId) => {
 export const getTeampleList = async (page = 0) => {
   try {
     console.log("API 호출: /team/", page); // 요청 URL 확인
-    console.log("요청 URL:", `${apiClient.defaults.baseURL}team/${page}`);
-    const response = await apiClient.get(`/team/${page}`);
+    console.log("요청 URL:", `${apiClient.defaults.baseURL}/team/${page}`);
+    const response = await apiClient.get("/team", {
+      params: {
+        page,
+      },
+    });
     console.log("API 응답 데이터:", response.data); // 응답 데이터 확인
     return response.data;
   } catch (error) {
-    console.error("[ERROR] teamApi/showTeampleList 오류");
+    console.error("[ERROR] teamApi/getTeampleList 오류");
     if (error.response) {
       console.error("Response data:", error.response.data);
       console.error("Response status:", error.response.status);

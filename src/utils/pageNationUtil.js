@@ -4,8 +4,10 @@ import React, { useState } from "react";
 const Pagination = ({ totalPages, currentPage, onPageChange }) => {
   const pages = [];
   const maxPagesToShow = 5; // 최대 페이지 번호 표시 수
-  let startPage = Math.max(1, currentPage - Math.floor(maxPagesToShow / 2));
-  let endPage = startPage + maxPagesToShow - 1;
+  const displayPage = currentPage + 1;
+  // 시작 페이지와 끝 페이지 계산
+  let startPage = Math.floor(currentPage / maxPagesToShow) * maxPagesToShow + 1;
+  let endPage = Math.min(startPage + maxPagesToShow - 1, totalPages);
 
   if (endPage > totalPages) {
     endPage = totalPages;
@@ -17,9 +19,9 @@ const Pagination = ({ totalPages, currentPage, onPageChange }) => {
       <span
         key={i}
         className={`${styles.pageNumber} ${
-          currentPage === i ? styles.active : ""
+          displayPage === i ? styles.active : ""
         }`}
-        onClick={() => onPageChange(i)}
+        onClick={() => onPageChange(i - 1)}
       >
         {i}
       </span>
@@ -28,11 +30,12 @@ const Pagination = ({ totalPages, currentPage, onPageChange }) => {
 
   return (
     <div className={styles.pagination}>
+      {/* 이전 버튼 */}
       <span
         className={`${styles.arrow} ${
-          currentPage === 1 ? styles.disabled : ""
+          displayPage === 1 ? styles.disabled : ""
         }`}
-        onClick={() => currentPage > 1 && onPageChange(currentPage - 1)}
+        onClick={() => displayPage > 1 && onPageChange(displayPage - 2)}
       >
         <svg
           width="24"
@@ -44,14 +47,15 @@ const Pagination = ({ totalPages, currentPage, onPageChange }) => {
           <path d="M16 5L16 19L5 12L16 5Z" fill="#1D1B20" />
         </svg>
       </span>
-      {pages}
+      {/* 페이지 번호 */}
+
+      <div className={styles.pageNumberDiv}>{pages}</div>
+      {/* 다음 버튼 */}
       <span
         className={`${styles.arrow} ${
-          currentPage === totalPages ? styles.disabled : ""
+          displayPage === totalPages ? styles.disabled : ""
         }`}
-        onClick={() =>
-          currentPage < totalPages && onPageChange(currentPage + 1)
-        }
+        onClick={() => displayPage < totalPages && onPageChange(displayPage)}
       >
         <svg
           width="24"
