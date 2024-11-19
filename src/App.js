@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { AuthProvider } from "./contexts/AuthContext";
 import "./App.css";
 import Login from "./components/authPage/Login";
@@ -27,12 +27,13 @@ import CheckPw from "./components/CheckPw";
 import Update from "./components/Update";
 import MainPage from "./components/mainpage";
 import Notice from "./components/Notice";
+// import NotFound from "./components/common/NotFound";
 // import Login from './components/Login';
 
 function App() {
   return (
     <AuthProvider>
-      <Router>
+      <BrowserRouter>
         <div className="App">
           <Banner />
           <Routes>
@@ -49,7 +50,7 @@ function App() {
               element={<RecruitWrite />}
             />
             <Route path="/recruit_write" element={<RecruitWrite />} />
-            <Route path="/recruit_main/:page" element={<RecruitMain />} />
+            <Route path="/team" element={<RecruitMain />} />
             <Route path="/recruit_post/:id" element={<RecruitPost />} />
             <Route path="/survey" element={<Survey />} />
             <Route path="/survey_write" element={<SurveyWrite />} />
@@ -68,11 +69,12 @@ function App() {
             <Route path="/checkPw" element={<CheckPw />} />
             <Route path="/update" element={<Update />} />
             <Route path="/notice" element={<Notice />} />
+            {/* <Route path="*" element={<NotFound />} /> */}
           </Routes>
 
           <Footer />
         </div>
-      </Router>
+      </BrowserRouter>
     </AuthProvider>
   );
 }

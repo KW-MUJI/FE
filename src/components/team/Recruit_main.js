@@ -4,14 +4,19 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import { getTeampleList } from "../../api/teamApi";
 import { formatDate } from "../../utils/dateUtil";
 import Pagination from "../../utils/pageNationUtil";
+import { useSearchParams } from "react-router-dom";
 
 const RecruitMain = () => {
-  const { page } = useParams(); // 동적 URL에서 페이지 번호 가져오기
+  const [searchParams, setSearchParams] = useSearchParams();
+  const page = Number(searchParams.get("page")); // page 값을 가져오고 기본값 설정
+
+  // const { page } = useParams(); // 동적 URL에서 페이지 번호 가져오기
   const [projectList, setProjectList] = useState([]);
 
-  const [currentPage, setCurrentPage] = useState(Number(page));
+  const [currentPage, setCurrentPage] = useState(page);
 
   const [search, setSearch] = useState("");
+  const [filteredData, setFilteredData] = useState([]); // 필터링된 결과
   const [totalPages, setTotalPages] = useState(10); // 총 페이지 수
   const navigate = useNavigate();
 
@@ -22,6 +27,7 @@ const RecruitMain = () => {
     try {
       const response = await getTeampleList(page);
       setProjectList(response.data);
+      setFilteredData(response.data);
       //******백에서 수정하면 추가하기  */
       //   setTotalPages(response.totalPages || 10);
     } catch (error) {
@@ -31,10 +37,11 @@ const RecruitMain = () => {
   // URL 또는 currentPage 변경 시 데이터 요청
   useEffect(() => {
     fetchProjectLists(currentPage); // page가 변경될 때마다 호출
-  }, [currentPage]);
+    setSearchParams({ page: currentPage });
+  }, [currentPage, setSearchParams]);
 
   useEffect(() => {
-    setCurrentPage(Number(page) || 1); // URL 변경 시 상태 동기화
+    setCurrentPage(page); // URL 변경 시 상태 동기화
     console.log("setCurrentPage : ", currentPage);
   }, [page]);
 
@@ -48,27 +55,45 @@ const RecruitMain = () => {
   // 페이지 변경 핸들러
   const handlePageChange = (newPage) => {
     setCurrentPage(newPage); // 상태 업데이트
-    navigate(`/recruit_main/${newPage}`); // URL 업데이트
+    // navigate(`/recruit_main/${newPage}`); // URL 업데이트
   };
 
-  const handlerSerch = (e) => {
+  const handleInputChange = (e) => {
     setSearch(e.target.value);
   };
 
+  const handleSearch = () => {
+    const filteredProjects = projectList.filter((project) =>
+      project.name.toLowerCase().includes(search.toLowerCase())
+    );
+    setFilteredData(filteredProjects);
+    setCurrentPage(0);
+  };
+
+  // 엔터 키 이벤트 핸들러
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter") {
+      handleSearch();
+    }
+  };
+
   // 검색 필터링
-  const filteredProjects = projectList.filter((project) =>
-    project.name.toLowerCase().includes(search.toLowerCase())
-  );
 
   const calculateDDay = (targetDate) => {
-    const diffDay = targetDate - formattedToday;
+    // targetDate를 Date 객체로 변환
+    const target = new Date(targetDate);
+    const today = new Date(formattedToday);
 
-    if (diffDay === 0) {
+    // 날짜 차이를 일 단위로 계산
+    const diffTime = target - today; // 밀리초 차이
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)); // 일 단위로 변환
+
+    if (diffDays === 0) {
       return "D-day";
-    } else if (diffDay < 0) {
+    } else if (diffDays < 0) {
       return "마감";
     } else {
-      return `D-${diffDay}`;
+      return `D-${diffDays}`;
     }
   };
 
@@ -81,8 +106,18 @@ const RecruitMain = () => {
 
   return (
     <div className={styles.recruit_main}>
+      {/* 제목, 글쓰기버튼 */}
       <div className={styles.recruit_header}>
-        <h2>팀플모집</h2>
+        <h2
+          className={styles.title}
+          onClick={() => {
+            setCurrentPage(0); // currentPage를 0으로 초기화
+            setSearchParams({ page: 0 }); // URL 쿼리 파라미터를 동기화
+            fetchProjectLists(0); // 첫 번째 페이지 데이터 다시 요청
+          }}
+        >
+          팀플모집
+        </h2>
 
         <button
           htmlFor="writing_button" // 라벨 클릭 시 이 아이디를 가진 <input> 요소와 연결, 없애도 될 듯?
@@ -109,14 +144,16 @@ const RecruitMain = () => {
         </button>
       </div>
 
+      {/* 검색창 */}
       <div className={styles.search_container}>
         <input
           type="text"
           value={search}
-          onChange={handlerSerch}
+          onChange={handleInputChange}
+          onKeyDown={handleKeyDown} // Enter 키 이벤트 추가
           placeholder="검색할 내용을 입력하세요."
         />
-        <button className={styles.search_button}>
+        <button className={styles.search_button} onClick={handleSearch}>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="37"
@@ -132,32 +169,40 @@ const RecruitMain = () => {
         </button>
       </div>
 
-      <div className={styles.posts_container}>
-        {filteredProjects.length > 0 ? (
-          filteredProjects.map((project) => (
+      {/* 포스트 */}
+      <div className={filteredData.length <= 0 ? "" : styles.posts_container}>
+        {filteredData.length > 0 ? (
+          filteredData.map((project) => (
             <Link
               to={`/recruit_post/${project.id}`}
               state={{ project }}
               key={project.id}
+              className={styles.postLink}
             >
               <div className={styles.post_card}>
-                <img
-                  src={project.image || "/path/to/default-image.jpg"}
-                  alt={project.name}
-                  className={styles.post_image}
-                />
+                <div className={styles.post_image}>
+                  <img src={project.image} alt={""} />
+                </div>
                 <div className={styles.post_content}>
-                  <h3>{project.name}</h3>
+                  <p>{project.name}</p>
                   <div className={styles.post_deadline}>
-                    <p>마감일</p>
-                    <span>{calculateDDay(project.deadlineAt)}</span>
+                    {calculateDDay(project.deadlineAt) !== "마감" ? (
+                      <>
+                        <p>마감일</p>
+                        <span>{calculateDDay(project.deadlineAt)}</span>
+                      </>
+                    ) : (
+                      <p>마감</p>
+                    )}
                   </div>
                 </div>
               </div>
             </Link>
           ))
         ) : (
-          <p>검색 결과가 없습니다.</p>
+          <div className={styles.noSearch}>
+            <p>검색 결과가 없습니다.</p>
+          </div>
         )}
       </div>
 

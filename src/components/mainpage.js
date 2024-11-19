@@ -6,24 +6,39 @@ import { useAuth } from "../contexts/AuthContext.js";
 
 const MainPage = () => {
   const navigate = useNavigate();
-  const token = localStorage.getItem('accessToken'); // 토큰 가져오기
+
+  const token = localStorage.getItem("accessToken"); // 토큰 가져오기
+
   const [data, setData] = useState(null); // 서버에서 가져온 데이터 상태 관리
   const [selectedType, setSelectedType] = useState("전체");
   const [events, setEvents] = useState([]);
   const [currentMonth, setCurrentMonth] = useState(new Date()); // 현재 월 상태 추가
-  const [tooltip, setTooltip] = useState({ visible: false, title: '', x: 0, y: 0 });
+
+  const [tooltip, setTooltip] = useState({
+    visible: false,
+    title: "",
+    x: 0,
+    y: 0,
+  });
+
 
   useEffect(() => {
     const fetchDataFromServer = async () => {
       try {
-        const yearMonth = `${currentMonth.getFullYear()}-${String(currentMonth.getMonth() + 1).padStart(2, '0')}`;
+
+        const yearMonth = `${currentMonth.getFullYear()}-${String(
+          currentMonth.getMonth() + 1
+        ).padStart(2, "0")}`;
+
         console.log(yearMonth);
         const result = await fetchData(token, yearMonth); // 현재 월에 맞는 데이터 요청
         setData(result); // 가져온 데이터 설정
 
         console.log(result);
       } catch (error) {
-        console.error('Failed to fetch data:', error);
+
+        console.error("Failed to fetch data:", error);
+
       }
     };
 
@@ -73,12 +88,25 @@ const MainPage = () => {
   };
 
   const handleDateClick = (day) => {
-    alert(`선택한 날짜: ${currentMonth.getFullYear()}-${currentMonth.getMonth() + 1}-${day}`);
+
+    alert(
+      `선택한 날짜: ${currentMonth.getFullYear()}-${
+        currentMonth.getMonth() + 1
+      }-${day}`
+    );
+
   };
 
   const handleMouseEnter = (dayEvents, event) => {
     if (dayEvents.length > 0) {
-      setTooltip({ visible: true, title: dayEvents.map(event => event.title).join(', '), x: event.clientX, y: event.clientY });
+
+      setTooltip({
+        visible: true,
+        title: dayEvents.map((event) => event.title).join(", "),
+        x: event.clientX,
+        y: event.clientY,
+      });
+
     }
   };
 
@@ -88,24 +116,53 @@ const MainPage = () => {
 
   const getEventsForDate = (dateString) => {
     const dayEvents = [];
-    const univEvents = (events.univEvents || []).filter(event => event.eventDate === dateString);
-    const userEvents = (events.userEvents || []).filter(event => event.eventDate.startsWith(dateString));
-    const projectEvents = (events.projectEvents || []).filter(event => event.eventDate.startsWith(dateString));
 
-    dayEvents.push(...univEvents.map(event => ({ title: event.title, type: 'univ' })));
-    dayEvents.push(...userEvents.map(event => ({ title: event.title, type: 'user' })));
-    dayEvents.push(...projectEvents.map(event => ({ title: event.title, type: 'project' })));
+    const univEvents = (events.univEvents || []).filter(
+      (event) => event.eventDate === dateString
+    );
+    const userEvents = (events.userEvents || []).filter((event) =>
+      event.eventDate.startsWith(dateString)
+    );
+    const projectEvents = (events.projectEvents || []).filter((event) =>
+      event.eventDate.startsWith(dateString)
+    );
+
+    dayEvents.push(
+      ...univEvents.map((event) => ({ title: event.title, type: "univ" }))
+    );
+    dayEvents.push(
+      ...userEvents.map((event) => ({ title: event.title, type: "user" }))
+    );
+    dayEvents.push(
+      ...projectEvents.map((event) => ({ title: event.title, type: "project" }))
+    );
+
 
     return dayEvents;
   };
 
-  const days = getDaysArray(currentMonth.getMonth(), currentMonth.getFullYear());
-  const prevMonthDays = getDaysArray(currentMonth.getMonth() - 1, currentMonth.getFullYear());
-  const nextMonthDays = getDaysArray(currentMonth.getMonth() + 1, currentMonth.getFullYear());
 
-  const weekDays = ['월', '화', '수', '목', '금', '토', '일'];
-  const firstDayOfMonth = new Date(currentMonth.getFullYear(), currentMonth.getMonth(), 1).getDay();
-  const emptyDays = (firstDayOfMonth === 0 ? 6 : firstDayOfMonth - 1);
+  const days = getDaysArray(
+    currentMonth.getMonth(),
+    currentMonth.getFullYear()
+  );
+  const prevMonthDays = getDaysArray(
+    currentMonth.getMonth() - 1,
+    currentMonth.getFullYear()
+  );
+  const nextMonthDays = getDaysArray(
+    currentMonth.getMonth() + 1,
+    currentMonth.getFullYear()
+  );
+
+  const weekDays = ["월", "화", "수", "목", "금", "토", "일"];
+  const firstDayOfMonth = new Date(
+    currentMonth.getFullYear(),
+    currentMonth.getMonth(),
+    1
+  ).getDay();
+  const emptyDays = firstDayOfMonth === 0 ? 6 : firstDayOfMonth - 1;
+
 
   const daysInNextMonth = 7 - ((emptyDays + days.length) % 7);
 
@@ -148,44 +205,78 @@ const MainPage = () => {
         <div className={styles.calender}>
           <div className={styles.header}>
             <h4>
-              <button onClick={() => handleMonthChange(new Date(currentMonth.setMonth(currentMonth.getMonth() - 1)))}>{'<'}</button>
+
+              <button
+                onClick={() =>
+                  handleMonthChange(
+                    new Date(currentMonth.setMonth(currentMonth.getMonth() - 1))
+                  )
+                }
+              >
+                {"<"}
+              </button>
               {currentMonth.getFullYear()}년 {currentMonth.getMonth() + 1}월
-              <button onClick={() => handleMonthChange(new Date(currentMonth.setMonth(currentMonth.getMonth() + 1)))}>{'>'}</button>
+              <button
+                onClick={() =>
+                  handleMonthChange(
+                    new Date(currentMonth.setMonth(currentMonth.getMonth() + 1))
+                  )
+                }
+              >
+                {">"}
+              </button>
+
             </h4>
           </div>
           <div className={styles.contents}>
             <div className={styles.weekDays}>
               {weekDays.map((day, index) => (
-                <div key={index} className={styles.weekDay}>{day}</div>
+
+                <div key={index} className={styles.weekDay}>
+                  {day}
+                </div>
               ))}
             </div>
             <div className={styles.days}>
-              {Array(emptyDays).fill(null).map((_, index) => {
-                const prevDay = prevMonthDays[prevMonthDays.length - emptyDays + index];
-                const currentDayString = `${currentMonth.getFullYear()}-${String(currentMonth.getMonth()).padStart(2, '0')}-${String(prevDay).padStart(2, '0')}`;
-                const dayEvents = getEventsForDate(currentDayString);
-                const backgroundColor = dayEvents.length > 0
-                  ? (dayEvents[0].type === 'univ' ? '#E8CECC66' : '#EEF2F6')
-                  : 'transparent';
+              {Array(emptyDays)
+                .fill(null)
+                .map((_, index) => {
+                  const prevDay =
+                    prevMonthDays[prevMonthDays.length - emptyDays + index];
+                  const currentDayString = `${currentMonth.getFullYear()}-${String(
+                    currentMonth.getMonth()
+                  ).padStart(2, "0")}-${String(prevDay).padStart(2, "0")}`;
+                  const dayEvents = getEventsForDate(currentDayString);
+                  const backgroundColor =
+                    dayEvents.length > 0
+                      ? dayEvents[0].type === "univ"
+                        ? "#E8CECC66"
+                        : "#EEF2F6"
+                      : "transparent";
 
-                return (
-                  <div
-                    key={index}
-                    className={styles.another_day}
-                    onMouseEnter={(e) => handleMouseEnter(dayEvents, e)}
-                    onMouseLeave={handleMouseLeave}
-                    style={{ backgroundColor }}
-                  >
-                    {prevDay}
-                  </div>
-                );
-              })}
-              {days.map(day => {
-                const currentDayString = `${currentMonth.getFullYear()}-${String(currentMonth.getMonth() + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+                  return (
+                    <div
+                      key={index}
+                      className={styles.another_day}
+                      onMouseEnter={(e) => handleMouseEnter(dayEvents, e)}
+                      onMouseLeave={handleMouseLeave}
+                      style={{ backgroundColor }}
+                    >
+                      {prevDay}
+                    </div>
+                  );
+                })}
+              {days.map((day) => {
+                const currentDayString = `${currentMonth.getFullYear()}-${String(
+                  currentMonth.getMonth() + 1
+                ).padStart(2, "0")}-${String(day).padStart(2, "0")}`;
                 const dayEvents = getEventsForDate(currentDayString);
-                const backgroundColor = dayEvents.length > 0
-                  ? (dayEvents[0].type === 'univ' ? '#E8CECC66' : '#EEF2F6')
-                  : 'transparent';
+                const backgroundColor =
+                  dayEvents.length > 0
+                    ? dayEvents[0].type === "univ"
+                      ? "#E8CECC66"
+                      : "#EEF2F6"
+                    : "transparent";
 
                 return (
                   <div
@@ -202,11 +293,18 @@ const MainPage = () => {
               })}
               {Array.from({ length: daysInNextMonth }).map((_, index) => {
                 const nextDay = nextMonthDays[index];
-                const currentDayString = `${currentMonth.getFullYear()}-${String(currentMonth.getMonth() + 2).padStart(2, '0')}-${String(nextDay).padStart(2, '0')}`;
+
+                const currentDayString = `${currentMonth.getFullYear()}-${String(
+                  currentMonth.getMonth() + 2
+                ).padStart(2, "0")}-${String(nextDay).padStart(2, "0")}`;
                 const dayEvents = getEventsForDate(currentDayString);
-                const backgroundColor = dayEvents.length > 0
-                  ? (dayEvents[0].type === 'univ' ? '#E8CECC66' : '#EEF2F6')
-                  : 'transparent';
+                const backgroundColor =
+                  dayEvents.length > 0
+                    ? dayEvents[0].type === "univ"
+                      ? "#E8CECC66"
+                      : "#EEF2F6"
+                    : "transparent";
+
 
                 return (
                   <div
@@ -231,9 +329,17 @@ const MainPage = () => {
             )}
           </div>
           <div className={styles.ex}>
-            <span className={styles.schoolDot} style={{ background: '#E8CECC66', margin: '0 3.87px 0 7.4px' }}></span>
+
+            <span
+              className={styles.schoolDot}
+              style={{ background: "#E8CECC66", margin: "0 3.87px 0 7.4px" }}
+            ></span>
             <span>대학 일정</span>
-            <span className={styles.teamDot} style={{ background: '#EEF2F6', margin: '0 3.87px 0 18px' }}></span>
+            <span
+              className={styles.teamDot}
+              style={{ background: "#EEF2F6", margin: "0 3.87px 0 18px" }}
+            ></span>
+
             <span>팀플 일정</span>
           </div>
         </div>
@@ -244,7 +350,7 @@ const MainPage = () => {
             <h3>팀플모집</h3>
             <button
               className={styles.plusButton}
-              onClick={() => handleButtonClick("/recruit_main/1")}
+              onClick={() => handleButtonClick("/team")}
             >
               <svg
                 width="19"
@@ -258,15 +364,18 @@ const MainPage = () => {
             </button>
           </div>
           <div className={styles.box}>
-            {data && data.projects.map((item, index) => (
-              <div key={index} className={styles.team}>
-                <span className={styles.dot}></span>
-                {item.name}
-                <span className={styles.dday}>
-                  {formatLastModified(item.deadlineAt)}
-                </span>
-              </div>
-            ))}
+
+            {data &&
+              data.projects.map((item, index) => (
+                <div key={index} className={styles.team}>
+                  <span className={styles.dot}></span>
+                  {item.name}
+                  <span className={styles.dday}>
+                    {formatLastModified(item.deadlineAt)}
+                  </span>
+                </div>
+              ))}
+
           </div>
         </div>
         <div className={styles.survey}>
@@ -288,15 +397,18 @@ const MainPage = () => {
             </button>
           </div>
           <div className={styles.box}>
-            {data && data.surveys.map((survey, index) => (
-              <div key={index} className={styles.team}>
-                <span className={styles.dot}></span>
-                {survey.title}
-                <span className={styles.dday}>
-                  {formatLastModified(survey.createdAt)}
-                </span>
-              </div>
-            ))}
+
+            {data &&
+              data.surveys.map((survey, index) => (
+                <div key={index} className={styles.team}>
+                  <span className={styles.dot}></span>
+                  {survey.title}
+                  <span className={styles.dday}>
+                    {formatLastModified(survey.createdAt)}
+                  </span>
+                </div>
+              ))}
+
           </div>
         </div>
         <div className={styles.my_page}>
