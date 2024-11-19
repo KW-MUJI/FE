@@ -1,0 +1,20 @@
+.pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    align-items: center;
+}
+
+.pageNumber {
+    margin: 0px 10px;
+    /* 좌우 공백 */
+    cursor: pointer;
+    /* 커서 포인터 */
+    color:#b3b3b3;
+}
+
+.pageNumber.active {
+    font-weight: bold;
+    color:#000000;
+    /* 활성 페이지 강조 */
+}

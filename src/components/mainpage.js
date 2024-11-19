@@ -244,7 +244,7 @@ const MainPage = () => {
             <h3>팀플모집</h3>
             <button
               className={styles.plusButton}
-              onClick={() => handleButtonClick("/recruit_main")}
+              onClick={() => handleButtonClick("/recruit_main/1")}
             >
               <svg
                 width="19"

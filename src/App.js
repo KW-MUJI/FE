@@ -49,7 +49,7 @@ function App() {
               element={<RecruitWrite />}
             />
             <Route path="/recruit_write" element={<RecruitWrite />} />
-            <Route path="/recruit_main" element={<RecruitMain />} />
+            <Route path="/recruit_main/:page" element={<RecruitMain />} />
             <Route path="/recruit_post/:id" element={<RecruitPost />} />
             <Route path="/survey" element={<Survey />} />
             <Route path="/survey_write" element={<SurveyWrite />} />

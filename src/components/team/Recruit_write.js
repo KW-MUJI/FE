@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
 import styles from "../../styles/Recruit_write.module.css";
 import { useParams, useNavigate } from "react-router-dom"; //URL에서 글 ID 가져오기 위한
-import { updateProjectWithMock } from "../../api/Service.js";
-import { getProjectDetails } from "../../api/myteamApi.js";
+
+import { getProjectDetails, updateProject } from "../../api/myteamApi.js";
+
 import { registerTeam } from "../../api/teamApi.js";
-import { updateProject } from "../../api/myteamApi.js";
 import { useAuth } from "../../contexts/AuthContext.js";
+import { formatDate } from "../../utils/dateUtil.js";
 
 const RecruitWrite = () => {
   const { projectId } = useParams(); //URL에서ID받아옴
@@ -14,11 +15,15 @@ const RecruitWrite = () => {
 
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
-  const [deadlineAt, setDeadlineAt] = useState("");
+
   const [image, setImage] = useState(null);
   const [deleteImage, setDeleteImage] = useState(false);
   const [imagePreview, setImagePreview] = useState(null);
   const navigate = useNavigate();
+
+  const today = new Date();
+  const formattedToday = formatDate(today);
+  const [deadlineAt, setDeadlineAt] = useState(formattedToday);
 
   useEffect(() => {
     console.log("글쓰기 토큰 있냐?", accessToken);
@@ -50,7 +55,7 @@ const RecruitWrite = () => {
 
     console.log("이미지 상태 확인:", image);
     const postData = {
-      name: name,
+      name,
       description,
       deadlineAt,
       image: image.name,
@@ -72,10 +77,15 @@ const RecruitWrite = () => {
           alert("글이 성공적으로 등록되었습니다!");
         }
       }
+
+      if (name === "") {
+        throw Error("dd");
+      }
     } catch (error) {
       console.error("Error submitting post:", error);
       console.error("엑세스토큰", accessToken);
       alert("작업 중 오류가 발생했습니다.");
+      alert(error.message);
     }
   };
 
@@ -83,13 +93,6 @@ const RecruitWrite = () => {
   const handleImageReset = () => {
     setImagePreview(null); // 이미지 미리보기 초기화
     document.getElementById("file-upload").value = ""; // input 값 초기화
-  };
-
-  const formatDate = (date) => {
-    const year = date.getFullYear();
-    const month = String(date.getMonth() + 1).padStart(2, "0");
-    const day = String(date.getDate()).padStart(2, "0");
-    return `${year}-${month}-${day}`;
   };
 
   //이미지 미리보기
@@ -105,19 +108,18 @@ const RecruitWrite = () => {
     }
   };
 
+  // 마감일 설정
   const handleDateChange = (e) => {
-    const selectedDate = new Date(e.target.value);
-    const today = new Date();
-    today.setHours(0, 0, 0, 0); // 오늘의 시간 부분을 초기화
+    const selectedDate = e.target.value;
 
-    if (selectedDate < today) {
+    if (selectedDate < formattedToday) {
       alert(`마감일은 오늘 이후로 설정해야 합니다. ${deadlineAt}`);
-      setDeadlineAt(null); // 잘못된 날짜일 경우 상태 초기화
       return;
     }
 
-    const isoDate = selectedDate.toISOString();
-    setDeadlineAt(isoDate);
+    setDeadlineAt(selectedDate);
+
+    console.log("오늘 날짜:", formattedToday);
     console.log("선택된 마감일:", selectedDate);
   };
 
