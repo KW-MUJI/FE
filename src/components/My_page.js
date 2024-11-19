@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import styles from '../styles/MyPage.module.css';
 import { Link, useNavigate } from "react-router-dom";
-
+import { useAuth } from "../contexts/AuthContext.js";
 const MyPage = () => {
     const style = {
         backgroundColor: '#EEF2F6',
@@ -19,13 +19,14 @@ const MyPage = () => {
     const [file, setFile] = useState(null);
     const fileInputRef = useRef(null);
     const [emptydata, setEmptydata] = useState(['', '', '']);
+    const token = localStorage.getItem('accessToken');
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get(`http://15.165.62.195:8080/mypage`, {
+                const response = await axios.get(`http://15.165.62.195/mypage`, {
                     headers: {
                         'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${localStorage.getItem('token')}`
+                        'Authorization': `Bearer ${token}`
                     }
                 });
 
@@ -54,7 +55,7 @@ const MyPage = () => {
         formData.append('resume', selectedFile);
 
         try {
-            const response = await axios.post(`http://15.165.62.195:8080/mypage/add`, formData, {
+            const response = await axios.post(`http://15.165.62.195/mypage/add`, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                     'Authorization': `Bearer ${localStorage.getItem('token')}`,
@@ -79,7 +80,7 @@ const MyPage = () => {
     const handleDeletePortfolio = async (id, index) => {
     
         try {
-            const response = await axios.delete(`http://15.165.62.195:8080/mypage/deleteResume/${id}`, {
+            const response = await axios.delete(`http://15.165.62.195/mypage/deleteResume/${id}`, {
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': `Bearer ${localStorage.getItem('token')}`,

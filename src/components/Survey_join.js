@@ -52,10 +52,10 @@ const SurveyJoin = () => {
     useEffect(() => {
         const fetchSurvey = async () => {
             try {
-                const response = await axios.get(`http://15.165.62.195:8080/survey/${surveyId}`, {
+                const response = await axios.get(`http://15.165.62.195/survey/${surveyId}`, {
                     headers: {
                         'Content-Type': 'application/json',
-                        "Authorization": `Bearer ${localStorage.getItem('token')}` // 인증 헤더 추가
+                        "Authorization": `Bearer ${localStorage.getItem('accessToken')}` // 인증 헤더 추가
                     }
                 }); 
                 setSurvey(response.data.data); // API 응답 데이터 설정
@@ -114,10 +114,10 @@ const SurveyJoin = () => {
 
         try {
             // API 요청 전송
-            await axios.post(`http://15.165.62.195:8080/survey/submit/${surveyId}`, { answers: formattedAnswers }, {
+            await axios.post(`http://15.165.62.195/survey/submit/${surveyId}`, { answers: formattedAnswers }, {
                 headers: {
                     'Content-Type': 'application/json',
-                    "Authorization": `Bearer ${localStorage.getItem('token')}` // 인증 헤더 추가
+                    "Authorization": `Bearer ${localStorage.getItem('accessToken')}` // 인증 헤더 추가
                 }
             });
             navigate(`/survey_complete/${surveyId}`);

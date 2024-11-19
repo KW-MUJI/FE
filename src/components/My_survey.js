@@ -10,10 +10,10 @@ const MySurvey = () => {
     useEffect(() => {
         const fetchSurveys = async () => {
             try {
-                const response = await axios.get(`http://15.165.62.195:8080/mysurvey`, {
+                const response = await axios.get(`http://15.165.62.195/mysurvey`, {
                     headers: {
                         'Content-Type': 'application/json', // Content-Type 헤더 추가
-                        'Authorization': `Bearer ${localStorage.getItem('token')}` // Authorization 헤더 추가
+                        'Authorization': `Bearer ${localStorage.getItem('accessToken')}` // Authorization 헤더 추가
                     }
                 });
                 const surveysData = response.data.data.map(survey => ({
@@ -35,13 +35,14 @@ const MySurvey = () => {
     const handleEndSurvey = async (id) => {
         try {
             // API 요청으로 설문조사 종료
-            await axios.post(`http://15.165.62.195:8080/mysurvey/${id}`, {
+            await fetch(`http://15.165.62.195/mysurvey/${id}`, {
+                method: 'POST',
                 headers: {
+                    'Authorization': `Bearer ${localStorage.getItem('accessToken')}`,
                     'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${localStorage.getItem('token')}`
-                }
+                },
             });
-    
+
             // 상태 업데이트
             setSurveys((prevSurveys) =>
                 prevSurveys.map((s) =>
@@ -53,17 +54,17 @@ const MySurvey = () => {
             alert('설문 종료 중 오류가 발생했습니다.'); // 오류 메시지 표시
         }
     };
-    
+
     const handleDeleteSurvey = async (id) => {
         try {
             // API 요청으로 설문조사 삭제
-            await axios.delete(`http://15.165.62.195:8080/mysurvey/${id}`, {
+            await axios.delete(`http://15.165.62.195/mysurvey/${id}`, {
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${localStorage.getItem('token')}`
+                    'Authorization': `Bearer ${localStorage.getItem('accessToken')}`
                 }
             });
-    
+
             // 상태 업데이트
             setSurveys((prevSurveys) => prevSurveys.filter((s) => s.id !== id));
         } catch (error) {
@@ -91,12 +92,12 @@ const MySurvey = () => {
                     <div key={s.id} className={styles.survey}>
                         <p className={styles.quest}>{s.title}</p>
                         <div className={styles.buttons}>
-                            <svg 
-                                className={styles.icon} 
-                                width="34" 
-                                height="86" 
-                                viewBox="0 0 34 38" 
-                                fill="none" 
+                            <svg
+                                className={styles.icon}
+                                width="34"
+                                height="86"
+                                viewBox="0 0 34 38"
+                                fill="none"
                                 xmlns="http://www.w3.org/2000/svg"
                                 onClick={() => handleDeleteSurvey(s.id)} // 아이콘 클릭 시 삭제
                             >

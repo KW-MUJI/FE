@@ -1,10 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styles from '../styles/CheckPw.module.css';
 import { useNavigate } from 'react-router-dom';
-
+import axios from 'axios';
+import { CheckPassword } from "../api/mypageApi.js"; // API 호출 함수 import
+import { useAuth } from "../contexts/AuthContext.js";
 // 회원가입 컴포넌트
 const CheckPw = () => {
     const ex_password = "123a!";
+    const [data,setData] = [];
+    const token = localStorage.getItem('accessToken') // 토큰 가져오기
     const navigate = useNavigate();
     const goToUpdate = () => {
         navigate("/update");
@@ -23,14 +27,18 @@ const CheckPw = () => {
     };
     const requestAuth = (e) => {
         e.preventDefault();
-        const {password} = formData;
-        if(password != ex_password){
+        const result = CheckPassword(formData, token);
+        console.log(formData);
+        console.log(formData);
+        
+        if(result.data){
             alert("비밀번호 틀려");
             return;
         }else{
             goToUpdate();
         }
     };
+
     return (
         <div style={style}>
             <div className={styles.main_container}>

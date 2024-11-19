@@ -12,10 +12,10 @@ const SurveyResult = () => {
     useEffect(() => {
         const fetchSurveyResults = async () => {
             try {
-                const response = await axios.get(`http://15.165.62.195:8080/mysurvey/result/${surveyId}`, { // URL 수정
+                const response = await axios.get(`http://15.165.62.195/mysurvey/result/${surveyId}`, { // URL 수정
                     headers: {
                         'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${localStorage.getItem('token')}` // Authorization 헤더 추가
+                        'Authorization': `Bearer ${localStorage.getItem('accessToken')}` // Authorization 헤더 추가
                     }
                 });
                 
