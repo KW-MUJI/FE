@@ -3,26 +3,22 @@ import styles from '../styles/Survey_complete.module.css';
 import moment from 'moment';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
+import { fetchSurvey } from '../api/surveyApi';
 const SurveyComplete = () => {
     const [surveyData, setSurveyData] = useState(null);
     const { surveyId } = useParams(); // URL 파라미터에서 surveyId 추출
+    const accessToken = localStorage.getItem('accessToken');
     useEffect(() => {
-        const fetchSurvey = async () => {
-            try {
-                const response = await axios.get(`http://15.165.62.195/survey/${surveyId}`, {
-                    headers: {
-                        'Content-Type': 'application/json',
-                        "Authorization": `Bearer ${localStorage.getItem('accessToken')}`
-                    }
-                });
-                setSurveyData(response.data.data); // API 응답 데이터 설정
-            } catch (error) {
-                console.error('Error fetching survey data:', error);
-                // 필요 시 Mock 데이터 사용 가능
+        try {
+            const getSurveyData = async () => {
+                const response = await fetchSurvey(accessToken, surveyId);
+                setSurveyData(response); // API 응답 데이터 설정
             }
-        };
+            getSurveyData();
+        }catch(error){
+            console.error('Error fetching surveys, using mock data:', error);
+        }
 
-        fetchSurvey();
     }, [surveyId]);
 
     const formatPeriod = (startDate, endDate) => {

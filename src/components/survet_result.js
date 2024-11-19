@@ -2,24 +2,19 @@ import React, { useState, useEffect } from 'react';
 import styles from '../styles/SurveyResult.module.css'; // CSS 파일 임포트
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
-
+import { SurveyResults } from '../api/mysurveyApi';
 const SurveyResult = () => {
     const [currentResponseIndex, setCurrentResponseIndex] = useState(0);
     const [surveyData, setSurveyData] = useState(null); // 설문조사 데이터 상태
     const [surveyResponses, setSurveyResponses] = useState([]); // 응답 데이터 상태
     const { surveyId } = useParams(); // URL 파라미터에서 surveyId 추출
+    const accessToken = localStorage.getItem('accessToken');
 
     useEffect(() => {
         const fetchSurveyResults = async () => {
             try {
-                const response = await axios.get(`http://15.165.62.195/mysurvey/result/${surveyId}`, { // URL 수정
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${localStorage.getItem('accessToken')}` // Authorization 헤더 추가
-                    }
-                });
                 
-                const data = response.data.data;
+                const data = await SurveyResults(accessToken, surveyId);
 
                 setSurveyData({
                     surveyId: data.surveyId,

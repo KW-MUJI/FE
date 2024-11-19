@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styles from '../styles/Survey_write.module.css';
 import { useNavigate } from "react-router-dom";
-
+import { surveyCreate } from '../api/surveyApi';
 const SurveyWrite = () => {
     const [surveyTitle, setSurveyTitle] = useState('');
     const [surveyDescription, setSurveyDescription] = useState('');
@@ -10,6 +10,7 @@ const SurveyWrite = () => {
     const [currentType, setCurrentType] = useState('multipleChoice');
     const [options, setOptions] = useState(['', '']); // 기본 2개의 옵션
     const [selectDate, setSelectDate] = useState(null); //날짜
+    const accessToken = localStorage.getItem('accessToken');
     const navigate = useNavigate();
     const handleAddQuestion = () => {
         setQuestions([...questions, { text: currentQuestion, type: currentType, options }]);
@@ -93,16 +94,8 @@ const SurveyWrite = () => {
         };
     
         console.log('서버로 전송할 데이터:', surveyData);
-        console.log(localStorage.getItem('token'));
         try {
-            const response = await fetch('http://15.165.62.195/survey/create', {
-                method: 'POST',
-                headers: {
-                    "content-type": "application/json",
-                    "Authorization": `Bearer ${localStorage.getItem('accessToken')}`
-                },
-                body: JSON.stringify(surveyData),
-            });
+            const response = await surveyCreate(accessToken, surveyData);
     
             if (response.ok) {
                 alert('설문이 성공적으로 등록되었습니다.');
