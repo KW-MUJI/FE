@@ -8,6 +8,8 @@ export const registerTeam = async (teamData, accessToken) => {
     formData.append("deadlineAt", teamData.deadlineAt);
     formData.append("image", teamData.image); // 이미지 파일 추가
 
+    console.log("이미지 내용:", teamData.image);
+
     console.log("FormData 내용:", Array.from(formData.entries()));
 
     const response = await apiClient.post("/team/register", formData, {
@@ -18,6 +20,7 @@ export const registerTeam = async (teamData, accessToken) => {
     });
     console.log("토큰:", accessToken);
     console.log("Authorization 헤더:", `Bearer ${accessToken}`);
+    console.log("데이터 내용:", response.data);
 
     return response.data;
   } catch (error) {
@@ -38,6 +41,7 @@ export const getTeampleDetail = async (projectId, accessToken) => {
         Authorization: `Bearer ${accessToken}`,
       },
     });
+    console.log("getTeampleDetail데이터:", response.data);
     return response.data;
   } catch (error) {
     console.error(

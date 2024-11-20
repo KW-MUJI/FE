@@ -44,7 +44,7 @@ const RecruitWrite = () => {
       setName(response.data.name);
       setDescription(response.data.description);
       setDeadlineAt(response.data.deadLineAt);
-      setImagePreview(response.data.image);
+      setImage(response.data.image);
     } catch (error) {
       console.error("fetchProjectDetail 에러", error);
     }
@@ -58,7 +58,7 @@ const RecruitWrite = () => {
       name,
       description,
       deadlineAt,
-      image: image.name,
+      image: image,
       ProjectImage: image,
       deleteImage,
     };
@@ -74,8 +74,11 @@ const RecruitWrite = () => {
         // 글쓰기
         const response = await registerTeam(postData, accessToken);
         if (response.code === 200) {
-          alert("글이 성공적으로 등록되었습니다!");
+          alert(
+            "글이 성공적으로 등록되었습니다. \n작성하신 글은 마이페이지에서 확인 가능합니다."
+          );
         }
+        navigate("/team");
       }
 
       if (name === "") {
@@ -99,9 +102,11 @@ const RecruitWrite = () => {
   const handleImageChange = (e) => {
     const file = e.target.files[0]; //이미지는 하나만 있음
     if (file) {
-      setImagePreview(URL.createObjectURL(file));
-      setImage(file);
-      console.log("이미지 파일:", file);
+      const previewUrl = URL.createObjectURL(file);
+      setImagePreview(previewUrl);
+      setImage(file); // 실제 파일 객체 저장
+      console.log("이미지 파일:", URL.createObjectURL(file));
+      return () => URL.revokeObjectURL(previewUrl);
     } else {
       console.log("파일이 선택되지 않았습니다.");
       e.target.value = ""; //파일 없을 때 초기화
