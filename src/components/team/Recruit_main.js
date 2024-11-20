@@ -6,6 +6,8 @@ import { formatDate } from "../../utils/dateUtil";
 import Pagination from "../../utils/pageNationUtil";
 import { useSearchParams } from "react-router-dom";
 
+/// start 가 true가 되면 마감처리.
+
 const RecruitMain = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const page = Number(searchParams.get("page")); // page 값을 가져오고 기본값 설정
@@ -35,6 +37,7 @@ const RecruitMain = () => {
     try {
       const response = await getTeampleList(page);
       setProjectList(response.data);
+      console.log(response.data);
       setFilteredData(response.data);
 
       //******백에서 수정하면 추가하기  */
@@ -108,7 +111,7 @@ const RecruitMain = () => {
     if (diffDays === 0) {
       return "D-day";
     } else if (diffDays < 0) {
-      return "마감";
+      return false;
     } else {
       return `D-${diffDays}`;
     }
@@ -206,13 +209,14 @@ const RecruitMain = () => {
                 <div className={styles.post_content}>
                   <p>{project.name}</p>
                   <div className={styles.post_deadline}>
-                    {calculateDDay(project.deadlineAt) !== "마감" ? (
+                    {project.start === true ||
+                    calculateDDay(project.deadlineAt) === false ? (
+                      <p>마감</p>
+                    ) : (
                       <>
                         <p>마감일</p>
                         <span>{calculateDDay(project.deadlineAt)}</span>
                       </>
-                    ) : (
-                      <p>마감</p>
                     )}
                   </div>
                 </div>
