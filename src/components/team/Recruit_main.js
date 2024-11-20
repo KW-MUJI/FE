@@ -23,11 +23,20 @@ const RecruitMain = () => {
   const today = new Date();
   const formattedToday = formatDate(today);
 
+  const BASE_URL = "https://kwmuji.s3.ap-northeast-2.amazonaws.com";
+
+  // const getImageUrl = (imagePath) => {
+  //   if (!imagePath) return ""; // 이미지 경로가 없을 때 처리
+  //   const normalizedPath = imagePath.replace(/\\/g, "/");
+  //   console.log(`${BASE_URL}/${normalizedPath}`);
+  //   return `${BASE_URL}/${normalizedPath}`;
+  // };
   const fetchProjectLists = async (page) => {
     try {
       const response = await getTeampleList(page);
       setProjectList(response.data);
       setFilteredData(response.data);
+
       //******백에서 수정하면 추가하기  */
       //   setTotalPages(response.totalPages || 10);
     } catch (error) {
@@ -75,6 +84,14 @@ const RecruitMain = () => {
     if (e.key === "Enter") {
       handleSearch();
     }
+  };
+  const getImageUrl = (imagePath, project) => {
+    // if (imagePath.startsWith("https")) {
+    //   return imagePath; // 절대 경로면 그대로 반환
+    // }
+    console.log("백에서 제공한 이미지 경로:", project.image);
+    console.log("사진경로", `${BASE_URL}/${imagePath}`);
+    return `${BASE_URL}/${imagePath}`; // 상대 경로면 절대 경로로 변환
   };
 
   // 검색 필터링
@@ -174,14 +191,17 @@ const RecruitMain = () => {
         {filteredData.length > 0 ? (
           filteredData.map((project) => (
             <Link
-              to={`/recruit_post/${project.id}`}
+              to={`/team/${project.id}`}
               state={{ project }}
               key={project.id}
               className={styles.postLink}
             >
               <div className={styles.post_card}>
                 <div className={styles.post_image}>
-                  <img src={project.image} alt={""} />
+                  <img
+                    src={getImageUrl(project.image, project)}
+                    alt="이미지 로드 실패 시 표시될 텍스트"
+                  />
                 </div>
                 <div className={styles.post_content}>
                   <p>{project.name}</p>

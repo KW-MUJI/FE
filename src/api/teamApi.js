@@ -95,6 +95,7 @@ export const getTeampleList = async (page = 0) => {
   try {
     console.log("API 호출: /team/", page); // 요청 URL 확인
     console.log("요청 URL:", `${apiClient.defaults.baseURL}/team/${page}`);
+    console.log("요청 파라미터:", { page });
     const response = await apiClient.get("/team", {
       params: {
         page,
