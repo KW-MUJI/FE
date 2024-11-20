@@ -11,7 +11,11 @@ const Banner = () => {
 
   useEffect(() => {
     const accessToken = localStorage.getItem("accessToken"); // 토큰 확인
-    setAccessToken(!!accessToken); // 토큰이 있으면 로그인 상태로 설정
+    if (accessToken) {
+      setAccessToken(accessToken);
+    } else {
+      setAccessToken(null);
+    }
   }, []);
 
   //광운대 로고 클릭 시
