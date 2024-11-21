@@ -19,7 +19,7 @@ const RecruitMain = () => {
 
   const [search, setSearch] = useState("");
   const [filteredData, setFilteredData] = useState([]); // 필터링된 결과
-  const [totalPages, setTotalPages] = useState(10); // 총 페이지 수
+  const [totalPages, setTotalPages] = useState(); // 총 페이지 수
   const navigate = useNavigate();
 
   const today = new Date();
@@ -36,9 +36,10 @@ const RecruitMain = () => {
   const fetchProjectLists = async (page) => {
     try {
       const response = await getTeampleList(page);
-      setProjectList(response.data);
+      setProjectList(response.data.projects);
+      setTotalPages(response.data.totalPages);
       console.log(response.data);
-      setFilteredData(response.data);
+      setFilteredData(response.data.projects);
 
       //******백에서 수정하면 추가하기  */
       //   setTotalPages(response.totalPages || 10);
@@ -75,9 +76,15 @@ const RecruitMain = () => {
   };
 
   const handleSearch = () => {
+    console.log("검색내용: ", search);
+    projectList.forEach((project) => {
+      console.log(`프로젝트 이름: '${project.name}'`);
+    });
+
     const filteredProjects = projectList.filter((project) =>
       project.name.toLowerCase().includes(search.toLowerCase())
     );
+    console.log("필터프로젝트: ", filteredProjects);
     setFilteredData(filteredProjects);
     setCurrentPage(0);
   };
