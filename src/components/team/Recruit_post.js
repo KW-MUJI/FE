@@ -7,6 +7,7 @@ import {
   getPortfolioList,
   postPortfolio,
 } from "../../api/teamApi";
+import { formatDate } from "../../utils/dateUtil.js";
 
 // 모달 컴포넌트
 const Portfolio = ({
@@ -154,6 +155,8 @@ const RecruitPost = () => {
   const [applicationSubmitted, setApplicationSubmitted] = useState(false); //지원여부
   const navigate = useNavigate(); // useNavigate 훅 선언
 
+  const today = new Date();
+
   useEffect(() => {
     if (!accessToken) {
       alert("로그인 상태가 아닙니다. 로그인 페이지로 이동합니다.");
@@ -203,14 +206,15 @@ const RecruitPost = () => {
 
   const [isModalOpen, setIsModalOpen] = useState(false); // 모달 상태 관리
   const [selectedPortfolio, setSelectedPortFolid] = useState(null);
+  let isDisableButton = false;
 
   const navigateToMain = () => {
     navigate("/team"); // 새로운 창이 아닌 현재 창에서 페이지 이동
   };
 
-  const handleOpenModal = (disableDescript) => {
-    if (disableDescript === "지원자 보기") {
-      navigate("/myteam/applicant");
+  const handleOpenModal = () => {
+    if (role === "CREATOR") {
+      window.open("/my_page", "_blank");
     } else {
       setIsModalOpen(true); // 모달 열기
     }
@@ -236,30 +240,49 @@ const RecruitPost = () => {
     setApplicationSubmitted(true);
     handleCloseModal(); // 모달 닫기
   };
+  const calculateDDay = (targetDate) => {
+    // targetDate를 Date 객체로 변환
+    const target = new Date(targetDate);
+
+    // 날짜 차이를 일 단위로 계산
+    const diffTime = target - today; // 밀리초 차이
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)); // 일 단위로 변환
+    return diffDays;
+  };
 
   const handleDisableButton = () => {
-    let disableDescript = "";
-    let isDisableButton = false;
-    if (onGoing === false) {
-      disableDescript = "마감";
-      isDisableButton = true;
-    } else if (role === "CREATOR") {
-      // 글쓴이인 경우
-      disableDescript = "지원자보기";
-    } else if (applicationSubmitted) {
-      // 이미 신청한 경우
-      disableDescript = "지원완료";
+    let buttonDescript = "";
+
+    const calculateDay = calculateDDay(deadlineAt);
+
+    if (isDisableButton === false) {
+      buttonDescript = "팀플신청";
+      isDisableButton = false;
+    }
+    if (onGoing === false || calculateDay < 0) {
+      buttonDescript = "마감";
       isDisableButton = true;
     }
+    if (role === "CREATOR") {
+      // 글쓴이인 경우
+      buttonDescript = "지원자보기";
+      isDisableButton = false;
+    }
+    if (applicationSubmitted) {
+      // 이미 신청한 경우
+      buttonDescript = "지원완료";
+      isDisableButton = true;
+    }
+
     //마감된 날짜인 경우에도 추가해야함..
 
     return (
       <>
         <button
-          onClick={() => handleOpenModal(disableDescript)}
+          onClick={() => handleOpenModal(buttonDescript)}
           disabled={isDisableButton}
         >
-          {isDisableButton ? disableDescript : "팀플신청"}
+          {buttonDescript}
         </button>
       </>
     );
