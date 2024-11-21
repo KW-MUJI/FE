@@ -1,255 +1,228 @@
 * {
-    color: #000;
-    font-style: normal;
-    font-family: Pretendard;
-    line-height: 100%;
+  color: #000;
+  font-style: normal;
+  font-family: Pretendard;
+  line-height: 100%;
 }
 
-
 .top {
-    display: flex;
-    display: flex;
-    flex-direction: column;
-    height: auto;
-    width: 1228px;
-    margin-left: auto;
-    margin-right: auto;
-
-
+  display: flex;
+  display: flex;
+  flex-direction: column;
+  height: auto;
+  width: 1228px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .recruit_post {
+  margin-top: 33px;
+  /* border: 1px solid #d60f0f; */
 
-
-    margin-top: 33px;
-    /* border: 1px solid #d60f0f; */
-
-
-    box-sizing: border-box;
-    border-bottom: 1px solid #B3B3B3;
+  box-sizing: border-box;
+  border-bottom: 1px solid #b3b3b3;
 }
 
 .recruit_menu {
-    font-weight: 800;
-    font-size: 32px;
-    text-align: left;
-    margin-top: 25px;
-    box-sizing: border-box;
-    padding-bottom: 33px;
-    border-bottom: 1px solid #B3B3B3;
-
+  font-weight: 800;
+  font-size: 32px;
+  text-align: left;
+  margin-top: 25px;
+  box-sizing: border-box;
+  padding-bottom: 33px;
+  border-bottom: 1px solid #b3b3b3;
 }
 
 .recruit_header {
-    display: flex;
-    justify-content: space-between;
-    /* border: 1px solid #d66f0f; */
-    margin-top: 12px;
+  display: flex;
+  justify-content: space-between;
+  /* border: 1px solid #d66f0f; */
+  margin-top: 12px;
 }
 
 .recruit_header h {
-    margin-top: 26px;
-    font-weight: 600;
-    font-size: 32px;
+  margin-top: 26px;
+  font-weight: 600;
+  font-size: 32px;
 
-    margin-left: 37px;
-    margin-bottom: 33px;
+  margin-left: 37px;
+  margin-bottom: 33px;
 }
 
 .recruit_header p {
-    color: #8B0B02;
-    font-family: Pretendard;
-    margin-top: 26px;
-    margin-right: 27px;
-    font-weight: 400;
-    font-size: 24px;
+  color: #8b0b02;
+  font-family: Pretendard;
+  margin-top: 26px;
+  margin-right: 27px;
+  font-weight: 400;
+  font-size: 24px;
 
-    margin-left: 37px;
-    margin-bottom: 33px;
+  margin-left: 37px;
+  margin-bottom: 33px;
 }
 
 .recruit_contents {
-    /* border: 1px solid #d6bb0f; */
-    width: 1154px;
+  /* border: 1px solid #d6bb0f; */
+  width: 1154px;
 
-    margin-top: 36px;
-    margin-left: 37px;
-    text-align: left;
-    margin-bottom: 27px;
-
-
+  margin-top: 36px;
+  margin-left: 37px;
+  text-align: left;
+  margin-bottom: 27px;
 }
 
 .date {
-    color: #B3B3B3;
-    /* border: 1px solid #d60fa1; */
-    font-size: 18px;
-    text-align: left;
-    margin-top: 0;
-    margin-left: 37px;
-    margin-bottom: 0px;
+  color: #b3b3b3;
+  /* border: 1px solid #d60fa1; */
+  font-size: 18px;
+  text-align: left;
+  margin-top: 0;
+  margin-left: 37px;
+  margin-bottom: 0px;
 }
 
 .post_contents {
-    width: 1100px;
-    /* border: 1px solid #41d60f; */
-    color: #000000;
-    font-size: 24px;
-    font-weight: 500;
-    line-height: 130%;
-    /* 31.2px */
-    margin-top: 0px;
-
+  width: 1100px;
+  /* border: 1px solid #41d60f; */
+  color: #000000;
+  font-size: 24px;
+  font-weight: 500;
+  line-height: 130%;
+  /* 31.2px */
+  margin-top: 0px;
 }
 
 .button_container button {
-    margin-top: 23px;
-    margin-bottom: 50px;
-    background: #8B0B02;
-    width: 122px;
-    height: 40px;
-    border-radius: 30px;
-    color: #FFF;
-    font-size: 23.012px;
-    font-weight: 600;
-    line-height: 100%;
-    border: none;
+  margin-top: 23px;
+  margin-bottom: 50px;
+  background: #8b0b02;
+  width: 122px;
+  height: 40px;
+  border-radius: 30px;
+  color: #fff;
+  font-size: 23.012px;
+  font-weight: 600;
+  line-height: 100%;
+  border: none;
 }
 
 /* 버튼을 감싸는 부모 요소에 flex를 적용하여 오른쪽 정렬 */
 .button_container {
-    /* border: 1px solid #31b1c7; */
-    display: flex;
-    justify-content: flex-end;
-    /* 버튼을 오른쪽으로 배치 */
+  /* border: 1px solid #31b1c7; */
+  display: flex;
+  justify-content: flex-end;
+  /* 버튼을 오른쪽으로 배치 */
 }
 
 .modalOverlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(0, 0, 0, 0.7);
-    /* 배경을 어둡게 만듦 */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    /* 화면 중앙에 배치 */
-    z-index: 1000;
-    /* 다른 요소들 위에 표시 */
-
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  /* 배경을 어둡게 만듦 */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* 화면 중앙에 배치 */
+  z-index: 1000;
+  /* 다른 요소들 위에 표시 */
 }
 
 .modalContent {
-
-
-
-    background-color: white;
-    /* padding-top: 23.94px; */
-    padding-left: 29px;
-    padding-right: 29px;
-    /* padding-bottom: 0px; */
-    border-radius: 10px;
-
-
-
+  background-color: white;
+  /* padding-top: 23.94px; */
+  padding-left: 29px;
+  padding-right: 29px;
+  /* padding-bottom: 0px; */
+  border-radius: 10px;
 }
 
 .modalhead {
-    text-align: left;
-    font-size: 20px;
-    font-style: normal;
-    font-weight: 600;
-    line-height: 100%;
-
+  text-align: center;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 100%;
 }
 
 .modalbutton button {
-    border-radius: 15px;
-    background: #8B0B02;
+  border-radius: 15px;
+  background: #8b0b02;
 
-    color: #FFF;
+  color: #fff;
 
-    font-size: 16.599px;
-    font-style: normal;
-    font-weight: 600;
-    line-height: 100%;
-    /* 16.599px */
-    border: none;
+  font-size: 16.599px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 100%;
+  /* 16.599px */
+  border: none;
 
-    margin-top: 19px;
-    margin-bottom: 16.91px;
+  margin-top: 19px;
+  margin-bottom: 16.91px;
 
-    width: 90px;
-    height: 30px;
-
+  width: 90px;
+  height: 30px;
 }
 
 button:disabled {
-    background-color: #d3d3d3;
-    /* 비활성화 상태의 배경색 */
-    color: #888888;
-    /* 비활성화 상태의 글자 색 */
-    cursor: not-allowed;
-    /* 비활성화 상태에서 커서 모양 */
+  background-color: #d3d3d3;
+  /* 비활성화 상태의 배경색 */
+  color: #888888;
+  /* 비활성화 상태의 글자 색 */
+  cursor: not-allowed;
+  /* 비활성화 상태에서 커서 모양 */
 }
 
-.portfolio_label{
-    display:flex;
-    align-items: center;
-    cursor:pointer;
+.portfolio_label {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
 }
 
 .radio_custom {
-    margin-right: 22px; /* 라디오 버튼과 텍스트 사이의 간격 */
-    margin-left:14px;
+  margin-right: 22px; /* 라디오 버튼과 텍스트 사이의 간격 */
+  margin-left: 14px;
 }
 
 .portfolio_text {
-    display: flex;
-    flex-direction: column;
-    text-align: left;
+  display: flex;
+  flex-direction: column;
+  text-align: left;
 }
 
-
 .portfolio_item {
-    /* border: 1px solid #31b1c7; */
+  /* border: 1px solid #31b1c7; */
 
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 
-    cursor: pointer;
+  cursor: pointer;
 
+  min-width: 340px;
+  max-width: 340px;
+  min-height: 50px;
+  max-height: 50px;
 
+  border-radius: 10px;
+  border: 1px solid #000;
 
+  margin-bottom: 10px;
 
-    min-width: 340px;
-    max-width: 340px;
-    min-height: 50px;
-    max-height: 50px;
-
-    border-radius: 10px;
-    border: 1px solid #000;
-
-
-    margin-bottom: 10px;
-   
-
-
-    /* 각 포스트 사이 간ㄱ겨 */
+  /* 각 포스트 사이 간ㄱ겨 */
 }
 
 .radio_input {
-    display: none;
-    /* 기본 라디오 버튼 숨기기 */
+  display: none;
+  /* 기본 라디오 버튼 숨기기 */
 }
 
 .radio_custom svg {
-    vertical-align: middle;
-    /* svg 수직 가운데 정렬 */
+  vertical-align: middle;
+  /* svg 수직 가운데 정렬 */
 }
-
 
 /* .portfolio_item.selected .radio_custom_red svg ellipse {
     fill: #ffffff;
@@ -257,29 +230,25 @@ button:disabled {
     stroke: #B3B3B3;
 } */
 
-
-
-
 .portfolio_text h3 {
-    /* border: 1px solid #31b1c7; */
-    font-size: 15px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: 100%;
-    margin: 0;
-    margin-top:0px;
-    /* 15px */
-
+  /* border: 1px solid #31b1c7; */
+  font-size: 15px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 100%;
+  margin: 0;
+  margin-top: 0px;
+  /* 15px */
 }
 
 .portfolio_text p {
-    /* border: 1px solid #31b1c7; */
-    color: #B3B3B3;
-    font-size: 8px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: 100%;
-    margin: 0;
-    margin-top: 6px;
-    /* 8px */
+  /* border: 1px solid #31b1c7; */
+  color: #b3b3b3;
+  font-size: 8px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 100%;
+  margin: 0;
+  margin-top: 6px;
+  /* 8px */
 }
