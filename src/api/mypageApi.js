@@ -17,8 +17,8 @@ export const CheckPassword = async (pass, accessToken) => {
         },
         body: JSON.stringify(pass.password),
     });
-  
-      return response.data;
+  console.log(response);
+      return response.status;
     } catch (error) {
       console.error("[ERROR] Update Project:", error.response || error.message);
       throw error;
@@ -34,7 +34,7 @@ export const CheckPassword = async (pass, accessToken) => {
                 'Authorization': `Bearer ${accessToken}`,
             },
         });
-
+        return response.data.code;
         if (response.data.code === 200) {
             alert(response.data.data); // "홍길동의 포트폴리오 삭제" 메시지
         } else {
@@ -44,4 +44,28 @@ export const CheckPassword = async (pass, accessToken) => {
         console.error('Error deleting portfolio:', error);
         alert('회원 탈퇴 중 오류가 발생했습니다.');
     }
+};
+// mypageApi.js
+export const getUserInfo = async (accessToken) => {
+    const response = await fetch(`http://15.165.62.195/mypage/update`, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${accessToken}`,
+        },
+    });
+    
+    return await response.json();
+};
+// mypageApi.js
+export const updateUserInfo = async (accessToken, formData) => {
+    const response = await fetch(`http://15.165.62.195/mypage/update`, {
+        method: 'PATCH',
+        headers: {
+            'Authorization': `Bearer ${accessToken}`,
+        },
+        body: formData
+    });
+    
+    return await response.json();
 };

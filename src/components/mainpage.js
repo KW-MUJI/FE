@@ -341,6 +341,11 @@ const MainPage = () => {
             ></span>
 
             <span>팀플 일정</span>
+            <span
+              className={styles.schoolDot}
+              style={{ background: "#EDE1F8", margin: "0 3.87px 0 18px" }}
+            ></span>
+            <span>개인 일정</span>
           </div>
         </div>
       </div>
@@ -420,6 +425,7 @@ const MainPage = () => {
               viewBox="0 0 23 17"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
+              onClick={() => handleButtonClick('/my_page')}
             >
               <path
                 d="M7.33333 2.25H20.875M7.33333 8.5H20.875M7.33333 14.75H20.875M2.125 2.25H2.13542M2.125 8.5H2.13542M2.125 14.75H2.13542"
@@ -431,12 +437,12 @@ const MainPage = () => {
             </svg>
           </div>
           <div className={styles.buttons}>
-            <button className={styles.first_btn}>
+            <button className={styles.first_btn} onClick={() => handleButtonClick('/my_recruit_team')}>
               MY 모집 팀플
               <br />
               지원자 확인
             </button>
-            <button className={styles.second_btn}>
+            <button className={styles.second_btn} onClick={() => handleButtonClick('/My_survey')}>
               MY 설문
               <br />
               결과보기

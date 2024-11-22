@@ -118,7 +118,11 @@ const Survey = () => {
                 <div className={styles.top_container}>
                     <p> 설문조사 </p>
                     <div className={styles.write}>
-                        <Link to="/survey_write">글쓰기</Link>
+                        <svg width="24" height="23" viewBox="0 0 24 23" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 21.6331H22.5M17.25 2.38308C17.7141 1.91895 18.3436 1.6582 19 1.6582C19.325 1.6582 19.6468 1.72222 19.9471 1.84659C20.2474 1.97097 20.5202 2.15326 20.75 2.38308C20.9798 2.61289 21.1621 2.88572 21.2865 3.18598C21.4109 3.48625 21.4749 3.80807 21.4749 4.13308C21.4749 4.45808 21.4109 4.7799 21.2865 5.08017C21.1621 5.38044 20.9798 5.65326 20.75 5.88308L6.16667 20.4664L1.5 21.6331L2.66667 16.9664L17.25 2.38308Z" stroke="#1E1E1E" stroke-width="2.33333" stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+
+                        <Link to="/survey_write"> 글쓰기</Link>
                     </div>
                 </div>
                 <div className={styles.search_container}>
@@ -138,7 +142,7 @@ const Survey = () => {
                         return (
                             <div key={survey.surveyId} className={styles.question} onClick={() => goToPost(survey.surveyId)}>
                                 <p className={dday >= 0 ? styles.line : styles.deadline}>
-                                    {dday >= 0 ? `D-${dday}` : '마감'}
+                                    {dday >= 0 ? dday == 0 ? 'D-Day' :`D-${dday}` : '마감'}
                                 </p>
                                 <h1>{survey.title}</h1>
                                 <h2>{survey.description}</h2>

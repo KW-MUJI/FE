@@ -25,14 +25,14 @@ const CheckPw = () => {
 
         setFormData({ ...formData, [name]: value });
     };
-    const requestAuth = (e) => {
+    const requestAuth = async (e) => {
         e.preventDefault();
-        const result = CheckPassword(formData, token);
+        const result = await CheckPassword(formData, token);
         console.log(formData);
-        console.log(formData);
+        console.log(result);
         
-        if(result.data){
-            alert("비밀번호 틀려");
+        if(result != 200){
+            alert("비밀번호가 일치하지 않습니다.");
             return;
         }else{
             goToUpdate();
