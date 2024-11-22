@@ -11,7 +11,7 @@ import { useSearchParams } from "react-router-dom";
 const RecruitMain = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const page = Number(searchParams.get("page")); // page 값을 가져오고 기본값 설정
-  const searchQuery = String(searchParams.get("search"));
+  const searchQuery = String(searchParams.get("search") || "");
   // const { page } = useParams(); // 동적 URL에서 페이지 번호 가져오기
   const [projectList, setProjectList] = useState([]);
 
@@ -127,9 +127,8 @@ const RecruitMain = () => {
         <h2
           className={styles.title}
           onClick={() => {
-            setCurrentPage(0); // currentPage를 0으로 초기화
-            setSearchParams({ page: 0 }); // URL 쿼리 파라미터를 동기화
-            fetchProjectLists(0); // 첫 번째 페이지 데이터 다시 요청
+            setCurrentPage(0);
+            setSearch("");
           }}
         >
           팀플모집
