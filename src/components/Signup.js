@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import styles from '../styles/Signup.module.css';
 import { useNavigate } from 'react-router-dom';
 import Modal from './Law';
-
+import { sendAuthRequest, verifyPinRequest, signupRequest } from '../api/authApi';
 // 회원가입 컴포넌트
 const Signup = () => {
     const [isModalOpen, setModalOpen] = useState(false);
@@ -78,7 +78,7 @@ const Signup = () => {
 
     useEffect(() => {
         let timerId;
-        const textElement = document.getElementById(styles.text);
+        const textElement = document.getElementById(styles.Text);
         if (isTimerActive && timer > 0) {
             timerId = setInterval(() => {
                 setTimer(prev => prev - 1);
@@ -112,29 +112,11 @@ const Signup = () => {
         }
 
         const email = id + fixedDomain; // 이메일 형식으로 변환
-        const requestBody = {
-            email: email,
-            flag: true,
-        };
 
         try {
-            const response = await fetch('http://15.165.62.195/auth/mailSend', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(requestBody),
-            });
-
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-
-            const data = await response.json();
-            console.log(data); // 응답 데이터 로그 출력
-
-            // 추가적인 처리 (예: 인증번호 요청 성공 알림)
-            setIsPinVerified(false); // 초기화
+            const data = await sendAuthRequest(email, true);
+            console.log(data);
+            setIsPinVerified(false);
             setIsTimerActive(true);
             setTimer(300);
             alert("인증 요청이 전송되었습니다.");
@@ -151,41 +133,22 @@ const Signup = () => {
         if (!pin) return;
 
         const email = id + fixedDomain; // 이메일 형식으로 변환
-        const requestBody = {
-            email: email,
-            authNum: pin,
-        };
-        console.log(requestBody);
         try {
-            const response = await fetch('http://15.165.62.195/auth/authCheck', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(requestBody),
-            });
-
-            if (!response.ok) {
-                const errorData = await response.json();
-                console.error('Error response:', errorData);
-                throw new Error('Network response was not ok');
-            }
-
-            const data = await response.json();
-            console.log(data); // 응답 데이터 로그 출력
+            const data = await verifyPinRequest(email, pin);
+            console.log(data);
 
             const textElement = document.getElementById(styles.text);
             if (data.code === 200 && data.data) {
                 textElement.textContent = "인증번호가 일치합니다.";
                 textElement.style.color = "#008000";
-                setIsPinVerified(true); // 인증 성공
-                setIsTimerActive(false); // 타이머 정지
+                setIsPinVerified(true);
+                setIsTimerActive(false);
             } else {
                 textElement.textContent = "인증번호가 틀렸습니다.";
                 textElement.style.color = "#ff0000";
-                setIsPinVerified(false); // 인증 실패
-                setIsTimerActive(false); // 타이머 정지
-                setTimer(300); // 타이머 리셋
+                setIsPinVerified(false);
+                //setIsTimerActive(false);
+                //setTimer(300);
             }
         } catch (error) {
             console.error('Error:', error);
@@ -221,23 +184,8 @@ const Signup = () => {
         };
     
         try {
-            const response = await fetch('http://15.165.62.195/auth/signUp', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(requestBody),
-            });
-    
-            if (!response.ok) {
-                const errorData = await response.json();
-                console.error('Error response:', errorData);
-                throw new Error('Network response was not ok');
-            }
-    
-            const data = await response.json();
-            console.log(data); // 응답 데이터 로그 출력
-    
+            const data = await signupRequest(requestBody);
+            console.log(data);
             if (data.code === 200 && data.data) {
                 sessionStorage.setItem("user", JSON.stringify(formData));
                 alert("회원가입 성공하였습니다!");
@@ -320,6 +268,7 @@ const Signup = () => {
                         />
                         <button onClick={verifyPin} disabled={!isTimerActive}>확인</button>
                         <p id={styles.text}>　</p>
+                        <p id={styles.Text}>　</p>
                     </div>
                 </div>
                 <div className={styles.pw_container}>

@@ -1,16 +1,16 @@
 import React, { useState } from 'react';
 import styles from '../styles/PwReset.module.css';
 import { useNavigate } from 'react-router-dom';
-
+import { resetPw } from '../api/authApi';
 // 회원가입 컴포넌트
 const PwReset = () => {
     const [showPassword, setShowPassword] = useState(false);
     const [showPasswordConfirm, setShowPasswordConfirm] = useState(false);
-
+    const accessToken = localStorage.getItem('accessToken');
     const navigate = useNavigate();
     const goToLogin = () => {
         navigate("/login");
-      }
+    }
     const [formData, setFormData] = useState({
         password: "",
         password_confirm: "",
@@ -30,7 +30,7 @@ const PwReset = () => {
         }
     };
 
-    const pw_confirm = (e) => {
+    const pw_confirm = async (e) => {
         e.preventDefault();
         const { password, password_confirm } = formData;
         console.log(password);
@@ -47,8 +47,14 @@ const PwReset = () => {
             return;
         }
         sessionStorage.setItem("user", JSON.stringify(formData));
-        alert("비밀번호 재설정 완료!");
-        goToLogin();
+        try {
+            await resetPw(accessToken, password, password_confirm);
+            alert("비밀번호 재설정 완료!");
+            goToLogin();
+        } catch (error) {
+            console.error('Error:', error);
+            alert("메일 전송 중 오류가 발생했습니다.");
+        }
     };
     const toggleShowPassword = () => {
         setShowPassword(!showPassword);

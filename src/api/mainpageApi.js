@@ -5,12 +5,18 @@ const API_URL = 'http://15.165.62.195'; // 기본 API URL
 
 export const fetchData = async (token, month) => {
     try {
-        const response = await axios.get(`${API_URL}/mainpage/${month}`, { // 적절한 엔드포인트로 변경
+        const config = {
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': `Bearer ${token}`
             },
-        });
+        };
+
+        // 토큰이 있을 경우 Authorization 헤더 추가
+        if (token) {
+            config.headers['Authorization'] = `Bearer ${token}`;
+        }
+
+        const response = await axios.get(`${API_URL}/mainpage/${month}`, config);
         return response.data.data; // 필요한 데이터만 리턴
     } catch (error) {
         console.error('Error fetching data:', error);
