@@ -91,7 +91,7 @@ export const postPortfolio = async (accessToken, resumeId, projectId) => {
   }
 };
 
-export const getTeampleList = async (page = 0) => {
+export const getTeampleList = async (page = 0, search = "") => {
   try {
     console.log("API 호출: /team/", page); // 요청 URL 확인
     console.log("요청 URL:", `${apiClient.defaults.baseURL}/team/${page}`);
@@ -99,6 +99,7 @@ export const getTeampleList = async (page = 0) => {
     const response = await apiClient.get("/team", {
       params: {
         page,
+        search,
       },
     });
     console.log("API 응답 데이터:", response.data); // 응답 데이터 확인
