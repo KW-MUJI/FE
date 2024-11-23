@@ -39,9 +39,16 @@
     height: 58px;
     border-radius: 30px;
     border: 1px solid #B3B3B3;
-    text-align: center;
+    text-align: left;
+    padding-left: 50px;
     box-sizing: border-box;
     margin-bottom: 36px;
+    font-size: 20px;
+}
+
+.search::placeholder {
+    text-align: left;
+    font-size: 20px;
 }
 
 .search_icon {
@@ -133,11 +140,11 @@
     /* 좌우 공백 */
     cursor: pointer;
     /* 커서 포인터 */
-    color:#b3b3b3;
+    color: #b3b3b3;
 }
 
 .pageNumber.active {
     font-weight: bold;
-    color:#000000;
+    color: #000000;
     /* 활성 페이지 강조 */
 }

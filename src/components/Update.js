@@ -1,15 +1,17 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styles from '../styles/Update.module.css';
-import { deleteUser } from "../api/mypageApi.js"; // API 호출 함수 import
+import { deleteUser, getUserInfo, updateUserInfo } from "../api/mypageApi.js"; // API 호출 함수 import
 import { useNavigate } from 'react-router-dom';
+
 const Update = () => {
     const style = {
         backgroundColor: '#EEF2F6',
     };
     const navigate = useNavigate();
     const goToHome = () => {
-        navigate("/update");
-    }
+        navigate("/home");
+    };
+
     const [formData, setFormData] = useState({
         name: "",
         s_num: "",
@@ -17,9 +19,35 @@ const Update = () => {
         password: "",
         password_confirm: "",
     });
+    const [email,setEmaile] = useState("");
     const accessToken = localStorage.getItem('accessToken');
     const [imgSrc, setImgSrc] = useState(""); // 초기 이미지 경로를 비워둡니다.
     const [isModalOpen, setIsModalOpen] = useState(false); // 모달 상태 관리
+    const [file, setFile] = useState(null); // 파일 상태 관리
+
+    useEffect(() => {
+        const fetchUserInfo = async () => {
+            try {
+                const data = await getUserInfo(accessToken);
+                console.log(data.data);
+                if (data.code === 200) {
+                    setFormData({
+                        name: data.data.name,
+                        s_num: data.data.stuNum,
+                        major: data.data.major,
+                        password: "",
+                        password_confirm: "",
+                    });
+                    setEmaile(data.data.email);
+                    setImgSrc(data.data.image); // 이미지 URL 설정
+                }
+            } catch (error) {
+                console.error("사용자 정보를 가져오는 중 오류 발생:", error);
+            }
+        };
+
+        fetchUserInfo();
+    }, [accessToken]);
 
     const onChangeForm = (e) => {
         const { name, value } = e.target;
@@ -37,13 +65,14 @@ const Update = () => {
     };
 
     const handleFileChange = (e) => {
-        const file = e.target.files[0];
-        if (file) {
+        const selectedFile = e.target.files[0];
+        if (selectedFile) {
             const reader = new FileReader();
             reader.onloadend = () => {
                 setImgSrc(reader.result); // 선택한 파일의 URL을 상태에 저장
+                setFile(selectedFile); // 파일 상태 저장
             };
-            reader.readAsDataURL(file); // 파일을 데이터 URL로 읽기
+            reader.readAsDataURL(selectedFile); // 파일을 데이터 URL로 읽기
         }
     };
 
@@ -51,21 +80,58 @@ const Update = () => {
         setIsModalOpen(true); // 모달 열기
     };
 
-    const handleConfirmDelete = () => {
-        // API 호출하여 사용자 탈퇴 처리
-        deleteUser(accessToken).then(response => {
-            // 성공적으로 탈퇴 처리 후 필요한 작업 수행
-            console.log(response);
+    const handleConfirmDelete = async () => {
+        const data = await deleteUser(accessToken);
+        if (data === 200) {
             setIsModalOpen(false); // 모달 닫기
+            localStorage.removeItem('accessToken');
             goToHome();
-        }).catch(error => {
-            console.error("탈퇴 처리 중 오류 발생:", error);
-        });
+        } else {
+            alert("탈퇴 처리 중 오류 발생:");
+        }
     };
 
     const handleCloseModal = () => {
         setIsModalOpen(false); // 모달 닫기
     };
+
+    const handleUpdate = async () => {
+        const formDataToSend = new FormData();
+        if (file) {
+            formDataToSend.append('image', file); // 파일 추가
+            formDataToSend.append('deleteImage', false); // 프로필 사진 삭제 여부
+        } else {
+
+            formDataToSend.append('deleteImage', true); // 프로필 사진 삭제 여부
+        }
+        formDataToSend.append('name', formData.name);
+        formDataToSend.append('stuNum', formData.s_num);
+        formDataToSend.append('major', formData.major);
+        formDataToSend.append('password', formData.password);
+        formDataToSend.append('confirmPassword', formData.password_confirm);
+
+        // FormData 내용 확인
+        for (let [key, value] of formDataToSend.entries()) {
+            console.log(`${key}: ${value}`);
+        }
+
+        try {
+            const response = await updateUserInfo(accessToken, formDataToSend);
+            console.log(response); // 응답 확인
+            if (response.code === 200) {
+                alert("정보가 성공적으로 업데이트되었습니다.");
+                localStorage.setItem('accessToken', response.data.accessToken);
+                goToHome();
+                // 여기서 accessToken을 업데이트할 수 있습니다. (필요한 경우)
+            } else {
+                alert("정보 업데이트 중 오류 발생: " + response.message);
+            }
+        } catch (error) {
+            console.error("업데이트 중 오류 발생:", error);
+            alert("업데이트 중 오류가 발생했습니다.");
+        }
+    };
+
 
     return (
         <div style={style}>
@@ -86,9 +152,9 @@ const Update = () => {
                         <label htmlFor="file-input" className={styles.uploadButton} style={{ position: 'absolute', bottom: '0', right: '0', margin: '5px' }}>
                             <svg width="34" height="34" viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <circle cx="17.25" cy="16.625" r="16.5" fill="white" />
-                                <g clip-path="url(#clip0_2279_1339)">
+                                <g clipPath="url(#clip0_2279_1339)">
                                     <rect width="23.6739" height="23.6739" transform="translate(5.77148 4.4292)" fill="white" />
-                                    <path d="M28.4589 23.1713C28.4589 23.6945 28.251 24.1963 27.8811 24.5663C27.5111 24.9363 27.0093 25.1441 26.4861 25.1441H8.73064C8.20741 25.1441 7.70562 24.9363 7.33564 24.5663C6.96566 24.1963 6.75781 23.6945 6.75781 23.1713V12.3207C6.75781 11.7975 6.96566 11.2957 7.33564 10.9257C7.70562 10.5558 8.20741 10.3479 8.73064 10.3479H12.6763L14.6491 7.38867H20.5676L22.5404 10.3479H26.4861C27.0093 10.3479 27.5111 10.5558 27.8811 10.9257C28.251 11.2957 28.4589 11.7975 28.4589 12.3207V23.1713Z" fill="#4C4C4C" />
+                                    <path d="M28.4589 23.1713C28.4589 23.6945 28.251 24.1963 27.8811 24.5663C27.5111 24.9363 27.0093 25.1441 26.4861 25.1441H8.73064C8.20741 25.1441 7.70562 24.9363 7.33564 24.5663C6.96566 24.1963 6.75781 23.694                                    6.75781 23.1713V12.3207C6.75781 11.7975 6.96566 11.2957 7.33564 10.9257C7.70562 10.5558 8.20741 10.3479 8.73064 10.3479H12.6763L14.6491 7.38867H20.5676L22.5404 10.3479H26.4861C27.0093 10.3479 27.5111 10.5558 27.8811 10.9257C28.251 11.2957 28.4589 11.7975 28.4589 12.3207V23.1713Z" fill="#4C4C4C" />
                                     <path d="M17.6084 21.1985C19.7875 21.1985 21.554 19.4319 21.554 17.2528C21.554 15.0737 19.7875 13.3072 17.6084 13.3072C15.4292 13.3072 13.6627 15.0737 13.6627 17.2528C13.6627 19.4319 15.4292 21.1985 17.6084 21.1985Z" fill="#4C4C4C" />
                                     <path d="M28.4589 23.1713C28.4589 23.6945 28.251 24.1963 27.8811 24.5663C27.5111 24.9363 27.0093 25.1441 26.4861 25.1441H8.73064C8.20741 25.1441 7.70562 24.9363 7.33564 24.5663C6.96566 24.1963 6.75781 23.6945 6.75781 23.1713V12.3207C6.75781 11.7975 6.96566 11.2957 7.33564 10.9257C7.70562 10.5558 8.20741 10.3479 8.73064 10.3479H12.6763L14.6491 7.38867H20.5676L22.5404 10.3479H26.4861C27.0093 10.3479 27.5111 10.5558 27.8811 10.9257C28.251 11.2957 28.4589 11.7975 28.4589 12.3207V23.1713Z" stroke="white" strokeWidth="1.48696" strokeLinecap="round" strokeLinejoin="round" />
                                 </g>
@@ -101,7 +167,7 @@ const Update = () => {
                         </label>
                     </div>
                     <div className={styles.email}>
-                        <p>chamlight@kw.ac.kr</p>
+                        <p>{email}</p>
                     </div>
                 </div>
                 <div className={styles.input}>
@@ -110,6 +176,7 @@ const Update = () => {
                         type="text"
                         name="name"
                         placeholder="김참빛"
+                        value={formData.name}
                         onChange={onChangeForm}
                     />
                 </div>
@@ -119,6 +186,7 @@ const Update = () => {
                         type="text"
                         name="s_num"
                         placeholder="19학번"
+                        value={formData.s_num}
                         onChange={onChangeForm}
                     />
                 </div>
@@ -128,6 +196,7 @@ const Update = () => {
                         type="text"
                         name="major"
                         placeholder="소프트웨어학부"
+                        value={formData.major}
                         onChange={onChangeForm}
                     />
                 </div>
@@ -160,7 +229,7 @@ const Update = () => {
                         id="file-input"
                     />
                     <button className={styles.secession} onClick={handleDeleteClick}>탈퇴하기</button>
-                    <button className={styles.submit}>수정</button>
+                    <button className={styles.submit} onClick={handleUpdate}>수정</button>
                 </div>
 
                 {/* 모달 구현 */}

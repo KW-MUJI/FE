@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import styles from '../styles/PwFind.module.css';
 import { useNavigate } from 'react-router-dom';
-
+import { sendAuthRequest, verifyPinRequest, pwMailsend } from '../api/authApi';
 // 회원가입 컴포넌트
 const PwFind = () => {
     const [formData, setFormData] = useState({
@@ -12,7 +12,7 @@ const PwFind = () => {
     const navigate = useNavigate();
     const goToSign = () => {
         navigate("/pwReset");
-      }
+    }
     const inputRef = useRef(null);
     const fixedDomain = '@kw.ac.kr';
     const pintest = '123456';
@@ -56,40 +56,60 @@ const PwFind = () => {
         }
         return () => clearInterval(timerId);
     }, [isTimerActive, timer]);
-    const requestAuth = (e) => {
+    const requestAuth = async (e) => {
         e.preventDefault();
         const { id } = formData;
         if (!id) {
             alert("아이디를 입력해주세요");
             return;
         }
-        console.log(id);
-        // 인증 요청 로직 추가 가능
-        setIsPinVerified(false); // 초기화
-        setIsTimerActive(true);
-        setTimer(300);
-        alert("인증 요청이 전송되었습니다.");
+        const email = id + fixedDomain; // 이메일 형식으로 변환
+
+        try {
+            const data = await sendAuthRequest(email, false);
+            console.log(data);
+            setIsPinVerified(false);
+            setIsTimerActive(true);
+            setTimer(300);
+            alert("인증 요청이 전송되었습니다.");
+        } catch (error) {
+            console.error('Error:', error);
+            alert("인증 요청 중 오류가 발생했습니다.");
+        }
     };
 
 
-    const verifyPin = (e) => {
+    const verifyPin = async (e) => {
         e.preventDefault();
-        const { pin } = formData;
+        const { id, pin } = formData;
         if (!pin) return;
-        console.log(pin);
-        console.log(pintest);
-        const textElement = document.getElementById(styles.text);
-        if (pin === pintest) {
-            textElement.textContent = "인증번호가 일치합니다.";
-            textElement.style.color = "#008000";
-            setIsPinVerified(true); // 인증 성공
-            setIsTimerActive(false); // 타이머 정지
-        } else {
-            textElement.textContent = "인증번호가 틀렸습니다.";
-            textElement.style.color = "#ff0000";
-            setIsPinVerified(false); // 인증 실패
-            setIsTimerActive(false); // 타이머 정지
-            setTimer(300); // 타이머 리셋
+        const email = id + fixedDomain; // 이메일 형식으로 변환
+        try {
+            const data = await verifyPinRequest(email, pin);
+            console.log(data);
+
+            const textElement = document.getElementById(styles.text);
+            if (data.code === 200 && data.data) {
+                textElement.textContent = "인증번호가 일치합니다.";
+                textElement.style.color = "#008000";
+                setIsPinVerified(true);
+                setIsTimerActive(false);
+                try {
+                    await pwMailsend(email, pin);
+                } catch (error) {
+                    console.error('Error:', error);
+                    alert("메일 전송 중 오류가 발생했습니다.");
+                }
+            } else {
+                textElement.textContent = "인증번호가 틀렸습니다.";
+                textElement.style.color = "#ff0000";
+                setIsPinVerified(false);
+                setIsTimerActive(false);
+                setTimer(300);
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            alert("인증 확인 중 오류가 발생했습니다.");
         }
     };
 
