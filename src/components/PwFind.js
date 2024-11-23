@@ -96,6 +96,7 @@ const PwFind = () => {
                 setIsTimerActive(false);
                 try {
                     await pwMailsend(email, pin);
+                    localStorage.setItem('email', email);
                 } catch (error) {
                     console.error('Error:', error);
                     alert("메일 전송 중 오류가 발생했습니다.");
