@@ -88,21 +88,21 @@ export const pwMailsend = async (email, pin) => {
 
   return await response.json();
 };
-export const resetPw = async (accessToken, pass, passcon) => {
+export const resetPw = async (email, pass, passcon) => {
   const requestBody = {
     password: pass,
     confirmPassword: passcon,
+    email: email
   };
 
   const response = await fetch(`${API_URL}/auth/resetPw`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      'Authorization': `Bearer ${accessToken}`
     },
     body: JSON.stringify(requestBody),
   });
-
+  console.log(response);
   if (!response.ok) {
     throw new Error('Network response was not ok');
   }

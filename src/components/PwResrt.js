@@ -48,7 +48,7 @@ const PwReset = () => {
         }
         sessionStorage.setItem("user", JSON.stringify(formData));
         try {
-            await resetPw(accessToken, password, password_confirm);
+            await resetPw(localStorage.getItem('email'), password, password_confirm);
             alert("비밀번호 재설정 완료!");
             goToLogin();
         } catch (error) {
