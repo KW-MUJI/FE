@@ -1,4 +1,5 @@
 import apiClient from "./index";
+
 export const postPortfolio = async (accessToken, resumeId, projectId) => {
   const url = "/team/apply";
   const headers = {
@@ -60,8 +61,8 @@ export const getMyProjectApplicant = async (accessToken) => {
   try {
     const response = await apiClient.get(url, { headers });
     if (response.data.code === 200) {
-      console.log("내가 모집하는 팀플 지원자 확인성공 :", response.data.data);
-      return response.data.data;
+      console.log("내가 모집하는 팀플 지원자 확인성공 :", response.data);
+      return response.data;
     } else {
       console.error(
         "내가 모집하는 팀플 지원자 확인 실패 오류 코드 :",
@@ -108,18 +109,13 @@ export const selectTeamMember = async (participantId) => {
 
 //팀플 삭제
 export const deleteProject = async (accessToken, projectId) => {
-  const url = "/myteam/deleteProject";
+  const url = `/myteam/delete/${projectId}`;
   const headers = {
     "content-type": "application/json",
     Authorization: `Bearer ${accessToken}`,
   };
   try {
-    const response = await apiClient.delete(url, {
-      headers,
-      params: {
-        id: projectId,
-      },
-    });
+    const response = await apiClient.delete(url, { headers });
     if (response.data.code === 200 && response.data.data === true) {
       console.log("팀플 삭제 성공 :", response.data.data);
       return response.data.data;
@@ -156,22 +152,18 @@ export const getProjectDetails = async (projectId, accessToken) => {
 // 팀플 수정
 export const updateProject = async (projectId, updateData, accessToken) => {
   try {
-    const formData = new FormData();
-    if (updateData.ProjectImage) {
-      formData.append("ProjectImage", updateData.ProjectImage);
-    }
-    formData.append("name", updateData.name);
-    formData.append("id", updateData.id);
-    formData.append("description", updateData.description);
-    formData.append("deleteImage", updateData.deleteImage);
-
     const response = await apiClient.patch(
-      `/myteam/update/${projectId}`,
-      formData,
+      `/myteam/update`, // 엔드포인트
+      {
+        id: projectId,
+        name: updateData.name,
+        description: updateData.description,
+        image: updateData.ProjectImage || "", // 이미지 경로 또는 이름
+        deleteImage: updateData.deleteImage, // 이미지 삭제 여부
+      },
       {
         headers: {
-          "Content-Type": "multipart/form-data",
-          Authorization: `Bearer ${accessToken}`,
+          Authorization: `Bearer ${accessToken}`, // 인증 헤더
         },
       }
     );
