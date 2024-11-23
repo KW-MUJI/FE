@@ -11,21 +11,18 @@ import { useSearchParams } from "react-router-dom";
 const RecruitMain = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const page = Number(searchParams.get("page")); // page 값을 가져오고 기본값 설정
-
+  const searchQuery = String(searchParams.get("search") || "");
   // const { page } = useParams(); // 동적 URL에서 페이지 번호 가져오기
   const [projectList, setProjectList] = useState([]);
 
   const [currentPage, setCurrentPage] = useState(page);
 
-  const [search, setSearch] = useState("");
-  const [filteredData, setFilteredData] = useState([]); // 필터링된 결과
+  const [search, setSearch] = useState(searchQuery);
   const [totalPages, setTotalPages] = useState(); // 총 페이지 수
   const navigate = useNavigate();
 
   const today = new Date();
   const formattedToday = formatDate(today);
-
-  const BASE_URL = "https://kwmuji.s3.ap-northeast-2.amazonaws.com";
 
   // const getImageUrl = (imagePath) => {
   //   if (!imagePath) return ""; // 이미지 경로가 없을 때 처리
@@ -33,13 +30,12 @@ const RecruitMain = () => {
   //   console.log(`${BASE_URL}/${normalizedPath}`);
   //   return `${BASE_URL}/${normalizedPath}`;
   // };
-  const fetchProjectLists = async (page) => {
+  const fetchProjectLists = async (page, search) => {
     try {
-      const response = await getTeampleList(page);
+      const response = await getTeampleList(page, search);
       setProjectList(response.data.projects);
       setTotalPages(response.data.totalPages);
       console.log(response.data);
-      setFilteredData(response.data.projects);
 
       //******백에서 수정하면 추가하기  */
       //   setTotalPages(response.totalPages || 10);
@@ -49,9 +45,9 @@ const RecruitMain = () => {
   };
   // URL 또는 currentPage 변경 시 데이터 요청
   useEffect(() => {
-    fetchProjectLists(currentPage); // page가 변경될 때마다 호출
-    setSearchParams({ page: currentPage });
-  }, [currentPage, setSearchParams]);
+    fetchProjectLists(currentPage, searchQuery);
+    setSearchParams({ page: currentPage, search: searchQuery });
+  }, [currentPage, search]);
 
   useEffect(() => {
     setCurrentPage(page); // URL 변경 시 상태 동기화
@@ -85,8 +81,9 @@ const RecruitMain = () => {
       project.name.toLowerCase().includes(search.toLowerCase())
     );
     console.log("필터프로젝트: ", filteredProjects);
-    setFilteredData(filteredProjects);
     setCurrentPage(0);
+    setSearchParams({ page: 0, search }); // 검색어를 URL에 반영
+    fetchProjectLists(0, search); // 검색 API 호출
   };
 
   // 엔터 키 이벤트 핸들러
@@ -94,14 +91,6 @@ const RecruitMain = () => {
     if (e.key === "Enter") {
       handleSearch();
     }
-  };
-  const getImageUrl = (imagePath, project) => {
-    // if (imagePath.startsWith("https")) {
-    //   return imagePath; // 절대 경로면 그대로 반환
-    // }
-    console.log("백에서 제공한 이미지 경로:", project.image);
-    console.log("사진경로", `${BASE_URL}/${imagePath}`);
-    return `${BASE_URL}/${imagePath}`; // 상대 경로면 절대 경로로 변환
   };
 
   // 검색 필터링
@@ -138,9 +127,8 @@ const RecruitMain = () => {
         <h2
           className={styles.title}
           onClick={() => {
-            setCurrentPage(0); // currentPage를 0으로 초기화
-            setSearchParams({ page: 0 }); // URL 쿼리 파라미터를 동기화
-            fetchProjectLists(0); // 첫 번째 페이지 데이터 다시 요청
+            setCurrentPage(0);
+            setSearch("");
           }}
         >
           팀플모집
@@ -197,9 +185,9 @@ const RecruitMain = () => {
       </div>
 
       {/* 포스트 */}
-      <div className={filteredData.length <= 0 ? "" : styles.posts_container}>
-        {filteredData.length > 0 ? (
-          filteredData.map((project) => (
+      <div className={projectList.length <= 0 ? "" : styles.posts_container}>
+        {projectList.length > 0 ? (
+          projectList.map((project) => (
             <Link
               to={`/team/${project.id}`}
               state={{ project }}
@@ -209,8 +197,11 @@ const RecruitMain = () => {
               <div className={styles.post_card}>
                 <div className={styles.post_image}>
                   <img
-                    src={getImageUrl(project.image, project)}
-                    alt="이미지 로드 실패 시 표시될 텍스트"
+                    src={project.image}
+                    alt=""
+                    onError={(e) => {
+                      e.target.style.display = "none"; // 이미지 숨기기
+                    }}
                   />
                 </div>
                 <div className={styles.post_content}>

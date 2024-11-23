@@ -21,11 +21,9 @@ const MainPage = () => {
     y: 0,
   });
 
-
   useEffect(() => {
     const fetchDataFromServer = async () => {
       try {
-
         const yearMonth = `${currentMonth.getFullYear()}-${String(
           currentMonth.getMonth() + 1
         ).padStart(2, "0")}`;
@@ -36,9 +34,7 @@ const MainPage = () => {
 
         console.log(result);
       } catch (error) {
-
         console.error("Failed to fetch data:", error);
-
       }
     };
 
@@ -88,25 +84,21 @@ const MainPage = () => {
   };
 
   const handleDateClick = (day) => {
-
     alert(
       `선택한 날짜: ${currentMonth.getFullYear()}-${
         currentMonth.getMonth() + 1
       }-${day}`
     );
-
   };
 
   const handleMouseEnter = (dayEvents, event) => {
     if (dayEvents.length > 0) {
-
       setTooltip({
         visible: true,
         title: dayEvents.map((event) => event.title).join(", "),
         x: event.clientX,
         y: event.clientY,
       });
-
     }
   };
 
@@ -137,10 +129,8 @@ const MainPage = () => {
       ...projectEvents.map((event) => ({ title: event.title, type: "project" }))
     );
 
-
     return dayEvents;
   };
-
 
   const days = getDaysArray(
     currentMonth.getMonth(),
@@ -162,7 +152,6 @@ const MainPage = () => {
     1
   ).getDay();
   const emptyDays = firstDayOfMonth === 0 ? 6 : firstDayOfMonth - 1;
-
 
   const daysInNextMonth = 7 - ((emptyDays + days.length) % 7);
 
@@ -205,7 +194,6 @@ const MainPage = () => {
         <div className={styles.calender}>
           <div className={styles.header}>
             <h4>
-
               <button
                 onClick={() =>
                   handleMonthChange(
@@ -225,13 +213,11 @@ const MainPage = () => {
               >
                 {">"}
               </button>
-
             </h4>
           </div>
           <div className={styles.contents}>
             <div className={styles.weekDays}>
               {weekDays.map((day, index) => (
-
                 <div key={index} className={styles.weekDay}>
                   {day}
                 </div>
@@ -305,7 +291,6 @@ const MainPage = () => {
                       : "#EEF2F6"
                     : "transparent";
 
-
                 return (
                   <div
                     key={index}
@@ -329,7 +314,6 @@ const MainPage = () => {
             )}
           </div>
           <div className={styles.ex}>
-
             <span
               className={styles.schoolDot}
               style={{ background: "#E8CECC66", margin: "0 3.87px 0 7.4px" }}
@@ -369,7 +353,6 @@ const MainPage = () => {
             </button>
           </div>
           <div className={styles.box}>
-
             {data &&
               data.projects.map((item, index) => (
                 <div key={index} className={styles.team}>
@@ -380,7 +363,6 @@ const MainPage = () => {
                   </span>
                 </div>
               ))}
-
           </div>
         </div>
         <div className={styles.survey}>
@@ -402,7 +384,6 @@ const MainPage = () => {
             </button>
           </div>
           <div className={styles.box}>
-
             {data &&
               data.surveys.map((survey, index) => (
                 <div key={index} className={styles.team}>
@@ -413,7 +394,6 @@ const MainPage = () => {
                   </span>
                 </div>
               ))}
-
           </div>
         </div>
         <div className={styles.my_page}>
@@ -437,7 +417,12 @@ const MainPage = () => {
             </svg>
           </div>
           <div className={styles.buttons}>
-            <button className={styles.first_btn} onClick={() => handleButtonClick('/my_recruit_team')}>
+
+            <button
+              className={styles.first_btn}
+              onClick={() => handleButtonClick("/myteam/applicant")}
+            >
+
               MY 모집 팀플
               <br />
               지원자 확인

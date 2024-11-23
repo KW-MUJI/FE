@@ -45,6 +45,7 @@ const RecruitWrite = () => {
       setDescription(response.data.description);
       setDeadlineAt(response.data.deadLineAt);
       setImage(response.data.image);
+      setImagePreview(response.data.image);
     } catch (error) {
       console.error("fetchProjectDetail 에러", error);
     }
@@ -53,7 +54,23 @@ const RecruitWrite = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    // 필드 유효성 검사
+    if (!name) {
+      alert("제목을 입력해주세요.");
+      return;
+    }
+    if (!description) {
+      alert("내용을 입력해주세요.");
+      return;
+    }
     console.log("이미지 상태 확인:", image);
+    const updateData = {
+      name,
+      description,
+      image: image, // 이미지 파일 이름
+      deleteImage, // 기존 이미지 삭제 여부
+    };
+
     const postData = {
       name,
       description,
@@ -64,11 +81,19 @@ const RecruitWrite = () => {
     };
 
     try {
-      //수정하기
+      // 수정 모드
       if (isEditMode) {
-        const response = await updateProject(projectId, postData, accessToken);
-        if (response.code === 200) {
+        const response = await updateProject(
+          projectId,
+          updateData,
+          accessToken
+        );
+
+        if (response?.code === 200) {
           alert("수정이 완료되었습니다!");
+          navigate("/team"); // 팀 목록 페이지로 이동
+        } else {
+          alert("수정에 실패했습니다. 다시 시도해주세요.");
         }
       } else {
         // 글쓰기
@@ -80,15 +105,9 @@ const RecruitWrite = () => {
         }
         navigate("/team");
       }
-
-      if (name === "") {
-        throw Error("dd");
-      }
     } catch (error) {
-      console.error("Error submitting post:", error);
-      console.error("엑세스토큰", accessToken);
-      alert("작업 중 오류가 발생했습니다.");
-      alert(error.message);
+      console.error("Error updating project:", error);
+      alert("수정 중 오류가 발생했습니다.");
     }
   };
 
