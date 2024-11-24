@@ -84,7 +84,9 @@ export const postPortfolio = async (accessToken, resumeId, projectId) => {
     } else {
       console.error("포트폴리오 선택 실패 오류 코드 :", response.data.code);
     }
-    return response.data;
+
+    console.log("Resume ID:", resumeId);
+    console.log("Project ID:", projectId);
   } catch (error) {
     console.error("postProtfolio API 에러:", error.response || error.message);
     throw error;

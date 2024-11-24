@@ -1,7 +1,9 @@
-import React, { useState } from "react";
-import { useParams } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { useParams, useNavigate } from "react-router-dom";
 import styles from "../../styles/My_team_applicant.module.css"; // CSS 파일 임포트
 import { recruit_teams } from "../mockData"; // mock 데이터 임포트
+import { useAuth } from "../../contexts/AuthContext.js";
+import { getMyProjectApplicant } from "../../api/myteamApi.js";
 
 const maskName = (name) => {
   if (name.length <= 1) {
@@ -12,19 +14,43 @@ const maskName = (name) => {
 
 const MyTeamApplicant = () => {
   const { id } = useParams(); // URL에서 지원자의 ID 가져옴
-  const [teamList, setTeamList] = useState(recruit_teams); // 모든 팀 데이터를 가져옴
+  const [applicant, setApplicant] = useState(null);
+  const { accessToken } = useAuth();
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (!accessToken) {
+      alert("로그인 상태가 아닙니다. 로그인 페이지로 이동합니다.");
+      navigate("/login");
+    }
+    fetchApplicantLists(accessToken, id);
+  }, [accessToken, navigate]);
 
-  const applicant = recruit_teams
-    .flatMap((team) => team.members)
-    .find((member) => member.id === parseInt(id)); // 해당 ID에 맞는 지원자 찾기
-  const team = recruit_teams.find((team) =>
-    team.members.some((member) => member.id === parseInt(id))
-  ); // 팀 찾기
+  //   프로젝트 데이터 저장
+  const fetchApplicantLists = async (accessToken, id) => {
+    try {
+      const response = await getMyProjectApplicant(accessToken);
+      const projects = response.data; // 프로젝트 리스트
+      const foundApplicant = projects
+        .flatMap((project) => project.applicants) // 모든 지원자 추출
+        .find((applicant) => applicant.id === parseInt(id)); // ID로 지원자 찾기
+
+      if (foundApplicant) {
+        setApplicant(foundApplicant); // 지원자 데이터 설정
+        console.log(foundApplicant);
+      } else {
+        alert("해당 지원자를 찾을 수 없습니다.");
+        navigate(-1); // 이전 페이지로 이동
+      }
+    } catch (error) {
+      console.error("fetchApplicantLists 에러", error);
+    }
+  };
 
   if (!applicant) {
-    return <div>지원자를 찾을 수 없습니다.</div>; // 잘못된 ID 처리
+    return <div>지원자를 찾고 있습니다...</div>;
   }
-
+  const normalizedPath = applicant.resume.replace(/\\/g, "/");
+  console.log("Normalized Path:", normalizedPath);
   return (
     <div className={styles.MyTeamApplicant_container}>
       <div className={styles.container_head}>
@@ -47,8 +73,6 @@ const MyTeamApplicant = () => {
       </div>
 
       <div className={styles.applicant_container}>
-        <div className={styles.team_title}>{team?.teamtitle}</div>
-
         <div className={styles.main}>
           <div className={styles.applicant_info}>
             <svg
@@ -105,20 +129,20 @@ const MyTeamApplicant = () => {
                   fill="black"
                 />
               </svg>
-              {applicant.department}
+              {applicant.major}
             </div>
           </div>
 
           <div className={styles.portfolio}>
             <iframe
-              src={applicant.resumePath} // 백엔드에서 제공받은 PDF 파일 URL
+              src={normalizedPath} // 백엔드에서 제공받은 PDF 파일 URL
               width="100%"
               height="600px"
               title="PDF Viewer"
             >
               This browser does not support PDFs. Please download the PDF to
               view it:
-              <a href={applicant.resumePath}>Download PDF</a>.
+              <a href={normalizedPath}>Download PDF</a>.
             </iframe>
           </div>
         </div>

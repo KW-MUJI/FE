@@ -63,11 +63,12 @@ const RecruitWrite = () => {
       alert("내용을 입력해주세요.");
       return;
     }
+
     console.log("이미지 상태 확인:", image);
     const updateData = {
       name,
       description,
-      image: image, // 이미지 파일 이름
+      image, // 이미지 파일 이름
       deleteImage, // 기존 이미지 삭제 여부
     };
 
@@ -75,21 +76,23 @@ const RecruitWrite = () => {
       name,
       description,
       deadlineAt,
-      image: image,
+      image: image || null,
       ProjectImage: image,
       deleteImage,
     };
 
     try {
       // 수정 모드
+
       if (isEditMode) {
+        console.log("updateData:", updateData);
         const response = await updateProject(
           projectId,
           updateData,
           accessToken
         );
 
-        if (response?.code === 200) {
+        if (response.code === 200) {
           alert("수정이 완료되었습니다!");
           navigate("/team"); // 팀 목록 페이지로 이동
         } else {
@@ -114,6 +117,8 @@ const RecruitWrite = () => {
   //이미지 미리보기.초기화
   const handleImageReset = () => {
     setImagePreview(null); // 이미지 미리보기 초기화
+    setDeleteImage(true);
+
     document.getElementById("file-upload").value = ""; // input 값 초기화
   };
 

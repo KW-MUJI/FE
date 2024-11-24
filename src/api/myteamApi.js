@@ -1,29 +1,5 @@
 import apiClient from "./index";
 
-export const postPortfolio = async (accessToken, resumeId, projectId) => {
-  const url = "/team/apply";
-  const headers = {
-    "content-type": "application/json",
-    Authorization: `Bearer ${accessToken}`,
-  };
-  const body = {
-    resumeId,
-    projectId,
-  };
-  try {
-    const response = await apiClient.post(url, body, { headers });
-    if (response.data.code === 200) {
-      console.log("포트폴리오 선택 성공 :", response.data.data);
-      return response.data.data;
-    } else {
-      console.error("포트폴리오 선택 실패 오류 코드 :", response.data.code);
-    }
-    return response.data;
-  } catch (error) {
-    console.error("postProtfolio API 에러:", error.response || error.message);
-    throw error;
-  }
-};
 
 //내가 참여한 팀플 확인
 export const getMyProject = async (accessToken) => {
@@ -79,30 +55,36 @@ export const getMyProjectApplicant = async (accessToken) => {
   }
 };
 //팀원 선택
-export const selectTeamMember = async (participantId) => {
+export const selectTeamMember = async (accessToken, participantId) => {
   const url = `/myteam/select`;
+  const headers = {
+    "content-type": "application/json",
+    Authorization: `Bearer ${accessToken}`,
+  };
+
   try {
     const response = await apiClient.patch(
       url,
-      {},
-      {
-        params: {
-          id: participantId,
-        },
-      }
+      { id: participantId },
+      { headers }
     );
+
     if (response.data.code === 200) {
       console.log("팀원 선택 성공 :", response.data.data);
       return response.data.data;
     } else {
       console.error("팀원 선택 실패 오류 코드 :", response.data.code);
     }
-    return response.data;
   } catch (error) {
-    console.error(
-      "selectTeamMember API 에러:",
-      error.response || error.message
-    );
+    console.error("selectTeamMember API 에러:", error);
+    if (error.response) {
+      console.error("응답 상태 코드:", error.response.status);
+      console.error("응답 데이터:", error.response.data);
+    } else if (error.request) {
+      console.error("요청이 전송되었지만 응답이 없음:", error.request);
+    } else {
+      console.error("요청 설정 중 에러 발생:", error.message);
+    }
     throw error;
   }
 };
@@ -152,21 +134,36 @@ export const getProjectDetails = async (projectId, accessToken) => {
 // 팀플 수정
 export const updateProject = async (projectId, updateData, accessToken) => {
   try {
+    const formData = new FormData();
+
+    // FormData에 데이터 추가
+    formData.append("id", projectId); // 프로젝트 ID
+    formData.append("name", updateData.name); // 이름
+    formData.append("description", updateData.description); // 설명
+    formData.append("image", updateData.image);
+    formData.append("deleteImage", JSON.stringify(false));
+    // formData.append("deleteImage", JSON.stringify(updateData.deleteImage));
+
+    // FormData 확인
+    console.log("FormData values with getAll:");
+    console.log("id:", formData.getAll("id"));
+    console.log("name:", formData.getAll("name"));
+    console.log("description:", formData.getAll("description"));
+    console.log("image:", formData.getAll("image"));
+    console.log("deleteImage:", formData.getAll("deleteImage"));
+
     const response = await apiClient.patch(
       `/myteam/update`, // 엔드포인트
-      {
-        id: projectId,
-        name: updateData.name,
-        description: updateData.description,
-        image: updateData.ProjectImage || "", // 이미지 경로 또는 이름
-        deleteImage: updateData.deleteImage, // 이미지 삭제 여부
-      },
+      formData,
       {
         headers: {
+          "Content-Type": "multipart/form-data", // 헤더 설정
           Authorization: `Bearer ${accessToken}`, // 인증 헤더
         },
       }
     );
+
+    console.log("updateProject 확인:", response.data);
 
     return response.data;
   } catch (error) {
