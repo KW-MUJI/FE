@@ -63,7 +63,7 @@ function App() {
             />
             <Route path="/my_team" element={<MyTeam />} />
             <Route path="/myteam/applicant" element={<MyRecruitTeam />} />
-            <Route path="" element={<MyTeamApplicant />} />
+            <Route path="my_team_applicant/:id" element={<MyTeamApplicant />} />
             <Route path="/schedule" element={<Schedule />} />
             <Route path="/my_page" element={<MyPage />} />
             <Route path="/checkPw" element={<CheckPw />} />

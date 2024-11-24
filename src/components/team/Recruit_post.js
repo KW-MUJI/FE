@@ -214,7 +214,7 @@ const RecruitPost = () => {
 
   const handleOpenModal = () => {
     if (role === "CREATOR") {
-      window.open("/my_page", "_blank");
+      window.open("/myteam/applicant", "_blank");
     } else {
       setIsModalOpen(true); // 모달 열기
     }
