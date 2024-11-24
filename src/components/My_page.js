@@ -218,7 +218,7 @@ const MyPage = () => {
                 myTeams.map((item, index) => (
                   <div key={index} className={styles.team}>
                     <span className={styles.dot}></span>
-                    {item.name}
+                    {item}
                   </div>
                 ))
               ) : (
