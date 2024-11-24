@@ -92,7 +92,7 @@ export const selectTeamMember = async (accessToken, participantId) => {
       { id: participantId },
       { headers }
     );
-    
+
     if (response.data.code === 200) {
       console.log("팀원 선택 성공 :", response.data.data);
       return response.data.data;
@@ -158,21 +158,36 @@ export const getProjectDetails = async (projectId, accessToken) => {
 // 팀플 수정
 export const updateProject = async (projectId, updateData, accessToken) => {
   try {
+    const formData = new FormData();
+
+    // FormData에 데이터 추가
+    formData.append("id", projectId); // 프로젝트 ID
+    formData.append("name", updateData.name); // 이름
+    formData.append("description", updateData.description); // 설명
+    formData.append("image", updateData.image);
+    formData.append("deleteImage", JSON.stringify(false));
+    // formData.append("deleteImage", JSON.stringify(updateData.deleteImage));
+
+    // FormData 확인
+    console.log("FormData values with getAll:");
+    console.log("id:", formData.getAll("id"));
+    console.log("name:", formData.getAll("name"));
+    console.log("description:", formData.getAll("description"));
+    console.log("image:", formData.getAll("image"));
+    console.log("deleteImage:", formData.getAll("deleteImage"));
+
     const response = await apiClient.patch(
       `/myteam/update`, // 엔드포인트
-      {
-        id: projectId,
-        name: updateData.name,
-        description: updateData.description,
-        image: updateData.ProjectImage || "", // 이미지 경로 또는 이름
-        deleteImage: updateData.deleteImage, // 이미지 삭제 여부
-      },
+      formData,
       {
         headers: {
+          "Content-Type": "multipart/form-data", // 헤더 설정
           Authorization: `Bearer ${accessToken}`, // 인증 헤더
         },
       }
     );
+
+    console.log("updateProject 확인:", response.data);
 
     return response.data;
   } catch (error) {
