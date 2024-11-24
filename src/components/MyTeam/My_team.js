@@ -99,6 +99,10 @@ const MyTeam = () => {
     fetchTeamList();
   }, [accessToken, navigate]);
 
+  const navigateSchedule = () => {
+    navigate("/schedule");
+  };
+
   return (
     <div>
       <div className={styles.Myteam_container}>
@@ -125,7 +129,12 @@ const MyTeam = () => {
             <div key={index} className={styles.oneteam}>
               <div className={styles.teamName}>
                 {team.name}
-                <button className={styles.schedule_add}>일정추가</button>
+                <button
+                  className={styles.schedule_add}
+                  onClick={navigateSchedule}
+                >
+                  일정추가
+                </button>
               </div>
               <div className={styles.team_member_list}>
                 <p>팀원</p>
