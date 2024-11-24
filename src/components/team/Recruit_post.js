@@ -202,6 +202,20 @@ const RecruitPost = () => {
     }
   };
 
+  // const postApplication = async (accessToken) => {
+  //   try {
+  //     const response = await postPortfolio(
+  //       accessToken,
+  //       selectedPortfolio,
+  //       projectId
+  //     );
+  //     console.error("postPortfolio response.data", response.data.data);
+  //     setApplicationSubmitted(response.data.data);
+  //   } catch (error) {
+  //     console.error("postPortfolio 에러", error);
+  //   }
+  // };
+
   const location = useLocation();
 
   const [isModalOpen, setIsModalOpen] = useState(false); // 모달 상태 관리
@@ -231,15 +245,36 @@ const RecruitPost = () => {
     console.log(`${portfolioID} 선택됨`);
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (!selectedPortfolio) {
       alert("포트폴리오를 선택해주세요");
       return;
     }
-    alert("신청이 완료되었습니다.");
-    setApplicationSubmitted(true);
-    handleCloseModal(); // 모달 닫기
+    console.log("선택된 포트폴리오 ID:", selectedPortfolio);
+    console.log("프로젝트 ID:", projectId);
+    console.log("Access Token:", accessToken);
+    console.log("Resume ID:", selectedPortfolio);
+    console.log("Project ID:", projectId);
+
+    try {
+      const result = await postPortfolio(
+        accessToken,
+        selectedPortfolio,
+        projectId
+      );
+      if (result) {
+        alert("신청이 완료되었습니다.");
+        setApplicationSubmitted(true); // 신청 상태 업데이트
+        handleCloseModal(); // 모달 닫기
+      } else {
+        alert("신청에 실패했습니다. 다시 시도해주세요.");
+      }
+    } catch (error) {
+      console.error("handleSubmit 에러:", error);
+      alert("오류가 발생했습니다. 다시 시도해주세요.");
+    }
   };
+
   const calculateDDay = (targetDate) => {
     // targetDate를 Date 객체로 변환
     const target = new Date(targetDate);
