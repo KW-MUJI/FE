@@ -202,7 +202,6 @@ const RecruitPost = () => {
     }
   };
 
-
   const location = useLocation();
 
   const [isModalOpen, setIsModalOpen] = useState(false); // 모달 상태 관리
@@ -251,7 +250,7 @@ const RecruitPost = () => {
       );
       if (result) {
         alert("신청이 완료되었습니다.");
-        setApplicationSubmitted(true); // 신청 상태 업데이트
+        setApplicationSubmitted(result.data.data); // 신청 상태 업데이트
         handleCloseModal(); // 모달 닫기
       } else {
         alert("신청에 실패했습니다. 다시 시도해주세요.");
@@ -290,7 +289,7 @@ const RecruitPost = () => {
       buttonDescript = "지원자보기";
       isDisableButton = false;
     }
-    if (applicationSubmitted) {
+    if (role === "APPLICANT") {
       // 이미 신청한 경우
       buttonDescript = "지원완료";
       isDisableButton = true;
