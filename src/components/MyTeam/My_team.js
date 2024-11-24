@@ -1,12 +1,14 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "../../styles/My_team.module.css"; // CSS 파일 임포트
 import { teams } from "../mockData"; // mock 데이터 임포트
-
-const TeamMember = ({ members }) => {
+import { getMyProject } from "../../api/myteamApi";
+import { useAuth } from "../../contexts/AuthContext.js";
+import { useNavigate } from "react-router-dom";
+const TeamMember = ({ members = [] }) => {
   return (
     <div className={styles.teamMember}>
-      {members.map((member) => (
-        <div key={member.id} className={styles.member_item}>
+      {members.map((member, index) => (
+        <div key={index} className={styles.member_item}>
           <div className={styles.svg}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -65,7 +67,7 @@ const TeamMember = ({ members }) => {
                   fill="black"
                 />
               </svg>
-              {member.department}
+              {member.major}
             </div>
             <div className={styles.email}>{member.email}</div>
           </div>
@@ -76,7 +78,26 @@ const TeamMember = ({ members }) => {
 };
 
 const MyTeam = () => {
-  const [teamList, setTeamList] = useState(teams); // 모든 팀 데이터를 가져옴
+  const [teamList, setTeamList] = useState([]); // 모든 팀 데이터를 가져옴
+  const { accessToken } = useAuth();
+  const navigate = useNavigate();
+
+  const fetchTeamList = async () => {
+    try {
+      const response = await getMyProject(accessToken);
+      setTeamList(response);
+    } catch (error) {
+      console.error("fetchTeamList 에러", error);
+    }
+  };
+
+  useEffect(() => {
+    if (!accessToken) {
+      alert("로그인 상태가 아닙니다. 로그인 페이지로 이동합니다.");
+      navigate("/login");
+    }
+    fetchTeamList();
+  }, [accessToken, navigate]);
 
   return (
     <div>
@@ -99,18 +120,22 @@ const MyTeam = () => {
           </svg>
           <h>MY 팀플</h>
         </div>
-        {teamList.map((team, index) => (
-          <div key={index} className={styles.oneteam}>
-            <div className={styles.teamName}>
-              {team.teamName} {/* 팀 이름을 출력 */}
-              <button className={styles.schedule_add}>일정추가</button>
+        {teamList.length > 0 ? (
+          teamList.map((team, index) => (
+            <div key={index} className={styles.oneteam}>
+              <div className={styles.teamName}>
+                {team.name}
+                <button className={styles.schedule_add}>일정추가</button>
+              </div>
+              <div className={styles.team_member_list}>
+                <p>팀원</p>
+                <TeamMember members={team.members} />
+              </div>
             </div>
-            <div className={styles.team_member_list}>
-              <p>팀원</p>
-              <TeamMember members={team.members} />
-            </div>
-          </div>
-        ))}
+          ))
+        ) : (
+          <p>참여 중인 팀이 없습니다.</p>
+        )}
       </div>
     </div>
   );

@@ -1,29 +1,5 @@
 import apiClient from "./index";
 
-export const postPortfolio = async (accessToken, resumeId, projectId) => {
-  const url = "/team/apply";
-  const headers = {
-    "content-type": "application/json",
-    Authorization: `Bearer ${accessToken}`,
-  };
-  const body = {
-    resumeId,
-    projectId,
-  };
-  try {
-    const response = await apiClient.post(url, body, { headers });
-    if (response.data.code === 200) {
-      console.log("포트폴리오 선택 성공 :", response.data.data);
-      return response.data.data;
-    } else {
-      console.error("포트폴리오 선택 실패 오류 코드 :", response.data.code);
-    }
-    return response.data;
-  } catch (error) {
-    console.error("postProtfolio API 에러:", error.response || error.message);
-    throw error;
-  }
-};
 
 //내가 참여한 팀플 확인
 export const getMyProject = async (accessToken) => {

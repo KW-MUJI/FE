@@ -120,7 +120,7 @@ const Applicant = ({
 const MyRecruitTeam = () => {
   const [projectList, setProjectList] = useState([]);
   const [startTeamproject, setStartTeamproject] = useState([]);
-  const [selectParticipant, setSelectParticipant] = useState({});
+  const [selectParticipant, setSelectParticipant] = useState([]);
   const { accessToken } = useAuth();
   const navigate = useNavigate();
   useEffect(() => {
@@ -165,33 +165,34 @@ const MyRecruitTeam = () => {
   };
 
   const handlesSelectApplicant = async (participantId, teamID) => {
-    try {
-      console.log("고른 팀원", participantId);
-      const response = await selectTeamMember(accessToken, participantId);
+    setSelectParticipant(participantId);
+    // try {
+    //   console.log("고른 팀원", participantId);
+    //   const response = await selectTeamMember(accessToken, participantId);
 
-      if (response) {
-        // 상태 업데이트
-        setSelectParticipant((prev) => {
-          const selectedTeam = prev[teamID] || []; // 팀별 선택된 지원자 배열
+    //   if (response) {
+    //     // 상태 업데이트
+    //     setSelectParticipant((prev) => {
+    //       const selectedTeam = prev[teamID] || []; // 팀별 선택된 지원자 배열
 
-          if (selectedTeam.includes(participantId)) {
-            return {
-              ...prev,
-              [teamID]: selectedTeam.filter((id) => id !== participantId),
-            }; // 이미 선택된 경우 제거
-          } else {
-            return {
-              ...prev,
-              [teamID]: [...selectedTeam, participantId], // 선택되지 않은 경우 추가
-            };
-          }
-        });
-        console.log("팀원 선택 완료");
-      }
-    } catch (error) {
-      console.error("팀원 선택 중 에러 발생:", error.message);
-      alert("팀원 선택에 실패했습니다. 다시 시도해주세요.");
-    }
+    //       if (selectedTeam.includes(participantId)) {
+    //         return {
+    //           ...prev,
+    //           [teamID]: selectedTeam.filter((id) => id !== participantId),
+    //         }; // 이미 선택된 경우 제거
+    //       } else {
+    //         return {
+    //           ...prev,
+    //           [teamID]: [...selectedTeam, participantId], // 선택되지 않은 경우 추가
+    //         };
+    //       }
+    //     });
+    //     console.log("팀원 선택 완료");
+    //   }
+    // } catch (error) {
+    //   console.error("팀원 선택 중 에러 발생:", error.message);
+    //   alert("팀원 선택에 실패했습니다. 다시 시도해주세요.");
+    // }
   };
 
   return (
@@ -283,8 +284,8 @@ const MyRecruitTeam = () => {
             <div className={styles.applicant_list}>
               <Applicant
                 members={team.applicants}
-                handlesSelectApplicant={(memberID, teamID) =>
-                  handlesSelectApplicant(memberID, teamID)
+                handlesSelectApplicant={(memberID) =>
+                  handlesSelectApplicant(memberID)
                 } // `teamID`와 `memberID` 전달
                 selectApplicant={selectParticipant[team.id] || []} // 팀별 선택된 지원자
                 startTeamproject={startTeamproject}
