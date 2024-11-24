@@ -1,30 +1,25 @@
 import styles from "../styles/Notice.module.css";
 import React, { useEffect, useState } from "react";
-import { getNotices } from "../api/Service.js"; // API 함수 가져오기
+import { getNotices } from "../api/noticeApi.js";
+import Pagination from "../utils/pageNationUtil";
+// import { getNotices } from "../api/Service.js"; // API 함수 가져오기
 
 const Notice = () => {
-  const [selectedCategory, setSelectedCategory] = useState(null);
-  const [query, setQuery] = useState(""); //검색어 상태
-  const [currentPage, setCurrentPage] = useState(1);
-  const [results, setResults] = useState([]); //검색결과 상태
-  const [notices, setNotices] = useState({
-    notices: {
-      category: [],
-      title: [],
-      link: [],
-      views: [],
-      createdDate: [],
-      updatedDate: [],
-      team: [],
-    },
-  });
-  const [totalPages, setTotalPages] = useState(1); // 전체 페이지 수
+  const [notice, setNotices] = useState([]);
+  const [totalPages, setTotalPages] = useState();
+  const [page, setPage] = useState(1);
+  const [srCategoryId, setSrCategoryId] = useState(null);
+  const [searchVal, setSearchVal] = useState(""); // 검색어 상태
+  const [searchQuery, setSearchQuery] = useState(""); // 실제 검색에 사용될 값
 
   const fetchData = async () => {
     try {
-      const data = await getNotices(currentPage, query, selectedCategory);
-      setNotices(data.data.notices);
-      setTotalPages(data.data.totalPages); //API에서 전체 페이지 수 받아오기
+      const data = await getNotices(page, searchQuery, srCategoryId);
+      setNotices(data.notices);
+      setTotalPages(data.maxPage); //API에서 전체 페이지 수 받아오기
+      console.log("Notice:", notice);
+      console.log("totalPages:", totalPages);
+      console.log("page:", page);
     } catch (error) {
       console.error("Error fetching notices:", error);
     }
@@ -32,55 +27,61 @@ const Notice = () => {
 
   useEffect(() => {
     fetchData();
-  }, [currentPage, selectedCategory]); // 페이지, 검색어, 카테고리가 바뀔 때마다 다시 호출
+  }, [page, srCategoryId, searchQuery]); // 페이지, 검색어, 카테고리가 바뀔 때마다 다시 호출
 
-  //입력 값 변경할 때 호출
   const handleInputChange = (e) => {
-    setQuery(e.target.value);
+    setSearchVal(e.target.value);
   };
-
   //검색 버튼 누를때 호출
   const handleSearch = (e) => {
     e.preventDefault();
-    setCurrentPage(1); // 검색하면 첫 페이지로 돌아감
-    fetchData(); // 검색 버튼을 눌렀을 때만 데이터를 가져오도록 변경
+    setPage(1); // 검색하면 첫 페이지로 돌아감
+    setSearchQuery(searchVal); // 검색 버튼을 눌렀을 때만 데이터를 가져오도록 변경
+  };
+
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter") {
+      handleSearch(e);
+    }
+  };
+  const handlePageChange = (newPage) => {
+    setPage(newPage + 1); // 상태 업데이트
+    // navigate(`/recruit_main/${newPage}`); // URL 업데이트
   };
 
   const handleChangeCategory = (category) => {
-    setSelectedCategory(category);
+    setSrCategoryId(category);
   };
-  // 이전 페이지로 이동
-  const handlePreviousPage = () => {
-    if (currentPage > 1) {
-      setCurrentPage(currentPage - 1);
-    }
-  };
-
-  // 다음 페이지로 이동
-  const handleNextPage = () => {
-    if (currentPage < totalPages) {
-      setCurrentPage(currentPage + 1);
-    }
-  };
-
-  // 특정 페이지로 이동
-  const handlePageClick = (pageNumber) => {
-    setCurrentPage(pageNumber);
-  };
+  // // 이전 페이지로 이동
+  // const handlePreviousPage = () => {
+  //   if (page > 1) {
+  //     setPage(page - 1);
+  //   }
+  // };
+  // // 다음 페이지로 이동
+  // const handleNextPage = () => {
+  //   if (page < totalPages) {
+  //     setPage(page + 1);
+  //   }
+  // };
+  // // 특정 페이지로 이동
+  // const handlePageClick = (pageNumber) => {
+  //   setPage(pageNumber);
+  // };
 
   return (
     <div className={styles.notice_container}>
       <h className={styles.header}>Notice</h>
-
       <form onSubmit={handleSearch} className={styles.search_form}>
         <input
           type="text"
-          value={query}
+          value={searchVal}
           onChange={handleInputChange}
+          onKeyDown={handleKeyDown}
           placeholder="검색할 내용을 입력하세요"
           className={styles.search_input}
         />
-        <button type="submit">
+        <button type="submit" onClick={handleSearch}>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="38"
@@ -95,13 +96,12 @@ const Notice = () => {
           </svg>
         </button>
       </form>
-
       {/* 카테고리 */}
       <div className={styles.category}>
         <button
           onClick={() => handleChangeCategory(null)}
           className={
-            selectedCategory === null
+            srCategoryId === null
               ? styles.select_category
               : styles.nonselect_category
           }
@@ -111,7 +111,7 @@ const Notice = () => {
         <button
           onClick={() => handleChangeCategory(0)}
           className={
-            selectedCategory === 0
+            srCategoryId === 0
               ? styles.select_category
               : styles.nonselect_category
           }
@@ -121,7 +121,7 @@ const Notice = () => {
         <button
           onClick={() => handleChangeCategory(1)}
           className={
-            selectedCategory === 1
+            srCategoryId === 1
               ? styles.select_category
               : styles.nonselect_category
           }
@@ -131,7 +131,7 @@ const Notice = () => {
         <button
           onClick={() => handleChangeCategory(2)}
           className={
-            selectedCategory === 2
+            srCategoryId === 2
               ? styles.select_category
               : styles.nonselect_category
           }
@@ -141,7 +141,7 @@ const Notice = () => {
         <button
           onClick={() => handleChangeCategory(3)}
           className={
-            selectedCategory === 3
+            srCategoryId === 3
               ? styles.select_category
               : styles.nonselect_category
           }
@@ -151,7 +151,7 @@ const Notice = () => {
         <button
           onClick={() => handleChangeCategory(4)}
           className={
-            selectedCategory === 4
+            srCategoryId === 4
               ? styles.select_category
               : styles.nonselect_category
           }
@@ -161,7 +161,7 @@ const Notice = () => {
         <button
           onClick={() => handleChangeCategory(5)}
           className={
-            selectedCategory === 5
+            srCategoryId === 5
               ? styles.select_category
               : styles.nonselect_category
           }
@@ -171,7 +171,7 @@ const Notice = () => {
         <button
           onClick={() => handleChangeCategory(6)}
           className={
-            selectedCategory === 6
+            srCategoryId === 6
               ? styles.select_category
               : styles.nonselect_category
           }
@@ -181,7 +181,7 @@ const Notice = () => {
         <button
           onClick={() => handleChangeCategory(7)}
           className={
-            selectedCategory === 7
+            srCategoryId === 7
               ? styles.select_category
               : styles.nonselect_category
           }
@@ -191,7 +191,7 @@ const Notice = () => {
         <button
           onClick={() => handleChangeCategory(8)}
           className={
-            selectedCategory === 8
+            srCategoryId === 8
               ? styles.select_category
               : styles.nonselect_category
           }
@@ -201,7 +201,7 @@ const Notice = () => {
         <button
           onClick={() => handleChangeCategory(9)}
           className={
-            selectedCategory === 9
+            srCategoryId === 9
               ? styles.select_category
               : styles.nonselect_category
           }
@@ -211,7 +211,7 @@ const Notice = () => {
         <button
           onClick={() => handleChangeCategory(10)}
           className={
-            selectedCategory === 10
+            srCategoryId === 10
               ? styles.select_category
               : styles.nonselect_category
           }
@@ -219,11 +219,10 @@ const Notice = () => {
           국제학생
         </button>
       </div>
-
       {/* 공지사항 리스트 */}
       <ul className={styles.notice_list}>
-        {notices.length > 0 ? (
-          notices.map((notice, index) => (
+        {notice.length > 0 ? (
+          notice.map((notice, index) => (
             <li key={index} className={styles.notice_item}>
               <div>
                 <svg
@@ -247,7 +246,6 @@ const Notice = () => {
                   />
                 </svg>
               </div>
-
               <div className={styles.notice_data}>
                 <a
                   href={notice.link}
@@ -256,7 +254,7 @@ const Notice = () => {
                   rel="noreferrer"
                 >
                   <h style={{ color: "#8B0B02", fontWeight: "600" }}>
-                    [{notice.category}]
+                    {notice.category}
                   </h>
                   <h style={{ color: "#000", fontWeight: "400" }}>
                     {notice.title}
@@ -266,7 +264,6 @@ const Notice = () => {
                   <p>조회수 {notice.views} </p>
                   <p>작성일 {notice.createdDate} </p>
                   <p>수정일 {notice.updatedDate}</p>
-
                   <p>{notice.team} </p>
                 </div>
               </div>
@@ -276,55 +273,12 @@ const Notice = () => {
           <p>게시글이 없습니다.</p>
         )}
       </ul>
-
       {/* 페이지네이션 */}
-      <div className={styles.pagination}>
-        <button
-          onClick={handlePreviousPage}
-          disabled={currentPage === 1}
-          className={styles.arrow}
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-          >
-            <path d="M16 5L16 19L5 12L16 5Z" fill="#1D1B20" />
-          </svg>
-        </button>
-        <div clssName={styles.pagingNumber}>
-          {[...Array(totalPages)].map((_, index) => (
-            <button
-              key={index}
-              onClick={() => handlePageClick(index + 1)}
-              className={
-                currentPage === index + 1
-                  ? styles.active_page
-                  : styles.page_button
-              }
-            >
-              {index + 1}
-            </button>
-          ))}
-        </div>
-        <button
-          onClick={handleNextPage}
-          disabled={currentPage === totalPages}
-          className={styles.arrow}
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-          >
-            <path d="M8 19V5L19 12L8 19Z" fill="#1D1B20" />
-          </svg>
-        </button>
-      </div>
+      <Pagination
+        totalPages={totalPages}
+        currentPage={page - 1}
+        onPageChange={handlePageChange}
+      />
     </div>
   );
 };
