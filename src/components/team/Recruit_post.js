@@ -202,19 +202,6 @@ const RecruitPost = () => {
     }
   };
 
-  // const postApplication = async (accessToken) => {
-  //   try {
-  //     const response = await postPortfolio(
-  //       accessToken,
-  //       selectedPortfolio,
-  //       projectId
-  //     );
-  //     console.error("postPortfolio response.data", response.data.data);
-  //     setApplicationSubmitted(response.data.data);
-  //   } catch (error) {
-  //     console.error("postPortfolio 에러", error);
-  //   }
-  // };
 
   const location = useLocation();
 

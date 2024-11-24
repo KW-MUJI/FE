@@ -105,7 +105,7 @@ const Applicant = ({
                   ? styles.nonselect
                   : styles.select
               }
-              onClick={() => handlesSelectApplicant(member.id)}
+              onClick={() => handlesSelectApplicant(member.id, teamID)}
               disabled={startTeamproject.includes(teamID)}
             >
               {selectApplicant.includes(member.id) ? "선택 취소" : "팀원 선택"}
@@ -166,8 +166,9 @@ const MyRecruitTeam = () => {
 
   const handlesSelectApplicant = async (participantId, teamID) => {
     try {
-      const response = await selectTeamMember(participantId);
       console.log("고른 팀원", participantId);
+      const response = await selectTeamMember(accessToken, participantId);
+
       if (response) {
         // 상태 업데이트
         setSelectParticipant((prev) => {
@@ -188,8 +189,8 @@ const MyRecruitTeam = () => {
         console.log("팀원 선택 완료");
       }
     } catch (error) {
-      console.error("팀플 선택 중 에러 발생:", error.message);
-      alert("팀플 선택에 실패했습니다. 다시 시도해주세요.");
+      console.error("팀원 선택 중 에러 발생:", error.message);
+      alert("팀원 선택에 실패했습니다. 다시 시도해주세요.");
     }
   };
 

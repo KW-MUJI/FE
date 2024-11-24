@@ -79,30 +79,36 @@ export const getMyProjectApplicant = async (accessToken) => {
   }
 };
 //팀원 선택
-export const selectTeamMember = async (participantId) => {
+export const selectTeamMember = async (accessToken, participantId) => {
   const url = `/myteam/select`;
+  const headers = {
+    "content-type": "application/json",
+    Authorization: `Bearer ${accessToken}`,
+  };
+
   try {
     const response = await apiClient.patch(
       url,
-      {},
-      {
-        params: {
-          id: participantId,
-        },
-      }
+      { id: participantId },
+      { headers }
     );
+    
     if (response.data.code === 200) {
       console.log("팀원 선택 성공 :", response.data.data);
       return response.data.data;
     } else {
       console.error("팀원 선택 실패 오류 코드 :", response.data.code);
     }
-    return response.data;
   } catch (error) {
-    console.error(
-      "selectTeamMember API 에러:",
-      error.response || error.message
-    );
+    console.error("selectTeamMember API 에러:", error);
+    if (error.response) {
+      console.error("응답 상태 코드:", error.response.status);
+      console.error("응답 데이터:", error.response.data);
+    } else if (error.request) {
+      console.error("요청이 전송되었지만 응답이 없음:", error.request);
+    } else {
+      console.error("요청 설정 중 에러 발생:", error.message);
+    }
     throw error;
   }
 };
