@@ -10,6 +10,7 @@ export const getMyProject = async (accessToken) => {
   try {
     const response = await apiClient.get(url, { headers });
     console.log("내가 참여한 팀플 불러오기 성공 :", response.data);
+
     return response.data;
   } catch (error) {
     console.error("getMyProject API 에러:", error.response || error.message);
@@ -97,7 +98,8 @@ export const updateProject = async (projectId, updateData, accessToken) => {
     formData.append("name", updateData.name); // 이름
     formData.append("description", updateData.description); // 설명
     formData.append("projectImage", updateData.projectImage);
-    formData.append("deleteImage", updateData.deleteImage ? true : false);
+    formData.append("isDeleteImage", updateData.isDeleteImage);
+    formData.append("deadlineAt", updateData.deadlineAt);
     // formData.append("deleteImage", JSON.stringify(updateData.deleteImage));
 
     // FormData 확인

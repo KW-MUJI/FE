@@ -22,6 +22,7 @@ const Applicant = ({
   selectApplicant,
   startProject,
   teamID,
+  isOngoing,
 }) => {
   const [buttonStates, setButtonStates] = useState({});
 
@@ -46,7 +47,7 @@ const Applicant = ({
               : styles.select
           }
           onClick={() => handleButtonFunction(member)}
-          disabled={startProject.includes(teamID)}
+          disabled={!isOngoing || startProject.includes(teamID)}
         >
           {buttonStates[member.id] || "팀원 선택"} {/* 기본값 설정 */}
         </button>
@@ -121,11 +122,15 @@ const Applicant = ({
           </div>
           <div className={styles.applicant_option}>
             <button
-              id={styles.portfolio}
+              id={
+                selectApplicant.includes(member.id) || !isOngoing
+                  ? styles.nonportfolio
+                  : styles.portfolio
+              }
               onClick={() =>
                 window.open(`/my_team_applicant/${member.id}`, "_blank")
               }
-              disabled={startProject.includes(teamID)}
+              disabled={!isOngoing || startProject.includes(teamID)}
             >
               {" "}
               포트폴리오
@@ -183,6 +188,7 @@ const MyRecruitTeam = () => {
 
   const handleStart = async (teamID) => {
     try {
+      setStartProject((prev) => [...prev, teamID]);
       console.log("selectParticipant[teamID]", selectParticipant[teamID]);
       console.log("teamID", teamID);
       const response = await startTeamProject(
@@ -191,8 +197,10 @@ const MyRecruitTeam = () => {
         teamID
       );
       if (response) {
-        setStartProject((prev) => [...prev, teamID]);
         console.log(`${teamID} 팀플 시작됨`);
+        // 백엔드에서 최신 데이터를 다시 가져오기
+        const updatedResponse = await getMyProjectApplicant(accessToken);
+        setProjectList(updatedResponse.data); // 최신 데이터로 상태 업데이트
       } else {
         console.error("팀플 시작 실패: 서버에서 true가 반환되지 않았습니다.");
       }
@@ -244,7 +252,7 @@ const MyRecruitTeam = () => {
           <div className={styles.team_header}>
             <h> {team.name}</h>
             <div className={styles.list_option}>
-              {!startProject.includes(team.id) && (
+              {team.isOngoing && (
                 <button
                   className={styles.edit}
                   onClick={() =>
@@ -259,18 +267,17 @@ const MyRecruitTeam = () => {
                   handleStart(team.id);
                 }}
                 disabled={
+                  !team.isOngoing ||
                   !selectParticipant[team.id] || // 선택된 지원자가 없거나
                   selectParticipant[team.id].length === 0
                 } // 배열이 비어 있는 경우}
                 className={
-                  startProject.includes(team.id)
-                    ? styles.disabledStart
-                    : styles.start
+                  !team.isOngoing ? styles.disabledStart : styles.start
                 }
               >
-                {startProject.includes(team.id) ? "모집 마감" : "팀플시작"}
+                {!team.isOngoing ? "모집 마감" : "팀플시작"}
               </button>
-              {!startProject.includes(team.id) && (
+              {team.isOngoing && (
                 <button
                   className={styles.cancel}
                   onClick={() => deleteTeam(team.id)}
@@ -313,6 +320,7 @@ const MyRecruitTeam = () => {
                 selectApplicant={selectParticipant[team.id] || []} // 팀별 선택된 지원자
                 startProject={startProject}
                 teamID={team.id}
+                isOngoing={team.isOngoing}
               />
             </div>
           </div>
