@@ -139,6 +139,10 @@ const MyPage = () => {
   };
 
   const openFileDialog = () => {
+    if(myPortfolios.length >= 3){
+      alert("포트폴리오는 3개 이하만 추가할 수 있습니다.");
+      return;
+    }
     fileInputRef.current.click();
   };
 
@@ -219,7 +223,7 @@ const MyPage = () => {
                 myTeams.map((item, index) => (
                   <div key={index} className={styles.team}>
                     <span className={styles.dot}></span>
-                    {item}
+                    <span className={styles.text}>{item}</span>
                   </div>
                 ))
               ) : (
@@ -235,7 +239,7 @@ const MyPage = () => {
                 myRecruitTeams.map((item, index) => (
                   <div key={index} className={styles.team}>
                     <span className={styles.dot}></span>
-                    {item.name}
+                    <span className={styles.text}>{item.name}</span>
                     <span className={styles.dday}>
                       {item.isOngoing ? "진행 중" : "마감"}
                     </span>
@@ -254,7 +258,7 @@ const MyPage = () => {
                 mySurveys.map((item, index) => (
                   <div key={index} className={styles.team}>
                     <span className={styles.dot}></span>
-                    {item.title}
+                    <span className={styles.text}>{item.title}</span>
                     <span className={styles.dday}>
                       {item.isOngoing ? "진행 중" : "마감"}
                     </span>

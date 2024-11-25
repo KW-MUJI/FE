@@ -361,7 +361,7 @@ const MainPage = () => {
               data.projects.map((item, index) => (
                 <div key={index} className={styles.team}>
                   <span className={styles.dot}></span>
-                  {item.name}
+                  <span className={styles.text}>{item.name}</span>
                   <span className={styles.dday}>
                     {formatLastModified(item.deadlineAt)}
                   </span>
@@ -392,7 +392,7 @@ const MainPage = () => {
               data.surveys.map((survey, index) => (
                 <div key={index} className={styles.team}>
                   <span className={styles.dot}></span>
-                  {survey.title}
+                  <span className={styles.text}>{survey.title}</span>
                   <span className={styles.dday}>
                     {formatLastModified(survey.createdAt)}
                   </span>
