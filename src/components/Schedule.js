@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { fetchCalendar, addCalendarEvent, deleteCalendarEvent } from "../api/Service.js"; // API 함수 가져오기
+import { fetchCalendar, addCalendarEvent, deleteCalendarEvent } from "../api/calendarApi.js"; // API 함수 가져오기
 import styles from "../styles/Schedule.module.css";
 import { responses } from "./mockData.js";
 
@@ -34,9 +34,9 @@ const Schedule = () => {
         const data = await fetchCalendar(yearMonth); // API를 통해 데이터 가져오기 calendar.response
         if (data && data.data) {
           setSchedules(data.data); // 가져온 데이터를 스케줄 상태로 설정
-          console.log("asd", data);
-          if (data.data.project)
-            setTeams(data.data.project);
+          console.log("asd", data.data);
+          if (data.data.projects)
+            setTeams(data.data.projects);
           else
             setTeams([]);
         } else {
@@ -104,7 +104,7 @@ const Schedule = () => {
     // 해당 일정이 projectEvents에 속하는지 확인하고 삭제
     else if (projectEvents.includes(eventToDelete)) {
       try {
-        const response = await deleteCalendarEvent(accessToken, eventToDelete);
+        const response = await deleteCalendarEvent(accessToken, eventToDelete.usercalendarId);
         setSchedules((prevSchedules) => ({
           ...prevSchedules,
           events: {
@@ -254,6 +254,7 @@ const Schedule = () => {
             console.log("팀플일정 추가 성공");
           }
         }
+        
       } else {
         console.error("일정 추가 실패:", response);
       }
@@ -389,7 +390,7 @@ const Schedule = () => {
 
   //팀 선택
   const handleTeamChange = (e) => {
-    const selected = teams.find((team) => team.teamName === e.target.value);
+    const selected = teams.find((team) => team.name === e.target.value);
     setSelectedTeam(selected);
     console.log("선택된 팀:", selected); // 팀이 제대로 선택되는지 확인
   };
@@ -433,8 +434,8 @@ const Schedule = () => {
                   >
                     <option value="">팀 선택</option>
                     {teamList.map((team) => (
-                      <option key={team.teamName} value={team.teamName}>
-                        {team.teamName}
+                      <option key={team.name} value={team.name}>
+                        {team.name}
                       </option>
                     ))}
                   </select>

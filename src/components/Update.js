@@ -19,12 +19,12 @@ const Update = () => {
         password: "",
         password_confirm: "",
     });
-    const [email,setEmaile] = useState("");
+    const [email, setEmaile] = useState("");
     const accessToken = localStorage.getItem('accessToken');
     const [imgSrc, setImgSrc] = useState(""); // 초기 이미지 경로를 비워둡니다.
     const [isModalOpen, setIsModalOpen] = useState(false); // 모달 상태 관리
     const [file, setFile] = useState(null); // 파일 상태 관리
-
+    const [deleteImage, setDeleteImage] = useState(false);
     useEffect(() => {
         const fetchUserInfo = async () => {
             try {
@@ -65,16 +65,14 @@ const Update = () => {
     };
 
     const handleFileChange = (e) => {
-        const selectedFile = e.target.files[0];
-        if (selectedFile) {
-            const reader = new FileReader();
-            reader.onloadend = () => {
-                setImgSrc(reader.result); // 선택한 파일의 URL을 상태에 저장
-                setFile(selectedFile); // 파일 상태 저장
-            };
-            reader.readAsDataURL(selectedFile); // 파일을 데이터 URL로 읽기
-        }
-    };
+    const selectedFile = e.target.files[0];
+    if (selectedFile) {
+        const fileURL = URL.createObjectURL(selectedFile); // 선택한 파일의 URL 생성
+        setImgSrc(fileURL); // 미리보기용 이미지 URL 설정
+        setFile(selectedFile); // 파일 상태 업데이트
+    }
+};
+
 
     const handleDeleteClick = () => {
         setIsModalOpen(true); // 모달 열기
@@ -96,33 +94,26 @@ const Update = () => {
     };
 
     const handleUpdate = async () => {
-        const formDataToSend = new FormData();
-        if (file) {
-            formDataToSend.append('image', file); // 파일 추가
-            formDataToSend.append('deleteImage', false); // 프로필 사진 삭제 여부
-        } else {
-
-            formDataToSend.append('deleteImage', true); // 프로필 사진 삭제 여부
+        const requestBody = {
+            name: formData.name,
+            stuNum: formData.s_num,
+            major: formData.major,
+            password: formData.password,
+            confirmPassword: formData.password_confirm,
+            image: file,
+            isDeleteImage: deleteImage,
         }
-        formDataToSend.append('name', formData.name);
-        formDataToSend.append('stuNum', formData.s_num);
-        formDataToSend.append('major', formData.major);
-        formDataToSend.append('password', formData.password);
-        formDataToSend.append('confirmPassword', formData.password_confirm);
-
-        // FormData 내용 확인
-        for (let [key, value] of formDataToSend.entries()) {
-            console.log(`${key}: ${value}`);
-        }
+        
+        console.log(requestBody);
 
         try {
-            const response = await updateUserInfo(accessToken, formDataToSend);
-            console.log(response); // 응답 확인
-            if (response.code === 200) {
+            const response = await updateUserInfo(accessToken, requestBody);
+            console.log(response.data.code);
+            if (response.data.code == 200) {
                 alert("정보가 성공적으로 업데이트되었습니다.");
-                localStorage.setItem('accessToken', response.data.accessToken);
+                localStorage.removeItem('accessToken');
+                localStorage.setItem('accessToken', response.data.data.accessToken);
                 goToHome();
-                // 여기서 accessToken을 업데이트할 수 있습니다. (필요한 경우)
             } else {
                 alert("정보 업데이트 중 오류 발생: " + response.message);
             }
@@ -132,6 +123,11 @@ const Update = () => {
         }
     };
 
+    const resetProfileImage = () => {
+        setImgSrc(""); // 기본 이미지로 변경
+        setFile(null); // 파일 상태 초기화
+        setDeleteImage(true);
+    };
 
     return (
         <div style={style}>
@@ -140,7 +136,14 @@ const Update = () => {
                 <div className={styles.info}>
                     <div className={styles.icon} style={{ position: 'relative' }}>
                         {imgSrc ? (
-                            <img src={imgSrc} alt="Profile" width="110" height="110" style={{ borderRadius: '50%' }} />
+                            <>
+                                <img src={imgSrc} alt="Profile" width="110" height="110" style={{ borderRadius: '50%' }} />
+                                <button onClick={resetProfileImage} className={styles.resetButton} style={{ position: 'absolute', top: '-10px', right: '-10px', background: 'none', border: 'none', cursor: 'pointer', width: '30px', height: '30px' }}>
+                                    <svg width="30" height="30" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M10 8.58579L13.4142 5.17157L14.8284 6.58579L11.4142 10L14.8284 13.4142L13.4142 14.8284L10 11.4142L6.58579 14.8284L5.17157 13.4142L8.58579 10L5.17157 6.58579L6.58579 5.17157L10 8.58579Z" fill="#000000" />
+                                    </svg>
+                                </button>
+                            </>
                         ) : (
                             <svg width="110" height="110" viewBox="0 0 110 110" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ borderRadius: '50%' }}>
                                 <rect width="110" height="110" rx="55" fill="#7F7F7F" fillOpacity="0.2" style={{ mixBlendMode: 'luminosity' }} />
@@ -154,9 +157,8 @@ const Update = () => {
                                 <circle cx="17.25" cy="16.625" r="16.5" fill="white" />
                                 <g clipPath="url(#clip0_2279_1339)">
                                     <rect width="23.6739" height="23.6739" transform="translate(5.77148 4.4292)" fill="white" />
-                                    <path d="M28.4589 23.1713C28.4589 23.6945 28.251 24.1963 27.8811 24.5663C27.5111 24.9363 27.0093 25.1441 26.4861 25.1441H8.73064C8.20741 25.1441 7.70562 24.9363 7.33564 24.5663C6.96566 24.1963 6.75781 23.694                                    6.75781 23.1713V12.3207C6.75781 11.7975 6.96566 11.2957 7.33564 10.9257C7.70562 10.5558 8.20741 10.3479 8.73064 10.3479H12.6763L14.6491 7.38867H20.5676L22.5404 10.3479H26.4861C27.0093 10.3479 27.5111 10.5558 27.8811 10.9257C28.251 11.2957 28.4589 11.7975 28.4589 12.3207V23.1713Z" fill="#4C4C4C" />
+                                    <path d="M28.4589 23.1713C28.4589 23.6945 28.251 24.1963 27.8811 24.5663C27.5111 24.9363 27.0093 25.1441 26.4861 25.1441H8.73064C8.20741 25.1441 7.70562 24.9363 7.33564 24.5663C6.96566 24.1963 6.75781 23.6945 6.75781 23.1713V12.3207C6.75781 11.7975 6.96566 11.2957 7.33564 10.9257C7.70562 10.5558 8.20741 10.3479 8.73064 10.3479H12.6763L14.6491 7.38867H20.5676L22.5404 10.3479H26.4861C27.0093 10.3479 27.5111 10.5558 27.8811 10.9257C28.251 11.2957 28.4589 11.7975 28.4589 12.3207V23.1713Z" fill="#4C4C4C" />
                                     <path d="M17.6084 21.1985C19.7875 21.1985 21.554 19.4319 21.554 17.2528C21.554 15.0737 19.7875 13.3072 17.6084 13.3072C15.4292 13.3072 13.6627 15.0737 13.6627 17.2528C13.6627 19.4319 15.4292 21.1985 17.6084 21.1985Z" fill="#4C4C4C" />
-                                    <path d="M28.4589 23.1713C28.4589 23.6945 28.251 24.1963 27.8811 24.5663C27.5111 24.9363 27.0093 25.1441 26.4861 25.1441H8.73064C8.20741 25.1441 7.70562 24.9363 7.33564 24.5663C6.96566 24.1963 6.75781 23.6945 6.75781 23.1713V12.3207C6.75781 11.7975 6.96566 11.2957 7.33564 10.9257C7.70562 10.5558 8.20741 10.3479 8.73064 10.3479H12.6763L14.6491 7.38867H20.5676L22.5404 10.3479H26.4861C27.0093 10.3479 27.5111 10.5558 27.8811 10.9257C28.251 11.2957 28.4589 11.7975 28.4589 12.3207V23.1713Z" stroke="white" strokeWidth="1.48696" strokeLinecap="round" strokeLinejoin="round" />
                                 </g>
                                 <defs>
                                     <clipPath id="clip0_2279_1339">
