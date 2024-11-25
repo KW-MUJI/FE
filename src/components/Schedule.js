@@ -18,11 +18,13 @@ const Schedule = () => {
       projectEvents: [],
     },
   });
+
   // 캘린더 데이터 상태, API에서 받아온 일정
   const [teams, setTeams] = useState([]);
   const [teamList, setTeamList] = useState([]); // 팀플 일정에서 선택할 수 있는 팀 목록 상태
   const [currentDate, setCurrentDate] = useState(new Date()); // 현재 선택된 날짜 상태. 이 값을 기준으로 캘린더를 렌더링
   const accessToken = localStorage.getItem("accessToken");
+  
   //캘린더 데이터 불러오기
   useEffect(() => {
     // API를 호풀하여 선택한 연도와 월에 맞는 캘린더 데이터 가져옴

@@ -170,6 +170,9 @@
   border-radius: 15px;
   background: #fff;
 }
+#nonportfolio {
+  cursor: not-allowed;
+}
 
 #select {
   background: #8b0b02;

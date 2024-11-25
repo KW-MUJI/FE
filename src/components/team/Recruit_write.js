@@ -17,7 +17,7 @@ const RecruitWrite = () => {
   const [description, setDescription] = useState("");
 
   const [image, setImage] = useState(null);
-  const [deleteImage, setDeleteImage] = useState(false);
+  const [isDeleteImage, setIsDeleteImage] = useState(false);
   const [imagePreview, setImagePreview] = useState(null);
   const navigate = useNavigate();
 
@@ -43,9 +43,11 @@ const RecruitWrite = () => {
       const response = await getProjectDetails(projectId, accessToken);
       setName(response.data.name);
       setDescription(response.data.description);
-      setDeadlineAt(response.data.deadLineAt);
+      setDeadlineAt(response.data.deadlineAt);
       setImage(response.data.image);
       setImagePreview(response.data.image);
+      console.log("setDeadlineAt: ", response.data.deadlineAt);
+      console.log("description: ", response.data.description);
     } catch (error) {
       console.error("fetchProjectDetail 에러", error);
     }
@@ -69,7 +71,8 @@ const RecruitWrite = () => {
       name,
       description,
       projectImage: image, // 이미지 파일 이름
-      deleteImage, // 기존 이미지 삭제 여부
+      isDeleteImage, // 기존 이미지 삭제 여부
+      deadlineAt,
     };
 
     const postData = {
@@ -78,7 +81,7 @@ const RecruitWrite = () => {
       deadlineAt,
       image: image || null,
       ProjectImage: image,
-      deleteImage,
+      isDeleteImage,
     };
 
     try {
@@ -117,7 +120,7 @@ const RecruitWrite = () => {
   //이미지 미리보기.초기화
   const handleImageReset = () => {
     setImagePreview(null); // 이미지 미리보기 초기화
-    setDeleteImage(true);
+    setIsDeleteImage(true);
 
     document.getElementById("file-upload").value = ""; // input 값 초기화
   };
@@ -142,7 +145,9 @@ const RecruitWrite = () => {
     const selectedDate = e.target.value;
 
     if (selectedDate < formattedToday) {
-      alert(`마감일은 오늘 이후로 설정해야 합니다. ${deadlineAt}`);
+      alert(
+        `마감일을 ${formattedToday} 이전으로는 설정할 수 없습니다. ${deadlineAt}`
+      );
       return;
     }
 
