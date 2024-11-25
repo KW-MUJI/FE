@@ -152,7 +152,6 @@ const RecruitPost = () => {
   const [role, setRole] = useState("");
   const [onGoing, setOnGoing] = useState(true);
   const [portfolios, setPortfolios] = useState([]);
-  const [applicationSubmitted, setApplicationSubmitted] = useState(false); //지원여부
   const navigate = useNavigate(); // useNavigate 훅 선언
 
   const today = new Date();
@@ -248,10 +247,10 @@ const RecruitPost = () => {
         selectedPortfolio,
         projectId
       );
+      console.log("신청여부:", result.data);
       if (result) {
-        alert("신청이 완료되었습니다.");
-        setApplicationSubmitted(result.data.data); // 신청 상태 업데이트
         handleCloseModal(); // 모달 닫기
+        alert("신청이 완료되었습니다.");
       } else {
         alert("신청에 실패했습니다. 다시 시도해주세요.");
       }
