@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 import styles from "../../styles/My_recruit_team.module.css"; // CSS 파일 임포트
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../contexts/AuthContext.js";
 import {
   getMyProjectApplicant,
   deleteProject,
-  selectTeamMember,
+  startTeamProject,
 } from "../../api/myteamApi";
 
 const maskName = (name) => {
@@ -18,10 +18,42 @@ const maskName = (name) => {
 const Applicant = ({
   members,
   handlesSelectApplicant,
-  selectApplicant = [],
-  startTeamproject,
+  handlesUnSelectApplicant,
+  selectApplicant,
+  startProject,
   teamID,
 }) => {
+  const [buttonStates, setButtonStates] = useState({});
+
+  const handleButtonFunction = (member) => {
+    if (selectApplicant.includes(member.id)) {
+      setButtonStates((prev) => ({ ...prev, [member.id]: "팀원 선택" }));
+      return handlesUnSelectApplicant(member.id);
+    } else {
+      setButtonStates((prev) => ({ ...prev, [member.id]: "선택 취소" }));
+
+      return handlesSelectApplicant(member.id);
+    }
+  };
+
+  const handleSelectButton = (member) => {
+    return (
+      <>
+        <button
+          id={
+            selectApplicant.includes(member.id)
+              ? styles.nonselect
+              : styles.select
+          }
+          onClick={() => handleButtonFunction(member)}
+          disabled={startProject.includes(teamID)}
+        >
+          {buttonStates[member.id] || "팀원 선택"} {/* 기본값 설정 */}
+        </button>
+      </>
+    );
+  };
+
   return (
     <div className={styles.applicant}>
       {members.map((member) => (
@@ -93,23 +125,13 @@ const Applicant = ({
               onClick={() =>
                 window.open(`/my_team_applicant/${member.id}`, "_blank")
               }
-              disabled={startTeamproject.includes(teamID)}
+              disabled={startProject.includes(teamID)}
             >
               {" "}
               포트폴리오
             </button>
 
-            <button
-              id={
-                selectApplicant.includes(member.id)
-                  ? styles.nonselect
-                  : styles.select
-              }
-              onClick={() => handlesSelectApplicant(member.id, teamID)}
-              disabled={startTeamproject.includes(teamID)}
-            >
-              {selectApplicant.includes(member.id) ? "선택 취소" : "팀원 선택"}
-            </button>
+            {handleSelectButton(member)}
           </div>
         </div>
       ))}
@@ -119,8 +141,8 @@ const Applicant = ({
 
 const MyRecruitTeam = () => {
   const [projectList, setProjectList] = useState([]);
-  const [startTeamproject, setStartTeamproject] = useState([]);
-  const [selectParticipant, setSelectParticipant] = useState([]);
+  const [startProject, setStartProject] = useState([]);
+  const [selectParticipant, setSelectParticipant] = useState({});
   const { accessToken } = useAuth();
   const navigate = useNavigate();
   useEffect(() => {
@@ -159,40 +181,41 @@ const MyRecruitTeam = () => {
     }
   };
 
-  const handleStart = (teamID) => {
-    setStartTeamproject((prev) => [...prev, teamID]);
-    console.log(`${teamID} 팀플 시작됨`);
+  const handleStart = async (teamID) => {
+    try {
+      console.log("selectParticipant[teamID]", selectParticipant[teamID]);
+      console.log("teamID", teamID);
+      const response = await startTeamProject(
+        accessToken,
+        selectParticipant[teamID], // 해당 팀의 선택된 지원자 전달
+        teamID
+      );
+      if (response) {
+        setStartProject((prev) => [...prev, teamID]);
+        console.log(`${teamID} 팀플 시작됨`);
+      } else {
+        console.error("팀플 시작 실패: 서버에서 true가 반환되지 않았습니다.");
+      }
+    } catch (error) {
+      console.error("팀플 시작 중 에러 발생:", error.message);
+      alert("팀플 시작에 실패했습니다. 다시 시도해주세요.");
+    }
   };
 
-  const handlesSelectApplicant = async (participantId, teamID) => {
-    setSelectParticipant(participantId);
-    // try {
-    //   console.log("고른 팀원", participantId);
-    //   const response = await selectTeamMember(accessToken, participantId);
+  const handlesSelectApplicant = (teamID, participantId) => {
+    setSelectParticipant((prev) => ({
+      ...prev,
+      [teamID]: [...(prev[teamID] || []), participantId], // 해당 팀 배열에 추가
+    }));
+    console.log(`Team ${teamID} selected:`, participantId);
+  };
 
-    //   if (response) {
-    //     // 상태 업데이트
-    //     setSelectParticipant((prev) => {
-    //       const selectedTeam = prev[teamID] || []; // 팀별 선택된 지원자 배열
-
-    //       if (selectedTeam.includes(participantId)) {
-    //         return {
-    //           ...prev,
-    //           [teamID]: selectedTeam.filter((id) => id !== participantId),
-    //         }; // 이미 선택된 경우 제거
-    //       } else {
-    //         return {
-    //           ...prev,
-    //           [teamID]: [...selectedTeam, participantId], // 선택되지 않은 경우 추가
-    //         };
-    //       }
-    //     });
-    //     console.log("팀원 선택 완료");
-    //   }
-    // } catch (error) {
-    //   console.error("팀원 선택 중 에러 발생:", error.message);
-    //   alert("팀원 선택에 실패했습니다. 다시 시도해주세요.");
-    // }
+  const handlesUnSelectApplicant = (teamID, participantId) => {
+    setSelectParticipant((prev) => ({
+      ...prev,
+      [teamID]: prev[teamID]?.filter((id) => id !== participantId) || [], // 해당 팀 배열에서 제거
+    }));
+    console.log(`Team ${teamID} unselected:`, participantId);
   };
 
   return (
@@ -221,7 +244,7 @@ const MyRecruitTeam = () => {
           <div className={styles.team_header}>
             <h> {team.name}</h>
             <div className={styles.list_option}>
-              {!startTeamproject.includes(team.id) && (
+              {!startProject.includes(team.id) && (
                 <button
                   className={styles.edit}
                   onClick={() =>
@@ -236,18 +259,18 @@ const MyRecruitTeam = () => {
                   handleStart(team.id);
                 }}
                 disabled={
-                  !selectParticipant[team.id] ||
+                  !selectParticipant[team.id] || // 선택된 지원자가 없거나
                   selectParticipant[team.id].length === 0
-                }
+                } // 배열이 비어 있는 경우}
                 className={
-                  startTeamproject.includes(team.id)
+                  startProject.includes(team.id)
                     ? styles.disabledStart
                     : styles.start
                 }
               >
-                {startTeamproject.includes(team.id) ? "모집 마감" : "팀플시작"}
+                {startProject.includes(team.id) ? "모집 마감" : "팀플시작"}
               </button>
-              {!startTeamproject.includes(team.id) && (
+              {!startProject.includes(team.id) && (
                 <button
                   className={styles.cancel}
                   onClick={() => deleteTeam(team.id)}
@@ -275,20 +298,20 @@ const MyRecruitTeam = () => {
           <div className={styles.team_main}>
             <div className={styles.applicant_number}>
               <p>지원자 {team.applicants.length}</p>
-              <p>
-                | 선택한 팀원{" "}
-                {selectParticipant[team.applicants.id]?.length || 0}
-              </p>
+              <p>| 선택한 팀원 {selectParticipant[team.id]?.length || 0}</p>
             </div>
 
             <div className={styles.applicant_list}>
               <Applicant
                 members={team.applicants}
                 handlesSelectApplicant={(memberID) =>
-                  handlesSelectApplicant(memberID)
-                } // `teamID`와 `memberID` 전달
+                  handlesSelectApplicant(team.id, memberID)
+                } // `memberID` 전달
+                handlesUnSelectApplicant={(memberID) =>
+                  handlesUnSelectApplicant(team.id, memberID)
+                }
                 selectApplicant={selectParticipant[team.id] || []} // 팀별 선택된 지원자
-                startTeamproject={startTeamproject}
+                startProject={startProject}
                 teamID={team.id}
               />
             </div>

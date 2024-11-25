@@ -85,7 +85,7 @@ const MyTeam = () => {
   const fetchTeamList = async () => {
     try {
       const response = await getMyProject(accessToken);
-      setTeamList(response);
+      setTeamList(response.data);
     } catch (error) {
       console.error("fetchTeamList 에러", error);
     }

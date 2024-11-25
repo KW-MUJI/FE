@@ -1,25 +1,15 @@
 import apiClient from "./index";
 
-
 //내가 참여한 팀플 확인
 export const getMyProject = async (accessToken) => {
   const url = "/myteam/participation";
   const headers = {
-    "content-type": "application/json",
     Authorization: `Bearer ${accessToken}`,
   };
 
   try {
     const response = await apiClient.get(url, { headers });
-    if (response.data.code === 200) {
-      console.log("내가 참여한 팀플 불러오기 성공 :", response.data.data);
-      return response.data.data;
-    } else {
-      console.error(
-        "내가 참여한 팀플 불러오기 실패 오류 코드 :",
-        response.data.code
-      );
-    }
+    console.log("내가 참여한 팀플 불러오기 성공 :", response.data);
     return response.data;
   } catch (error) {
     console.error("getMyProject API 에러:", error.response || error.message);
@@ -51,40 +41,6 @@ export const getMyProjectApplicant = async (accessToken) => {
       "getMyProjectApplicant API 에러:",
       error.response || error.message
     );
-    throw error;
-  }
-};
-//팀원 선택
-export const selectTeamMember = async (accessToken, participantId) => {
-  const url = `/myteam/select`;
-  const headers = {
-    "content-type": "application/json",
-    Authorization: `Bearer ${accessToken}`,
-  };
-
-  try {
-    const response = await apiClient.patch(
-      url,
-      { id: participantId },
-      { headers }
-    );
-
-    if (response.data.code === 200) {
-      console.log("팀원 선택 성공 :", response.data.data);
-      return response.data.data;
-    } else {
-      console.error("팀원 선택 실패 오류 코드 :", response.data.code);
-    }
-  } catch (error) {
-    console.error("selectTeamMember API 에러:", error);
-    if (error.response) {
-      console.error("응답 상태 코드:", error.response.status);
-      console.error("응답 데이터:", error.response.data);
-    } else if (error.request) {
-      console.error("요청이 전송되었지만 응답이 없음:", error.request);
-    } else {
-      console.error("요청 설정 중 에러 발생:", error.message);
-    }
     throw error;
   }
 };
@@ -140,18 +96,15 @@ export const updateProject = async (projectId, updateData, accessToken) => {
     formData.append("id", projectId); // 프로젝트 ID
     formData.append("name", updateData.name); // 이름
     formData.append("description", updateData.description); // 설명
-    formData.append("image", updateData.image);
-    formData.append("deleteImage", JSON.stringify(false));
+    formData.append("projectImage", updateData.projectImage);
+    formData.append("deleteImage", updateData.deleteImage ? true : false);
     // formData.append("deleteImage", JSON.stringify(updateData.deleteImage));
 
     // FormData 확인
-    console.log("FormData values with getAll:");
-    console.log("id:", formData.getAll("id"));
-    console.log("name:", formData.getAll("name"));
-    console.log("description:", formData.getAll("description"));
-    console.log("image:", formData.getAll("image"));
-    console.log("deleteImage:", formData.getAll("deleteImage"));
-
+    console.log("FormData 확인:");
+    for (let [key, value] of formData.entries()) {
+      console.log(`${key}:`, value, `(Type: ${typeof value})`);
+    }
     const response = await apiClient.patch(
       `/myteam/update`, // 엔드포인트
       formData,
@@ -167,7 +120,43 @@ export const updateProject = async (projectId, updateData, accessToken) => {
 
     return response.data;
   } catch (error) {
-    console.error("[ERROR] Update Project:", error.response || error.message);
+    console.error(
+      "[ERROR] Update Project:",
+      error.response.data || error.message
+    );
+    throw error;
+  }
+};
+
+export const startTeamProject = async (
+  accessToken,
+  memberIdList,
+  projectId
+) => {
+  const headers = {
+    Authorization: `Bearer ${accessToken}`,
+  };
+  const body = {
+    projectId,
+    memberIdList,
+  };
+  try {
+    const response = await apiClient.patch(`/myteam/start`, body, {
+      headers,
+    });
+
+    if (response.data.code === 200) {
+      console.log("팀플 시작:", response.data.data);
+      return response.data;
+    } else {
+      console.error("팀플 시작 실패 오류 코드 :", response.data.code);
+      return null;
+    }
+  } catch (error) {
+    console.error(
+      "startTeamProject API 에러:",
+      error.response || error.message
+    );
     throw error;
   }
 };

@@ -32,6 +32,7 @@ const MyPage = () => {
   const fileInputRef = useRef(null);
   const [emptydata, setEmptydata] = useState(["", "", ""]);
   const [token, setToken] = useState(localStorage.getItem("accessToken"));
+  
   useEffect(() => {
     const fetchData = async () => {
       try {

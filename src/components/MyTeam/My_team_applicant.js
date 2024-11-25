@@ -17,6 +17,7 @@ const MyTeamApplicant = () => {
   const [applicant, setApplicant] = useState(null);
   const { accessToken } = useAuth();
   const navigate = useNavigate();
+  
   useEffect(() => {
     if (!accessToken) {
       alert("로그인 상태가 아닙니다. 로그인 페이지로 이동합니다.");
