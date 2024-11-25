@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { fetchCalendar, addCalendarEvent } from "../api/Service.js"; // API 함수 가져오기
+import { fetchCalendar, addCalendarEvent, deleteCalendarEvent } from "../api/Service.js"; // API 함수 가져오기
 import styles from "../styles/Schedule.module.css";
-import { teams } from "./mockData"; // 팀 목록 가져오기
+import { responses } from "./mockData.js";
+
 
 const Schedule = () => {
   const [isSelected, setIsSelected] = useState("개인일정"); // (개인일정/ 팀플일정)
@@ -18,10 +19,10 @@ const Schedule = () => {
     },
   });
   // 캘린더 데이터 상태, API에서 받아온 일정
-
+  const [teams, setTeams] = useState([]);
   const [teamList, setTeamList] = useState([]); // 팀플 일정에서 선택할 수 있는 팀 목록 상태
   const [currentDate, setCurrentDate] = useState(new Date()); // 현재 선택된 날짜 상태. 이 값을 기준으로 캘린더를 렌더링
-
+  const accessToken = localStorage.getItem("accessToken");
   //캘린더 데이터 불러오기
   useEffect(() => {
     // API를 호풀하여 선택한 연도와 월에 맞는 캘린더 데이터 가져옴
@@ -33,6 +34,11 @@ const Schedule = () => {
         const data = await fetchCalendar(yearMonth); // API를 통해 데이터 가져오기 calendar.response
         if (data && data.data) {
           setSchedules(data.data); // 가져온 데이터를 스케줄 상태로 설정
+          console.log("asd", data);
+          if (data.data.project)
+            setTeams(data.data.project);
+          else
+            setTeams([]);
         } else {
           console.error("데이터 형식이 올바르지 않습니다.");
         }
@@ -60,49 +66,59 @@ const Schedule = () => {
   //각 일정 날짜,시간
   var userEvents = schedules.events.userEvents
     ? schedules.events.userEvents.filter(
-        (event) => event.eventDate.substring(0, 7) === dateStr
-      )
+      (event) => event.eventDate.substring(0, 7) === dateStr
+    )
     : [];
   var univEvents = schedules.events.univEvents
     ? schedules.events.univEvents.filter(
-        (event) => event.eventDate.substring(0, 7) === dateStr
-      )
+      (event) => event.eventDate.substring(0, 7) === dateStr
+    )
     : [];
   var projectEvents = schedules.events.projectEvents
     ? schedules.events.projectEvents.filter(
-        (event) => event.eventDate.substring(0, 7) === dateStr
-      )
+      (event) => event.eventDate.substring(0, 7) === dateStr
+    )
     : [];
   var allSchedules = [...univEvents, ...userEvents, ...projectEvents]; // 모든 일정을 하나의 배열로 합침
 
-  const handleDelete = (eventToDelete) => {
+  const handleDelete = async (eventToDelete) => {
     if (userEvents.includes(eventToDelete)) {
-      setSchedules((prevSchedules) => ({
-        ...prevSchedules,
-        events: {
-          ...prevSchedules.events,
+      try {
+        const response = await deleteCalendarEvent(accessToken, eventToDelete.usercalendarId);
+        setSchedules((prevSchedules) => ({
+          ...prevSchedules,
+          events: {
+            ...prevSchedules.events,
 
-          userEvents: prevSchedules.events.userEvents.filter(
-            (event) => event !== eventToDelete
-          ),
-        },
-      }));
+            userEvents: prevSchedules.events.userEvents.filter(
+              (event) => event !== eventToDelete
+            ),
+          },
+        }));
+        return responses;
+      } catch (error) {
+        console.log(error);
+      }
     }
 
     // 해당 일정이 projectEvents에 속하는지 확인하고 삭제
     else if (projectEvents.includes(eventToDelete)) {
-      setSchedules((prevSchedules) => ({
-        ...prevSchedules,
-        events: {
-          ...prevSchedules.events,
-          projectEvents: prevSchedules.events.projectEvents.filter(
-            (event) => event !== eventToDelete
-          ),
-        },
-      }));
-    }
-  };
-
+      try {
+        const response = await deleteCalendarEvent(accessToken, eventToDelete);
+        setSchedules((prevSchedules) => ({
+          ...prevSchedules,
+          events: {
+            ...prevSchedules.events,
+            projectEvents: prevSchedules.events.projectEvents.filter(
+              (event) => event !== eventToDelete
+            ),
+          },
+        })); return responses;
+      } catch (error) {
+        console.log(error);
+      }
+    };
+  }
   // projectId에 맞는 팀 이름을 찾아 반환하는 함수
   const getTeamNameByProjectId = (projectId) => {
     const project = schedules.projects.find(
@@ -140,9 +156,8 @@ const Schedule = () => {
               <div key={index}>
                 {schedules.events.projectEvents.includes(event) ? (
                   <div
-                    className={`${styles.schedule_item} ${
-                      styles[`${eventType}Event`]
-                    }`}
+                    className={`${styles.schedule_item} ${styles[`${eventType}Event`]
+                      }`}
                   >
                     <p className={styles.team_name}>
                       - {getTeamNameByProjectId(event.projectId)}
@@ -152,23 +167,20 @@ const Schedule = () => {
                   ""
                 )}
                 <div
-                  className={`${styles.schedule_item} ${
-                    styles[`${eventType}Event`]
-                  }`}
+                  className={`${styles.schedule_item} ${styles[`${eventType}Event`]
+                    }`}
                 >
                   <p
-                    className={`${styles.schedule_date} ${
-                      styles[`${eventType}Date`]
-                    }`}
+                    className={`${styles.schedule_date} ${styles[`${eventType}Date`]
+                      }`}
                   >
                     {event.eventDate.substring(5, 7)}월{" "}
                     {event.eventDate.substring(8, 10)}일{" "}
                     {event.eventDate.substring(11, 16)}
                   </p>
                   <p
-                    className={`${styles.schedule_title} ${
-                      styles[`${eventType}Title`]
-                    }`}
+                    className={`${styles.schedule_title} ${styles[`${eventType}Title`]
+                      }`}
                   >
                     {event.title}
                   </p>
@@ -209,17 +221,17 @@ const Schedule = () => {
     }
 
     const newEvent = {
-      usercalendarId: 98766, //현재는 테스트이기 떄문에 유저한명 지정
       projectId: isSelected === "팀플일정" ? selectedTeam.projectId : null, // 팀플일정이면 팀 ID 포함
       title,
-      eventDate: `${date} ${time}`,
+      eventDate: `${date} ${time}:00`,
     };
 
     console.log("추가할 이벤트:", newEvent); // 콘솔로 새로운 일정 출력
 
     try {
-      const response = await addCalendarEvent(newEvent); //API요청
-      if (response.code === 200) {
+      const response = await addCalendarEvent(accessToken, newEvent); //API요청
+      console.log(response);
+      if (response.status === 200) {
         if (isSelected === "개인일정") {
           setSchedules({
             ...schedules,
@@ -288,18 +300,18 @@ const Schedule = () => {
       // 각 이벤트 목록에서 날짜만 비교
       const userEvents = schedules.events.userEvents
         ? schedules.events.userEvents.filter(
-            (event) => event.eventDate.split(" ")[0] === dateStr
-          )
+          (event) => event.eventDate.split(" ")[0] === dateStr
+        )
         : [];
       const univEvents = schedules.events.univEvents
         ? schedules.events.univEvents.filter(
-            (event) => event.eventDate === dateStr
-          )
+          (event) => event.eventDate === dateStr
+        )
         : [];
       const projectEvents = schedules.events.projectEvents
         ? schedules.events.projectEvents.filter(
-            (event) => event.eventDate.split(" ")[0] === dateStr
-          )
+          (event) => event.eventDate.split(" ")[0] === dateStr
+        )
         : [];
 
       const allEvents = [...userEvents, ...univEvents, ...projectEvents];

@@ -384,10 +384,22 @@
   align-items: center;
   position: relative;
   top: 17.5px;
-  background: #eef2f6;
+  background: #EDE1F8;
   margin: 0 3.87px 0 18px;
 }
-
+.projectDot{
+  width: 15px;
+  /* 원하는 크기로 설정 */
+  height: 15px;
+  /* 원하는 크기로 설정 */
+  border-radius: 50%;
+  /* 원형으로 만들기 */
+  align-items: center;
+  position: relative;
+  top: 17.5px;
+  background: #EEF2F6;
+  margin: 0 3.87px 0 18px;
+}
 .ex span {
   display: flex;
   font-family: Pretendard;
