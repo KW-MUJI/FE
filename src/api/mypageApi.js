@@ -59,13 +59,12 @@ export const getUserInfo = async (accessToken) => {
 };
 // mypageApi.js
 export const updateUserInfo = async (accessToken, formData) => {
-    const response = await fetch(`http://15.165.62.195/mypage/update`, {
-        method: 'PATCH',
+    const response = await axios.patch(`http://15.165.62.195/mypage/update`, formData, {
         headers: {
+            "Content-Type": "multipart/form-data",
             'Authorization': `Bearer ${accessToken}`,
-        },
-        body: formData
+        }
     });
-    
-    return await response.json();
+    console.log(response);
+    return response;
 };

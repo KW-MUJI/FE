@@ -143,8 +143,8 @@ const MyPage = () => {
   };
 
   const formatLastModified = (date) => {
-    return date.replace(/-/g, ".");
-  };
+    return date.split(" ")[0].replace(/-/g, ".");
+};
 
   return (
     <div style={style}>
@@ -237,7 +237,7 @@ const MyPage = () => {
                     <span className={styles.dot}></span>
                     {item.name}
                     <span className={styles.dday}>
-                      {item.onGoing ? "진행 중" : "마감"}
+                      {item.isOngoing ? "진행 중" : "마감"}
                     </span>
                   </div>
                 ))
@@ -256,7 +256,7 @@ const MyPage = () => {
                     <span className={styles.dot}></span>
                     {item.title}
                     <span className={styles.dday}>
-                      {item.ongoing ? "진행 중" : "마감"}
+                      {item.isOngoing ? "진행 중" : "마감"}
                     </span>
                   </div>
                 ))

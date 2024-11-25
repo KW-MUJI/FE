@@ -84,10 +84,7 @@ const MainPage = () => {
   };
 
   const handleDateClick = (day) => {
-    alert(
-      `선택한 날짜: ${currentMonth.getFullYear()}-${currentMonth.getMonth() + 1
-      }-${day}`
-    );
+    navigate('/schedule');
   };
 
   const handleMouseEnter = (dayEvents, event) => {
