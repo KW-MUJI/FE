@@ -85,8 +85,7 @@ const MainPage = () => {
 
   const handleDateClick = (day) => {
     alert(
-      `선택한 날짜: ${currentMonth.getFullYear()}-${
-        currentMonth.getMonth() + 1
+      `선택한 날짜: ${currentMonth.getFullYear()}-${currentMonth.getMonth() + 1
       }-${day}`
     );
   };
@@ -107,15 +106,17 @@ const MainPage = () => {
   };
 
   const getEventsForDate = (dateString) => {
+    if (!data || !data.events) return []; // data가 null이거나 events가 없으면 빈 배열 반환
+
     const dayEvents = [];
 
-    const univEvents = (events.univEvents || []).filter(
+    const univEvents = (data.events.univEvents || []).filter(
       (event) => event.eventDate === dateString
     );
-    const userEvents = (events.userEvents || []).filter((event) =>
+    const userEvents = (data.events.userEvents || []).filter((event) =>
       event.eventDate.startsWith(dateString)
     );
-    const projectEvents = (events.projectEvents || []).filter((event) =>
+    const projectEvents = (data.events.projectEvents || []).filter((event) =>
       event.eventDate.startsWith(dateString)
     );
 
@@ -237,7 +238,9 @@ const MainPage = () => {
                     dayEvents.length > 0
                       ? dayEvents[0].type === "univ"
                         ? "#E8CECC66"
-                        : "#EEF2F6"
+                        : dayEvents[0].type === "user"
+                          ? "#EDE1F8"
+                          : "#EEF2F6"
                       : "transparent";
 
                   return (
@@ -260,8 +263,10 @@ const MainPage = () => {
                 const backgroundColor =
                   dayEvents.length > 0
                     ? dayEvents[0].type === "univ"
-                      ? "#E8CECC66"
-                      : "#EEF2F6"
+                      ? "#E8CECC66" // 대학 일정 색상
+                      : dayEvents[0].type === "user"
+                        ? "#EDE1F8" // 개인 일정 색상
+                        : "#EEF2F6" // 팀플 일정 색상
                     : "transparent";
 
                 return (
@@ -287,8 +292,10 @@ const MainPage = () => {
                 const backgroundColor =
                   dayEvents.length > 0
                     ? dayEvents[0].type === "univ"
-                      ? "#E8CECC66"
-                      : "#EEF2F6"
+                      ? "#E8CECC66" // 대학 일정 색상
+                      : dayEvents[0].type === "user"
+                        ? "#EDE1F8" // 개인 일정 색상
+                        : "#EEF2F6" // 팀플 일정 색상
                     : "transparent";
 
                 return (
@@ -320,16 +327,16 @@ const MainPage = () => {
             ></span>
             <span>대학 일정</span>
             <span
-              className={styles.teamDot}
+              className={styles.projectDot}
               style={{ background: "#EEF2F6", margin: "0 3.87px 0 18px" }}
             ></span>
-
             <span>팀플 일정</span>
             <span
-              className={styles.schoolDot}
+              className={styles.teamDot}
               style={{ background: "#EDE1F8", margin: "0 3.87px 0 18px" }}
             ></span>
             <span>개인 일정</span>
+            
           </div>
         </div>
       </div>
@@ -417,12 +424,10 @@ const MainPage = () => {
             </svg>
           </div>
           <div className={styles.buttons}>
-
             <button
               className={styles.first_btn}
               onClick={() => handleButtonClick("/myteam/applicant")}
             >
-
               MY 모집 팀플
               <br />
               지원자 확인

@@ -7,7 +7,7 @@ import {
   mockEditTeamplayWrite,
 } from "../components/mockData.js"; // Mock 데이터
 
-const CALENDAR_URL = "/api/calendar";
+const CALENDAR_URL = "http://15.165.62.195/calendar";
 
 export const signIn = async (email, password) => {
   try {
@@ -110,20 +110,33 @@ export const fetchCalendar = async (yearMonth) => {
 };
 
 // 일정 추가
-export const addCalendarEvent = async (eventData) => {
-  try {
-    const response = await axios.post(`${CALENDAR_URL}/add`, eventData, {
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-      },
-    });
-    return response.data;
-  } catch (error) {
-    console.warn("실제 API 호출 실패. Mock 데이터를 사용합니다.");
-    return mockAddCalendar.response; // API 호출이 실패하면 Mock 데이터 반환
-  }
+export const addCalendarEvent = async (accessToken, eventData) => {
+  const requestBody = {
+    projectId: eventData.projectId,
+    title: eventData.title,
+    eventDate: eventData.eventDate
+  };
+  console.log(accessToken);
+  const response = await fetch(`${CALENDAR_URL}/add`, {
+    method: 'POST',
+    headers: {
+      "content-type": "application/json",
+      "Authorization": `Bearer ${accessToken}`,
+    },
+    body: JSON.stringify(requestBody),
+  });
+  return response;
+
 };
+export const deleteCalendarEvent = async (accessToken, id) => {
+  const response = await axios.delete(`${CALENDAR_URL}/${id}`, {
+      headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${accessToken}`
+      }
+  });
+  return response;
+}
 
 export const getNotices = async (
   page = 1,
