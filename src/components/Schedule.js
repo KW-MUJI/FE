@@ -7,6 +7,7 @@ import { responses } from "./mockData.js";
 const Schedule = () => {
   const [isSelected, setIsSelected] = useState("개인일정"); // (개인일정/ 팀플일정)
   const [selectedTeam, setSelectedTeam] = useState(null); //사용자가 선택한 팀 상태
+  const [trigger, setTrigger] = useState(1);
   const [schedules, setSchedules] = useState({
     projects: {
       projectId: [],
@@ -48,7 +49,7 @@ const Schedule = () => {
     };
 
     fetchCalendarData();
-  }, [currentDate]); // currentDate가 변경될 때 마다 호출.
+  }, [currentDate, trigger]); // currentDate가 변경될 때 마다 호출.
 
   // 팀플 일정 선택 시 팀 목록 설정 (여기서는 mockData.js에서 팀 목록을 가져옴)
   useEffect(() => {
@@ -254,6 +255,7 @@ const Schedule = () => {
             console.log("팀플일정 추가 성공");
           }
         }
+        setTrigger(prev=>prev+1);
         
       } else {
         console.error("일정 추가 실패:", response);
