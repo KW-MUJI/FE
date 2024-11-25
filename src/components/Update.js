@@ -8,10 +8,12 @@ const Update = () => {
         backgroundColor: '#EEF2F6',
     };
     const navigate = useNavigate();
-    const goToHome = () => {
-        navigate("/home");
+    const goToMy = () => {
+        navigate("/my_page");
     };
-
+    const goToHome = () =>{
+        navigate("/home");
+    }
     const [formData, setFormData] = useState({
         name: "",
         s_num: "",
@@ -98,8 +100,8 @@ const Update = () => {
             name: formData.name,
             stuNum: formData.s_num,
             major: formData.major,
-            password: formData.password,
-            confirmPassword: formData.password_confirm,
+            password: formData.password ? formData.password : null,
+            confirmPassword: formData.password_confirm ? formData.password_confirm : null,
             image: file,
             isDeleteImage: deleteImage,
         }
@@ -113,7 +115,7 @@ const Update = () => {
                 alert("정보가 성공적으로 업데이트되었습니다.");
                 localStorage.removeItem('accessToken');
                 localStorage.setItem('accessToken', response.data.data.accessToken);
-                goToHome();
+                goToMy();
             } else {
                 alert("정보 업데이트 중 오류 발생: " + response.message);
             }
