@@ -24,7 +24,7 @@ export const fetchCalendar = async (yearMonth) => {
       title: eventData.title,
       eventDate: eventData.eventDate
     };
-    console.log(accessToken);
+    console.log("일정 추가 함수 호출됨"); 
     const response = await fetch(`${CALENDAR_URL}/add`, {
       method: 'POST',
       headers: {

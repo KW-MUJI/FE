@@ -32,6 +32,7 @@ const Schedule = () => {
         const yearMonth = `${currentDate.getFullYear()}-${String(
           currentDate.getMonth() + 1
         ).padStart(2, "0")}`;
+        console.log(yearMonth);
         const data = await fetchCalendar(yearMonth); // API를 통해 데이터 가져오기 calendar.response
         if (data && data.data) {
           setSchedules(data.data); // 가져온 데이터를 스케줄 상태로 설정
@@ -209,7 +210,7 @@ const Schedule = () => {
   // 일정추가 기능
   const addSchedule = async (e) => {
     e.preventDefault(); // 폼이 제출될 때 까지 페이지가 리로드 되는 기본 동작 방지
-
+    
     // 폼의 입력값을 가져오기
     const form = e.target;
     const title = form.elements.title.value;
