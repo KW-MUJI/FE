@@ -1,6 +1,5 @@
 import apiClient from "./index";
 
-
 //내가 참여한 팀플 확인
 export const getMyProject = async (accessToken) => {
   const url = "/myteam/participation";
@@ -140,18 +139,15 @@ export const updateProject = async (projectId, updateData, accessToken) => {
     formData.append("id", projectId); // 프로젝트 ID
     formData.append("name", updateData.name); // 이름
     formData.append("description", updateData.description); // 설명
-    formData.append("image", updateData.image);
-    formData.append("deleteImage", JSON.stringify(false));
+    formData.append("projectImage", updateData.projectImage);
+    formData.append("deleteImage", updateData.deleteImage ? true : false);
     // formData.append("deleteImage", JSON.stringify(updateData.deleteImage));
 
     // FormData 확인
-    console.log("FormData values with getAll:");
-    console.log("id:", formData.getAll("id"));
-    console.log("name:", formData.getAll("name"));
-    console.log("description:", formData.getAll("description"));
-    console.log("image:", formData.getAll("image"));
-    console.log("deleteImage:", formData.getAll("deleteImage"));
-
+    console.log("FormData 확인:");
+    for (let [key, value] of formData.entries()) {
+      console.log(`${key}:`, value, `(Type: ${typeof value})`);
+    }
     const response = await apiClient.patch(
       `/myteam/update`, // 엔드포인트
       formData,
@@ -167,7 +163,10 @@ export const updateProject = async (projectId, updateData, accessToken) => {
 
     return response.data;
   } catch (error) {
-    console.error("[ERROR] Update Project:", error.response || error.message);
+    console.error(
+      "[ERROR] Update Project:",
+      error.response.data || error.message
+    );
     throw error;
   }
 };

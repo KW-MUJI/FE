@@ -68,7 +68,7 @@ const RecruitWrite = () => {
     const updateData = {
       name,
       description,
-      image, // 이미지 파일 이름
+      projectImage: image, // 이미지 파일 이름
       deleteImage, // 기존 이미지 삭제 여부
     };
 
