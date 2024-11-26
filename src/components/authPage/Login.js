@@ -27,13 +27,15 @@ const Login = () => {
     try {
       // API 호출
       const response = await signIn({ email, password });
-      const accessToken = response.data.accessToken; // 서버에서 반환한 토큰
+      const { accessToken, refreshToken } = response.data; // 서버에서 반환한 토큰
       localStorage.setItem("accessToken", accessToken);
-      console.log(accessToken);
+      localStorage.setItem("refreshToken", refreshToken);
+
       // 로그인 성공 시 처리
       console.log("로그인 성공:", response);
+      console.log("Access Token:", accessToken);
+      console.log("Refresh Token:", refreshToken);
       setAccessToken(accessToken); // 로그인 상태로 변경
-      console.log("로그인 AccessToken:", accessToken);
 
       // 토큰 저장
       navigate("/home"); // 대시보드로 이동
