@@ -32,7 +32,7 @@ const MyPage = () => {
   const fileInputRef = useRef(null);
   const [emptydata, setEmptydata] = useState(["", "", ""]);
   const [token, setToken] = useState(localStorage.getItem("accessToken"));
-  
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -139,7 +139,7 @@ const MyPage = () => {
   };
 
   const openFileDialog = () => {
-    if(myPortfolios.length >= 3){
+    if (myPortfolios.length >= 3) {
       alert("포트폴리오는 3개 이하만 추가할 수 있습니다.");
       return;
     }
@@ -148,7 +148,7 @@ const MyPage = () => {
 
   const formatLastModified = (date) => {
     return date.split(" ")[0].replace(/-/g, ".");
-};
+  };
 
   return (
     <div style={style}>
@@ -217,7 +217,7 @@ const MyPage = () => {
         </div>
         <div className={styles.second_container}>
           <div className={styles.my_container}>
-            <div className={styles.team_section}>
+            <div className={styles.team_section} onClick={goToTeam}>
               <h3>MY 팀플</h3>
               {myTeams.length > 0 ? (
                 myTeams.map((item, index) => (
@@ -233,13 +233,13 @@ const MyPage = () => {
                 </div>
               )}
             </div>
-            <div className={styles.team_section}>
+            <div className={styles.team_section} onClick={goToMyTeam}>
               <h3>MY 모집 팀플</h3>
               {myRecruitTeams.length > 0 ? (
                 myRecruitTeams.map((item, index) => (
                   <div key={index} className={styles.team}>
                     <span className={styles.dot}></span>
-                    <span className={styles.text}>{item.name}</span>
+                    <span className={styles.myText}>{item.name}</span>
                     <span className={styles.dday}>
                       {item.isOngoing ? "진행 중" : "마감"}
                     </span>
@@ -252,13 +252,13 @@ const MyPage = () => {
                 </div>
               )}
             </div>
-            <div className={styles.team_section}>
+            <div className={styles.team_section} onClick={goTosurvey}>
               <h3>MY 설문</h3>
               {mySurveys.length > 0 ? (
                 mySurveys.map((item, index) => (
                   <div key={index} className={styles.team}>
                     <span className={styles.dot}></span>
-                    <span className={styles.text}>{item.title}</span>
+                    <span className={styles.myText}>{item.title}</span>
                     <span className={styles.dday}>
                       {item.isOngoing ? "진행 중" : "마감"}
                     </span>
@@ -292,12 +292,14 @@ const MyPage = () => {
               {myPortfolios.map((item, index) => (
                 <div key={index} className={styles.portfolio_item}>
                   <span className={styles.title}>{item.name}</span>
+
                   <button
                     className={styles.delete_button}
                     onClick={() => handleDeletePortfolio(item.resumeId, index)}
                   >
                     삭제
                   </button>
+
                   <span className={styles.last_modified}>
                     {" "}
                     {formatLastModified(item.createdAt)}
@@ -309,13 +311,13 @@ const MyPage = () => {
           <div className={styles.my_team}>
             <h3>지원한 팀플</h3>
             <div className={styles.index}>
-              <p className={styles.first}>제목</p>
-              <p className={styles.second}>　지원자 수</p>
+              <p className={styles.first}>공고 제목</p>
+              <p className={styles.second}>　지원자</p>
               <p className={styles.third}>마감일　　</p>
             </div>
-            <div className={styles.portfolio_list}>
+            <div className={styles.recruit_team_list}>
               {myAppliedTeams.map((item, index) => (
-                <div key={index} className={styles.portfolio_item}>
+                <div key={index} className={styles.recruit_team_item}>
                   <span className={styles.title}>{item.name}</span>
                   <span className={styles.num}>{item.applicantsNum}명</span>
                   <span className={styles.last_modified}>

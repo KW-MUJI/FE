@@ -1,194 +1,170 @@
 * {
-    font-family: Pretendard;
-    font-style: normal;
-    box-sizing: border-box;
-    white-space: nowrap;
+  font-family: Pretendard;
+  font-style: normal;
+  box-sizing: border-box;
+  white-space: nowrap;
 }
 
 .Myteam_container {
+  /* border: 1px solid #ff0000; */
+  width: 1228px;
+  height: auto;
 
-    /* border: 1px solid #ff0000; */
-    width: 1228px;
-    height: auto;
-
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 63px;
-
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 63px;
 }
 
 .Myteam_header {
-    /* border: 1px solid #ff6201; */
+  /* border: 1px solid #ff6201; */
 
-    display: flex;
+  display: flex;
 
-    font-size: 32px;
-    font-weight: 800;
-    line-height: 100%;
-    margin-bottom:36px;
-    /* 32px */
-
+  font-size: 32px;
+  font-weight: 800;
+  line-height: 100%;
+  margin-bottom: 36px;
+  /* 32px */
 }
 
 .Myteam_header svg {
-    margin-right: 12px;
+  margin-right: 12px;
 }
 
 .teamName {
+  font-size: 24px;
+  font-weight: 600;
 
-    font-size: 24px;
-    font-weight: 600;
+  width: 1228px;
+  height: 90px;
 
-    width: 1228px;
-    height: 90px;
+  display: flex;
+  align-items: center;
+  /* 세로 가운데 정렬 */
+  justify-content: space-between;
+  /* 가로 왼쪽 정렬 */
+  padding-left: 9px;
+  /* margin-top: 36px; */
 
-    display: flex;
-    align-items: center;
-    /* 세로 가운데 정렬 */
-    justify-content: space-between;
-    /* 가로 왼쪽 정렬 */
-    padding-left: 9px;
-    /* margin-top: 36px; */
+  color: #4c4c4c;
+  border-top: 1px solid var(--Border-Disabled-default, #b3b3b3);
 
-    color: #4C4C4C;
-    border-top: 1px solid var(--Border-Disabled-default, #B3B3B3);
+  border-bottom: 1px solid var(--Border-Disabled-default, #b3b3b3);
+}
 
-    border-bottom: 1px solid var(--Border-Disabled-default, #B3B3B3);
-
-
+.teamName p {
+  white-space: nowrap; /* 텍스트를 한 줄로 표시 */
+  overflow: hidden; /* 넘치는 텍스트를 숨김 */
+  text-overflow: ellipsis; /* 줄임표(...)를 표시 */
+  max-width: 85%; /* 최대 너비 설정 */
 
 }
 
 .schedule_add {
-    border-radius: 30px;
-    background: #8B0B02;
-    width: 122px;
-    height: 40px;
-    border: none;
+  border-radius: 30px;
+  background: #8b0b02;
+  width: 122px;
+  height: 40px;
+  border: none;
 
-    color: #FFF;
-    font-size: 23.012px;
-    font-weight: 600;
-    
-
+  color: #fff;
+  font-size: 23.012px;
+  font-weight: 600;
 }
 
 .oneteam {
-    display: flex;
-    flex-direction: column;
-
+  display: flex;
+  flex-direction: column;
 }
 
 .teamMember {
+  display: grid;
+  grid-template-columns: repeat(3, 0fr);
+  /* 4개의 열로 설정 */
+  gap: 68px;
+  /* 각 post 사이의 간격 */
 
+  width: 1228px;
 
-    display: grid;
-    grid-template-columns: repeat(3, 0fr);
-    /* 4개의 열로 설정 */
-    gap: 68px;
-    /* 각 post 사이의 간격 */
+  /* 최대 너비를 설정하여 중앙에 배치 */
 
-    width: 1228px;
+  /* margin:0; */
+  /* 페이지 중앙으로 배치 */
 
-    /* 최대 너비를 설정하여 중앙에 배치 */
-
-    /* margin:0; */
-    /* 페이지 중앙으로 배치 */
-
-    padding-left:67px;
-    margin-bottom:51px;
-    
-
+  padding-left: 67px;
+  margin-bottom: 51px;
 }
 
 .member_item {
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 
-
-    width: 320px;
-    height: 120px;
-    border-radius: 15px;
-    background: #EEF2F6;
-    padding-left: 28px;
-
+  width: 320px;
+  height: 120px;
+  border-radius: 15px;
+  background: #eef2f6;
+  padding-left: 28px;
 }
-
-
-
 
 /* <p>팀원</p> */
 .team_member_list p {
-    display: flex;
-    align-items: center;
-    /* 세로 가운데 정렬 */
-    justify-content: flex-start;
-    /* 가로 왼쪽 정렬 */
-    margin: 0;
-    margin-left: 66px;
-    margin-top: 36px;
-    margin-bottom: 26px;
+  display: flex;
+  align-items: center;
+  /* 세로 가운데 정렬 */
+  justify-content: flex-start;
+  /* 가로 왼쪽 정렬 */
+  margin: 0;
+  margin-left: 66px;
+  margin-top: 36px;
+  margin-bottom: 26px;
 
-    font-size: 24px;
-    font-weight: 500;
-
+  font-size: 24px;
+  font-weight: 500;
 }
 
-
 .info {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 
+  width: 190px;
 
-    width: 190px;
-
-    margin-left: 22px;
-
-
+  margin-left: 22px;
 }
 
 .name {
-    margin: 0;
+  margin: 0;
 
-    font-size: 24px;
-    font-weight: 800;
-    text-align: left;
-
+  font-size: 24px;
+  font-weight: 800;
+  text-align: left;
 }
 
 .department_num {
+  display: flex;
+  align-items: left;
+  /* 세로 가운데 정렬 */
+  justify-content: flex-start;
+  /* 가로 왼쪽 정렬 */
 
-    display: flex;
-    align-items: left;
-    /* 세로 가운데 정렬 */
-    justify-content: flex-start;
-    /* 가로 왼쪽 정렬 */
+  font-size: 18px;
+  font-weight: 400;
 
-    font-size: 18px;
-    font-weight: 400;
-
-
-
-    margin-top: 13px;
-    margin-bottom: 7px;
-
-
+  margin-top: 13px;
+  margin-bottom: 7px;
 }
 
 .department_num svg {
-    margin-top: auto;
-    margin-bottom: auto;
-    margin-left: 8.09px;
-    margin-right: 8.09px;
-
-
+  margin-top: auto;
+  margin-bottom: auto;
+  margin-left: 8.09px;
+  margin-right: 8.09px;
 }
 
 .email {
-    width: 182.404px;
-    height: 18px;
-    text-align: left;
+  width: 182.404px;
+  height: 18px;
+  text-align: left;
 
-    font-size: 18px;
-    font-weight: 400;
+  font-size: 18px;
+  font-weight: 400;
 }

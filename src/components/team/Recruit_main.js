@@ -127,8 +127,10 @@ const RecruitMain = () => {
         <h2
           className={styles.title}
           onClick={() => {
-            setCurrentPage(0);
-            setSearch("");
+            setSearchParams({ page: 0, search: "" }); // URL 상태 초기화
+            setSearch(""); // 검색어 초기화
+            setCurrentPage(0); // 페이지 상태 초기화
+            fetchProjectLists(0, ""); // 초기 상태 데이터 로드
           }}
         >
           팀플모집

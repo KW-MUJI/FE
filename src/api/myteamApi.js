@@ -1,4 +1,4 @@
-import apiClient from "./index";
+import {apiClient} from "./index";
 
 //내가 참여한 팀플 확인
 export const getMyProject = async (accessToken) => {

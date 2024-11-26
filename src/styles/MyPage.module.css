@@ -1,263 +1,297 @@
 .main_container {
-    width: 1228px;
-    height: auto;
-    margin: auto;
-    display: flex;
-    margin-bottom: 36px;
+  width: 1228px;
+  height: auto;
+  margin: auto;
+  display: flex;
+  margin-bottom: 36px;
 }
 
 .first_container {
-    margin: 36px 20px 0 0;
+  margin: 36px 20px 0 0;
 }
 
 .second_container {
-    width: 968px;
+  width: 968px;
 }
 
 .info {
-    background: #FFFFFF;
-    width: 240px;
-    height: 100%;
-    border-radius: 15px;
-    flex-direction: column;
-    display: flex;
+  background: #ffffff;
+  width: 240px;
+  height: 100%;
+  border-radius: 15px;
+  flex-direction: column;
+  display: flex;
 }
 
 .info h1 {
-    font-family: Pretendard;
-    font-size: 28px;
-    font-weight: 900;
-    line-height: 28px;
+  font-family: Pretendard;
+  font-size: 28px;
+  font-weight: 900;
+  line-height: 28px;
+  cursor: pointer;
 }
 
 .info span {
-    font-family: Pretendard;
-    font-size: 28px;
-    font-weight: 400;
-    line-height: 28px;
-    text-align: left;
+  font-family: Pretendard;
+  font-size: 28px;
+  font-weight: 400;
+  line-height: 28px;
+  text-align: left;
 }
 
 .my {
-    margin-top: 60px;
+  margin-top: 60px;
 }
-
+.my p {
+  cursor: pointer;
+}
 .logout {
-    width: 186.59px;
-    height: 32px;
-    border: solid 1px #d9d9d9;
-    border-radius: 20px;
-    background-color: white;
-    margin: auto auto 50px auto;
+  width: 186.59px;
+  height: 32px;
+  border: solid 1px #d9d9d9;
+  border-radius: 20px;
+  background-color: white;
+  margin: auto auto 50px auto;
 }
 
 .my_container {
-    width: 968px;
-    margin: 36px 0 22px 0;
-    display: flex; /* Flexbox를 사용하여 내부 요소 정렬 */
+  width: 968px;
+  margin: 36px 0 22px 0;
+  display: flex; /* Flexbox를 사용하여 내부 요소 정렬 */
 }
-.text{
-    overflow: hidden;
-}
+
 .team_section {
-    display: flex; /* flex로 변경 */
-    flex-direction: column; /* 세로 방향으로 정렬 */
-    width: 310px;
-    height: 270px; /* 고정 높이 */
-    background: #FFFFFF;
-    margin-right: 10px;
-    margin-left: 9px;
-    margin-bottom: 20px; /* 아래쪽 마진 추가 */
-    border-radius: 15px;
+  display: flex; /* flex로 변경 */
+  flex-direction: column; /* 세로 방향으로 정렬 */
+  width: 310px;
+  height: 270px; /* 고정 높이 */
+  background: #ffffff;
+  margin-right: 10px;
+  margin-left: 9px;
+  margin-bottom: 20px; /* 아래쪽 마진 추가 */
+  border-radius: 15px;
+  cursor: pointer;
 }
 
 .empty_message {
-    height: 100%; /* 전체 섹션 높이 사용 */
-    display: flex;
-    align-items: center; /* 수직 중앙 정렬 */
-    justify-content: center; /* 수평 중앙 정렬 */
-    font-family: Pretendard; /* 폰트 일관성 유지 */
-    font-size: 18px; /* 폰트 크기 */
-    color: #999; /* 빈 메시지 색상 */
+  height: 100%; /* 전체 섹션 높이 사용 */
+  display: flex;
+  align-items: center; /* 수직 중앙 정렬 */
+  justify-content: center; /* 수평 중앙 정렬 */
+  font-family: Pretendard; /* 폰트 일관성 유지 */
+  font-size: 18px; /* 폰트 크기 */
+  color: #999; /* 빈 메시지 색상 */
 }
 
 .team_section h3 {
-    font-family: Pretendard;
-    font-size: 24px;
-    font-weight: 800;
-    line-height: 24px;
-    text-align: left;
-    margin: 31px 0 31px 30px;
+  font-family: Pretendard;
+  font-size: 24px;
+  font-weight: 800;
+  line-height: 24px;
+  text-align: left;
+  margin: 31px 0 31px 30px;
 }
 
 .team {
-    display: flex;
-    align-items: center;
-    font-family: Pretendard;
-    font-size: 18px;
-    font-weight: 400;
-    height: 18px;
-    text-align: left;
-    margin-bottom: 22px;
+  display: flex;
+  align-items: center;
+  font-family: Pretendard;
+  font-size: 18px;
+  font-weight: 400;
+  height: 18px;
+  text-align: left;
+  margin-bottom: 22px;
 }
 
 .dot {
-    width: 7px;
-    height: 7px;
-    border-radius: 50%;
-    background-color: #b3b3b3;
-    margin-right: 16px;
-    margin-left: 20px;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background-color: #b3b3b3;
+  margin-right: 16px;
+  margin-left: 20px;
 }
-
+.text {
+  white-space: nowrap; /* 텍스트를 한 줄로 표시 */
+  overflow: hidden; /* 넘치는 텍스트를 숨김 */
+  text-overflow: ellipsis; /* 줄임표(...)를 표시 */
+  max-width: 80%; /* 최대 너비 설정 */
+}
+.myText {
+  white-space: nowrap; /* 텍스트를 한 줄로 표시 */
+  overflow: hidden; /* 넘치는 텍스트를 숨김 */
+  text-overflow: ellipsis; /* 줄임표(...)를 표시 */
+  max-width: 60%; /* 최대 너비 설정 */
+}
 .dday {
-    color: #b3b3b3;
-    font-family: Pretendard;
-    font-size: 18px;
-    font-weight: 400;
-    line-height: 18px;
-    margin-left: auto; /* 오른쪽으로 자동 마진 */
-    margin-right: 19px;
+  color: #b3b3b3;
+  font-family: Pretendard;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 18px;
+  margin-left: auto; /* 오른쪽으로 자동 마진 */
+  margin-right: 19px;
 }
 
 .index {
-    font-family: Pretendard;
-    font-size: 18px;
-    font-weight: 600;
-    line-height: 18px;
-    width: 936px;
-    height: 50px;
-    border-top: solid 1px #4c4c4c;
-    border-bottom: solid 1px #4c4c4c;
-    margin-left: 16px;
+  font-family: Pretendard;
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 18px;
+  width: 936px;
+  height: 50px;
+  border-top: solid 1px #4c4c4c;
+  border-bottom: solid 1px #4c4c4c;
+  margin-left: 16px;
 }
 
 .first {
-    display: inline-block;
-    width: 70px;
-    margin: 0 430px 0 125px;
+  display: inline-block;
+  width: 70px;
+  margin: 0 430px 0 125px;
 }
 
 .second {
-    display: inline-block;
-    width: 83px;
-    margin: 0 63px 0 0;
+  display: inline-block;
+  width: 83px;
+  margin: 0 63px 0 0;
 }
 
 .third {
-    display: inline-block;
+  display: inline-block;
 }
 
 .portfolio {
-    width: 968px;
-    height: 320px;
-    margin-bottom: 20px;
-    background: #FFFFFF;
-    border-radius: 15px;
+  width: 968px;
+  height: 320px;
+  margin-bottom: 20px;
+  background: #ffffff;
+  border-radius: 15px;
 }
 
 .portfolio h3 {
-    margin: 33px 0 25px 29px;
-    font-family: Pretendard;
-    font-size: 24px;
-    font-weight: 800;
-    line-height: 24px;
-    text-align: left;
+  margin: 33px 0 25px 29px;
+  font-family: Pretendard;
+  font-size: 24px;
+  font-weight: 800;
+  line-height: 24px;
+  text-align: left;
 }
 
 .portfolio_header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .add_button {
-    background-color: transparent;
-    color: #000000;
-    border: none;
-    border-radius: 4px;
-    padding: 8px 12px;
-    cursor: pointer;
-    font-family: Pretendard;
-    font-size: 20px;
-    font-weight: 400;
-    line-height: 20px;
-    text-align: left;
-    margin-right: 31px;
+  background-color: transparent;
+  color: #000000;
+  border: none;
+  border-radius: 4px;
+  padding: 8px 12px;
+  cursor: pointer;
+  font-family: Pretendard;
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 20px;
+  text-align: left;
+  margin-right: 31px;
 }
 
 .add_button:hover {
-    background-color: transparent;
+  background-color: transparent;
 }
 
 .portfolio_list {
-    margin-top: 26px;
+  margin-top: 26px;
 }
 
 .portfolio_item {
-    display: flex;
-    align-items: center;
-    margin-top: 26px;
+  display: grid;
+  grid-template-columns: 6fr 1fr 1fr;
+  gap: 10px; /* 요소 간격 */
+  width: 100%; /* 부모 요소의 너비 */
+  margin-top: 26px;
+}
+
+.recruit_team_list {
+  margin-top: 20px;
+}
+
+.recruit_team_item {
+  display: grid;
+  grid-template-columns: 4fr 1fr 1fr;
+  gap: 10px; /* 요소 간격 */
+  width: 100%; /* 부모 요소의 너비 */
 }
 
 .title {
-    width: 690px;
-    text-align: left;
-    font-family: Pretendard;
-    font-size: 20px;
-    font-weight: 600;
-    line-height: 20px;
-    color: #4c4c4c;
-    padding-left: 58px;
-    height: 32px;
+  text-align: left;
+  font-family: Pretendard;
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 20px;
+  color: #4c4c4c;
+  margin-left: 58px;
+  height: 32px;
+  align-content: center;
+  white-space: nowrap; /* 텍스트를 한 줄로 표시 */
+  overflow: hidden; /* 넘치는 텍스트를 숨김 */
+  text-overflow: ellipsis; /* 줄임표(...)를 표시 */
+  max-width: 90%; /* 최대 너비 설정 */
 }
 
 .last_modified {
-    font-family: Pretendard;
-    font-size: 18px;
-    font-weight: 400;
-    line-height: 18px;
-    text-align: center;
-    color: #4C4C4C;
-    margin-left: auto;
-    margin-right: 50px;
-    width: 100px;
+  font-family: Pretendard;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 18px;
+  text-align: center;
+
+  align-content: center;
+
+  color: #4c4c4c;
+  margin-left: auto;
+  margin-right: 50px;
+  width: 100px;
 }
 
 .delete_button {
-    cursor: pointer;
-    border: 1px solid #D9D9D9;
-    width: 71px;
-    height: 32px;
-    border-radius: 20px;
-    font-family: Pretendard;
-    font-size: 18px;
-    font-weight: 400;
-    line-height: 18px;
-    background-color: transparent;
+  cursor: pointer;
+  border: 1px solid #d9d9d9;
+  width: 71px;
+  height: 32px;
+  border-radius: 20px;
+  font-family: Pretendard;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 18px;
+  background-color: transparent;
 }
 
 .delete_button:hover {
-    background-color: #ff1a1a;
+  background-color: #ff1a1a;
 }
 
 .my_team {
-    width: 968px;
-    height: 320px;
-    background: #FFFFFF;
-    border-radius: 15px;
+  width: 968px;
+  height: 320px;
+  background: #ffffff;
+  border-radius: 15px;
 }
 
 .my_team h3 {
-    padding: 33px 0 25px 29px;
-    text-align: left;
-    font-family: Pretendard;
-    font-size: 24px;
-    font-weight: 800;
-    line-height: 24px;
-    margin: 0;
+  padding: 33px 0 25px 29px;
+  text-align: left;
+  font-family: Pretendard;
+  font-size: 24px;
+  font-weight: 800;
+  line-height: 24px;
+  margin: 0;
 }
 
 .num {
-    margin-left: 30px;
+  margin-left: 30px;
+  align-content: center;
 }

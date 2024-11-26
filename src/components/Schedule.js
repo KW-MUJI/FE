@@ -1,8 +1,14 @@
 import React, { useState, useEffect } from "react";
-import { fetchCalendar, addCalendarEvent, deleteCalendarEvent } from "../api/calendarApi.js"; // API 함수 가져오기
+import {
+  fetchCalendar,
+  addCalendarEvent,
+  deleteCalendarEvent,
+} from "../api/calendarApi.js"; // API 함수 가져오기
 import styles from "../styles/Schedule.module.css";
 import { responses } from "./mockData.js";
+
 import { useParams } from 'react-router-dom';
+
 
 const Schedule = () => {
   const [isSelected, setIsSelected] = useState("개인일정"); // (개인일정/ 팀플일정)
@@ -26,7 +32,9 @@ const Schedule = () => {
   const now = useParams();
   const [currentDate, setCurrentDate] = useState(new Date()); // 현재 선택된 날짜 상태. 이 값을 기준으로 캘린더를 렌더링
   const accessToken = localStorage.getItem("accessToken");
+
   const [enter, setEnter] = useState(1);
+
   //캘린더 데이터 불러오기
   useEffect(() => {
     // API를 호풀하여 선택한 연도와 월에 맞는 캘린더 데이터 가져옴
@@ -44,10 +52,8 @@ const Schedule = () => {
         if (data && data.data) {
           setSchedules(data.data); // 가져온 데이터를 스케줄 상태로 설정
           console.log("asd", data.data);
-          if (data.data.projects)
-            setTeams(data.data.projects);
-          else
-            setTeams([]);
+          if (data.data.projects) setTeams(data.data.projects);
+          else setTeams([]);
         } else {
           console.error("데이터 형식이 올바르지 않습니다.");
         }
@@ -75,25 +81,28 @@ const Schedule = () => {
   //각 일정 날짜,시간
   var userEvents = schedules.events.userEvents
     ? schedules.events.userEvents.filter(
-      (event) => event.eventDate.substring(0, 7) === dateStr
-    )
+        (event) => event.eventDate.substring(0, 7) === dateStr
+      )
     : [];
   var univEvents = schedules.events.univEvents
     ? schedules.events.univEvents.filter(
-      (event) => event.eventDate.substring(0, 7) === dateStr
-    )
+        (event) => event.eventDate.substring(0, 7) === dateStr
+      )
     : [];
   var projectEvents = schedules.events.projectEvents
     ? schedules.events.projectEvents.filter(
-      (event) => event.eventDate.substring(0, 7) === dateStr
-    )
+        (event) => event.eventDate.substring(0, 7) === dateStr
+      )
     : [];
   var allSchedules = [...univEvents, ...userEvents, ...projectEvents]; // 모든 일정을 하나의 배열로 합침
 
   const handleDelete = async (eventToDelete) => {
     if (userEvents.includes(eventToDelete)) {
       try {
-        const response = await deleteCalendarEvent(accessToken, eventToDelete.usercalendarId);
+        const response = await deleteCalendarEvent(
+          accessToken,
+          eventToDelete.usercalendarId
+        );
         setSchedules((prevSchedules) => ({
           ...prevSchedules,
           events: {
@@ -113,7 +122,10 @@ const Schedule = () => {
     // 해당 일정이 projectEvents에 속하는지 확인하고 삭제
     else if (projectEvents.includes(eventToDelete)) {
       try {
-        const response = await deleteCalendarEvent(accessToken, eventToDelete.usercalendarId);
+        const response = await deleteCalendarEvent(
+          accessToken,
+          eventToDelete.usercalendarId
+        );
         setSchedules((prevSchedules) => ({
           ...prevSchedules,
           events: {
@@ -122,12 +134,13 @@ const Schedule = () => {
               (event) => event !== eventToDelete
             ),
           },
-        })); return responses;
+        }));
+        return responses;
       } catch (error) {
         console.log(error);
       }
-    };
-  }
+    }
+  };
   // projectId에 맞는 팀 이름을 찾아 반환하는 함수
   const getTeamNameByProjectId = (projectId) => {
     const project = schedules.projects.find(
@@ -165,8 +178,9 @@ const Schedule = () => {
               <div key={index}>
                 {schedules.events.projectEvents.includes(event) ? (
                   <div
-                    className={`${styles.schedule_item} ${styles[`${eventType}Event`]
-                      }`}
+                    className={`${styles.schedule_item} ${
+                      styles[`${eventType}Event`]
+                    }`}
                   >
                     <p className={styles.team_name}>
                       - {getTeamNameByProjectId(event.projectId)}
@@ -176,20 +190,23 @@ const Schedule = () => {
                   ""
                 )}
                 <div
-                  className={`${styles.schedule_item} ${styles[`${eventType}Event`]
-                    }`}
+                  className={`${styles.schedule_item} ${
+                    styles[`${eventType}Event`]
+                  }`}
                 >
                   <p
-                    className={`${styles.schedule_date} ${styles[`${eventType}Date`]
-                      }`}
+                    className={`${styles.schedule_date} ${
+                      styles[`${eventType}Date`]
+                    }`}
                   >
                     {event.eventDate.substring(5, 7)}월{" "}
                     {event.eventDate.substring(8, 10)}일{" "}
                     {event.eventDate.substring(11, 16)}
                   </p>
                   <p
-                    className={`${styles.schedule_title} ${styles[`${eventType}Title`]
-                      }`}
+                    className={`${styles.schedule_title} ${
+                      styles[`${eventType}Title`]
+                    }`}
                   >
                     {event.title}
                   </p>
@@ -263,6 +280,7 @@ const Schedule = () => {
             console.log("팀플일정 추가 성공");
           }
         }
+
         setTrigger(prev => prev + 1);
 
       } else {
@@ -311,18 +329,18 @@ const Schedule = () => {
       // 각 이벤트 목록에서 날짜만 비교
       const userEvents = schedules.events.userEvents
         ? schedules.events.userEvents.filter(
-          (event) => event.eventDate.split(" ")[0] === dateStr
-        )
+            (event) => event.eventDate.split(" ")[0] === dateStr
+          )
         : [];
       const univEvents = schedules.events.univEvents
         ? schedules.events.univEvents.filter(
-          (event) => event.eventDate === dateStr
-        )
+            (event) => event.eventDate === dateStr
+          )
         : [];
       const projectEvents = schedules.events.projectEvents
         ? schedules.events.projectEvents.filter(
-          (event) => event.eventDate.split(" ")[0] === dateStr
-        )
+            (event) => event.eventDate.split(" ")[0] === dateStr
+          )
         : [];
 
       const allEvents = [...userEvents, ...univEvents, ...projectEvents];

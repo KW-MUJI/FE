@@ -1,5 +1,6 @@
 // src/api/authApi.js
-import apiClient from "./index.js";
+import {apiClient} from "./index.js";
+
 
 const API_URL = 'http://15.165.62.195';
 // 로그인
@@ -109,3 +110,7 @@ export const resetPw = async (email, pass, passcon) => {
 
   return await response.json();
 };
+
+
+
+

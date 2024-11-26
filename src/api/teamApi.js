@@ -1,4 +1,4 @@
-import apiClient from "./index";
+import { apiClient } from "./index";
 
 export const registerTeam = async (teamData, accessToken) => {
   try {
