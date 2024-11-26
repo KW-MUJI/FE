@@ -7,7 +7,7 @@ import {
   getPortfolioList,
   postPortfolio,
 } from "../../api/teamApi";
-import { formatDate } from "../../utils/dateUtil.js";
+import { iostringFormatDate } from "../../utils/dateUtil.js";
 
 // 모달 컴포넌트
 const Portfolio = ({
@@ -100,8 +100,10 @@ const Portfolio = ({
                   </span>{" "}
                   {/* 라디오 버튼 커스터마이징 */}
                   <div className={styles.portfolio_text}>
-                    <h3>{portfolio.title}</h3>
-                    <p>마지막 수정일: {portfolio.modified_date}</p>
+                    <h3>{portfolio.name}</h3>
+                    <p>
+                      마지막 수정일: {iostringFormatDate(portfolio.createdAt)}
+                    </p>
                   </div>
                 </label>
               </div>
