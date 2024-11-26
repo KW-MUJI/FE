@@ -84,7 +84,9 @@ const MainPage = () => {
   };
 
   const handleDateClick = (day) => {
-    navigate('/schedule');
+    navigate(`/schedule/${currentMonth.getFullYear()}-${String(
+          currentMonth.getMonth() + 1
+        ).padStart(2, "0")}`);
   };
 
   const handleMouseEnter = (dayEvents, event) => {

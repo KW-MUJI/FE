@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { fetchCalendar, addCalendarEvent, deleteCalendarEvent } from "../api/calendarApi.js"; // API 함수 가져오기
 import styles from "../styles/Schedule.module.css";
 import { responses } from "./mockData.js";
-
+import { useParams } from 'react-router-dom';
 
 const Schedule = () => {
   const [isSelected, setIsSelected] = useState("개인일정"); // (개인일정/ 팀플일정)
@@ -23,14 +23,19 @@ const Schedule = () => {
   // 캘린더 데이터 상태, API에서 받아온 일정
   const [teams, setTeams] = useState([]);
   const [teamList, setTeamList] = useState([]); // 팀플 일정에서 선택할 수 있는 팀 목록 상태
+  const now = useParams();
   const [currentDate, setCurrentDate] = useState(new Date()); // 현재 선택된 날짜 상태. 이 값을 기준으로 캘린더를 렌더링
   const accessToken = localStorage.getItem("accessToken");
-  
+  const [enter, setEnter] = useState(1);
   //캘린더 데이터 불러오기
   useEffect(() => {
     // API를 호풀하여 선택한 연도와 월에 맞는 캘린더 데이터 가져옴
     const fetchCalendarData = async () => {
       try {
+        if (enter == 1) {
+          setCurrentDate(new Date(now.yearMonth + '-01'));
+          setEnter(2);
+        }
         const yearMonth = `${currentDate.getFullYear()}-${String(
           currentDate.getMonth() + 1
         ).padStart(2, "0")}`;
@@ -212,7 +217,7 @@ const Schedule = () => {
   // 일정추가 기능
   const addSchedule = async (e) => {
     e.preventDefault(); // 폼이 제출될 때 까지 페이지가 리로드 되는 기본 동작 방지
-    
+
     // 폼의 입력값을 가져오기
     const form = e.target;
     const title = form.elements.title.value;
@@ -258,8 +263,8 @@ const Schedule = () => {
             console.log("팀플일정 추가 성공");
           }
         }
-        setTrigger(prev=>prev+1);
-        
+        setTrigger(prev => prev + 1);
+
       } else {
         console.error("일정 추가 실패:", response);
       }
