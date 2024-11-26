@@ -322,7 +322,7 @@ const RecruitPost = () => {
           <p>마감일 {deadlineAt}</p>
         </div>
 
-        <p className={styles.date}>작성일: {createdAt}</p>
+        <p className={styles.date}>작성일: {iostringFormatDate(createdAt)}</p>
         <div className={styles.recruit_contents}>
           <div
             className={styles.post_contents}

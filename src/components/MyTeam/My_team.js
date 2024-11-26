@@ -5,47 +5,65 @@ import { getMyProject } from "../../api/myteamApi";
 import { useAuth } from "../../contexts/AuthContext.js";
 import { useNavigate } from "react-router-dom";
 const TeamMember = ({ members = [] }) => {
+  const handleProfileImage = (member) => {
+    if (!member.image) {
+      return (
+        <div className={styles.svg}>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="58"
+            height="58"
+            viewBox="0 0 58 58"
+            fill="none"
+          >
+            <rect
+              width="58"
+              height="58"
+              rx="29"
+              fill="#7F7F7F"
+              fillOpacity="0.2"
+              style={{ mixBlendMode: "luminosity" }}
+            />
+            <rect
+              width="58"
+              height="58"
+              rx="29"
+              fill="#3D3D3D"
+              fillOpacity="0.5"
+              style={{ mixBlendMode: "overlay" }}
+            />
+            <path
+              fillRule="evenodd"
+              clipRule="evenodd"
+              d="M37.7004 23.2C37.7004 28.0049 33.8052 31.9 29.0004 31.9C24.1955 31.9 20.3004 28.0049 20.3004 23.2C20.3004 18.3951 24.1955 14.5 29.0004 14.5C33.8052 14.5 37.7004 18.3951 37.7004 23.2ZM34.8004 23.2C34.8004 26.4033 32.2036 29 29.0004 29C25.7971 29 23.2004 26.4033 23.2004 23.2C23.2004 19.9967 25.7971 17.4 29.0004 17.4C32.2036 17.4 34.8004 19.9967 34.8004 23.2Z"
+              fill="#8B0B02"
+            />
+            <path
+              d="M29.0004 36.25C19.6125 36.25 11.6138 41.8012 8.56689 49.5785C9.30914 50.3155 10.091 51.0127 10.9091 51.6665C13.178 44.5262 20.2956 39.15 29.0004 39.15C37.7051 39.15 44.8227 44.5262 47.0916 51.6665C47.9097 51.0127 48.6916 50.3155 49.4338 49.5785C46.3869 41.8012 38.3882 36.25 29.0004 36.25Z"
+              fill="#8B0B02"
+            />
+          </svg>
+        </div>
+      );
+    } else {
+      return (
+        <div className={styles.svg}>
+          <img
+            src={member.image}
+            alt=""
+            width="58"
+            height="58"
+            style={{ borderRadius: "50%" }}
+          />
+        </div>
+      );
+    }
+  };
   return (
     <div className={styles.teamMember}>
       {members.map((member, index) => (
         <div key={index} className={styles.member_item}>
-          <div className={styles.svg}>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="58"
-              height="58"
-              viewBox="0 0 58 58"
-              fill="none"
-            >
-              <rect
-                width="58"
-                height="58"
-                rx="29"
-                fill="#7F7F7F"
-                fillOpacity="0.2"
-                style={{ mixBlendMode: "luminosity" }}
-              />
-              <rect
-                width="58"
-                height="58"
-                rx="29"
-                fill="#3D3D3D"
-                fillOpacity="0.5"
-                style={{ mixBlendMode: "overlay" }}
-              />
-              <path
-                fillRule="evenodd"
-                clipRule="evenodd"
-                d="M37.7004 23.2C37.7004 28.0049 33.8052 31.9 29.0004 31.9C24.1955 31.9 20.3004 28.0049 20.3004 23.2C20.3004 18.3951 24.1955 14.5 29.0004 14.5C33.8052 14.5 37.7004 18.3951 37.7004 23.2ZM34.8004 23.2C34.8004 26.4033 32.2036 29 29.0004 29C25.7971 29 23.2004 26.4033 23.2004 23.2C23.2004 19.9967 25.7971 17.4 29.0004 17.4C32.2036 17.4 34.8004 19.9967 34.8004 23.2Z"
-                fill="#8B0B02"
-              />
-              <path
-                d="M29.0004 36.25C19.6125 36.25 11.6138 41.8012 8.56689 49.5785C9.30914 50.3155 10.091 51.0127 10.9091 51.6665C13.178 44.5262 20.2956 39.15 29.0004 39.15C37.7051 39.15 44.8227 44.5262 47.0916 51.6665C47.9097 51.0127 48.6916 50.3155 49.4338 49.5785C46.3869 41.8012 38.3882 36.25 29.0004 36.25Z"
-                fill="#8B0B02"
-              />
-            </svg>
-          </div>
-
+          {handleProfileImage(member)}
           <div className={styles.info}>
             <div className={styles.name}>
               <h>{member.name}</h>
@@ -128,7 +146,7 @@ const MyTeam = () => {
           teamList.map((team, index) => (
             <div key={index} className={styles.oneteam}>
               <div className={styles.teamName}>
-                {team.name}
+                <p>{team.name}</p>
                 <button
                   className={styles.schedule_add}
                   onClick={navigateSchedule}

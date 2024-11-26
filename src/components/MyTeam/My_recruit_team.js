@@ -54,46 +54,66 @@ const Applicant = ({
       </>
     );
   };
+  const handleProfileImage = (member) => {
+    if (!member.image) {
+      return (
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="58"
+          height="58"
+          viewBox="0 0 58 58"
+          fill="none"
+        >
+          <rect
+            width="58"
+            height="58"
+            rx="29"
+            fill="#7F7F7F"
+            fillOpacity="0.2"
+            style={{ mixBlendMode: "luminosity" }}
+          />
+          <rect
+            width="58"
+            height="58"
+            rx="29"
+            fill="#3D3D3D"
+            fillOpacity="0.5"
+            style={{ mixBlendMode: "overlay" }}
+          />
+          <path
+            fillRule="evenodd"
+            clipRule="evenodd"
+            d="M37.6999 23.2C37.6999 28.0049 33.8047 31.9 28.9999 31.9C24.195 31.9 20.2999 28.0049 20.2999 23.2C20.2999 18.3951 24.195 14.5 28.9999 14.5C33.8047 14.5 37.6999 18.3951 37.6999 23.2ZM34.7999 23.2C34.7999 26.4033 32.2031 29 28.9999 29C25.7966 29 23.1999 26.4033 23.1999 23.2C23.1999 19.9967 25.7966 17.4 28.9999 17.4C32.2031 17.4 34.7999 19.9967 34.7999 23.2Z"
+            fill="#8B0B02"
+          />
+          <path
+            d="M28.9999 36.25C19.612 36.25 11.6133 41.8012 8.56641 49.5785C9.30865 50.3155 10.0906 51.0127 10.9086 51.6665C13.1775 44.5262 20.2951 39.15 28.9999 39.15C37.7046 39.15 44.8222 44.5262 47.0911 51.6665C47.9092 51.0127 48.6911 50.3155 49.4333 49.5785C46.3864 41.8012 38.3877 36.25 28.9999 36.25Z"
+            fill="#8B0B02"
+          />
+        </svg>
+      );
+    } else {
+      return (
+        <img
+          src={member.image}
+          alt=""
+          width="58"
+          height="58"
+          style={{ borderRadius: "50%" }}
+        />
+      );
+    }
+  };
 
   return (
     <div className={styles.applicant}>
       {members.map((member) => (
         <div key={member.id} className={styles.applicant_item}>
           <div className={styles.applicant_profile}>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="58"
-              height="58"
-              viewBox="0 0 58 58"
-              fill="none"
-            >
-              <rect
-                width="58"
-                height="58"
-                rx="29"
-                fill="#7F7F7F"
-                fillOpacity="0.2"
-                style={{ mixBlendMode: "luminosity" }}
-              />
-              <rect
-                width="58"
-                height="58"
-                rx="29"
-                fill="#3D3D3D"
-                fillOpacity="0.5"
-                style={{ mixBlendMode: "overlay" }}
-              />
-              <path
-                fillRule="evenodd"
-                clipRule="evenodd"
-                d="M37.6999 23.2C37.6999 28.0049 33.8047 31.9 28.9999 31.9C24.195 31.9 20.2999 28.0049 20.2999 23.2C20.2999 18.3951 24.195 14.5 28.9999 14.5C33.8047 14.5 37.6999 18.3951 37.6999 23.2ZM34.7999 23.2C34.7999 26.4033 32.2031 29 28.9999 29C25.7966 29 23.1999 26.4033 23.1999 23.2C23.1999 19.9967 25.7966 17.4 28.9999 17.4C32.2031 17.4 34.7999 19.9967 34.7999 23.2Z"
-                fill="#8B0B02"
-              />
-              <path
-                d="M28.9999 36.25C19.612 36.25 11.6133 41.8012 8.56641 49.5785C9.30865 50.3155 10.0906 51.0127 10.9086 51.6665C13.1775 44.5262 20.2951 39.15 28.9999 39.15C37.7046 39.15 44.8222 44.5262 47.0911 51.6665C47.9092 51.0127 48.6911 50.3155 49.4333 49.5785C46.3864 41.8012 38.3877 36.25 28.9999 36.25Z"
-                fill="#8B0B02"
-              />
-            </svg>
+            <div className={styles.applicant_profile_image}>
+              {handleProfileImage(member)}
+            </div>
+
             <div className={styles.applicant_info}>
               <div className={styles.applicant_name}>
                 {maskName(member.name)}
