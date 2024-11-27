@@ -8,10 +8,9 @@ const AUTH_URL = {
 };
 
 export const apiClient = axios.create({
-  baseURL: "http://15.165.62.195",
-
+  baseURL: process.env.REACT_APP_API_BASE_URL,
   //   timeout: 5000, 벡엔드와 상의, 벡엔드 타임아웃 보다는 짧게
-  headers: { "content-type": "application/json" },
+  headers: { "content-type": process.env.REACT_APP_DEFAULT_CONTENT_TYPE },
 });
 
 // Request Interceptor: Access Token 추가
