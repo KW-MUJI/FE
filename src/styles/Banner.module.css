@@ -1,0 +1,106 @@
+.banner_container {
+  display: flex;
+  justify-content: space-between;
+  /* 가로 중앙 정렬 */
+  align-items: center;
+  /* 세로 중앙 정렬 */
+
+  min-width: 100vw;
+  height: 172px;
+  border-bottom: 1px solid #b3b3b3;
+  /* 하단에만 1px 선 추가 */
+  background-color: white;
+  box-sizing: border-box;
+}
+
+.logo {
+  width: 211px;
+  height: 57px;
+  flex-shrink: 0;
+  margin: 59px 80px 57px 21px;
+}
+
+.title {
+  /* text-align: center; */
+  /* text-align: center; 텍스트를 중앙 정렬 */
+  white-space: nowrap;
+  /* 텍스트 줄바꿈 안되게 */
+  font-family: Pretendard;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.title > h2 {
+  color: #000;
+  font-size: 28px;
+  font-weight: 500;
+  /* 28px */
+  margin: 48px auto 0 auto;
+}
+
+.title > h1 {
+  color: #8b0b02;
+  font-size: 40px;
+  font-style: normal;
+  font-weight: 900;
+  /* 40px */
+  margin: 10px 0 46px;
+}
+
+.navbar {
+  width: 350px;
+  background-color: transparent;
+  white-space: nowrap;
+  /* 텍스트 줄바꿈 안되게 */
+}
+
+.navbar_menu {
+  list-style: none;
+
+  display: flex;
+  /* flexbox로 설정하여 가로 정렬 */
+  margin: 77px auto;
+
+  padding: 0;
+}
+
+/* 각 메뉴 항목 스타일 */
+.navbar_menu li {
+  margin-left: 16px;
+  /* 메뉴 항목 간의 간격 설정 */
+}
+
+/* 링크 스타일 */
+.navbar_menu a {
+  color: rgb(0, 0, 0);
+  /* 링크의 색상을 검정으로 설정 */
+  text-decoration: none;
+  /* 링크의 밑줄을 제거 */
+  padding: 10px 15px;
+  transition: background-color 0.2s ease;
+  /* 배경색 변화에 대한 트랜지션 효과 */
+  font-family: Pretendard;
+  font-size: var(--sds-typography-body-size-large);
+  /* CSS 변수로 폰트 크기를 설정 */
+  /* 폰트 스타일을 기본(normal)로 설정 */
+  font-weight: 500;
+  /* 폰트 두께를 500으로 설정 */
+  line-height: 100%;
+  /* 줄 간격을 100%로 설정 (20px) */
+}
+
+/* 광운대학교 상단메뉴의 색상을 다르게 설정 */
+.k_menu {
+  color: #8b0b02 !important;
+}
+
+/* 링크에 마우스를 올렸을 때 스타일 */
+.navbar_menu a:hover {
+  background-color: #757272;
+}
+
+.Logout_button {
+  color: #8b0b02 !important;
+  font-weight: 500;
+  font-size: 18px;
+}

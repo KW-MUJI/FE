@@ -1,0 +1,204 @@
+/* src/components/Login.css */
+
+
+:root {
+  --sds-typography-body-size-large: 18px;
+  /* 원하는 크기로 정의 */
+}
+
+.login_container {
+
+  display: flex;
+  flex-direction: column;
+  /*  세로 정렬 */
+  align-items: center;
+  /* justify-content: center; */
+  /* 주 축으로 정렬 */
+  /* 줄바꿈 없음 */
+
+  max-width: 1040px;
+  width: 495px;
+  height: 509px;
+
+  margin: 115px auto;
+  /* 부모 요소 내에서 가로 중앙에 배치 */
+  border: 1px solid #B3B3B3;
+  border-radius: 20px;
+  background-color: #fff;
+  /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); */
+  box-sizing: border-box;
+}
+
+/* label {
+  display: block;
+  margin-bottom: 5px;
+} */
+
+.login_container h2 {
+  margin: 57px 0 33px;
+  color: #000;
+  font-family: Pretendard;
+  font-size: 28px;
+  font-weight: 900;
+  /* 28px */
+}
+
+.login_container input {
+
+  display: inline-flex;
+  height: 50px;
+  width: 400px;
+  padding: 13px 31px;
+  margin-bottom: 30px;
+  /* align-items: center; */
+  /* flex-shrink: 0; */
+  border-radius: 40px;
+  border: 1px solid #B3B3B3;
+  box-sizing: border-box;
+  /* 패딩과 보더를 width에 포함 */
+  background: rgba(255, 255, 255, 0.30);
+
+
+}
+
+.login_container input::placeholder {
+  color: #B3B3B3;
+  /* 텍스트 색상 */
+  font-family: Pretendard;
+  font-size: var(--sds-typography-body-size-large);
+  font-weight: 400;
+  text-align: left;
+}
+
+.login_btn {
+  /* display: flex; */
+  width: 400px;
+  height: 45px;
+  padding: 9px 125px 8px 125px;
+  /* justify-content: center; */
+  /* align-items: center; */
+  /* flex-shrink: 0; */
+  margin-bottom: 34px;
+  border-radius: 40px;
+  background: #8B0B02;
+  color: #FFF;
+  /* text-align: center; */
+  font-family: Pretendard;
+  font-size: var(--sds-typography-body-size-large);
+  border: 0;
+  font-weight: 900;
+  cursor: pointer;
+
+  /* 20px */
+
+}
+
+.login_btn button:hover {
+  background-color: #B3B3B3;
+}
+
+
+.login_options a {
+  text-decoration: none;
+  color: #B3B3B3;
+  font-family: Pretendard;
+  font-size: var(--sds-typography-body-size-large);
+  font-weight: 400;
+  padding: 0 60px;
+}
+
+.find_password_link {
+
+  border-right: 1px solid #ccc;
+  /* 오른쪽에 세로선 추가 */
+}
+
+.signup_link {
+  margin-right: 35px;
+
+}
+
+
+
+.privacy_btn {
+  display: flex;
+  width: 400px;
+  height: 43px;
+  padding: 8px;
+  justify-content: center;
+  /* align-items: center; */
+  margin-top: 32.85px;
+  margin-bottom: 57px;
+  border-radius: 10px;
+  background: #4C4C4C;
+  /* border-color: #4C4C4C; */
+  color: #FFF;
+  text-align: center;
+  font-family: Pretendard;
+  font-size: var(--sds-typography-body-size-large);
+  font-weight: 900;
+  border: 1px solid #4C4C4C;
+  box-sizing: border-box;
+  cursor: pointer;
+}
+
+
+.errorMessage ::placeholder{
+  margin-top:0;
+  margin-bottom:0;
+}
+
+/* 모달 스타일 */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: auto;
+}
+
+.Policy_content {
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  width: 80%;
+  max-width: 500px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.Policy_content h2 {
+  margin: 0 0 15px;
+  font-size: 22px;
+  color: #333;
+}
+
+.Policy_content p {
+  font-size: 16px;
+  color: #555;
+}
+
+.close {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  font-size: 24px;
+  cursor: pointer;
+  color: #aaa;
+}
+
+.close:hover {
+  color: #000;
+}
+
+/* @font-face {
+  font-family: 'Pretendard-Regular';
+  src: url('https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+  font-weight: 400;
+  font-style: normal;
+} */
+/* } */

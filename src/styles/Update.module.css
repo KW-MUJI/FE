@@ -1,0 +1,182 @@
+.main_container {
+    width: 1228px;
+    height: 752px;
+    background-color: #ffffff;
+    margin: 43px auto;
+    text-align: center;
+    border-radius: 20px;
+}
+
+.main_container h1 {
+    font-family: Pretendard;
+    font-size: 32px;
+    font-weight: 900;
+    line-height: 32px;
+    text-align: left;
+    padding: 45px 0 0 34px;
+}
+
+.info {
+    display: flex;
+}
+
+.icon {
+    margin: 43px 61px 45px 44px;
+}
+
+.email {
+    background: #D9D9D980;
+    width: 205px;
+    height: 39px;
+    border-radius: 40px;
+    margin-top: 116px;
+}
+
+.info p {
+    font-family: Pretendard;
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 0;
+    text-align: center;
+}
+
+.input {
+    text-align: left;
+}
+
+.text {
+    display: inline-block;
+    width: 110px;
+    height: 28px;
+    margin: 0 44px 39px 64px;
+    font-family: Pretendard;
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 20px;
+    text-align: left;
+}
+
+#pw_condition {
+    display: inline-block;
+    width: 318px;
+    height: 12px;
+    font-family: Pretendard;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 12px;
+    text-align: left;
+    margin-left: 29px;
+    color: #b3b3b3;
+}
+
+#pw_confirm {
+    display: inline-block;
+    font-family: Pretendard;
+    font-size: 13.14px;
+    font-weight: 400;
+    line-height: 13.14px;
+    text-align: left;
+    width: 318px;
+    height: 12px;
+    margin-left: 29px;
+    color: #b3b3b3;
+}
+
+.input input {
+    display: inline-block;
+    width: 495px;
+    height: 40px;
+    padding-left: 31px;
+    border: 1px solid #b3b3b3;
+    border-radius: 10px;
+}
+
+.input input::placeholder {
+    text-align: left;
+}
+
+.secession {
+    width: 110px;
+    height: 28px;
+    top: 906px;
+    left: 170px;
+    gap: 0px;
+    opacity: 0px;
+    font-family: Pretendard;
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 20px;
+    text-align: left;
+    color: #8B0B02;
+    background: none;
+    border: none;
+    text-decoration: underline;
+    text-decoration-color: #8B0B02;
+    text-underline-offset: 3px;
+    float: left;
+    margin-top: 30px;
+    margin-left: 64px;
+}
+
+.submit {
+    width: 90px;
+    height: 40px;
+    padding: 6px 0px 6px 0px;
+    border-radius: 30px;
+    background: #8B0B02;
+    border: none;
+    color: #FFFFFF;
+    font-family: Pretendard;
+    font-size: var(--sds-typography-body-size-large);
+    font-weight: 900;
+    line-height: 20px;
+    text-align: center;
+    float: right;
+    margin-top: 29px;
+    margin-right: 44px;
+}
+
+
+
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5); /* 배경을 반투명하게 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 999; /* 다른 요소 위에 표시되도록 */
+}
+
+.modalContent {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    width: 300px; /* 모달 너비 */
+}
+
+.modalContent h2 {
+    margin: 0 0 10px; /* 제목과 본문 간격 */
+}
+
+.modalContent p {
+    margin: 0 0 20px; /* 본문과 버튼 간격 */
+}
+
+.modalContent button {
+    margin: 0 5px; /* 버튼 간격 */
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.modalContent button:hover {
+    background-color: #f0f0f0; /* 버튼 호버 시 색상 변경 */
+}

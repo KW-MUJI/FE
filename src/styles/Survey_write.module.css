@@ -1,0 +1,283 @@
+.survey_container {
+    width: 1300px;
+    min-height: 700px;
+    margin: 58px auto 137px auto;
+    padding-left: 70px;
+}
+
+.top_container {
+    width: 1230px;
+    height: 71px;
+}
+
+.top_container p {
+    display: inline;
+    float: left;
+    margin: 0;
+    font-size: 32px;
+    font-weight: 800;
+}
+
+.post {
+    width: 1228px;
+    height: 192px;
+    border: 1px solid #B3B3B3;
+    border-radius: 5px;
+    margin-bottom: 32px;
+}
+
+.post_title {
+    display: flex;
+    width: 1173px;
+    height: 78px;
+    margin: 14px 27px 0 28px;
+    align-items: center;
+    border-left-width: 0;
+    border-right-width: 0;
+    border-top-width: 0;
+    border-bottom-width: 3px;
+    border-color: #B3B3B3;
+    font-size: 32px;
+}
+
+.post_title::placeholder {
+    font-size: 32px;
+    text-align: left;
+}
+
+.post_contents {
+    display: flex;
+    width: 1173px;
+    height: 61px;
+    margin: 13px 27px 0 28px;
+    align-items: center;
+    border-left-width: 0;
+    border-right-width: 0;
+    border-top-width: 0;
+    border-bottom-width: 1px;
+    border-color: #B3B3B3;
+}
+
+.post_contents::placeholder {
+    font-size: 20px;
+    text-align: left;
+}
+
+.quest_box {
+    width: 1228px;
+    border: 1px solid #B3B3B3;
+    border-radius: 5px;
+    display: table;
+    margin-bottom: 32px;
+}
+
+.quest {
+    display: inline;
+    text-align: left;
+}
+.quest input::placeholder {
+    font-size: 24px;
+    text-align: left;
+}
+.quest input {
+    width: 850px;
+    height: 61px;
+    margin: 36px 38px 6px 42px;
+    align-items: center;
+    border-left-width: 0;
+    border-right-width: 0;
+    border-top-width: 0;
+    border-bottom-width: 1px;
+    border-color: #B3B3B3;
+    display: table-row;
+}
+
+.quest select {
+    width: 271px;
+    height: 61px;
+    margin-right: 27px;
+    border-color: #B3B3B3;
+    display: table-row;
+}
+
+.radio {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    width: 22px;
+    height: 22px;
+    border: 2px solid #b3b3b3;
+    border-radius: 50%;
+    margin-top: 20px;
+}
+
+.text {
+    width: 1060px;
+    height: 61px;
+    margin: 0 0px 0 10px;
+    align-items:flex-start;
+    border-left-width: 0;
+    border-right-width: 0;
+    border-top-width: 0;
+    border-bottom-width: 1px;
+    border-color: #B3B3B3;
+    display: table-row;
+}
+.text::placeholder{
+    font-size: 20px;
+    text-align: left;
+}
+
+.multipleChoice{
+    float: left;
+    margin-left: 51px;
+}
+.multipleChoice button {
+    display: inline;
+    display: inline;
+    border: none;
+    color: #B3B3B3;
+    background-color: transparent;
+}
+
+.multipleChoice button:after {
+    display: inline-block;
+    content: "\00d7";
+    font-size: 25pt;
+}
+
+.optionButton {
+    float: left;
+    justify-content: center;
+    align-items: center;
+    margin: 20px 0 50px 47px;
+    margin-top: 20px;
+    margin-left: 47px;
+    text-decoration: underline;
+    text-underline-offset: 20px;
+    box-shadow: none;
+    border-color: #B3B3B3 !important;
+    color: #B3B3B3;
+    background-color: transparent;
+    cursor: pointer;
+}
+
+.shortAnswer {
+    width: 1159px;
+    height: 61px;
+    margin: 0 27px 30px 42px;
+    align-items: center;
+    border-left-width: 0;
+    border-right-width: 0;
+    border-top-width: 0;
+    border-bottom-width: 1px;
+    border-color: #B3B3B3;
+    display: table-row;
+}
+.shortAnswer::placeholder{
+    text-align: left;
+    font-size: 20px;
+}
+.qwe{
+    float: left;
+    position: relative;
+}
+.asd{
+    display:inline-block;
+}
+.btn{
+    width: 40px;
+    display:inline-block;
+}
+.btn button{
+    display: block;
+    background-color: transparent;
+    border: none;
+    width: 40px;
+    height: 40px;
+    margin-left: 30px;
+}
+.plus{
+    position: absolute;
+    top: 0;
+    margin-top: 36px;
+    cursor: pointer;
+}
+.delete{
+    top: 0;
+    position: absolute;
+    margin-top: 98px;
+    cursor: pointer;
+}
+
+.group{
+    display: flex;
+    justify-content: space-between;
+    /* flex-direction: row; */
+    align-items: center;
+
+    box-sizing: border-box;
+
+    width: 1228px;
+    height: 80px;
+}
+
+.submit{
+    display: block;
+    float: right;
+    width: 90px;
+    height: 40px;
+    border-radius: 25px;
+    background-color: #8B0B02;
+    color: #ffffff;
+    font-size: 23px;
+    margin-right: 70px;
+}
+.date_group {
+    flex-grow: 5;
+    text-align: left;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.date_group input {
+    width: 100px;
+    height: 28px;
+    border-radius: 6.427px;
+    border: 0.643px solid var(--Border-Disabled-default, #B3B3B3);
+    background: #FFF;
+    color: #B3B3B3;
+    font-size: 14.139px;
+    font-weight: 500;
+}
+
+
+
+/* 마감일label */
+.date_button {
+    font-size: 22px;
+    font-weight: 500;
+    line-height: 100%;
+    display: inline-flex;
+    align-items: center;
+    width: 143px;
+    height: 38px;
+
+    pointer-events: auto;
+    /* 클릭 허용 */
+    z-index: 1;
+    /* 다른 요소보다 위에 오도록 */
+
+}
+
+/* 마감일 아이콘 */
+.date_icon {
+    margin-right: 10px;
+    pointer-events: none;
+    /* 아이콘이 클릭을 막지 않도록 설정 */
+
+
+}
+
+input:focus {outline: none;}

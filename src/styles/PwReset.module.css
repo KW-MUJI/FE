@@ -1,0 +1,97 @@
+.signup_form {
+    margin: auto;
+    border: 1px solid #ccc;
+    border-radius: 16px;
+    background-color: #FFF;
+    width: 538px;
+    height: 380px;
+    /* height: auto; 높이를 자동으로 조정 */
+    padding-bottom: 20px; /* 하단에 약간의 여백 추가 */
+    margin-top: 167px;
+    margin-bottom: 166px;
+    font-family: Pretendard;
+    box-sizing: border-box;
+}
+
+.signup_form h3 {
+    color: #000;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 900;
+    line-height: 100%;
+    margin-bottom: 20px;
+    margin-top: 30px;
+}
+.pw_container input {
+    font-family: Pretendard;
+    width: 431.2px;
+    height: 44.32px;
+    border-radius: 32.86px;
+    border: 0.82px solid #B3B3B3;
+    text-align: left;
+    padding: 19px;
+    box-sizing: border-box;
+    margin-bottom: 11px;
+}
+.pw_container input::placeholder {
+    color: #B3B3B3;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 100%;
+    text-align: left;
+}
+.pw_container p {
+    font-family: Pretendard;
+    margin-bottom: 10px;
+    margin-left: 64px;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 100%;
+    text-align: left;
+}
+#pw_condition {
+    font-family: Pretendard;
+    margin: 0 0 11px 75px;
+    color:#b3b3b3;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 100%;
+    text-align: left;
+}
+#pw_confirm{
+    margin: 0px;
+    font-family: Pretendard;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 100%;
+    margin-left: 75px;
+    margin-bottom: 36px;
+    text-align: left;
+}
+.sign {
+    font-family: Pretendard;
+    width: 430px;
+    height: 42px;
+    border: none;
+    border-radius: 32.86px;
+    background-color: #8B0B02;
+    color: white;
+    cursor: pointer;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 900;
+    line-height: 100%;
+}
+.pw_box{
+    position: relative;
+}
+.password_on_off {
+    position: absolute;
+    top: 13px;
+    right: 90px;
+    cursor: pointer;
+}
