@@ -1,7 +1,7 @@
 import { apiClient } from ".";
 
 const CALENDAR_URL = {
-  baseUrl: process.env.REACT_APP_API_BASE_URL,
+  baseUrl: process.env.REACT_APP_SERVER,
   endpoingUrl: "/calendar",
 };
 
