@@ -8,7 +8,7 @@ const AUTH_URL = {
 };
 
 export const apiClient = axios.create({
-  baseURL: process.env.REACT_APP_API_BASE_URL,
+  baseURL: process.env.REACT_APP_SERVER,
   //   timeout: 5000, 벡엔드와 상의, 벡엔드 타임아웃 보다는 짧게
   headers: { "content-type": process.env.REACT_APP_DEFAULT_CONTENT_TYPE },
 });

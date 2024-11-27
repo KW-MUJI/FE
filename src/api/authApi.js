@@ -1,7 +1,7 @@
 // src/api/authApi.js
 import { apiClient } from "./index.js";
 
-const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+const API_BASE_URL = process.env.REACT_APP_SERVER;
 // 로그인
 export const signIn = async (credentials) => {
   try {
