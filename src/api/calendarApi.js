@@ -22,7 +22,6 @@ export const fetchCalendar = async (yearMonth) => {
   }
 };
 
-// 일정 추가
 export const addCalendarEvent = async (accessToken, eventData) => {
   const requestBody = {
     projectId: eventData.projectId,
