@@ -1,14 +1,22 @@
 import React, { useState, useEffect } from 'react';
 import styles from '../styles/SurveyResult.module.css'; // CSS 파일 임포트
 import axios from 'axios';
-import { useParams } from 'react-router-dom';
+import { useParams,useNavigate } from 'react-router-dom';
 import { SurveyResults } from '../api/mysurveyApi';
+import { useAuth } from '../contexts/AuthContext';
 const SurveyResult = () => {
     const [currentResponseIndex, setCurrentResponseIndex] = useState(0);
     const [surveyData, setSurveyData] = useState(null); // 설문조사 데이터 상태
     const [surveyResponses, setSurveyResponses] = useState([]); // 응답 데이터 상태
     const { surveyId } = useParams(); // URL 파라미터에서 surveyId 추출
-    const accessToken = localStorage.getItem('accessToken');
+    const navigate = useNavigate();
+    const {accessToken} = useAuth();
+    useEffect(() => {
+      if (!accessToken) {
+        alert("로그인 상태가 아닙니다. 로그인 페이지로 이동합니다.");
+        navigate("/login");
+      }
+    }, [accessToken, navigate]);
 
     useEffect(() => {
         const fetchSurveyResults = async () => {

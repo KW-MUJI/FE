@@ -6,7 +6,6 @@ import { resetPw } from '../api/authApi';
 const PwReset = () => {
     const [showPassword, setShowPassword] = useState(false);
     const [showPasswordConfirm, setShowPasswordConfirm] = useState(false);
-    const accessToken = localStorage.getItem('accessToken');
     const navigate = useNavigate();
     const goToLogin = () => {
         navigate("/login");

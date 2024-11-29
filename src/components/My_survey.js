@@ -3,11 +3,17 @@ import { useNavigate } from 'react-router-dom'; // useNavigate 추가
 import styles from '../styles/My_survey.module.css'; // CSS 파일 임포트
 import axios from 'axios';
 import { fetchSurvey, endSurvey, deleteSurvey } from '../api/mysurveyApi';
+import { useAuth } from '../contexts/AuthContext';
 const MySurvey = () => {
     const [surveys, setSurveys] = useState([]);
     const navigate = useNavigate(); // navigate 초기화
-    const accessToken = localStorage.getItem('accessToken');
-
+    const {accessToken} = useAuth();
+    useEffect(() => {
+      if (!accessToken) {
+        alert("로그인 상태가 아닙니다. 로그인 페이지로 이동합니다.");
+        navigate("/login");
+      }
+    }, [accessToken, navigate]);
     useEffect(() => {
         const fetchSurveys = async () => {
             try {

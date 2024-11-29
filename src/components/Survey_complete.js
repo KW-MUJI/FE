@@ -2,12 +2,20 @@ import React, { useEffect, useState } from 'react';
 import styles from '../styles/Survey_complete.module.css';
 import moment from 'moment';
 import axios from 'axios';
-import { useParams } from 'react-router-dom';
+import { useParams,useNavigate } from 'react-router-dom';
 import { fetchSurvey } from '../api/surveyApi';
+import { useAuth } from '../contexts/AuthContext';
 const SurveyComplete = () => {
     const [surveyData, setSurveyData] = useState(null);
     const { surveyId } = useParams(); // URL 파라미터에서 surveyId 추출
-    const accessToken = localStorage.getItem('accessToken');
+    const navigate = useNavigate();
+    const {accessToken} = useAuth();
+    useEffect(() => {
+      if (!accessToken) {
+        alert("로그인 상태가 아닙니다. 로그인 페이지로 이동합니다.");
+        navigate("/login");
+      }
+    }, [accessToken, navigate]);
     useEffect(() => {
         try {
             const getSurveyData = async () => {
