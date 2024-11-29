@@ -1,5 +1,6 @@
 // src/api.js
 import axios from "axios";
+import { apiClient } from "./index";
 
 const API_BASE_URL = process.env.REACT_APP_API_BASE_URL; // 기본 API URL
 
@@ -72,3 +73,38 @@ export const updateUserInfo = async (accessToken, formData) => {
   console.log(response);
   return response;
 };
+
+export const getInfo = async (accessToken) => {
+  const response = await axios.get(`http://15.165.62.195/mypage`, {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${accessToken}`,
+    },
+  });
+  return response.data.data;
+}
+export const addPortfolio = async (accessToken, formData) => {
+  const response = await axios.post(
+    `http://15.165.62.195/mypage/add`,
+    formData,
+    {
+      headers: {
+        "Content-Type": "multipart/form-data",
+        Authorization: `Bearer ${accessToken}`,
+      },
+    }
+  );
+  return response;
+}
+export const deletePortfolio = async (accessToken, id) => {
+  const response = await axios.delete(
+    `http://15.165.62.195/mypage/deleteResume/${id}`,
+    {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${accessToken}`,
+      },
+    }
+  );
+  return response.data.data;
+}

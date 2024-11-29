@@ -3,6 +3,7 @@ import axios from "axios";
 import styles from "../styles/MyPage.module.css";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext.js";
+import {getInfo, addPortfolio, deletePortfolio} from "../api/mypageApi.js";
 
 const MyPage = () => {
   const style = {
@@ -31,19 +32,18 @@ const MyPage = () => {
   const [file, setFile] = useState(null);
   const fileInputRef = useRef(null);
   const [emptydata, setEmptydata] = useState(["", "", ""]);
-  const [token, setToken] = useState(localStorage.getItem("accessToken"));
-
+  const accessToken = useAuth();
+  useEffect(() => {
+    if (!accessToken) {
+      alert("로그인 상태가 아닙니다. 로그인 페이지로 이동합니다.");
+      navigate("/login");
+    }
+  }, [accessToken, navigate]);
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`http://15.165.62.195/mypage`, {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        });
+        const data = await getInfo(accessToken);
 
-        const data = response.data.data;
         console.log(data);
         setProfile(data.profile);
         setImgSrc(data.profile.userImage);
@@ -70,16 +70,7 @@ const MyPage = () => {
     formData.append("resume", selectedFile);
 
     try {
-      const response = await axios.post(
-        `http://15.165.62.195/mypage/add`,
-        formData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-          },
-        }
-      );
+      const response = await addPortfolio(accessToken, formData);
 
       if (response.data.code === 200) {
         alert("포트폴리오가 성공적으로 추가되었습니다.");
@@ -104,15 +95,7 @@ const MyPage = () => {
 
   const handleDeletePortfolio = async (id, index) => {
     try {
-      const response = await axios.delete(
-        `http://15.165.62.195/mypage/deleteResume/${id}`,
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      const response = await deletePortfolio(accessToken, id);
 
       if (response.data.code === 200) {
         alert(response.data.data); // "홍길동의 포트폴리오 삭제" 메시지
@@ -126,7 +109,6 @@ const MyPage = () => {
     }
   };
   const handleLogoutClick = () => {
-    setToken(null);
     localStorage.removeItem("accessToken");
     navigate("/login");
   };
