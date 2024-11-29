@@ -4,13 +4,20 @@ import { useNavigate, useParams } from 'react-router-dom';
 import moment from 'moment';
 import axios from 'axios';
 import { fetchSurvey, surveySubmit } from '../api/surveyApi';
+import { useAuth } from '../contexts/AuthContext';
 const SurveyJoin = () => {
     const { surveyId } = useParams(); // URL 파라미터에서 surveyId 추출
     const [survey, setSurvey] = useState(null); // 설문조사 정보를 저장할 상태
     const [answers, setAnswers] = useState({}); // 설문조사 답변 저장 상태
-    const navigate = useNavigate();
 
-    const accessToken = localStorage.getItem('accessToken');
+    const navigate = useNavigate();
+    const {accessToken} = useAuth();
+    useEffect(() => {
+      if (!accessToken) {
+        alert("로그인 상태가 아닙니다. 로그인 페이지로 이동합니다.");
+        navigate("/login");
+      }
+    }, [accessToken, navigate]);
     useEffect(() => {
         try {
             const getSurveyData = async () => {

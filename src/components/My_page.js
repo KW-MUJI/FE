@@ -32,7 +32,7 @@ const MyPage = () => {
   const [file, setFile] = useState(null);
   const fileInputRef = useRef(null);
   const [emptydata, setEmptydata] = useState(["", "", ""]);
-  const accessToken = useAuth();
+  const {accessToken} = useAuth();
   useEffect(() => {
     if (!accessToken) {
       alert("로그인 상태가 아닙니다. 로그인 페이지로 이동합니다.");

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import styles from '../styles/Update.module.css';
 import { deleteUser, getUserInfo, updateUserInfo } from "../api/mypageApi.js"; // API 호출 함수 import
 import { useNavigate } from 'react-router-dom';
-
+import { useAuth } from '../contexts/AuthContext.js';
 const Update = () => {
     const style = {
         backgroundColor: '#EEF2F6',
@@ -22,11 +22,17 @@ const Update = () => {
         password_confirm: "",
     });
     const [email, setEmaile] = useState("");
-    const accessToken = localStorage.getItem('accessToken');
     const [imgSrc, setImgSrc] = useState(""); // 초기 이미지 경로를 비워둡니다.
     const [isModalOpen, setIsModalOpen] = useState(false); // 모달 상태 관리
     const [file, setFile] = useState(null); // 파일 상태 관리
     const [deleteImage, setDeleteImage] = useState(false);
+    const {accessToken} = useAuth();
+    useEffect(() => {
+      if (!accessToken) {
+        alert("로그인 상태가 아닙니다. 로그인 페이지로 이동합니다.");
+        navigate("/login");
+      }
+    }, [accessToken, navigate]);
     useEffect(() => {
         const fetchUserInfo = async () => {
             try {

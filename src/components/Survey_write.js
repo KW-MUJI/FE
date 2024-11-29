@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import styles from '../styles/Survey_write.module.css';
 import { useNavigate } from "react-router-dom";
 import { surveyCreate } from '../api/surveyApi';
+import { useAuth } from '../contexts/AuthContext';
 const SurveyWrite = () => {
     const [surveyTitle, setSurveyTitle] = useState('');
     const [surveyDescription, setSurveyDescription] = useState('');
@@ -10,8 +11,14 @@ const SurveyWrite = () => {
     const [currentType, setCurrentType] = useState('multipleChoice');
     const [options, setOptions] = useState(['', '']); // 기본 2개의 옵션
     const [selectDate, setSelectDate] = useState(null); //날짜
-    const accessToken = localStorage.getItem('accessToken');
     const navigate = useNavigate();
+    const {accessToken} = useAuth();
+    useEffect(() => {
+      if (!accessToken) {
+        alert("로그인 상태가 아닙니다. 로그인 페이지로 이동합니다.");
+        navigate("/login");
+      }
+    }, [accessToken, navigate]);
     const handleAddQuestion = () => {
         setQuestions([...questions, { text: currentQuestion, type: currentType, options }]);
         setCurrentQuestion('');
