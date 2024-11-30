@@ -6,8 +6,8 @@ import {
 } from "../api/calendarApi.js"; // API 함수 가져오기
 import styles from "../styles/Schedule.module.css";
 import { responses } from "./mockData.js";
-
-import { useParams } from 'react-router-dom';
+import { useAuth } from "../contexts/AuthContext.js";
+import { useNavigate,useParams } from 'react-router-dom';
 
 
 const Schedule = () => {
@@ -25,13 +25,19 @@ const Schedule = () => {
       projectEvents: [],
     },
   });
-
   // 캘린더 데이터 상태, API에서 받아온 일정
   const [teams, setTeams] = useState([]);
   const [teamList, setTeamList] = useState([]); // 팀플 일정에서 선택할 수 있는 팀 목록 상태
   const now = useParams();
   const [currentDate, setCurrentDate] = useState(new Date()); // 현재 선택된 날짜 상태. 이 값을 기준으로 캘린더를 렌더링
-  const accessToken = localStorage.getItem("accessToken");
+  const navigate = useNavigate();
+  const {accessToken} = useAuth();
+  useEffect(() => {
+    if (!accessToken) {
+      alert("로그인 상태가 아닙니다. 로그인 페이지로 이동합니다.");
+      navigate("/login");
+    }
+  }, [accessToken, navigate]);
 
   const [enter, setEnter] = useState(1);
 

@@ -8,7 +8,7 @@ import { useAuth } from "../contexts/AuthContext.js";
 const CheckPw = () => {
     const ex_password = "123a!";
     const [data,setData] = [];
-    const token = localStorage.getItem('accessToken') // 토큰 가져오기
+    const { accessToken } = useAuth();
     const navigate = useNavigate();
     const goToUpdate = () => {
         navigate("/update");
@@ -27,7 +27,7 @@ const CheckPw = () => {
     };
     const requestAuth = async (e) => {
         e.preventDefault();
-        const result = await CheckPassword(formData, token);
+        const result = await CheckPassword(formData, accessToken);
         console.log(formData);
         console.log(result);
         
@@ -38,7 +38,12 @@ const CheckPw = () => {
             goToUpdate();
         }
     };
-
+    useEffect(() => {
+        if (!accessToken) {
+          alert("로그인 상태가 아닙니다. 로그인 페이지로 이동합니다.");
+          navigate("/login");
+        }
+      }, [accessToken, navigate]);
     return (
         <div style={style}>
             <div className={styles.main_container}>

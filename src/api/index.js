@@ -1,9 +1,11 @@
 import axios from "axios";
 import { useAuth } from "../contexts/AuthContext";
 import { handleTokenRefresh } from "../utils/authUtil";
+import { useNavigate } from "react-router-dom";
+
 const AUTH_URL = {
   baseUrl: "/auth",
-  newAcessToken: "/newToken",
+  newAccessToken: "/newToken",
   newRefreshToken: "/newrefreshToken",
 };
 
@@ -28,8 +30,8 @@ apiClient.interceptors.response.use(
     const { response } = error;
     if (response && response.status === 401) {
       // AuthContext에서 값 가져오기
-      const refreshToken = localStorage.getItem("refreshToken");
-      const setAccessToken = useAuth().setAccessToken;
+
+      const { refreshToken, setAccessToken, navigate } = useAuth();
 
       try {
         // Token 갱신
@@ -37,6 +39,7 @@ apiClient.interceptors.response.use(
           refreshToken,
           setAccessToken
         );
+
         // 이전 요청 재시도
         error.config.headers.Authorization = `Bearer ${newAccessToken}`;
         return apiClient.request(error.config);
@@ -51,7 +54,7 @@ apiClient.interceptors.response.use(
 export const newAcessToken = async (refreshToken) => {
   try {
     const response = await apiClient.get(
-      `${AUTH_URL.baseUrl}${AUTH_URL.newAcessToken}`,
+      `${AUTH_URL.baseUrl}${AUTH_URL.newAccessToken}`,
       {
         headers: {
           Authorization: `Bearer ${refreshToken}`,

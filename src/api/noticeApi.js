@@ -1,4 +1,4 @@
-import {apiClient} from "./index";
+import { apiClient } from "./index";
 
 export const getNotices = async (page, searchVal, srCategoryId) => {
   const url = "/notices";

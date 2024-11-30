@@ -84,6 +84,8 @@ const MainPage = () => {
   };
 
   const handleDateClick = (day) => {
+    if(!token)
+      return;
     navigate(`/schedule/${currentMonth.getFullYear()}-${String(
           currentMonth.getMonth() + 1
         ).padStart(2, "0")}`);

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import styles from '../styles/Survey_write.module.css';
 import { useNavigate } from "react-router-dom";
 import { surveyCreate } from '../api/surveyApi';
+import { useAuth } from '../contexts/AuthContext';
 const SurveyWrite = () => {
     const [surveyTitle, setSurveyTitle] = useState('');
     const [surveyDescription, setSurveyDescription] = useState('');
@@ -10,8 +11,14 @@ const SurveyWrite = () => {
     const [currentType, setCurrentType] = useState('multipleChoice');
     const [options, setOptions] = useState(['', '']); // 기본 2개의 옵션
     const [selectDate, setSelectDate] = useState(null); //날짜
-    const accessToken = localStorage.getItem('accessToken');
     const navigate = useNavigate();
+    const {accessToken} = useAuth();
+    useEffect(() => {
+      if (!accessToken) {
+        alert("로그인 상태가 아닙니다. 로그인 페이지로 이동합니다.");
+        navigate("/login");
+      }
+    }, [accessToken, navigate]);
     const handleAddQuestion = () => {
         setQuestions([...questions, { text: currentQuestion, type: currentType, options }]);
         setCurrentQuestion('');
@@ -70,6 +77,42 @@ const SurveyWrite = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
     
+        // 유효성 검사
+        if (!surveyTitle.trim()) {
+            alert('설문 제목을 입력해 주세요.');
+            return;
+        }
+        if (!surveyDescription.trim()) {
+            alert('설문 설명을 입력해 주세요.');
+            return;
+        }
+        if (!selectDate) {
+            alert('마감일을 설정해 주세요.');
+            return;
+        }
+        if (questions.length === 0) {
+            alert('질문을 추가해 주세요.');
+            return;
+        }
+        for (const question of questions) {
+            if (!question.text.trim()) {
+                alert('모든 질문에 내용을 입력해 주세요.');
+                return;
+            }
+            if (question.type === 'multipleChoice') {
+                if (question.options.length < 2) {
+                    alert(`질문 "${question.text}"은(는) 최소 2개의 옵션을 가져야 합니다.`);
+                    return;
+                }
+                for (const option of question.options) {
+                    if (!option.trim()) {
+                        alert(`질문 "${question.text}"의 모든 옵션에 내용을 입력해 주세요.`);
+                        return;
+                    }
+                }
+            }
+        }
+    
         const formattedQuestions = questions.map(q => {
             if (q.type === 'shortAnswer') {
                 return {
@@ -80,7 +123,7 @@ const SurveyWrite = () => {
                 return {
                     questionText: q.text,
                     questionType: 'CHOICE',
-                    choices: q.options.map(option => ({ choiceText: option }))
+                    choices: q.options.map(option => ({ choiceText: option })).filter(option => option.choiceText.trim()) // 빈 옵션 제외
                 };
             }
             return null;
@@ -99,8 +142,7 @@ const SurveyWrite = () => {
     
             if (response.ok) {
                 alert('설문이 성공적으로 등록되었습니다.');
-                navigate(`/survey`); 
-                // 필요 시 상태 초기화 추가
+                navigate(`/survey`);
             } else {
                 alert('설문 등록 중 오류가 발생했습니다.');
             }
@@ -109,6 +151,7 @@ const SurveyWrite = () => {
             alert('서버 요청 중 오류가 발생했습니다.');
         }
     };
+    
     
 
     const handleDateChange = (e) => {
