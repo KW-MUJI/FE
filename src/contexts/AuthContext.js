@@ -1,10 +1,11 @@
 // src/contexts/AuthContext.js
 import React, { createContext, useState, useContext, useEffect } from "react";
-import { newAcessToken, getNewRefreshToken } from "../api";
+
 // AuthContext 생성
 const AuthContext = createContext();
 
 // AuthProvider 구현
+
 export const AuthProvider = ({ children }) => {
   const [accessToken, setAccessToken] = useState(
     localStorage.getItem("accessToken")
