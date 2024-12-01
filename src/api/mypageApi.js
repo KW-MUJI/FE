@@ -106,5 +106,5 @@ export const deletePortfolio = async (accessToken, id) => {
       },
     }
   );
-  return response.data.data;
+  return response;
 }
