@@ -38,17 +38,28 @@ const Survey = () => {
         try {
             const response = await fetchSurveyList(accessToken);
             const { currentPage, totalPages, surveys } = response;
-
-            setCurrentPage(currentPage);
-            setTotalPages(totalPages);
-            setSurveys(surveys);
-            setFilteredSurveys(surveys); // 데이터를 받아온 후 바로 필터링된 설문 데이터 설정
+    
+            // 정렬 로직 추가
+            const sortedData = surveys.sort((a, b) => {
+                // 1. isOngoing이 true인 항목을 우선적으로 정렬
+                if (a.isOngoing && !b.isOngoing) return -1;
+                if (!a.isOngoing && b.isOngoing) return 1;
+    
+                // 2. isOngoing이 동일하다면 마감 날짜가 가까운 순으로 정렬
+                const aEndDate = moment(a.endDate);
+                const bEndDate = moment(b.endDate);
+                return aEndDate.diff(bEndDate);
+            });
+    
             setCurrentPage(1);
+            setTotalPages(totalPages);
+            setSurveys(sortedData); // 전체 데이터 정렬
+            setFilteredSurveys(sortedData); // 초기 필터링 데이터도 정렬
         } catch (error) {
             console.error('Error fetching surveys, using mock data:', error);
-
         }
     };
+    
 
     useEffect(() => {
         fetchSurveys(); // 컴포넌트가 마운트될 때 데이터 요청
