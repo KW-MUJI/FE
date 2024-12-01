@@ -299,15 +299,13 @@ const MyRecruitTeam = () => {
                 }}
                 disabled={
                   isButtonDisabled ||
-                  !team.isOngoing ||
+                  team.start ||
                   !selectParticipant[team.id] || // 선택된 지원자가 없거나
                   selectParticipant[team.id].length === 0
                 } // 배열이 비어 있는 경우}
-                className={
-                  !team.isOngoing ? styles.disabledStart : styles.start
-                }
+                className={team.start ? styles.disabledStart : styles.start}
               >
-                {!team.isOngoing ? "모집 마감" : "팀플시작"}
+                {team.start ? "모집 마감" : "팀플시작"}
               </button>
               {team.isOngoing && (
                 <button
