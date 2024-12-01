@@ -302,12 +302,12 @@ const MyRecruitTeam = () => {
                   team.start ||
                   !selectParticipant[team.id] || // 선택된 지원자가 없거나
                   selectParticipant[team.id].length === 0
-                } // 배열이 비어 있는 경우}
+                }
                 className={team.start ? styles.disabledStart : styles.start}
               >
                 {team.start ? "모집 마감" : "팀플시작"}
               </button>
-              {team.isOngoing && (
+              {!team.start && (
                 <button
                   className={styles.cancel}
                   onClick={() => deleteTeam(team.id)}
