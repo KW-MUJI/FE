@@ -48,7 +48,7 @@ export const deleteUser = async (accessToken) => {
 };
 // mypageApi.js
 export const getUserInfo = async (accessToken) => {
-  const response = await fetch(`http://15.165.62.195/mypage/update`, {
+  const response = await fetch(`${API_BASE_URL}/mypage/update`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
@@ -61,7 +61,7 @@ export const getUserInfo = async (accessToken) => {
 // mypageApi.js
 export const updateUserInfo = async (accessToken, formData) => {
   const response = await axios.patch(
-    `http://15.165.62.195/mypage/update`,
+    `${API_BASE_URL}/mypage/update`,
     formData,
     {
       headers: {
@@ -75,7 +75,7 @@ export const updateUserInfo = async (accessToken, formData) => {
 };
 
 export const getInfo = async (accessToken) => {
-  const response = await axios.get(`http://15.165.62.195/mypage`, {
+  const response = await axios.get(`${API_BASE_URL}/mypage`, {
     headers: {
       "Content-Type": "application/json",
       Authorization: `Bearer ${accessToken}`,
@@ -85,7 +85,7 @@ export const getInfo = async (accessToken) => {
 }
 export const addPortfolio = async (accessToken, formData) => {
   const response = await axios.post(
-    `http://15.165.62.195/mypage/add`,
+    `${API_BASE_URL}/mypage/add`,
     formData,
     {
       headers: {
@@ -98,7 +98,7 @@ export const addPortfolio = async (accessToken, formData) => {
 }
 export const deletePortfolio = async (accessToken, id) => {
   const response = await axios.delete(
-    `http://15.165.62.195/mypage/deleteResume/${id}`,
+    `${API_BASE_URL}/mypage/deleteResume/${id}`,
     {
       headers: {
         "Content-Type": "application/json",
