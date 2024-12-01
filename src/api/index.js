@@ -1,6 +1,7 @@
 import axios from "axios";
-
-const apiClient = axios.create({
+import { useAuth } from "../contexts/AuthContext";
+import { refreshAccessToken } from "../api/authApi";
+export const apiClient = axios.create({
   baseURL: process.env.REACT_APP_SERVER,
   //   timeout: 5000, 벡엔드와 상의, 벡엔드 타임아웃 보다는 짧게
   headers: { "content-type": process.env.REACT_APP_DEFAULT_CONTENT_TYPE },
@@ -29,20 +30,20 @@ apiClient.interceptors.response.use(
         try {
           // Refresh Token을 사용해 Access Token 갱신
           const refreshToken = localStorage.getItem("refreshToken");
-          const { data } = await apiClient.post("/auth/newToken", null, {
-            headers: {
-              Authorization: `Bearer ${refreshToken}`,
-            },
-          });
+          if (!refreshToken) {
+            throw new Error("Refresh Token이 없습니다. 다시 로그인하세요.");
+          }
 
-          const newAccessToken = data.accessToken;
-          localStorage.setItem("accessToken", newAccessToken);
+          const { accessToken: newAccessToken } = await refreshAccessToken(
+            refreshToken
+          );
 
           // 갱신된 Access Token으로 요청 재시도
           originalRequest.headers.Authorization = `Bearer ${newAccessToken}`;
           return apiClient.request(originalRequest);
         } catch (refreshError) {
           console.error("토큰 갱신 실패. 로그아웃 처리.");
+          alert("인증이 만료되었습니다. 다시 로그인하세요.");
           localStorage.removeItem("accessToken");
           localStorage.removeItem("refreshToken");
           window.location.href = "/login";
@@ -53,5 +54,3 @@ apiClient.interceptors.response.use(
     return Promise.reject(error);
   }
 );
-
-export default apiClient;

@@ -105,15 +105,13 @@ export const refreshAccessToken = async (refreshToken) => {
       },
     });
 
-    const { accessToken, refreshToken: newRefreshToken } = response.data;
+    const { accessToken } = response.data;
 
     // 새 Access Token을 localStorage에 저장
     localStorage.setItem("accessToken", accessToken);
-    localStorage.setItem("refreshToken", newRefreshToken);
 
     console.log("Access Token 갱신 성공:", accessToken);
-    console.log("refresh Token 갱신 성공:", newRefreshToken);
-    
+
     return accessToken;
   } catch (error) {
     console.error("Access Token 갱신 실패:", error.response?.data || error);
