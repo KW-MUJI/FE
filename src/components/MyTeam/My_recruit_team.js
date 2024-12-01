@@ -167,6 +167,7 @@ const Applicant = ({
 const MyRecruitTeam = () => {
   const [projectList, setProjectList] = useState([]);
   const [startProject, setStartProject] = useState([]);
+  const [isButtonDisabled, setIsButtonDisabled] = useState(false);
   const [selectParticipant, setSelectParticipant] = useState({});
   const { accessToken } = useAuth();
   const navigate = useNavigate();
@@ -229,6 +230,15 @@ const MyRecruitTeam = () => {
       alert("팀플 시작에 실패했습니다. 다시 시도해주세요.");
     }
   };
+  const handleButtonClick = async (teamID) => {
+    setIsButtonDisabled(true); // 클릭 즉시 버튼 비활성화
+    try {
+      await handleStart(teamID); // 팀 시작 함수 호출
+    } catch (error) {
+      console.error("팀플 시작 중 오류 발생:", error);
+      setIsButtonDisabled(false); // 오류 발생 시 버튼 다시 활성화
+    }
+  };
 
   const handlesSelectApplicant = (teamID, participantId) => {
     setSelectParticipant((prev) => ({
@@ -284,9 +294,10 @@ const MyRecruitTeam = () => {
               )}
               <button
                 onClick={() => {
-                  handleStart(team.id);
+                  handleButtonClick(team.id);
                 }}
                 disabled={
+                  isButtonDisabled ||
                   !team.isOngoing ||
                   !selectParticipant[team.id] || // 선택된 지원자가 없거나
                   selectParticipant[team.id].length === 0
