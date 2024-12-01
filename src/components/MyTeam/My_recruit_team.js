@@ -283,7 +283,7 @@ const MyRecruitTeam = () => {
           <div className={styles.team_header}>
             <h> {team.name}</h>
             <div className={styles.list_option}>
-              {team.isOngoing || selectParticipant[team.id].length === 0 ? (
+              {team.isOngoing || team.applicants.length === 0 ? (
                 <button
                   className={styles.edit}
                   onClick={() =>
