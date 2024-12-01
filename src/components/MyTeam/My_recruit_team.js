@@ -283,18 +283,16 @@ const MyRecruitTeam = () => {
           <div className={styles.team_header}>
             <h> {team.name}</h>
             <div className={styles.list_option}>
-              {team.isOngoing ||
-                selectParticipant[team.id].length ===
-                  0(
-                    <button
-                      className={styles.edit}
-                      onClick={() =>
-                        window.open(`/recruit_write/${team.id}`, "_blank")
-                      }
-                    >
-                      수정
-                    </button>
-                  )}
+              {team.isOngoing || selectParticipant[team.id].length === 0 ? (
+                <button
+                  className={styles.edit}
+                  onClick={() =>
+                    window.open(`/recruit_write/${team.id}`, "_blank")
+                  }
+                >
+                  수정
+                </button>
+              ) : null}
               <button
                 onClick={() => {
                   handleButtonClick(team.id);
