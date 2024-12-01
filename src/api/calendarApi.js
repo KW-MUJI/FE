@@ -8,7 +8,7 @@ const CALENDAR_URL = {
 export const fetchCalendar = async (yearMonth) => {
   try {
     const response = await apiClient.get(
-      `${CALENDAR_URL.baseUrl}/${CALENDAR_URL.endpoingUrl}/${yearMonth}`,
+      `${CALENDAR_URL.baseUrl}${CALENDAR_URL.endpoingUrl}/${yearMonth}`,
       {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
@@ -31,7 +31,7 @@ export const addCalendarEvent = async (accessToken, eventData) => {
 
   console.log("일정 추가 함수 호출됨");
   const response = await apiClient.fetch(
-    `${CALENDAR_URL.baseUrl}/${CALENDAR_URL.endpoingUrl}/add`,
+    `${CALENDAR_URL.baseUrl}${CALENDAR_URL.endpoingUrl}/add`,
     {
       method: "POST",
       headers: {
@@ -44,7 +44,7 @@ export const addCalendarEvent = async (accessToken, eventData) => {
 };
 export const deleteCalendarEvent = async (accessToken, id) => {
   const response = await apiClient.delete(
-    `${CALENDAR_URL.baseUrl}/${CALENDAR_URL.endpoingUrl}/${id}`,
+    `${CALENDAR_URL.baseUrl}${CALENDAR_URL.endpoingUrl}/${id}`,
     {
       headers: {
         Authorization: `Bearer ${accessToken}`,
