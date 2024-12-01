@@ -213,7 +213,6 @@ button:disabled {
   text-overflow: ellipsis; /* 줄임표(...)를 표시 */
   align-items: center;
   max-width: 90%; /* 부모 컨테이너 너비에 맞춤 */
-
 }
 
 .portfolio_item {

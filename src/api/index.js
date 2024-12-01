@@ -62,4 +62,6 @@ apiClient.interceptors.response.use(
 const handleLogout = () => {
   localStorage.removeItem("accessToken");
   localStorage.removeItem("refreshToken");
+  console.warn("로그아웃 처리 완료. 로그인 페이지로 이동 중...");
+  window.location.href = "/login"; // 로그인 페이지로 리다이렉트
 };
