@@ -1,8 +1,6 @@
 import axios from "axios";
-import { refreshTokens, refreshAccessToken } from "../api/authApi";
-import { useNavigate } from "react-router-dom";
 
-export const apiClient = axios.create({
+const apiClient = axios.create({
   baseURL: process.env.REACT_APP_SERVER,
   //   timeout: 5000, 벡엔드와 상의, 벡엔드 타임아웃 보다는 짧게
   headers: { "content-type": process.env.REACT_APP_DEFAULT_CONTENT_TYPE },
@@ -13,9 +11,6 @@ apiClient.interceptors.request.use((config) => {
   const accessToken = localStorage.getItem("accessToken");
   if (accessToken) {
     config.headers.Authorization = `Bearer ${accessToken}`;
-  } else {
-    console.warn("Access Token 없음. 로그아웃 처리 중...");
-    handleLogout(); // Access Token 없으면 로그아웃 처리
   }
   return config;
 });
@@ -23,43 +18,40 @@ apiClient.interceptors.request.use((config) => {
 apiClient.interceptors.response.use(
   (response) => response,
   async (error) => {
-    const originalRequest = error.config;
+    // 오류 응답이 401 상태 코드이면
+    if (error.response?.status === 401) {
+      const originalRequest = error.config;
+      //해당 요청이 재시도되지 않았다면 새 토큰을 요청
+      if (!originalRequest._retry) {
+        // 요청을 재시도하기 위한 플래그를 설정
+        originalRequest._retry = true;
 
-    if (error.response?.status === 401 && !originalRequest._retry) {
-      originalRequest._retry = true;
+        try {
+          // Refresh Token을 사용해 Access Token 갱신
+          const refreshToken = localStorage.getItem("refreshToken");
+          const { data } = await apiClient.post("/auth/newToken", null, {
+            headers: {
+              Authorization: `Bearer ${refreshToken}`,
+            },
+          });
 
-      const refreshToken = localStorage.getItem("refreshToken");
-      const navigate = useNavigate(); // React Router의 navigate 사용
+          const newAccessToken = data.accessToken;
+          localStorage.setItem("accessToken", newAccessToken);
 
-      if (!refreshToken) {
-        console.error("Refresh Token 없음. 로그아웃 처리.");
-        handleLogout(); // 로그아웃 처리
-        return Promise.reject(error);
-      }
-      try {
-        // Step 1: Access Token 갱신
-        const newAccessToken = await refreshAccessToken(refreshToken);
-
-        // Step 2: refresh Token 갱신
-        const newRefreshToken = await refreshTokens(refreshToken);
-
-        // Step 3: 원래 요청 재시도
-        localStorage.setItem("accessToken", newAccessToken);
-        localStorage.setItem("refreshToken", newRefreshToken);
-        originalRequest.headers.Authorization = `Bearer ${newAccessToken}`;
-        return apiClient.request(originalRequest);
-      } catch (refreshError) {
-        console.error("Access Token 갱신 실패. 로그아웃 처리.");
-        handleLogout(); // 로그아웃 처리
-        return Promise.reject(refreshError);
+          // 갱신된 Access Token으로 요청 재시도
+          originalRequest.headers.Authorization = `Bearer ${newAccessToken}`;
+          return apiClient.request(originalRequest);
+        } catch (refreshError) {
+          console.error("토큰 갱신 실패. 로그아웃 처리.");
+          localStorage.removeItem("accessToken");
+          localStorage.removeItem("refreshToken");
+          window.location.href = "/login";
+          return Promise.reject(refreshError);
+        }
       }
     }
     return Promise.reject(error);
   }
 );
 
-// 로그아웃 처리 함수
-const handleLogout = () => {
-  localStorage.removeItem("accessToken");
-  localStorage.removeItem("refreshToken");
-};
+export default apiClient;
