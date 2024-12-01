@@ -1,14 +1,14 @@
-import { apiClient } from ".";
+import { apiClient } from "./index.js";
 
 const CALENDAR_URL = {
   baseUrl: process.env.REACT_APP_SERVER,
-  endpoingUrl: "/calendar",
+  endpointUrl: "/calendar",
 };
 
 export const fetchCalendar = async (yearMonth) => {
   try {
     const response = await apiClient.get(
-      `${CALENDAR_URL.baseUrl}${CALENDAR_URL.endpoingUrl}/${yearMonth}`,
+      `${CALENDAR_URL.baseUrl}${CALENDAR_URL.endpointUrl}/${yearMonth}`,
       {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
@@ -30,21 +30,20 @@ export const addCalendarEvent = async (accessToken, eventData) => {
   };
 
   console.log("일정 추가 함수 호출됨");
-  const response = await apiClient.fetch(
-    `${CALENDAR_URL.baseUrl}${CALENDAR_URL.endpoingUrl}/add`,
+  const response = await apiClient.post(
+    `${CALENDAR_URL.endpointUrl}/add`,
+    requestBody,
     {
-      method: "POST",
       headers: {
         Authorization: `Bearer ${accessToken}`,
       },
-      body: JSON.stringify(requestBody),
     }
   );
   return response;
 };
 export const deleteCalendarEvent = async (accessToken, id) => {
   const response = await apiClient.delete(
-    `${CALENDAR_URL.baseUrl}${CALENDAR_URL.endpoingUrl}/${id}`,
+    `${CALENDAR_URL.baseUrl}${CALENDAR_URL.endpointUrl}/${id}`,
     {
       headers: {
         Authorization: `Bearer ${accessToken}`,
