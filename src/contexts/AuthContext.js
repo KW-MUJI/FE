@@ -10,7 +10,7 @@ export const AuthProvider = ({ children }) => {
   const [accessToken, setAccessToken] = useState(
     localStorage.getItem("accessToken")
   );
-  
+
   const refreshToken = localStorage.getItem("refreshToken");
 
   console.log("AuthProvider 엑세스토큰: ", accessToken);
@@ -18,7 +18,14 @@ export const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     const handleStorageChange = () => {
-      setAccessToken(localStorage.getItem("accessToken"));
+      const token = localStorage.getItem("accessToken");
+      if (!token) {
+        // Access Token이 없는 경우 로그아웃 처리된 상태로 간주
+        console.warn("Access Token 없음. 로그아웃 처리된 상태로 설정.");
+        setAccessToken(null);
+      } else {
+        setAccessToken(token);
+      }
     };
 
     // 이벤트 리스너 등록
