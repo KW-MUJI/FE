@@ -211,7 +211,7 @@ button:disabled {
   white-space: nowrap; /* 텍스트를 한 줄로 표시 */
   overflow: hidden; /* 넘치는 텍스트를 숨김 */
   text-overflow: ellipsis; /* 줄임표(...)를 표시 */
-  max-width: 100%; /* 부모 컨테이너 너비에 맞춤 */
+  max-width: 90%; /* 부모 컨테이너 너비에 맞춤 */
 }
 
 .portfolio_item {
