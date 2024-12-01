@@ -1,13 +1,5 @@
 import axios from "axios";
-import { useAuth } from "../contexts/AuthContext";
-import { handleTokenRefresh } from "../utils/authUtil";
-import { useNavigate } from "react-router-dom";
-
-const AUTH_URL = {
-  baseUrl: "/auth",
-  newAccessToken: "/newToken",
-  newRefreshToken: "/newrefreshToken",
-};
+import { refreshTokens, refreshAccessToken } from "../api/authApi";
 
 export const apiClient = axios.create({
   baseURL: process.env.REACT_APP_SERVER,
@@ -27,60 +19,38 @@ apiClient.interceptors.request.use((config) => {
 apiClient.interceptors.response.use(
   (response) => response,
   async (error) => {
-    const { response } = error;
-    if (response && response.status === 401) {
-      // AuthContext에서 값 가져오기
+    const originalRequest = error.config;
 
-      const { refreshToken, setAccessToken, navigate } = useAuth();
+    if (error.response?.status === 401 && !originalRequest._retry) {
+      originalRequest._retry = true;
 
+      const refreshToken = localStorage.getItem("refreshToken");
+
+      if (!refreshToken) {
+        console.error("Refresh Token 없음. 로그아웃 처리.");
+        localStorage.removeItem("accessToken");
+        localStorage.removeItem("refreshToken");
+        window.location.href = "/login";
+        return Promise.reject(error);
+      }
       try {
-        // Token 갱신
-        const newAccessToken = await handleTokenRefresh(
-          refreshToken,
-          setAccessToken
-        );
+        // Step 1: Access Token 갱신
+        const newAccessToken = await refreshAccessToken(refreshToken);
 
-        // 이전 요청 재시도
-        error.config.headers.Authorization = `Bearer ${newAccessToken}`;
-        return apiClient.request(error.config);
+        // Step 2: refresh Token 갱신
+        const newRefreshToken = await refreshTokens(refreshToken);
+
+        // Step 3: 원래 요청 재시도
+        originalRequest.headers.Authorization = `Bearer ${newAccessToken}`;
+        return apiClient.request(originalRequest);
       } catch (refreshError) {
-        console.error("Token refresh failed:", refreshError);
+        console.error("Access Token 갱신 실패. 로그아웃 처리.");
+        localStorage.removeItem("accessToken");
+        localStorage.removeItem("refreshToken");
+        window.location.href = "/login";
         return Promise.reject(refreshError);
       }
     }
     return Promise.reject(error);
   }
 );
-export const newAcessToken = async (refreshToken) => {
-  try {
-    const response = await apiClient.get(
-      `${AUTH_URL.baseUrl}${AUTH_URL.newAccessToken}`,
-      {
-        headers: {
-          Authorization: `Bearer ${refreshToken}`,
-        },
-      }
-    );
-    return response.data;
-  } catch (error) {
-    console.error("Token refresh error:", error.response || error);
-    throw error;
-  }
-};
-
-export const getNewRefreshToken = async (refreshToken) => {
-  try {
-    const response = await apiClient.get(
-      `${AUTH_URL.baseUrl}${AUTH_URL.newRefreshToken}`,
-      {
-        headers: {
-          Authorization: `Bearer ${refreshToken}`,
-        },
-      }
-    );
-    return response.data;
-  } catch (error) {
-    console.error("Refresh Token renew error:", error.response || error);
-    throw error;
-  }
-};

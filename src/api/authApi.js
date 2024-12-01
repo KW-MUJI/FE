@@ -6,6 +6,7 @@ const API_BASE_URL = process.env.REACT_APP_SERVER;
 export const signIn = async (credentials) => {
   try {
     const response = await apiClient.post("/auth/signIn", credentials);
+
     return response.data;
   } catch (error) {
     console.error("[ERROR] sign-in:", error);
@@ -13,6 +14,7 @@ export const signIn = async (credentials) => {
   }
 };
 
+//
 export const sendAuthRequest = async (email, flag) => {
   const requestBody = {
     email: email,
@@ -92,4 +94,51 @@ export const resetPw = async (email, pass, passcon) => {
   }
 
   return await response.json();
+};
+
+// 엑세스 토큰 재발급
+export const refreshAccessToken = async (refreshToken) => {
+  try {
+    const response = await apiClient.get("/auth/newToken", {
+      headers: {
+        Authorization: `Bearer ${refreshToken}`,
+      },
+    });
+
+    const { accessToken, refreshToken: newRefreshToken } = response.data;
+
+    // 새 Access Token을 localStorage에 저장
+    localStorage.setItem("accessToken", accessToken);
+    localStorage.setItem("refreshToken", newRefreshToken);
+
+    console.log("Access Token 갱신 성공:", accessToken);
+    console.log("refresh Token 갱신 성공:", newRefreshToken);
+    
+    return accessToken;
+  } catch (error) {
+    console.error("Access Token 갱신 실패:", error.response?.data || error);
+    throw error;
+  }
+};
+
+// 리프레시토큰 재발급
+export const refreshTokens = async (refreshToken) => {
+  try {
+    const response = await apiClient.get("/auth/newrefreshToken", {
+      headers: {
+        Authorization: `Bearer ${refreshToken}`,
+      },
+    });
+
+    const { refreshToken: newRefreshToken } = response.data;
+
+    // 새 Refresh Token을 localStorage에 저장
+    localStorage.setItem("refreshToken", newRefreshToken);
+
+    console.log("Refresh Token 갱신 성공:", newRefreshToken);
+    return newRefreshToken;
+  } catch (error) {
+    console.error("Refresh Token 갱신 실패:", error.response?.data || error);
+    throw error;
+  }
 };

@@ -10,6 +10,7 @@ export const AuthProvider = ({ children }) => {
   const [accessToken, setAccessToken] = useState(
     localStorage.getItem("accessToken")
   );
+  
   const refreshToken = localStorage.getItem("refreshToken");
 
   console.log("AuthProvider 엑세스토큰: ", accessToken);

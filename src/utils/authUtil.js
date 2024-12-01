@@ -2,6 +2,7 @@
 import { newAcessToken, getNewRefreshToken } from "../api";
 
 export const handleTokenRefresh = async (refreshToken, setAccessToken) => {
+
   if (!refreshToken) {
     console.error("No refresh token available");
     setAccessToken(null);
@@ -10,14 +11,17 @@ export const handleTokenRefresh = async (refreshToken, setAccessToken) => {
     window.location.href = "/login";
     return;
   }
+  
   try {
     // Step 1: Access Token 갱신
     const response = await newAcessToken(refreshToken);
     const { accessToken } = response.data;
+    const { refreshToken: firstRefreshToken } = response.data;
 
     if (accessToken) {
       setAccessToken(accessToken);
       localStorage.setItem("accessToken", accessToken);
+      localStorage.setItem("refreshToken", firstRefreshToken);
       console.log("accesstoken 발급됨 :", accessToken);
       return;
     }
