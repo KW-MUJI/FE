@@ -247,7 +247,10 @@ const MyPage = () => {
                   </div>
                 ))
               ) : (
-                <div>설문이 없습니다.</div>
+                <div className={styles.team}>
+                  <span className={styles.dot}></span>
+                  설문이 없습니다.
+                </div>
               )}
             </div>
           </div>
