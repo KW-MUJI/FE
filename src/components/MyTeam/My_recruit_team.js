@@ -222,6 +222,7 @@ const MyRecruitTeam = () => {
         // 백엔드에서 최신 데이터를 다시 가져오기
         const updatedResponse = await getMyProjectApplicant(accessToken);
         setProjectList(updatedResponse.data); // 최신 데이터로 상태 업데이트
+        setIsButtonDisabled(false); // 버튼 활성화
       } else {
         console.error("팀플 시작 실패: 서버에서 true가 반환되지 않았습니다.");
       }
