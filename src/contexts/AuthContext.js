@@ -18,14 +18,7 @@ export const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     const handleStorageChange = () => {
-      const token = localStorage.getItem("accessToken");
-      if (!token) {
-        // Access Token이 없는 경우 로그아웃 처리된 상태로 간주
-        console.warn("Access Token 없음. 로그아웃 처리된 상태로 설정.");
-        setAccessToken(null);
-      } else {
-        setAccessToken(token);
-      }
+      setAccessToken(localStorage.getItem("accessToken"));
     };
 
     // 이벤트 리스너 등록
