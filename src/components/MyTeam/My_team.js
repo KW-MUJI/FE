@@ -118,7 +118,11 @@ const MyTeam = () => {
   }, [accessToken, navigate]);
 
   const navigateSchedule = () => {
-    navigate("/schedule");
+    const now = new Date();
+    const year = now.getFullYear();
+    const month = String(now.getMonth() + 1).padStart(2, "0"); // 월을 2자리로 포맷
+    const yearMonth = `${year}-${month}`;
+    navigate(`/schedule/${yearMonth}`);
   };
 
   return (
