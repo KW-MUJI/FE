@@ -38,10 +38,7 @@ export const verifyPinRequest = async (email, pin) => {
     authNum: pin,
   };
 
-  const response = await fetch(`${API_BASE_URL}/auth/authCheck`, {
-    method: "POST",
-    body: JSON.stringify(requestBody),
-  });
+  const response = await apiClient.post(`/auth/authCheck`, requestBody);
 
   return await response.json();
 };
