@@ -14,7 +14,6 @@ export const signIn = async (credentials) => {
   }
 };
 
-//
 export const sendAuthRequest = async (email, flag) => {
   const requestBody = {
     email: email,
@@ -30,7 +29,7 @@ export const sendAuthRequest = async (email, flag) => {
     throw new Error("Network response was not ok");
   }
 
-  return await response.json();
+  return await response;
 };
 
 export const verifyPinRequest = async (email, pin) => {
