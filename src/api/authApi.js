@@ -21,7 +21,7 @@ export const sendAuthRequest = async (email, flag) => {
     flag: flag,
   };
 
-  const response = await axios.fetch(`${API_BASE_URL}/auth/mailSend`, {
+  const response = await fetch(`${API_BASE_URL}/auth/mailSend`, {
     method: "POST",
     body: JSON.stringify(requestBody),
   });
@@ -39,7 +39,7 @@ export const verifyPinRequest = async (email, pin) => {
     authNum: pin,
   };
 
-  const response = await axios.fetch(`${API_BASE_URL}/auth/authCheck`, {
+  const response = await fetch(`${API_BASE_URL}/auth/authCheck`, {
     method: "POST",
     body: JSON.stringify(requestBody),
   });
@@ -48,7 +48,7 @@ export const verifyPinRequest = async (email, pin) => {
 };
 
 export const signupRequest = async (requestBody) => {
-  const response = await axios.fetch(`${API_BASE_URL}/auth/signUp`, {
+  const response = await fetch(`${API_BASE_URL}/auth/signUp`, {
     method: "POST",
     body: JSON.stringify(requestBody),
   });
@@ -66,7 +66,7 @@ export const pwMailsend = async (email, pin) => {
     authNum: pin,
   };
 
-  const response = await axios.fetch(`${API_BASE_URL}/auth/findPw`, {
+  const response = await fetch(`${API_BASE_URL}/auth/findPw`, {
     method: "POST",
     body: JSON.stringify(requestBody),
   });
@@ -84,7 +84,7 @@ export const resetPw = async (email, pass, passcon) => {
     email: email,
   };
 
-  const response = await axios.fetch(`${API_BASE_URL}/auth/resetPw`, {
+  const response = await fetch(`${API_BASE_URL}/auth/resetPw`, {
     method: "POST",
     body: JSON.stringify(requestBody),
   });
