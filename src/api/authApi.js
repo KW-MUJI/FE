@@ -26,7 +26,7 @@ export const sendAuthRequest = async (email, flag) => {
     throw new Error("Network response was not ok");
   }
 
-  return await response;
+  return response;
 };
 
 export const verifyPinRequest = async (email, pin) => {
@@ -35,10 +35,7 @@ export const verifyPinRequest = async (email, pin) => {
     authNum: pin,
   };
 
-  const response = await apiClient.fetch(`${API_BASE_URL}/auth/authCheck`, {
-    method: "POST",
-    body: JSON.stringify(requestBody),
-  });
+  const response = await apiClient.post(`/auth/authCheck`, requestBody);
 
   return await response.json();
 };
