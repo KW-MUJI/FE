@@ -1,5 +1,7 @@
+//index.js
 import axios from "axios";
-import { useAuth } from "../contexts/AuthContext";
+import { refreshAccessToken } from "../api/authApi";
+
 export const apiClient = axios.create({
   baseURL: process.env.REACT_APP_SERVER,
   //   timeout: 5000, 벡엔드와 상의, 벡엔드 타임아웃 보다는 짧게
@@ -8,7 +10,7 @@ export const apiClient = axios.create({
 
 // Request Interceptor: Access Token 추가
 apiClient.interceptors.request.use((config) => {
-  const { accessToken } = useAuth();
+  const accessToken = localStorage.getItem("accessToken");
   if (accessToken) {
     config.headers.Authorization = `Bearer ${accessToken}`;
   }
@@ -17,7 +19,7 @@ apiClient.interceptors.request.use((config) => {
 
 apiClient.interceptors.response.use(
   (response) => response,
-  async (error) => {
+  (error) => {
     if (error.response?.status === 401) {
       console.error("401 Unauthorized 에러:", error);
       alert("인증 정보가 만료되었습니다. 다시 로그인하세요.");

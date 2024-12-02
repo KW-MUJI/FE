@@ -28,24 +28,13 @@ export const AuthProvider = ({ children }) => {
     if (!token) return true;
 
     try {
-      // JWT의 페이로드 추출 (토큰은 'header.payload.signature' 형식)
-      const base64Url = token.split(".")[1]; // 두 번째 부분이 페이로드
+      const base64Url = token.split(".")[1]; // JWT의 페이로드 추출
       const base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
-      const jsonPayload = decodeURIComponent(
-        atob(base64)
-          .split("")
-          .map((c) => `%${`00${c.charCodeAt(0).toString(16)}`.slice(-2)}`)
-          .join("")
-      );
-
-      // JSON으로 파싱
-      const { exp } = JSON.parse(jsonPayload);
-
-      // 현재 시간과 만료 시간 비교
-      return Date.now() >= exp * 1000;
+      const { exp } = JSON.parse(atob(base64)); // JSON 파싱
+      return Date.now() >= exp * 1000; // 현재 시간과 만료 시간 비교
     } catch (error) {
       console.error("JWT 디코딩 실패:", error);
-      return true; // 디코딩에 실패하면 만료된 것으로 간주
+      return true; // 디코딩 실패 시 만료된 것으로 간주
     }
   };
 
@@ -58,6 +47,7 @@ export const AuthProvider = ({ children }) => {
         try {
           const newAccessToken = await refreshAccessToken(refreshToken);
           setAccessToken(newAccessToken);
+          localStorage.setItem("accessToken", newAccessToken);
         } catch (error) {
           console.error("Access Token 갱신 실패:", error);
           handleLogout();
@@ -67,17 +57,9 @@ export const AuthProvider = ({ children }) => {
 
     checkToken();
 
-    const handleStorageChange = () => {
-      setAccessToken(localStorage.getItem("accessToken"));
-    };
+    const interval = setInterval(checkToken, 5 * 60 * 1000); // 5분마다 실행
 
-    // 이벤트 리스너 등록
-    window.addEventListener("storage", handleStorageChange);
-
-    // 클린업
-    return () => {
-      window.removeEventListener("storage", handleStorageChange);
-    };
+    return () => clearInterval(interval); // 클린업
   }, [accessToken, refreshToken]);
 
   return (
@@ -87,6 +69,7 @@ export const AuthProvider = ({ children }) => {
         setAccessToken,
         refreshToken,
         setRefreshToken,
+        handleLogout,
       }}
     >
       {children}
