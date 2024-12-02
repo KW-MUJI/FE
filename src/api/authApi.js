@@ -32,7 +32,7 @@ export const verifyPinRequest = async (email, pin) => {
     authNum: pin,
   };
 
-  const response = await fetch(`/auth/authCheck`, {
+  const response = await fetch(`${API_BASE_URL}/auth/authCheck`, {
     method: "POST",
     body: JSON.stringify(requestBody),
   });
