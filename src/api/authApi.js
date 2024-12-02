@@ -34,6 +34,9 @@ export const verifyPinRequest = async (email, pin) => {
 
   const response = await fetch(`${API_BASE_URL}/auth/authCheck`, {
     method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
     body: JSON.stringify(requestBody),
   });
 
@@ -43,6 +46,9 @@ export const verifyPinRequest = async (email, pin) => {
 export const signupRequest = async (requestBody) => {
   const response = await fetch(`${API_BASE_URL}/auth/signUp`, {
     method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
     body: JSON.stringify(requestBody),
   });
 
@@ -61,6 +67,9 @@ export const pwMailsend = async (email, pin) => {
 
   const response = await fetch(`${API_BASE_URL}/auth/findPw`, {
     method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
     body: JSON.stringify(requestBody),
   });
 
@@ -79,6 +88,9 @@ export const resetPw = async (email, pass, passcon) => {
 
   const response = await fetch(`${API_BASE_URL}/auth/resetPw`, {
     method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
     body: JSON.stringify(requestBody),
   });
   console.log(response);
