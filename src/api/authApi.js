@@ -21,10 +21,10 @@ export const sendAuthRequest = async (email, flag) => {
     flag: flag,
   };
 
-  const response = await axios.fetch(`${API_BASE_URL}/auth/mailSend`, {
-    method: "POST",
-    body: JSON.stringify(requestBody),
-  });
+  const response = await apiClient.fetch(`/auth/mailSend`,
+    JSON.stringify(requestBody),
+  );
+
 
   if (!response.ok) {
     throw new Error("Network response was not ok");
