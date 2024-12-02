@@ -1,6 +1,5 @@
 // src/contexts/AuthContext.js
 import React, { createContext, useState, useContext, useEffect } from "react";
-import jwtDecode from "jwt-decode";
 import { refreshAccessToken } from "../api/authApi";
 // AuthContext 생성
 const AuthContext = createContext();
@@ -27,8 +26,27 @@ export const AuthProvider = ({ children }) => {
   // 토큰 만료 확인 함수
   const isTokenExpired = (token) => {
     if (!token) return true;
-    const { exp } = jwtDecode(token);
-    return Date.now() >= exp * 1000;
+
+    try {
+      // JWT의 페이로드 추출 (토큰은 'header.payload.signature' 형식)
+      const base64Url = token.split(".")[1]; // 두 번째 부분이 페이로드
+      const base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
+      const jsonPayload = decodeURIComponent(
+        atob(base64)
+          .split("")
+          .map((c) => `%${`00${c.charCodeAt(0).toString(16)}`.slice(-2)}`)
+          .join("")
+      );
+
+      // JSON으로 파싱
+      const { exp } = JSON.parse(jsonPayload);
+
+      // 현재 시간과 만료 시간 비교
+      return Date.now() >= exp * 1000;
+    } catch (error) {
+      console.error("JWT 디코딩 실패:", error);
+      return true; // 디코딩에 실패하면 만료된 것으로 간주
+    }
   };
 
   console.log("AuthProvider 엑세스토큰: ", accessToken);
