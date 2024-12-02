@@ -25,12 +25,11 @@ export const sendAuthRequest = async (email, flag) => {
     method: "POST",
     body: JSON.stringify(requestBody),
   });
-
   if (!response.ok) {
     throw new Error("Network response was not ok");
   }
 
-  return await response;
+  return await response.json();
 };
 
 export const verifyPinRequest = async (email, pin) => {
