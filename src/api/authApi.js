@@ -119,24 +119,24 @@ export const refreshAccessToken = async (refreshToken) => {
   }
 };
 
-// 리프레시토큰 재발급
-export const refreshTokens = async (refreshToken) => {
-  try {
-    const response = await apiClient.get("/auth/newrefreshToken", {
-      headers: {
-        Authorization: `Bearer ${refreshToken}`,
-      },
-    });
+// // 리프레시토큰 재발급
+// export const refreshTokens = async (refreshToken) => {
+//   try {
+//     const response = await apiClient.get("/auth/newrefreshToken", {
+//       headers: {
+//         Authorization: `Bearer ${refreshToken}`,
+//       },
+//     });
 
-    const { refreshToken: newRefreshToken } = response.data;
+//     const { refreshToken: newRefreshToken } = response.data;
 
-    // 새 Refresh Token을 localStorage에 저장
-    localStorage.setItem("refreshToken", newRefreshToken);
+//     // 새 Refresh Token을 localStorage에 저장
+//     localStorage.setItem("refreshToken", newRefreshToken);
 
-    console.log("Refresh Token 갱신 성공:", newRefreshToken);
-    return newRefreshToken;
-  } catch (error) {
-    console.error("Refresh Token 갱신 실패:", error.response?.data || error);
-    throw error;
-  }
-};
+//     console.log("Refresh Token 갱신 성공:", newRefreshToken);
+//     return newRefreshToken;
+//   } catch (error) {
+//     console.error("Refresh Token 갱신 실패:", error.response?.data || error);
+//     throw error;
+//   }
+// };
