@@ -38,6 +38,8 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
+  const getAccessToken = () => localStorage.getItem("accessToken");
+
   console.log("AuthProvider 엑세스토큰: ", accessToken);
   console.log("AuthProvider refresh토큰: ", refreshToken);
 
@@ -65,6 +67,7 @@ export const AuthProvider = ({ children }) => {
   return (
     <AuthContext.Provider
       value={{
+        getAccessToken,
         accessToken,
         setAccessToken,
         refreshToken,
@@ -79,3 +82,4 @@ export const AuthProvider = ({ children }) => {
 
 // Context를 쉽게 사용하기 위한 커스텀 훅
 export const useAuth = () => useContext(AuthContext);
+export const getAccessToken = () => localStorage.getItem("accessToken"); // 추가

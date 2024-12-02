@@ -1,7 +1,7 @@
 //index.js
 import axios from "axios";
 import { refreshAccessToken } from "../api/authApi";
-
+import { getAccessToken } from "../contexts/AuthContext";
 export const apiClient = axios.create({
   baseURL: process.env.REACT_APP_SERVER,
   //   timeout: 5000, 벡엔드와 상의, 벡엔드 타임아웃 보다는 짧게
@@ -10,7 +10,7 @@ export const apiClient = axios.create({
 
 // Request Interceptor: Access Token 추가
 apiClient.interceptors.request.use((config) => {
-  const accessToken = localStorage.getItem("accessToken");
+  const accessToken = getAccessToken();
   if (accessToken) {
     config.headers.Authorization = `Bearer ${accessToken}`;
   }
