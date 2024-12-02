@@ -15,7 +15,7 @@
 
 .logo {
   width: 211px;
-  height: 57px;
+  height: auto;
   flex-shrink: 0;
   margin: 59px 80px 57px 21px;
 }
