@@ -21,13 +21,15 @@ export const sendAuthRequest = async (email, flag) => {
     flag: flag,
   };
 
-  const response = await apiClient.post(`/auth/mailSend`, requestBody);
-
+  const response = await fetch(`${API_BASE_URL}/auth/mailSend`, {
+    method: "POST",
+    body: JSON.stringify(requestBody),
+  });
   if (!response.ok) {
     throw new Error("Network response was not ok");
   }
 
-  return response;
+  return await response.json();
 };
 
 export const verifyPinRequest = async (email, pin) => {
