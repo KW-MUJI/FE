@@ -1,6 +1,7 @@
 // src/contexts/AuthContext.js
 import React, { createContext, useState, useContext, useEffect } from "react";
-
+import jwtDecode from "jwt-decode";
+import { refreshAccessToken } from "../api/authApi";
 // AuthContext 생성
 const AuthContext = createContext();
 
@@ -11,12 +12,43 @@ export const AuthProvider = ({ children }) => {
     localStorage.getItem("accessToken")
   );
 
-  const refreshToken = localStorage.getItem("refreshToken");
+  const [refreshToken, setRefreshToken] = useState(
+    localStorage.getItem("refreshToken")
+  );
+  // 로그아웃 처리
+  const handleLogout = () => {
+    localStorage.removeItem("accessToken");
+    localStorage.removeItem("refreshToken");
+    setAccessToken(null);
+    setRefreshToken(null);
+    alert("인증이 만료되었습니다. 다시 로그인하세요.");
+    window.location.href = "/login";
+  };
+  // 토큰 만료 확인 함수
+  const isTokenExpired = (token) => {
+    if (!token) return true;
+    const { exp } = jwtDecode(token);
+    return Date.now() >= exp * 1000;
+  };
 
   console.log("AuthProvider 엑세스토큰: ", accessToken);
   console.log("AuthProvider refresh토큰: ", refreshToken);
 
   useEffect(() => {
+    const checkToken = async () => {
+      if (accessToken && isTokenExpired(accessToken)) {
+        try {
+          const newAccessToken = await refreshAccessToken(refreshToken);
+          setAccessToken(newAccessToken);
+        } catch (error) {
+          console.error("Access Token 갱신 실패:", error);
+          handleLogout();
+        }
+      }
+    };
+
+    checkToken();
+
     const handleStorageChange = () => {
       setAccessToken(localStorage.getItem("accessToken"));
     };
@@ -28,7 +60,7 @@ export const AuthProvider = ({ children }) => {
     return () => {
       window.removeEventListener("storage", handleStorageChange);
     };
-  }, []);
+  }, [accessToken, refreshToken]);
 
   return (
     <AuthContext.Provider value={{ accessToken, setAccessToken }}>
