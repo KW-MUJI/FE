@@ -87,7 +87,6 @@ export const AuthProvider = ({ children }) => {
         setAccessToken,
         refreshToken,
         setRefreshToken,
-        handleLogout,
       }}
     >
       {children}

@@ -27,21 +27,24 @@ const Login = () => {
     try {
       // API 호출
       const response = await signIn({ email, password });
-      const { accessToken, refreshToken } = response.data; // 서버에서 반환한 토큰
-      localStorage.setItem("accessToken", accessToken);
-      localStorage.setItem("refreshToken", refreshToken);
-
-      // 로그인 성공 시 처리
       console.log("로그인 성공:", response);
+
+      const { accessToken, refreshToken } = response.data; // 서버에서 반환한 토큰
       console.log("Access Token:", accessToken);
       console.log("Refresh Token:", refreshToken);
+
+      if (!accessToken || !refreshToken) {
+        throw new Error("토큰이 응답에 포함되지 않았습니다.");
+      }
+
+      localStorage.setItem("accessToken", accessToken);
+      localStorage.setItem("refreshToken", refreshToken);
       setAccessToken(accessToken); // 로그인 상태로 변경
 
-      // 토큰 저장
       navigate("/home"); // 대시보드로 이동
     } catch (error) {
       // 에러 처리
-      setAccessToken(""); // 로그아웃 상태로 변경
+      setAccessToken(null); // 로그아웃 상태로 변경
       // setEmail("" + fixedDomain);
       setPassword("");
       const errorMessage = "잘못된 이메일/비밀번호 입니다.";
