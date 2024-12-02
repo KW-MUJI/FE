@@ -20,9 +20,7 @@ export const sendAuthRequest = async (email, flag) => {
     flag: flag,
   };
 
-  const response = await apiClient.fetch(`/auth/mailSend`,
-    JSON.stringify(requestBody),
-  );
+  const response = await apiClient.post(`/auth/mailSend`, requestBody);
 
   if (!response.ok) {
     throw new Error("Network response was not ok");
