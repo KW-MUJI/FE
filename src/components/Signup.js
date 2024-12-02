@@ -329,7 +329,7 @@ const Signup = () => {
                             checked={isChecked2}
                             onChange={handleCheckboxChange2}
                         />
-                        <span onClick={() => openModal('second')}>이메일 정보 수집 동의</span> <span style={{ color: 'red' }}>(필수)</span>
+                        <span>이메일 정보 수집 동의</span> <span style={{ color: 'red' }}>(필수)</span>
                     </div>
                     <Modal isOpen={isModalOpen} onClose={closeModal} type={modalType} />
                 </div>
