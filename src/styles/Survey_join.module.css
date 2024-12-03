@@ -24,6 +24,8 @@
     font-weight: 500;
     line-height: 20px;
     padding-left: 30px;
+    word-break: break-all;
+    overflow-wrap: break-work;
 }
 .post p {
     font-family: Pretendard;
