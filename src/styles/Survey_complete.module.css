@@ -24,7 +24,8 @@
     font-weight: 500;
     line-height: 20px;
     padding-left: 30px;
-    overflow-wrap: break-work;
+    white-space: normal;
+    word-wrap: break-all;
 }
 
 .post p {
@@ -43,7 +44,6 @@
     border: 1px solid #B3B3B3;
     border-radius: 5px;
     margin-bottom: 32px;
-    overflow-wrap: break-work;
 }
 
 .complete {
