@@ -41,6 +41,7 @@
     border: 1px solid #B3B3B3;
     border-radius: 5px;
     margin-bottom: 32px;
+    overflow: auto;
 }
 
 .complete {
