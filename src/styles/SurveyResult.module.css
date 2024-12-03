@@ -42,7 +42,8 @@
     border: 1px solid #B3B3B3;
     border-radius: 5px;
     margin-bottom: 32px;
-    overflow-wrap: anywhere;
+    word-break: break-all;
+    overflow-wrap: break-work;
 }
 
 .quest_box {
@@ -81,10 +82,13 @@
     border-color: #8B0B02;
     /* 체크 시 테두리 색상 변경 */
 }
-.radio:not(:checked) + .text {
+
+.radio:not(:checked)+.text {
     color: #B3B3B3;
-    ; /* 체크되지 않은 경우 글자색 */
+    ;
+    /* 체크되지 않은 경우 글자색 */
 }
+
 .radio:checked::after {
     content: '';
     position: absolute;
@@ -142,9 +146,11 @@
     color: #000000;
 
 }
-.arrows{
+
+.arrows {
     text-align: right;
 }
+
 .arrow {
     cursor: pointer;
 }
@@ -156,20 +162,22 @@
 .arrow.active {
     stroke: #000000;
 }
-.name_box{
+
+.name_box {
     width: 770px;
-height: 55.07px;
-top: 533px;
-left: 119px;
-gap: 0px;
-opacity: 0px;
+    height: 55.07px;
+    top: 533px;
+    left: 119px;
+    gap: 0px;
+    opacity: 0px;
 }
-.name{
+
+.name {
 
     font-family: Pretendard;
     font-size: 24px;
     font-weight: 600;
     line-height: 24px;
     text-align: left;
-    padding-left: 15px;    
+    padding-left: 15px;
 }
