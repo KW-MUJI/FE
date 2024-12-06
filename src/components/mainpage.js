@@ -3,7 +3,7 @@ import styles from "../styles/mainpage.module.css";
 import { useNavigate } from "react-router-dom";
 import { fetchData } from "../api/mainpageApi"; // API 호출 함수 import
 import { useAuth } from "../contexts/AuthContext.js";
-import { formatDate } from "../../utils/dateUtil";
+import { formatDate } from "../utils/dateUtil.js";
 const MainPage = () => {
   const navigate = useNavigate();
 
