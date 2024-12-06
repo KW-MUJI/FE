@@ -63,6 +63,24 @@ const MainPage = () => {
     }
   };
 
+  const calculateDDay = (targetDate) => {
+    // targetDate를 Date 객체로 변환
+    const target = new Date(targetDate);
+    const today = new Date();
+
+    // 날짜 차이를 일 단위로 계산
+    const diffTime = target - today; // 밀리초 차이
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)); // 일 단위로 변환
+
+    if (diffDays === 0) {
+      return "D-day";
+    } else if (diffDays < 0) {
+      return false;
+    } else {
+      return `D-${diffDays}`;
+    }
+  };
+
   const formatLastModified = (date) => {
     return date.replace(/-/g, ".");
   };
@@ -84,11 +102,12 @@ const MainPage = () => {
   };
 
   const handleDateClick = (day) => {
-    if(!token)
-      return;
-    navigate(`/schedule/${currentMonth.getFullYear()}-${String(
-          currentMonth.getMonth() + 1
-        ).padStart(2, "0")}`);
+    if (!token) return;
+    navigate(
+      `/schedule/${currentMonth.getFullYear()}-${String(
+        currentMonth.getMonth() + 1
+      ).padStart(2, "0")}`
+    );
   };
 
   const handleMouseEnter = (dayEvents, event) => {
@@ -240,8 +259,8 @@ const MainPage = () => {
                       ? dayEvents[0].type === "univ"
                         ? "#E8CECC66"
                         : dayEvents[0].type === "user"
-                          ? "#EDE1F8"
-                          : "#EEF2F6"
+                        ? "#EDE1F8"
+                        : "#EEF2F6"
                       : "transparent";
 
                   return (
@@ -266,8 +285,8 @@ const MainPage = () => {
                     ? dayEvents[0].type === "univ"
                       ? "#E8CECC66" // 대학 일정 색상
                       : dayEvents[0].type === "user"
-                        ? "#EDE1F8" // 개인 일정 색상
-                        : "#EEF2F6" // 팀플 일정 색상
+                      ? "#EDE1F8" // 개인 일정 색상
+                      : "#EEF2F6" // 팀플 일정 색상
                     : "transparent";
 
                 return (
@@ -295,8 +314,8 @@ const MainPage = () => {
                     ? dayEvents[0].type === "univ"
                       ? "#E8CECC66" // 대학 일정 색상
                       : dayEvents[0].type === "user"
-                        ? "#EDE1F8" // 개인 일정 색상
-                        : "#EEF2F6" // 팀플 일정 색상
+                      ? "#EDE1F8" // 개인 일정 색상
+                      : "#EEF2F6" // 팀플 일정 색상
                     : "transparent";
 
                 return (
@@ -337,7 +356,6 @@ const MainPage = () => {
               style={{ background: "#EDE1F8", margin: "0 3.87px 0 18px" }}
             ></span>
             <span>개인 일정</span>
-            
           </div>
         </div>
       </div>
@@ -367,7 +385,11 @@ const MainPage = () => {
                   <span className={styles.dot}></span>
                   <span className={styles.text}>{item.name}</span>
                   <span className={styles.dday}>
-                    {formatLastModified(item.deadlineAt)}
+                    {item.onGoing === false ? (
+                      <p>마감</p>
+                    ) : (
+                      calculateDDay(item.deadlineAt)
+                    )}
                   </span>
                 </div>
               ))}
@@ -413,7 +435,7 @@ const MainPage = () => {
               viewBox="0 0 23 17"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
-              onClick={() => handleButtonClick('/my_page')}
+              onClick={() => handleButtonClick("/my_page")}
             >
               <path
                 d="M7.33333 2.25H20.875M7.33333 8.5H20.875M7.33333 14.75H20.875M2.125 2.25H2.13542M2.125 8.5H2.13542M2.125 14.75H2.13542"
@@ -433,7 +455,10 @@ const MainPage = () => {
               <br />
               지원자 확인
             </button>
-            <button className={styles.second_btn} onClick={() => handleButtonClick('/My_survey')}>
+            <button
+              className={styles.second_btn}
+              onClick={() => handleButtonClick("/My_survey")}
+            >
               MY 설문
               <br />
               결과보기
