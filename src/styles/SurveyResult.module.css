@@ -18,12 +18,15 @@
 }
 
 .survey_container h3 {
+    width: 1228px;
     text-align: left;
     font-family: Pretendard;
     font-size: 20px;
     font-weight: 500;
     line-height: 20px;
     padding-left: 30px;
+    white-space: normal;
+    word-wrap: break-all;
 }
 
 .post p {
@@ -80,10 +83,13 @@
     border-color: #8B0B02;
     /* 체크 시 테두리 색상 변경 */
 }
-.radio:not(:checked) + .text {
+
+.radio:not(:checked)+.text {
     color: #B3B3B3;
-    ; /* 체크되지 않은 경우 글자색 */
+    ;
+    /* 체크되지 않은 경우 글자색 */
 }
+
 .radio:checked::after {
     content: '';
     position: absolute;
@@ -141,9 +147,11 @@
     color: #000000;
 
 }
-.arrows{
+
+.arrows {
     text-align: right;
 }
+
 .arrow {
     cursor: pointer;
 }
@@ -155,20 +163,22 @@
 .arrow.active {
     stroke: #000000;
 }
-.name_box{
+
+.name_box {
     width: 770px;
-height: 55.07px;
-top: 533px;
-left: 119px;
-gap: 0px;
-opacity: 0px;
+    height: 55.07px;
+    top: 533px;
+    left: 119px;
+    gap: 0px;
+    opacity: 0px;
 }
-.name{
+
+.name {
 
     font-family: Pretendard;
     font-size: 24px;
     font-weight: 600;
     line-height: 24px;
     text-align: left;
-    padding-left: 15px;    
+    padding-left: 15px;
 }

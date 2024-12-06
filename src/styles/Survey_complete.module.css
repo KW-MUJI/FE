@@ -17,12 +17,15 @@
 }
 
 .survey_container h3 {
+    width: 1228px;
     text-align: left;
     font-family: Pretendard;
     font-size: 20px;
     font-weight: 500;
     line-height: 20px;
     padding-left: 30px;
+    white-space: normal;
+    word-wrap: break-all;
 }
 
 .post p {
