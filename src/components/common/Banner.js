@@ -76,7 +76,7 @@ const Banner = () => {
         onClick={handleKWLogiClick}
       />
       <div className={styles.title}>
-        <h2>광운대학교 생활 도우미</h2>
+        <h2>광운 대학 생활 도우미</h2>
         <h1>광운 무인양품</h1>
       </div>
       <nav className={styles.navbar}>
