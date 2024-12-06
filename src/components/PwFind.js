@@ -67,7 +67,7 @@ const PwFind = () => {
 
         try {
             const data = await sendAuthRequest(email, false);
-            console.log(data);
+            // console.log(data);
             setIsPinVerified(false);
             setIsTimerActive(true);
             setTimer(300);
@@ -86,7 +86,7 @@ const PwFind = () => {
         const email = id + fixedDomain; // 이메일 형식으로 변환
         try {
             const data = await verifyPinRequest(email, pin);
-            console.log(data);
+            // console.log(data);
 
             const textElement = document.getElementById(styles.text);
             if (data.code === 200 && data.data) {

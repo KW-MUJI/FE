@@ -88,7 +88,7 @@ const SurveyJoin = () => {
         }
 
 
-        console.log(formattedAnswers); // 제출된 답변 확인
+        // console.log(formattedAnswers); // 제출된 답변 확인
     };
 
     const isSubmitDisabled = () => {

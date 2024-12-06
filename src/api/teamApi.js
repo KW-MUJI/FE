@@ -8,9 +8,9 @@ export const registerTeam = async (teamData, accessToken) => {
     formData.append("deadlineAt", teamData.deadlineAt);
     formData.append("image", teamData.image); // 이미지 파일 추가
 
-    console.log("이미지 내용:", teamData.image);
+    // console.log("이미지 내용:", teamData.image);
 
-    console.log("FormData 내용:", Array.from(formData.entries()));
+    // console.log("FormData 내용:", Array.from(formData.entries()));
 
     const response = await apiClient.post("/team/register", formData, {
       headers: {
@@ -18,16 +18,16 @@ export const registerTeam = async (teamData, accessToken) => {
         Authorization: `Bearer ${accessToken}`, // 토큰 추가
       },
     });
-    console.log("토큰:", accessToken);
-    console.log("Authorization 헤더:", `Bearer ${accessToken}`);
-    console.log("데이터 내용:", response.data);
+    // console.log("토큰:", accessToken);
+    // console.log("Authorization 헤더:", `Bearer ${accessToken}`);
+    // console.log("데이터 내용:", response.data);
 
     return response.data;
   } catch (error) {
     console.error("[ERROR] Team Register:", error.response || error.message);
-    console.log("토큰:", accessToken);
-    console.log("Authorization 헤더:", `Bearer ${accessToken}`);
-    console.log("Base URL:", apiClient.defaults.baseURL);
+    // console.log("토큰:", accessToken);
+    // console.log("Authorization 헤더:", `Bearer ${accessToken}`);
+    // console.log("Base URL:", apiClient.defaults.baseURL);
 
     throw error;
   }
@@ -41,7 +41,7 @@ export const getTeampleDetail = async (projectId, accessToken) => {
         Authorization: `Bearer ${accessToken}`,
       },
     });
-    console.log("getTeampleDetail데이터:", response.data);
+    // console.log("getTeampleDetail데이터:", response.data);
     return response.data;
   } catch (error) {
     console.error(
@@ -79,14 +79,14 @@ export const postPortfolio = async (accessToken, resumeId, projectId) => {
   try {
     const response = await apiClient.post(url, body, { headers });
     if (response.data.code === 200) {
-      console.log("포트폴리오 선택 성공 :", response.data.data);
+      // console.log("포트폴리오 선택 성공 :", response.data.data);
       return response.data.data;
     } else {
       console.error("포트폴리오 선택 실패 오류 코드 :", response.data.code);
     }
 
-    console.log("Resume ID:", resumeId);
-    console.log("Project ID:", projectId);
+    // console.log("Resume ID:", resumeId);
+    // console.log("Project ID:", projectId);
   } catch (error) {
     console.error("postProtfolio API 에러:", error.response || error.message);
     throw error;
@@ -95,15 +95,15 @@ export const postPortfolio = async (accessToken, resumeId, projectId) => {
 
 export const getTeampleList = async (page = 0, search = "") => {
   try {
-    console.log("API 호출: /team/", page, search); // 요청 URL 확인
-    console.log("요청 파라미터:", { page });
+    // console.log("API 호출: /team/", page, search); // 요청 URL 확인
+    // console.log("요청 파라미터:", { page });
     const response = await apiClient.get("/team", {
       params: {
         page,
         search,
       },
     });
-    console.log("API 응답 데이터:", response.data); // 응답 데이터 확인
+    // console.log("API 응답 데이터:", response.data); // 응답 데이터 확인
     return response.data;
   } catch (error) {
     console.error("[ERROR] teamApi/getTeampleList 오류");

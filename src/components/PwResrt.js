@@ -32,8 +32,8 @@ const PwReset = () => {
     const pw_confirm = async (e) => {
         e.preventDefault();
         const { password, password_confirm } = formData;
-        console.log(password);
-        console.log(password_confirm);
+        // console.log(password);
+        // console.log(password_confirm);
         let regPass = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{5,11}$/;
         if (!regPass.test(password)) {
             alert("영문, 숫자, 특수기호 조합으로 5-11자리 이상 입력해주세요.");

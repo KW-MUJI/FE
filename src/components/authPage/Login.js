@@ -23,15 +23,15 @@ const Login = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    console.log("로그인 요청 시작:", { email, password });
+    // console.log("로그인 요청 시작:", { email, password });
     try {
       // API 호출
       const response = await signIn({ email, password });
-      console.log("로그인 성공:", response);
+      // console.log("로그인 성공:", response);
 
       const { accessToken, refreshToken } = response.data; // 서버에서 반환한 토큰
-      console.log("Access Token:", accessToken);
-      console.log("Refresh Token:", refreshToken);
+      // console.log("Access Token:", accessToken);
+      // console.log("Refresh Token:", refreshToken);
 
       if (!accessToken || !refreshToken) {
         throw new Error("토큰이 응답에 포함되지 않았습니다.");

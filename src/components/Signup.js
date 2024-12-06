@@ -115,7 +115,7 @@ const Signup = () => {
 
         try {
             const data = await sendAuthRequest(email, true);
-            console.log(data);
+            // console.log(data);
             setIsPinVerified(false);
             setIsTimerActive(true);
             setTimer(300);
@@ -135,7 +135,7 @@ const Signup = () => {
         const email = id + fixedDomain; // 이메일 형식으로 변환
         try {
             const data = await verifyPinRequest(email, pin);
-            console.log(data);
+            // console.log(data);
 
             const textElement = document.getElementById(styles.text);
             if (data.code === 200 && data.data) {
@@ -185,7 +185,7 @@ const Signup = () => {
     
         try {
             const data = await signupRequest(requestBody);
-            console.log(data);
+            // console.log(data);
             if (data.code === 200 && data.data) {
                 sessionStorage.setItem("user", JSON.stringify(formData));
                 alert("회원가입 성공하였습니다!");

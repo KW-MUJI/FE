@@ -22,7 +22,7 @@ export const handleTokenRefresh = async (refreshToken, setAccessToken) => {
       setAccessToken(accessToken);
       localStorage.setItem("accessToken", accessToken);
       localStorage.setItem("refreshToken", firstRefreshToken);
-      console.log("accesstoken 발급됨 :", accessToken);
+      // console.log("accesstoken 발급됨 :", accessToken);
       return;
     }
   } catch (error) {
@@ -33,7 +33,7 @@ export const handleTokenRefresh = async (refreshToken, setAccessToken) => {
       const refreshResponse = await getNewRefreshToken(refreshToken);
       const { refreshToken: newRefreshToken } = refreshResponse.data;
       localStorage.setItem("refreshToken", newRefreshToken);
-      console.log("refreshToken발급됨 :", newRefreshToken);
+      // console.log("refreshToken발급됨 :", newRefreshToken);
 
       // Step 3: 새 Refresh Token으로 Access Token 갱신
       const accessResponse = await newAcessToken(newRefreshToken);
@@ -42,7 +42,7 @@ export const handleTokenRefresh = async (refreshToken, setAccessToken) => {
       if (newAccessToken) {
         setAccessToken(newAccessToken);
         localStorage.setItem("accessToken", newAccessToken);
-        console.log("새 Access token 갱신 성공:", newAccessToken);
+        // console.log("새 Access token 갱신 성공:", newAccessToken);
         return;
       }
 

@@ -26,7 +26,7 @@ const RecruitWrite = () => {
   const [deadlineAt, setDeadlineAt] = useState(formattedToday);
 
   useEffect(() => {
-    console.log("글쓰기 토큰 있냐?", accessToken);
+    // console.log("글쓰기 토큰 있냐?", accessToken);
     if (!accessToken) {
       alert("로그인 상태가 아닙니다. 로그인 페이지로 이동합니다.");
       navigate("/login");
@@ -46,8 +46,8 @@ const RecruitWrite = () => {
       setDeadlineAt(response.data.deadlineAt);
       setImage(response.data.image);
       setImagePreview(response.data.image);
-      console.log("setDeadlineAt: ", response.data.deadlineAt);
-      console.log("description: ", response.data.description);
+      // console.log("setDeadlineAt: ", response.data.deadlineAt);
+      // console.log("description: ", response.data.description);
     } catch (error) {
       console.error("fetchProjectDetail 에러", error);
     }
@@ -66,7 +66,7 @@ const RecruitWrite = () => {
       return;
     }
 
-    console.log("이미지 상태 확인:", image);
+    // console.log("이미지 상태 확인:", image);
     const updateData = {
       name,
       description,
@@ -88,7 +88,7 @@ const RecruitWrite = () => {
       // 수정 모드
 
       if (isEditMode) {
-        console.log("updateData:", updateData);
+        // console.log("updateData:", updateData);
         const response = await updateProject(
           projectId,
           updateData,
@@ -132,10 +132,10 @@ const RecruitWrite = () => {
       const previewUrl = URL.createObjectURL(file);
       setImagePreview(previewUrl);
       setImage(file); // 실제 파일 객체 저장
-      console.log("이미지 파일:", URL.createObjectURL(file));
+      // console.log("이미지 파일:", URL.createObjectURL(file));
       return () => URL.revokeObjectURL(previewUrl);
     } else {
-      console.log("파일이 선택되지 않았습니다.");
+      // console.log("파일이 선택되지 않았습니다.");
       e.target.value = ""; //파일 없을 때 초기화
     }
   };
@@ -153,8 +153,8 @@ const RecruitWrite = () => {
 
     setDeadlineAt(selectedDate);
 
-    console.log("오늘 날짜:", formattedToday);
-    console.log("선택된 마감일:", selectedDate);
+    // console.log("오늘 날짜:", formattedToday);
+    // console.log("선택된 마감일:", selectedDate);
   };
 
   //발행 기능

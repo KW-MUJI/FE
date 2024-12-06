@@ -178,16 +178,16 @@ const RecruitPost = () => {
       setImage(response.data.image);
       setRole(response.data.role);
       setOnGoing(response.data.onGoing);
-      console.log(
-        "프로젝트세부내용 확인 : ",
-        response.data.name,
-        response.data.description,
-        response.data.createdAt,
-        response.data.deadlineAt,
-        response.data.image,
-        response.data.role,
-        response.data.onGoing
-      );
+      // console.log(
+      //   "프로젝트세부내용 확인 : ",
+      //   response.data.name,
+      //   response.data.description,
+      //   response.data.createdAt,
+      //   response.data.deadlineAt,
+      //   response.data.image,
+      //   response.data.role,
+      //   response.data.onGoing
+      // );
     } catch (error) {
       console.error("fetchProjectDetails 에러", error);
     }
@@ -197,7 +197,7 @@ const RecruitPost = () => {
     try {
       const response = await getPortfolioList(accessToken);
       setPortfolios(response.data.resumes);
-      console.log("이력서 확인 : ", response.data.resumes);
+      // console.log("이력서 확인 : ", response.data.resumes);
     } catch (error) {
       console.error("fetchPortFolios 에러", error);
     }
@@ -229,7 +229,7 @@ const RecruitPost = () => {
   const handleSelectPortfolio = (portfolioID) => {
     setSelectedPortFolid(portfolioID); //선택된 포트폴리오 업데이트
 
-    console.log(`${portfolioID} 선택됨`);
+    // console.log(`${portfolioID} 선택됨`);
   };
 
   const handleSubmit = async () => {
@@ -237,11 +237,11 @@ const RecruitPost = () => {
       alert("포트폴리오를 선택해주세요");
       return;
     }
-    console.log("선택된 포트폴리오 ID:", selectedPortfolio);
-    console.log("프로젝트 ID:", projectId);
-    console.log("Access Token:", accessToken);
-    console.log("Resume ID:", selectedPortfolio);
-    console.log("Project ID:", projectId);
+    // console.log("선택된 포트폴리오 ID:", selectedPortfolio);
+    // console.log("프로젝트 ID:", projectId);
+    // console.log("Access Token:", accessToken);
+    // console.log("Resume ID:", selectedPortfolio);
+    // console.log("Project ID:", projectId);
 
     try {
       const result = await postPortfolio(
@@ -249,7 +249,7 @@ const RecruitPost = () => {
         selectedPortfolio,
         projectId
       );
-      console.log("신청여부:", result.data);
+      // console.log("신청여부:", result.data);
       if (result) {
         handleCloseModal(); // 모달 닫기
         alert("신청이 완료되었습니다.");

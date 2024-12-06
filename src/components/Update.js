@@ -37,7 +37,7 @@ const Update = () => {
         const fetchUserInfo = async () => {
             try {
                 const data = await getUserInfo(accessToken);
-                console.log(data.data);
+                // console.log(data.data);
                 if (data.code === 200) {
                     setFormData({
                         name: data.data.name,
@@ -113,11 +113,11 @@ const Update = () => {
       isDeleteImage: deleteImage,
     };
 
-    console.log(requestBody);
+    // console.log(requestBody);
 
     try {
       const response = await updateUserInfo(accessToken, requestBody);
-      console.log(response.data.code);
+      // console.log(response.data.code);
       if (response.data.code == 200) {
         alert("정보가 성공적으로 업데이트되었습니다.");
         localStorage.removeItem("accessToken");
