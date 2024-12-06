@@ -387,11 +387,9 @@ const MainPage = () => {
                   <span className={styles.dot}></span>
                   <span className={styles.text}>{item.name}</span>
                   <span className={styles.dday}>
-                    {item.isOngoing === false ? (
-                      <p>마감</p>
-                    ) : (
-                      calculateDDay(item.deadlineAt)
-                    )}
+                    {item.isOngoing === false
+                      ? "마감"
+                      : calculateDDay(item.deadlineAt)}
                   </span>
                 </div>
               ))}
