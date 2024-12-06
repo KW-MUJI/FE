@@ -28,11 +28,11 @@ const MainPage = () => {
           currentMonth.getMonth() + 1
         ).padStart(2, "0")}`;
 
-        console.log(yearMonth);
+        // console.log(yearMonth);
         const result = await fetchData(token, yearMonth); // 현재 월에 맞는 데이터 요청
         setData(result); // 가져온 데이터 설정
 
-        console.log(result);
+        // console.log(result);
       } catch (error) {
         console.error("Failed to fetch data:", error);
       }

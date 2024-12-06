@@ -53,11 +53,11 @@ const Schedule = () => {
         const yearMonth = `${currentDate.getFullYear()}-${String(
           currentDate.getMonth() + 1
         ).padStart(2, "0")}`;
-        console.log(yearMonth);
+        // console.log(yearMonth);
         const data = await fetchCalendar(yearMonth); // API를 통해 데이터 가져오기 calendar.response
         if (data && data.data) {
           setSchedules(data.data); // 가져온 데이터를 스케줄 상태로 설정
-          console.log("asd", data.data);
+          // console log("asd", data.data);
           if (data.data.projects) setTeams(data.data.projects);
           else setTeams([]);
         } else {
@@ -121,7 +121,7 @@ const Schedule = () => {
         }));
         return responses;
       } catch (error) {
-        console.log(error);
+        // console.log(error);
       }
     }
 
@@ -143,7 +143,7 @@ const Schedule = () => {
         }));
         return responses;
       } catch (error) {
-        console.log(error);
+        // console.log(error);
       }
     }
   };
@@ -157,9 +157,9 @@ const Schedule = () => {
 
   //해당 달 일정
   const mySchedule = () => {
-    console.log("userEvents:", userEvents);
-    console.log("univEvents:", univEvents);
-    console.log("projectEvents:", projectEvents);
+    // console.log("userEvents:", userEvents);
+    // console.log("univEvents:", univEvents);
+    // console.log("projectEvents:", projectEvents);
 
     //시간순
     allSchedules.sort((a, b) => {
@@ -258,11 +258,11 @@ const Schedule = () => {
       eventDate: `${date} ${time}:00`,
     };
 
-    console.log("추가할 이벤트:", newEvent); // 콘솔로 새로운 일정 출력
+    // console.log("추가할 이벤트:", newEvent); // 콘솔로 새로운 일정 출력
 
     try {
       const response = await addCalendarEvent(accessToken, newEvent); //API요청
-      console.log(response);
+      // console.log(response);
       if (response.status === 200) {
         if (isSelected === "개인일정") {
           setSchedules({
@@ -272,7 +272,7 @@ const Schedule = () => {
               userEvents: [...schedules.events.userEvents, newEvent], // 새로운 일정 추가
             },
           });
-          console.log("개인일정 추가 성공:", response);
+          // console.log("개인일정 추가 성공:", response);
         } else {
           //팀플 일정 추가(선택한 팀 ID 포함)
           if (selectedTeam) {
@@ -283,7 +283,7 @@ const Schedule = () => {
                 projectEvents: [...schedules.events.projectEvents, newEvent],
               },
             });
-            console.log("팀플일정 추가 성공");
+            // console.log("팀플일정 추가 성공");
           }
         }
 
@@ -426,7 +426,7 @@ const Schedule = () => {
   const handleTeamChange = (e) => {
     const selected = teams.find((team) => team.name === e.target.value);
     setSelectedTeam(selected);
-    console.log("선택된 팀:", selected); // 팀이 제대로 선택되는지 확인
+    // console.log("선택된 팀:", selected); // 팀이 제대로 선택되는지 확인
   };
 
   const handleClick = (e) => {

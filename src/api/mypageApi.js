@@ -8,7 +8,7 @@ export const CheckPassword = async (pass, accessToken) => {
   try {
     const formData = new FormData();
     formData.append("password", pass);
-    console.log(pass.password);
+    // console.log(pass.password);
 
     const response = await fetch(`${API_BASE_URL}/mypage/checkPw`, {
       method: "POST",
@@ -18,7 +18,7 @@ export const CheckPassword = async (pass, accessToken) => {
       },
       body: JSON.stringify(pass.password),
     });
-    console.log(response);
+    // console.log(response);
     return response.status;
   } catch (error) {
     console.error("[ERROR] Update Project:", error.response || error.message);
@@ -70,7 +70,7 @@ export const updateUserInfo = async (accessToken, formData) => {
       },
     }
   );
-  console.log(response);
+  // console.log(response);
   return response;
 };
 

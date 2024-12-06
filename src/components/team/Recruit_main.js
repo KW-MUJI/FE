@@ -35,7 +35,7 @@ const RecruitMain = () => {
       const response = await getTeampleList(page, search);
       setProjectList(response.data.projects);
       setTotalPages(response.data.totalPages);
-      console.log(response.data);
+      // console.log(response.data);
 
       //******백에서 수정하면 추가하기  */
       //   setTotalPages(response.totalPages || 10);
@@ -51,7 +51,7 @@ const RecruitMain = () => {
 
   useEffect(() => {
     setCurrentPage(page); // URL 변경 시 상태 동기화
-    console.log("setCurrentPage : ", currentPage);
+    // console.log("setCurrentPage : ", currentPage);
   }, [page]);
 
   // currentPage 변경 시 URL 업데이
@@ -72,15 +72,15 @@ const RecruitMain = () => {
   };
 
   const handleSearch = () => {
-    console.log("검색내용: ", search);
-    projectList.forEach((project) => {
-      console.log(`프로젝트 이름: '${project.name}'`);
-    });
+    // console.log("검색내용: ", search);
+    // projectList.forEach((project) => {
+    //   console.log(`프로젝트 이름: '${project.name}'`);
+    // });
 
     const filteredProjects = projectList.filter((project) =>
       project.name.toLowerCase().includes(search.toLowerCase())
     );
-    console.log("필터프로젝트: ", filteredProjects);
+    // console.log("필터프로젝트: ", filteredProjects);
     setCurrentPage(0);
     setSearchParams({ page: 0, search }); // 검색어를 URL에 반영
     fetchProjectLists(0, search); // 검색 API 호출

@@ -93,7 +93,7 @@ export const resetPw = async (email, pass, passcon) => {
     },
     body: JSON.stringify(requestBody),
   });
-  console.log(response);
+  // console.log(response);
   if (!response.ok) {
     throw new Error("Network response was not ok");
   }
@@ -115,7 +115,7 @@ export const refreshAccessToken = async (refreshToken) => {
     // 새 Access Token을 localStorage에 저장
     localStorage.setItem("accessToken", accessToken);
 
-    console.log("Access Token 갱신 성공:", accessToken);
+    // console.log("Access Token 갱신 성공:", accessToken);
 
     return accessToken;
   } catch (error) {

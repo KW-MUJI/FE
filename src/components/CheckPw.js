@@ -28,8 +28,8 @@ const CheckPw = () => {
     const requestAuth = async (e) => {
         e.preventDefault();
         const result = await CheckPassword(formData, accessToken);
-        console.log(formData);
-        console.log(result);
+        // console.log(formData);
+        // console.log(result);
         
         if(result != 200){
             alert("비밀번호가 일치하지 않습니다.");

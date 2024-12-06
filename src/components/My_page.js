@@ -44,7 +44,7 @@ const MyPage = () => {
       try {
         const data = await getInfo(accessToken);
 
-        console.log(data);
+        // console.log(data);
         setProfile(data.profile);
         setImgSrc(data.profile.userImage);
         setMyTeams(data.projects || []);

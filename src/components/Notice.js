@@ -12,14 +12,15 @@ const Notice = () => {
   const [searchVal, setSearchVal] = useState(""); // 검색어 상태
   const [searchQuery, setSearchQuery] = useState(""); // 실제 검색에 사용될 값
 
+
   const fetchData = async () => {
     try {
       const data = await getNotices(page, searchQuery, srCategoryId);
       setNotices(data.notices);
       setTotalPages(data.maxPage); //API에서 전체 페이지 수 받아오기
-      console.log("Notice:", notice);
-      console.log("totalPages:", totalPages);
-      console.log("page:", page);
+      // console.log("Notice:", notice);
+      // console.log("totalPages:", totalPages);
+      // console.log("page:", page);
     } catch (error) {
       console.error("Error fetching notices:", error);
     }

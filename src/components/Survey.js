@@ -150,7 +150,7 @@ const Survey = () => {
                 <div className={styles.post_container}>
                     {filteredSurveys.slice((currentPage - 1) * questionsPerPage, currentPage * questionsPerPage).map(survey => {
                         const dday = calculateDday(survey.endDate);
-                        console.log(survey.isOngoing);
+                        // console.log(survey.isOngoing);
                         return (
                             <div key={survey.surveyId} className={styles.question} onClick={() => goToPost(survey.surveyId)}>
                                 <p className={dday >= 0 ? styles.line : styles.deadline}>

@@ -37,7 +37,7 @@ const MyTeamApplicant = () => {
 
       if (foundApplicant) {
         setApplicant(foundApplicant); // 지원자 데이터 설정
-        console.log(foundApplicant);
+        // console.log(foundApplicant);
       } else {
         alert("해당 지원자를 찾을 수 없습니다.");
         navigate(-1); // 이전 페이지로 이동
@@ -51,7 +51,7 @@ const MyTeamApplicant = () => {
     return <div>지원자를 찾고 있습니다...</div>;
   }
   const normalizedPath = applicant.resume.replace(/\\/g, "/");
-  console.log("Normalized Path:", normalizedPath);
+  // console.log("Normalized Path:", normalizedPath);
   return (
     <div className={styles.MyTeamApplicant_container}>
       <div className={styles.container_head}>

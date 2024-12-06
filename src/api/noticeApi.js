@@ -12,7 +12,7 @@ export const getNotices = async (page, searchVal, srCategoryId) => {
       params, // 쿼리 파라미ㄴ터 전달
     });
     if (response.data.code === 200) {
-      console.log("공지사항 요청 성공:", response.data);
+      // console.log("공지사항 요청 성공:", response.data);
       return response.data.data; // notices와 maxPage 반환
     } else {
       console.error("공지사항 요청 실패 코드:", response.data.code);

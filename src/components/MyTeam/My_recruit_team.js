@@ -184,7 +184,7 @@ const MyRecruitTeam = () => {
     try {
       const response = await getMyProjectApplicant(accessToken);
       setProjectList(response.data);
-      console.log("프로젝트세부내용 확인 : ", response.data);
+      // console.log("프로젝트세부내용 확인 : ", response.data);
     } catch (error) {
       console.error("fetchApplicantLists 에러", error);
     }
@@ -193,13 +193,13 @@ const MyRecruitTeam = () => {
   const deleteTeam = async (teamID) => {
     try {
       const response = await deleteProject(accessToken, teamID);
-      console.log("지울 팀", teamID);
+      // console.log("지울 팀", teamID);
       if (response) {
         // 상태 업데이트
         setProjectList((prevList) =>
           prevList.filter((project) => project.id !== teamID)
         );
-        console.log("팀플 삭제 완료");
+        // console.log("팀플 삭제 완료");
       }
     } catch (error) {
       console.error("팀플 삭제 중 에러 발생:", error.message);
@@ -210,15 +210,15 @@ const MyRecruitTeam = () => {
   const handleStart = async (teamID) => {
     try {
       setStartProject((prev) => [...prev, teamID]);
-      console.log("selectParticipant[teamID]", selectParticipant[teamID]);
-      console.log("teamID", teamID);
+      // console.log("selectParticipant[teamID]", selectParticipant[teamID]);
+      // console.log("teamID", teamID);
       const response = await startTeamProject(
         accessToken,
         selectParticipant[teamID], // 해당 팀의 선택된 지원자 전달
         teamID
       );
       if (response) {
-        console.log(`${teamID} 팀플 시작됨`);
+        // console.log(`${teamID} 팀플 시작됨`);
         // 백엔드에서 최신 데이터를 다시 가져오기
         const updatedResponse = await getMyProjectApplicant(accessToken);
         setProjectList(updatedResponse.data); // 최신 데이터로 상태 업데이트
@@ -246,7 +246,7 @@ const MyRecruitTeam = () => {
       ...prev,
       [teamID]: [...(prev[teamID] || []), participantId], // 해당 팀 배열에 추가
     }));
-    console.log(`Team ${teamID} selected:`, participantId);
+    // console.log(`Team ${teamID} selected:`, participantId);
   };
 
   const handlesUnSelectApplicant = (teamID, participantId) => {
@@ -254,7 +254,7 @@ const MyRecruitTeam = () => {
       ...prev,
       [teamID]: prev[teamID]?.filter((id) => id !== participantId) || [], // 해당 팀 배열에서 제거
     }));
-    console.log(`Team ${teamID} unselected:`, participantId);
+    // console.log(`Team ${teamID} unselected:`, participantId);
   };
 
   return (

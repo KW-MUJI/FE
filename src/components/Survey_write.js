@@ -136,7 +136,7 @@ const SurveyWrite = () => {
             endDate: selectDate ? selectDate.toISOString().split('T')[0] : null // yyyy-MM-dd 형식으로 변환
         };
     
-        console.log('서버로 전송할 데이터:', surveyData);
+        // console.log('서버로 전송할 데이터:', surveyData);
         try {
             const response = await surveyCreate(accessToken, surveyData);
     
@@ -156,7 +156,7 @@ const SurveyWrite = () => {
 
     const handleDateChange = (e) => {
         const selectedDate = new Date(e.target.value);
-        console.log("선택된 마감일:", selectedDate);
+        // console.log("선택된 마감일:", selectedDate);
         const today = new Date();
         today.setHours(0, 0, 0, 0); // 오늘의 시간 부분을 초기화
 

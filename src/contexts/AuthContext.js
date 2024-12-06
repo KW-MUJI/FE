@@ -40,8 +40,8 @@ export const AuthProvider = ({ children }) => {
 
   const getAccessToken = () => localStorage.getItem("accessToken");
 
-  console.log("AuthProvider 엑세스토큰: ", accessToken);
-  console.log("AuthProvider refresh토큰: ", refreshToken);
+  // console.log("AuthProvider 엑세스토큰: ", accessToken);
+  // console.log("AuthProvider refresh토큰: ", refreshToken);
 
   useEffect(() => {
     const checkToken = async () => {

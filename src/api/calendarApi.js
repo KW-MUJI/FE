@@ -15,7 +15,7 @@ export const fetchCalendar = async (yearMonth) => {
         },
       }
     );
-    console.log(response);
+    // console.log(response);
     return response.data;
   } catch (error) {
     console.error(error);
@@ -29,7 +29,7 @@ export const addCalendarEvent = async (accessToken, eventData) => {
     eventDate: eventData.eventDate,
   };
 
-  console.log("일정 추가 함수 호출됨");
+  // console.log("일정 추가 함수 호출됨");
   const response = await apiClient.post(
     `${CALENDAR_URL.endpointUrl}/add`,
     requestBody,
