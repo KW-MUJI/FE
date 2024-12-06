@@ -3,7 +3,7 @@ import styles from "../styles/mainpage.module.css";
 import { useNavigate } from "react-router-dom";
 import { fetchData } from "../api/mainpageApi"; // API 호출 함수 import
 import { useAuth } from "../contexts/AuthContext.js";
-
+import { formatDate } from "../../utils/dateUtil";
 const MainPage = () => {
   const navigate = useNavigate();
 
@@ -62,11 +62,13 @@ const MainPage = () => {
         return [];
     }
   };
+  const today = new Date();
+  const formattedToday = formatDate(today);
 
   const calculateDDay = (targetDate) => {
     // targetDate를 Date 객체로 변환
     const target = new Date(targetDate);
-    const today = new Date();
+    const today = new Date(formattedToday);
 
     // 날짜 차이를 일 단위로 계산
     const diffTime = target - today; // 밀리초 차이
@@ -385,7 +387,7 @@ const MainPage = () => {
                   <span className={styles.dot}></span>
                   <span className={styles.text}>{item.name}</span>
                   <span className={styles.dday}>
-                    {item.onGoing === false ? (
+                    {item.isOngoing === false ? (
                       <p>마감</p>
                     ) : (
                       calculateDDay(item.deadlineAt)
