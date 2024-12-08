@@ -10,8 +10,7 @@ export const fetchData = async (token, month) => {
     };
 
     // 토큰이 있을 경우 Authorization 헤더 추가
-      config.headers["Authorization"] = `Bearer ${token}`;
-    
+    config.headers["Authorization"] = `Bearer ${token}`;
 
     const response = await apiClient.get(
       `${API_BASE_URL}/mainpage/${month}`,
