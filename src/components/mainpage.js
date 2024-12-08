@@ -420,7 +420,9 @@ const MainPage = () => {
                   <span className={styles.dot}></span>
                   <span className={styles.text}>{survey.title}</span>
                   <span className={styles.dday}>
-                    {formatLastModified(survey.createdAt)}
+                    {survey.isOngoing === false
+                      ? "마감"
+                      : calculateDDay(survey.deadlineAt)}
                   </span>
                 </div>
               ))}
