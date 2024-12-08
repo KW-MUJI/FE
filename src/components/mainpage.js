@@ -422,7 +422,7 @@ const MainPage = () => {
                   <span className={styles.dday}>
                     {survey.isOngoing === false
                       ? "마감"
-                      : calculateDDay(survey.deadlineAt)}
+                      : calculateDDay(survey.endDate)}
                   </span>
                 </div>
               ))}
