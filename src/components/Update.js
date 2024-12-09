@@ -27,12 +27,12 @@ const Update = () => {
     const [file, setFile] = useState(null); // 파일 상태 관리
     const [deleteImage, setDeleteImage] = useState(false);
     const {accessToken} = useAuth();
-    /*useEffect(() => {
+    useEffect(() => {
       if (!accessToken) {
         alert("로그인 상태가 아닙니다. 로그인 페이지로 이동합니다.");
         navigate("/login");
       }
-    }, [accessToken, navigate]);*/
+    }, [accessToken, navigate]);
     useEffect(() => {
         const fetchUserInfo = async () => {
             try {
